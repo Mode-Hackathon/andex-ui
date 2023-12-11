@@ -4,5 +4,8 @@
   "extends": "./base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
+    "lib": ["esnext", "DOM"],
+    "module": "ESNext",
+    "target": "es6"
   }
 }
