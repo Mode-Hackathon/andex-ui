@@ -1,18 +1,18 @@
-import React, { createContext, useState, useEffect, useMemo } from 'react'
-import { useMatchBreakpoints } from '@pancakeswap/uikit'
-import { ChainId } from '@pancakeswap/chains'
-import { useExchangeChartManager } from 'state/user/hooks'
-import { useActiveChainId } from 'hooks/useActiveChainId'
+import React, { createContext, useState, useEffect, useMemo } from "react";
+import { useMatchBreakpoints } from "@pancakeswap/uikit";
+import { ChainId } from "@pancakeswap/chains";
+import { useExchangeChartManager } from "state/user/hooks";
+import { useActiveChainId } from "hooks/useActiveChainId";
 
 export const SwapFeaturesContext = createContext<{
-  isHotTokenSupported: boolean
-  isChartSupported: boolean
-  isStableSupported: boolean
-  isAccessTokenSupported: boolean
-  isChartExpanded: boolean
-  isChartDisplayed: boolean
-  setIsChartExpanded: React.Dispatch<React.SetStateAction<boolean>>
-  setIsChartDisplayed: React.Dispatch<React.SetStateAction<boolean>>
+  isHotTokenSupported: boolean;
+  isChartSupported: boolean;
+  isStableSupported: boolean;
+  isAccessTokenSupported: boolean;
+  isChartExpanded: boolean;
+  isChartDisplayed: boolean;
+  setIsChartExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsChartDisplayed: React.Dispatch<React.SetStateAction<boolean>>;
 }>({
   isHotTokenSupported: false,
   isChartSupported: false,
@@ -22,40 +22,52 @@ export const SwapFeaturesContext = createContext<{
   isChartDisplayed: false,
   setIsChartExpanded: null,
   setIsChartDisplayed: null,
-})
+});
 
 const CHART_SUPPORT_CHAIN_IDS = [
-  ChainId.BSC,
-  ChainId.BSC_TESTNET,
+  ChainId.MODE_MAINNET,
+  ChainId.MODE_TESTNET,
   // ChainId.ETHEREUM
-]
-const ACCESS_TOKEN_SUPPORT_CHAIN_IDS = [ChainId.BSC]
-const STABLE_SUPPORT_CHAIN_IDS = [ChainId.BSC_TESTNET, ChainId.BSC]
-const HOT_TOKEN_SUPPORT_CHAIN_IDS = [ChainId.BSC, ChainId.ETHEREUM]
+];
+const ACCESS_TOKEN_SUPPORT_CHAIN_IDS = [ChainId.MODE_MAINNET];
+const STABLE_SUPPORT_CHAIN_IDS = [ChainId.MODE_TESTNET, ChainId.MODE_MAINNET];
+const HOT_TOKEN_SUPPORT_CHAIN_IDS = [ChainId.MODE_MAINNET, ChainId.ETHEREUM];
 
-export const SwapFeaturesProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const { isMobile } = useMatchBreakpoints()
-  const { chainId } = useActiveChainId()
-  const [userChartPreference, setUserChartPreference] = useExchangeChartManager(isMobile)
-  const [isChartDisplayed, setIsChartDisplayed] = useState(userChartPreference)
-  const [isChartExpanded, setIsChartExpanded] = useState(false)
+export const SwapFeaturesProvider: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => {
+  const { isMobile } = useMatchBreakpoints();
+  const { chainId } = useActiveChainId();
+  const [userChartPreference, setUserChartPreference] =
+    useExchangeChartManager(isMobile);
+  const [isChartDisplayed, setIsChartDisplayed] = useState(userChartPreference);
+  const [isChartExpanded, setIsChartExpanded] = useState(false);
 
   const isChartSupported = useMemo(
     () =>
       // avoid layout shift, by default showing
       !chainId || CHART_SUPPORT_CHAIN_IDS.includes(chainId),
-    [chainId],
-  )
+    [chainId]
+  );
 
-  const isStableSupported = useMemo(() => !chainId || STABLE_SUPPORT_CHAIN_IDS.includes(chainId), [chainId])
+  const isStableSupported = useMemo(
+    () => !chainId || STABLE_SUPPORT_CHAIN_IDS.includes(chainId),
+    [chainId]
+  );
 
-  const isAccessTokenSupported = useMemo(() => ACCESS_TOKEN_SUPPORT_CHAIN_IDS.includes(chainId), [chainId])
+  const isAccessTokenSupported = useMemo(
+    () => ACCESS_TOKEN_SUPPORT_CHAIN_IDS.includes(chainId),
+    [chainId]
+  );
 
-  const isHotTokenSupported = useMemo(() => HOT_TOKEN_SUPPORT_CHAIN_IDS.includes(chainId), [chainId])
+  const isHotTokenSupported = useMemo(
+    () => HOT_TOKEN_SUPPORT_CHAIN_IDS.includes(chainId),
+    [chainId]
+  );
 
   useEffect(() => {
-    setUserChartPreference(isChartDisplayed)
-  }, [isChartDisplayed, setUserChartPreference])
+    setUserChartPreference(isChartDisplayed);
+  }, [isChartDisplayed, setUserChartPreference]);
 
   const value = useMemo(() => {
     return {
@@ -67,7 +79,7 @@ export const SwapFeaturesProvider: React.FC<React.PropsWithChildren> = ({ childr
       setIsChartDisplayed,
       isChartExpanded,
       setIsChartExpanded,
-    }
+    };
   }, [
     isHotTokenSupported,
     isChartSupported,
@@ -77,7 +89,11 @@ export const SwapFeaturesProvider: React.FC<React.PropsWithChildren> = ({ childr
     setIsChartDisplayed,
     isChartExpanded,
     setIsChartExpanded,
-  ])
+  ]);
 
-  return <SwapFeaturesContext.Provider value={value}>{children}</SwapFeaturesContext.Provider>
-}
+  return (
+    <SwapFeaturesContext.Provider value={value}>
+      {children}
+    </SwapFeaturesContext.Provider>
+  );
+};

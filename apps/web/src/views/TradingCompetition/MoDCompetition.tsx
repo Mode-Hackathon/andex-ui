@@ -1,14 +1,19 @@
-import { useState, useEffect } from 'react'
-import { useTranslation } from '@pancakeswap/localization'
-import { useProfile } from 'state/profile/hooks'
-import { Flex, Box, useMatchBreakpoints, PageSection } from '@pancakeswap/uikit'
-import Image from 'next/image'
-import { useTradingCompetitionContractMoD } from 'hooks/useContract'
-import useTheme from 'hooks/useTheme'
-import { TC_MOD_SUBGRAPH, API_PROFILE } from 'config/constants/endpoints'
-import { ChainId } from '@pancakeswap/chains'
-import { publicClient } from 'utils/wagmi'
-import { tradingCompetitionMoDABI } from 'config/abi/tradingCompetitionMoD'
+import { useState, useEffect } from "react";
+import { useTranslation } from "@pancakeswap/localization";
+import { useProfile } from "state/profile/hooks";
+import {
+  Flex,
+  Box,
+  useMatchBreakpoints,
+  PageSection,
+} from "@pancakeswap/uikit";
+import Image from "next/image";
+import { useTradingCompetitionContractMoD } from "hooks/useContract";
+import useTheme from "hooks/useTheme";
+import { TC_MOD_SUBGRAPH, API_PROFILE } from "config/constants/endpoints";
+import { ChainId } from "@pancakeswap/chains";
+import { publicClient } from "utils/wagmi";
+import { tradingCompetitionMoDABI } from "config/abi/tradingCompetitionMoD";
 import {
   SmartContractPhases,
   CompetitionPhases,
@@ -17,92 +22,124 @@ import {
   CLAIM,
   OVER,
   REGISTRATION,
-} from 'config/constants/trading-competition/phases'
-import useAccountActiveChain from 'hooks/useAccountActiveChain'
-import { DARKBG, MIDBLUEBG, MIDBLUEBG_DARK, TRADINGCOMPETITIONBANNER } from './pageSectionStyles'
+} from "config/constants/trading-competition/phases";
+import useAccountActiveChain from "hooks/useAccountActiveChain";
+import {
+  DARKBG,
+  MIDBLUEBG,
+  MIDBLUEBG_DARK,
+  TRADINGCOMPETITIONBANNER,
+} from "./pageSectionStyles";
 import {
   //  RanksIcon,
   RulesIcon,
-} from './svgs'
-import Countdown from './components/Countdown'
-import StormBunny from './pngs/MoD-storm-bunny.png'
-import RibbonWithImage from './components/RibbonWithImage'
-import HowToJoin from './components/HowToJoin'
-import BattleCta from './components/BattleCta'
-import Rules from './components/Rules'
-import { UserTradingInformation, initialUserTradingInformation, initialUserLeaderboardInformation } from './types'
-import { CompetitionPage, BannerFlex, BottomBunnyWrapper } from './styles'
-import RanksIcon from './svgs/RanksIcon'
-import ModBattleBanner, { CoinDecoration } from './mod/components/BattleBanner/ModBattleBanner'
-import ModPrizesInfo from './mod/components/PrizesInfo/ModPrizesInfo'
-import ModYourScore from './mod/components/YourScore/ModYourScore'
-import { useTeamInformation } from './useTeamInformation'
-import { useRegistrationClaimStatus } from './useRegistrationClaimStatus'
-import TeamRanksWithParticipants from './components/TeamRanks/TeamRanksWithParticipants'
-import MoDCakerBunny from './pngs/MoD-caker.png'
-import PrizesInfoSection from './components/PrizesInfoSection'
+} from "./svgs";
+import Countdown from "./components/Countdown";
+import StormBunny from "./pngs/MoD-storm-bunny.png";
+import RibbonWithImage from "./components/RibbonWithImage";
+import HowToJoin from "./components/HowToJoin";
+import BattleCta from "./components/BattleCta";
+import Rules from "./components/Rules";
+import {
+  UserTradingInformation,
+  initialUserTradingInformation,
+  initialUserLeaderboardInformation,
+} from "./types";
+import { CompetitionPage, BannerFlex, BottomBunnyWrapper } from "./styles";
+import RanksIcon from "./svgs/RanksIcon";
+import ModBattleBanner, {
+  CoinDecoration,
+} from "./mod/components/BattleBanner/ModBattleBanner";
+import ModPrizesInfo from "./mod/components/PrizesInfo/ModPrizesInfo";
+import ModYourScore from "./mod/components/YourScore/ModYourScore";
+import { useTeamInformation } from "./useTeamInformation";
+import { useRegistrationClaimStatus } from "./useRegistrationClaimStatus";
+import TeamRanksWithParticipants from "./components/TeamRanks/TeamRanksWithParticipants";
+import MoDCakerBunny from "./pngs/MoD-caker.png";
+import PrizesInfoSection from "./components/PrizesInfoSection";
 
 const MoDCompetition = () => {
-  const { account, chainId } = useAccountActiveChain()
-  const { t } = useTranslation()
-  const { profile, isLoading: isProfileLoading } = useProfile()
-  const { isMobile } = useMatchBreakpoints()
-  const { isDark, theme } = useTheme()
-  const tradingCompetitionContract = useTradingCompetitionContractMoD()
-  const [currentPhase, setCurrentPhase] = useState(CompetitionPhases.CLAIM)
-  const { registrationSuccessful, claimSuccessful, onRegisterSuccess, onClaimSuccess } = useRegistrationClaimStatus()
+  const { account, chainId } = useAccountActiveChain();
+  const { t } = useTranslation();
+  const { profile, isLoading: isProfileLoading } = useProfile();
+  const { isMobile } = useMatchBreakpoints();
+  const { isDark, theme } = useTheme();
+  const tradingCompetitionContract = useTradingCompetitionContractMoD();
+  const [currentPhase, setCurrentPhase] = useState(CompetitionPhases.CLAIM);
+  const {
+    registrationSuccessful,
+    claimSuccessful,
+    onRegisterSuccess,
+    onClaimSuccess,
+  } = useRegistrationClaimStatus();
   const [userTradingInformation, setUserTradingInformation] =
-    useState<UserTradingInformation>(initialUserTradingInformation)
-  const [userLeaderboardInformation, setUserLeaderboardInformation] = useState(initialUserLeaderboardInformation)
+    useState<UserTradingInformation>(initialUserTradingInformation);
+  const [userLeaderboardInformation, setUserLeaderboardInformation] = useState(
+    initialUserLeaderboardInformation
+  );
 
   const {
     globalLeaderboardInformation,
     team1LeaderboardInformation,
     team2LeaderboardInformation,
     team3LeaderboardInformation,
-  } = useTeamInformation(4)
+  } = useTeamInformation(4);
 
-  const isCompetitionLive = currentPhase.state === LIVE
+  const isCompetitionLive = currentPhase.state === LIVE;
   const hasCompetitionEnded =
-    currentPhase.state === FINISHED || currentPhase.state === CLAIM || currentPhase.state === OVER
+    currentPhase.state === FINISHED ||
+    currentPhase.state === CLAIM ||
+    currentPhase.state === OVER;
 
-  const { hasUserClaimed, isUserActive, userCakeRewards, userDarRewards, userPointReward, canClaimNFT } =
-    userTradingInformation
+  const {
+    hasUserClaimed,
+    isUserActive,
+    userCakeRewards,
+    userDarRewards,
+    userPointReward,
+    canClaimNFT,
+  } = userTradingInformation;
 
   const userCanClaimPrizes =
     currentPhase.state === CLAIM &&
     isUserActive &&
     !hasUserClaimed &&
-    (userCakeRewards !== '0' || userDarRewards !== '0' || userPointReward !== '0' || canClaimNFT)
-  const finishedAndPrizesClaimed = hasCompetitionEnded && account && hasUserClaimed
-  const finishedAndNothingToClaim = hasCompetitionEnded && account && !userCanClaimPrizes
+    (userCakeRewards !== "0" ||
+      userDarRewards !== "0" ||
+      userPointReward !== "0" ||
+      canClaimNFT);
+  const finishedAndPrizesClaimed =
+    hasCompetitionEnded && account && hasUserClaimed;
+  const finishedAndNothingToClaim =
+    hasCompetitionEnded && account && !userCanClaimPrizes;
 
   useEffect(() => {
     const fetchCompetitionInfoContract = async () => {
-      const competitionStatus = await tradingCompetitionContract.read.currentStatus()
-      setCurrentPhase(SmartContractPhases[competitionStatus as number])
-    }
+      const competitionStatus =
+        await tradingCompetitionContract.read.currentStatus();
+      setCurrentPhase(SmartContractPhases[competitionStatus as number]);
+    };
 
     const fetchUserContract = async () => {
       try {
-        const bscClient = publicClient({ chainId: ChainId.BSC })
+        const bscClient = publicClient({ chainId: ChainId.MODE_MAINNET });
         const [user, userClaimed] = await bscClient.multicall({
           contracts: [
             {
               address: tradingCompetitionContract.address,
               abi: tradingCompetitionMoDABI,
-              functionName: 'claimInformation',
+              functionName: "claimInformation",
               args: [account],
             },
             {
               address: tradingCompetitionContract.address,
               abi: tradingCompetitionMoDABI,
-              functionName: 'userTradingStats',
+              functionName: "userTradingStats",
               args: [account],
             },
           ],
           allowFailure: false,
-        })
+        });
         const userObject: UserTradingInformation = {
           isLoading: false,
           account,
@@ -114,67 +151,86 @@ const MoDCompetition = () => {
           userDarRewards: user[5].toString(),
           userPointReward: user[6].toString(),
           canClaimNFT: user[7],
-        }
-        setUserTradingInformation(userObject)
+        };
+        setUserTradingInformation(userObject);
       } catch (error) {
-        console.error(error)
-        setUserTradingInformation({ ...initialUserTradingInformation, account, isLoading: false })
+        console.error(error);
+        setUserTradingInformation({
+          ...initialUserTradingInformation,
+          account,
+          isLoading: false,
+        });
       }
-    }
+    };
 
-    if (chainId === ChainId.BSC) {
-      fetchCompetitionInfoContract()
+    if (chainId === ChainId.MODE_MAINNET) {
+      fetchCompetitionInfoContract();
       if (account) {
-        fetchUserContract()
+        fetchUserContract();
       } else {
-        setUserTradingInformation({ ...initialUserTradingInformation, isLoading: false })
+        setUserTradingInformation({
+          ...initialUserTradingInformation,
+          isLoading: false,
+        });
       }
     }
-  }, [chainId, account, registrationSuccessful, claimSuccessful, tradingCompetitionContract])
+  }, [
+    chainId,
+    account,
+    registrationSuccessful,
+    claimSuccessful,
+    tradingCompetitionContract,
+  ]);
 
   useEffect(() => {
     const fetchUserTradingStats = async () => {
-      const res = await fetch(`${API_PROFILE}/api/users/${account}`)
-      const data = await res.json()
-      setUserLeaderboardInformation(data.leaderboard_dar)
-    }
+      const res = await fetch(`${API_PROFILE}/api/users/${account}`);
+      const data = await res.json();
+      setUserLeaderboardInformation(data.leaderboard_dar);
+    };
     // If user has not registered, user trading information will not be displayed and should not be fetched
-    if (userTradingInformation.account && userTradingInformation.hasRegistered) {
-      fetchUserTradingStats()
+    if (
+      userTradingInformation.account &&
+      userTradingInformation.hasRegistered
+    ) {
+      fetchUserTradingStats();
     } else {
-      setUserLeaderboardInformation({ ...initialUserLeaderboardInformation })
+      setUserLeaderboardInformation({ ...initialUserLeaderboardInformation });
     }
-  }, [account, userTradingInformation])
+  }, [account, userTradingInformation]);
 
-  const isLoading = isProfileLoading || userTradingInformation.isLoading
+  const isLoading = isProfileLoading || userTradingInformation.isLoading;
   // Don't hide when loading. Hide if the account is connected && the user hasn't registered && the competition is live or finished
   const shouldHideCta =
     !isLoading &&
     userTradingInformation.account &&
     !userTradingInformation.hasRegistered &&
-    (isCompetitionLive || hasCompetitionEnded)
+    (isCompetitionLive || hasCompetitionEnded);
 
   return (
     <>
       <CompetitionPage id="pcs-competition-page">
         <PageSection
-          style={{ paddingTop: '0px' }}
-          innerProps={{ style: { paddingTop: isMobile ? '30px' : '28px' } }}
+          style={{ paddingTop: "0px" }}
+          innerProps={{ style: { paddingTop: isMobile ? "30px" : "28px" } }}
           background={TRADINGCOMPETITIONBANNER}
           hasCurvedDivider={false}
           index={1}
           overflow="hidden"
         >
-          <BannerFlex mb={shouldHideCta ? '0px' : '48px'}>
-            <Countdown currentPhase={currentPhase} hasCompetitionEnded={hasCompetitionEnded} />
+          <BannerFlex mb={shouldHideCta ? "0px" : "48px"}>
+            <Countdown
+              currentPhase={currentPhase}
+              hasCompetitionEnded={hasCompetitionEnded}
+            />
             <ModBattleBanner />
           </BannerFlex>
         </PageSection>
         <PageSection
-          containerProps={{ style: { marginTop: '-30px' } }}
+          containerProps={{ style: { marginTop: "-30px" } }}
           background={isDark ? MIDBLUEBG_DARK : MIDBLUEBG}
           concaveDivider
-          clipFill={{ light: '#CCD8F0', dark: '#434575' }}
+          clipFill={{ light: "#CCD8F0", dark: "#434575" }}
           dividerPosition="top"
           index={2}
           dividerComponent={
@@ -197,7 +253,7 @@ const MoDCompetition = () => {
             )
           }
         >
-          <Box mt={shouldHideCta ? '0px' : ['94px', null, '36px']} mb="64px">
+          <Box mt={shouldHideCta ? "0px" : ["94px", null, "36px"]} mb="64px">
             {/* If competition has not yet started, render HowToJoin component - if not, render YourScore */}
             {currentPhase.state === REGISTRATION ? (
               <HowToJoin />
@@ -220,14 +276,17 @@ const MoDCompetition = () => {
         </PageSection>
         {currentPhase.state !== REGISTRATION && (
           <PageSection
-            containerProps={{ style: { marginTop: '-20px' } }}
+            containerProps={{ style: { marginTop: "-20px" } }}
             index={3}
             concaveDivider
             clipFill={{ light: theme.colors.background }}
             dividerPosition="top"
             dividerComponent={
-              <RibbonWithImage imageComponent={<RanksIcon width="175px" />} ribbonDirection="up">
-                {t('Team Ranks')}
+              <RibbonWithImage
+                imageComponent={<RanksIcon width="175px" />}
+                ribbonDirection="up"
+              >
+                {t("Team Ranks")}
               </RibbonWithImage>
             }
           >
@@ -246,16 +305,19 @@ const MoDCompetition = () => {
         )}
         <PrizesInfoSection prizesInfoComponent={<ModPrizesInfo />} />
         <PageSection
-          containerProps={{ style: { marginTop: '-1px' } }}
+          containerProps={{ style: { marginTop: "-1px" } }}
           index={5}
           dividerPosition="top"
           clipFill={{
-            light: 'linear-gradient(139.73deg, #ecf5ff 0%, #f2effe 100%)',
-            dark: 'linear-gradient(139.73deg, #383357 0%, #3d2b53 100%)',
+            light: "linear-gradient(139.73deg, #ecf5ff 0%, #f2effe 100%)",
+            dark: "linear-gradient(139.73deg, #383357 0%, #3d2b53 100%)",
           }}
           dividerComponent={
-            <RibbonWithImage imageComponent={<RulesIcon width="175px" />} ribbonDirection="up">
-              {t('Rules')}
+            <RibbonWithImage
+              imageComponent={<RulesIcon width="175px" />}
+              ribbonDirection="up"
+            >
+              {t("Rules")}
             </RibbonWithImage>
           }
         >
@@ -266,13 +328,18 @@ const MoDCompetition = () => {
         <PageSection
           index={6}
           dividerPosition="top"
-          dividerFill={{ light: '#191326' }}
+          dividerFill={{ light: "#191326" }}
           clipFill={{ light: theme.colors.background }}
           background={DARKBG}
         >
           <Flex alignItems="center" position="relative">
             <BottomBunnyWrapper>
-              <Image src={StormBunny} alt="storm-bunny" width={182} height={213} />
+              <Image
+                src={StormBunny}
+                alt="storm-bunny"
+                width={182}
+                height={213}
+              />
             </BottomBunnyWrapper>
             {shouldHideCta ? null : (
               <Flex height="fit-content" position="relative" zIndex="2">
@@ -296,7 +363,7 @@ const MoDCompetition = () => {
         </PageSection>
       </CompetitionPage>
     </>
-  )
-}
+  );
+};
 
-export default MoDCompetition
+export default MoDCompetition;

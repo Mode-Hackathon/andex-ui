@@ -39,7 +39,7 @@ export async function farmV3FetchFarms({
 }) {
   const [poolInfos, cakePrice, v3PoolData] = await Promise.all([
     fetchPoolInfos(farms, chainId, provider, masterChefAddress),
-    provider({ chainId: ChainId.BSC })
+    provider({ chainId: ChainId.MODE_MAINNET })
       .readContract({
         abi: chainlinkAbi,
         address: '0xB6064eD41d4f67e353768aA239cA86f4F73665a1',
@@ -212,12 +212,12 @@ const fetchPoolInfos = async (
   try {
     const calls = farms.map(
       (farm) =>
-        ({
-          abi: masterchefV3Abi,
-          address: masterChefAddress,
-          functionName: 'poolInfo',
-          args: [BigInt(farm.pid)] as const,
-        } as const),
+      ({
+        abi: masterchefV3Abi,
+        address: masterChefAddress,
+        functionName: 'poolInfo',
+        args: [BigInt(farm.pid)] as const,
+      } as const),
     )
 
     const masterChefMultiCallResult = await provider({ chainId }).multicall({

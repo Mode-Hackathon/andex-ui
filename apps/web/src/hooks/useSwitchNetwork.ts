@@ -14,7 +14,7 @@ export function useSwitchNetworkLocal() {
   return useCallback(
     (chainId: number) => {
       setSessionChainId(chainId)
-      replaceBrowserHistory('chain', chainId === ChainId.BSC ? null : CHAIN_QUERY_NAME[chainId])
+      replaceBrowserHistory('chain', chainId === ChainId.MODE_MAINNET ? null : CHAIN_QUERY_NAME[chainId])
     },
     [setSessionChainId],
   )
@@ -76,11 +76,11 @@ export function useSwitchNetwork() {
     () =>
       isConnected
         ? !!_switchNetworkAsync &&
-          !(
-            typeof window !== 'undefined' &&
-            // @ts-ignore // TODO: add type later
-            window.ethereum?.isMathWallet
-          )
+        !(
+          typeof window !== 'undefined' &&
+          // @ts-ignore // TODO: add type later
+          window.ethereum?.isMathWallet
+        )
         : true,
     [_switchNetworkAsync, isConnected],
   )

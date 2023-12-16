@@ -9,7 +9,7 @@
   "scripts": {},
   "dependencies": {
     "js-cookie": "^3.0.1",
-    "react": "^17.0.0",
+    "react": "^18.2.0",
     "@pancakeswap/swap-sdk-core": "workspace:*",
     "@pancakeswap/utils": "workspace:*",
     "next-themes": "^0.2.1"

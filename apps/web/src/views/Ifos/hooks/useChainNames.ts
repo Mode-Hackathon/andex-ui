@@ -4,7 +4,7 @@ import { chains } from 'utils/wagmi'
 
 const SHORT_NAME = {
   [ChainId.POLYGON_ZKEVM]: 'zkEVM',
-  [ChainId.BSC]: 'BNB Chain',
+  [ChainId.MODE_MAINNET]: 'BNB Chain',
 }
 
 type ChainNameOptions = {

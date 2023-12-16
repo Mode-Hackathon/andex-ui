@@ -6,9 +6,8 @@ import { multiQuery } from '../views/Info/utils/infoQueryHelpers'
 
 const getBlockSubqueries = (timestamps: number[]) =>
   timestamps.map((timestamp) => {
-    return `t${timestamp}:blocks(first: 1, orderBy: timestamp, orderDirection: desc, where: { timestamp_gt: ${timestamp}, timestamp_lt: ${
-      timestamp + 600
-    } }) {
+    return `t${timestamp}:blocks(first: 1, orderBy: timestamp, orderDirection: desc, where: { timestamp_gt: ${timestamp}, timestamp_lt: ${timestamp + 600
+      } }) {
       number
     }`
   })
@@ -27,7 +26,7 @@ export const getBlocksFromTimestamps = async (
   timestamps: number[],
   sortDirection: 'asc' | 'desc' | undefined = 'desc',
   skipCount: number | undefined = 500,
-  chainName: MultiChainNameExtend | undefined = 'BSC',
+  chainName: MultiChainNameExtend | undefined = 'MODE',
 ): Promise<Block[]> => {
   if (timestamps?.length === 0) {
     return []

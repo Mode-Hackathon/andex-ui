@@ -27,12 +27,12 @@ const evmNativeStableLpMap: Record<
     wNative: 'WETH',
     stable: 'tUSDC',
   },
-  [ChainId.BSC]: {
+  [ChainId.MODE_MAINNET]: {
     address: '0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16',
     wNative: 'WBNB',
     stable: 'BUSD',
   },
-  [ChainId.BSC_TESTNET]: {
+  [ChainId.MODE_TESTNET]: {
     address: '0x4E96D2e92680Ca65D58A0e2eB5bd1c0f44cAB897',
     wNative: 'WBNB',
     stable: 'BUSD',
@@ -91,18 +91,18 @@ export async function farmV2FetchFarms({
         ...farm,
         ...(stableFarmsDataMap[farm.pid]
           ? getStableFarmDynamicData({
-              ...lpData[index],
-              ...stableFarmsDataMap[farm.pid],
-              token0Decimals: farm.token.decimals,
-              token1Decimals: farm.quoteToken.decimals,
-              price1: stableFarmsDataMap[farm.pid].price1,
-            })
+            ...lpData[index],
+            ...stableFarmsDataMap[farm.pid],
+            token0Decimals: farm.token.decimals,
+            token1Decimals: farm.quoteToken.decimals,
+            price1: stableFarmsDataMap[farm.pid].price1,
+          })
           : getClassicFarmsDynamicData({
-              ...lpData[index],
-              ...stableFarmsDataMap[farm.pid],
-              token0Decimals: farm.token.decimals,
-              token1Decimals: farm.quoteToken.decimals,
-            })),
+            ...lpData[index],
+            ...stableFarmsDataMap[farm.pid],
+            token0Decimals: farm.token.decimals,
+            token1Decimals: farm.quoteToken.decimals,
+          })),
         ...getFarmAllocation({
           allocPoint: poolInfos[index]?.allocPoint,
           isRegular: poolInfos[index]?.isRegular,
@@ -177,11 +177,11 @@ const masterChefFarmCalls = (farm: SerializedFarmConfig, masterChefAddress: stri
 
   return pid || pid === 0
     ? ({
-        abi: masterChefV2Abi,
-        address: masterChefAddress as Address,
-        functionName: 'poolInfo',
-        args: [BigInt(pid)],
-      } as const)
+      abi: masterChefV2Abi,
+      address: masterChefAddress as Address,
+      functionName: 'poolInfo',
+      args: [BigInt(pid)],
+    } as const)
     : null
 }
 
@@ -199,7 +199,7 @@ export const fetchMasterChefData = async (
     const masterChefCalls = farms.map((farm) => masterChefFarmCalls(farm, masterChefAddress))
     const masterChefAggregatedCalls = masterChefCalls.filter(notEmpty)
 
-    const chainId = isTestnet ? ChainId.BSC_TESTNET : ChainId.BSC
+    const chainId = isTestnet ? ChainId.MODE_TESTNET : ChainId.MODE_MAINNET
     const masterChefMultiCallResult = await provider({ chainId }).multicall({
       contracts: masterChefAggregatedCalls,
       allowFailure: false,
@@ -236,7 +236,7 @@ export const fetchMasterChefV2Data = async ({
   masterChefAddress: Address
 }) => {
   try {
-    const chainId = isTestnet ? ChainId.BSC_TESTNET : ChainId.BSC
+    const chainId = isTestnet ? ChainId.MODE_TESTNET : ChainId.MODE_MAINNET
     const [poolLength, totalRegularAllocPoint, totalSpecialAllocPoint, cakePerBlock] = await provider({
       chainId,
     }).multicall({

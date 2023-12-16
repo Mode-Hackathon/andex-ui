@@ -6,7 +6,7 @@ import { priceHelperTokens } from '../constants/common'
 import { CommonPrice, getFarmsPrices } from '../src/fetchFarmsV3'
 
 const mainnetFarms = [
-  farmsV3ConfigChainMap[ChainId.BSC],
+  farmsV3ConfigChainMap[ChainId.MODE_MAINNET],
   farmsV3ConfigChainMap[ChainId.ETHEREUM],
   farmsV3ConfigChainMap[ChainId.POLYGON_ZKEVM],
   farmsV3ConfigChainMap[ChainId.ZKSYNC],

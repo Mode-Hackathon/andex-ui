@@ -1,0 +1,1 @@
+import{r as o}from"./index-8db94870.js";import{M as r}from"./Provider-7e243320.js";const e=()=>{const t=o.useContext(r);if(t===void 0)throw new Error("Match Breakpoint context is undefined");return t},s=e;export{s as u};

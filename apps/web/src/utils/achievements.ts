@@ -47,21 +47,21 @@ export const getAchievementDescription = (campaign: Campaign | undefined, t: Tra
  * Checks if a wallet is eligible to claim points from valid IFO's
  */
 export const getClaimableIfoData = async (account: string, t: TranslateFunction): Promise<Achievement[]> => {
-  const ifosList = (await getIfoConfig(ChainId.BSC)) || []
+  const ifosList = (await getIfoConfig(ChainId.MODE_MAINNET)) || []
   const ifoCampaigns = ifosList.filter((ifoItem) => ifoItem.campaignId !== undefined)
 
-  const bscClient = publicClient({ chainId: ChainId.BSC })
+  const bscClient = publicClient({ chainId: ChainId.MODE_MAINNET })
 
   // Returns the claim status of every IFO with a campaign ID
   const claimStatusesResults = await bscClient.multicall({
     contracts: ifoCampaigns.map(
       ({ address }) =>
-        ({
-          abi: pointCenterIfoABI,
-          address: getPointCenterIfoAddress(),
-          functionName: 'checkClaimStatus',
-          args: [account as Address, address] as const,
-        } as const),
+      ({
+        abi: pointCenterIfoABI,
+        address: getPointCenterIfoAddress(),
+        functionName: 'checkClaimStatus',
+        args: [account as Address, address] as const,
+      } as const),
     ),
     allowFailure: true,
   })
@@ -92,11 +92,11 @@ export const getClaimableIfoData = async (account: string, t: TranslateFunction)
 
   const claimableIfoData = claimableIfoDataResult.map(
     (result) =>
-      ({
-        thresholdToClaim: result[0].toString(),
-        campaignId: result[1].toString(),
-        numberPoints: result[2],
-      } as IfoMapResponse),
+    ({
+      thresholdToClaim: result[0].toString(),
+      campaignId: result[1].toString(),
+      numberPoints: result[2],
+    } as IfoMapResponse),
   )
 
   // Transform response to an Achievement

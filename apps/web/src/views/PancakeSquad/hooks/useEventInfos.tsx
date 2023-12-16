@@ -1,26 +1,26 @@
-import { useEffect } from 'react'
-import { getNftSaleAddress } from 'utils/addressHelpers'
-import { getPancakeSquadContract } from 'utils/contractHelpers'
-import { nftSaleABI } from 'config/abi/nftSale'
-import { publicClient } from 'utils/wagmi'
-import { ChainId } from '@pancakeswap/chains'
+import { useEffect } from "react";
+import { getNftSaleAddress } from "utils/addressHelpers";
+import { getPancakeSquadContract } from "utils/contractHelpers";
+import { nftSaleABI } from "config/abi/nftSale";
+import { publicClient } from "utils/wagmi";
+import { ChainId } from "@pancakeswap/chains";
 
 const useEventInfos = ({ refreshCounter, setCallback }) => {
   useEffect(() => {
     const fetchEventInfos = async () => {
       try {
-        const nftSaleAddress = getNftSaleAddress()
-        const pancakeSquadContract = getPancakeSquadContract()
+        const nftSaleAddress = getNftSaleAddress();
+        const pancakeSquadContract = getPancakeSquadContract();
 
         const calls = (
           [
-            'maxSupply',
-            'maxPerAddress',
-            'pricePerTicket',
-            'maxPerTransaction',
-            'totalTicketsDistributed',
-            'currentStatus',
-            'startTimestamp',
+            "maxSupply",
+            "maxPerAddress",
+            "pricePerTicket",
+            "maxPerTransaction",
+            "totalTicketsDistributed",
+            "currentStatus",
+            "startTimestamp",
           ] as const
         ).map(
           (method) =>
@@ -28,10 +28,10 @@ const useEventInfos = ({ refreshCounter, setCallback }) => {
               abi: nftSaleABI,
               address: nftSaleAddress,
               functionName: method,
-            } as const),
-        )
+            } as const)
+        );
 
-        const client = publicClient({ chainId: ChainId.BSC })
+        const client = publicClient({ chainId: ChainId.MODE_MAINNET });
 
         const [
           currentMaxSupply,
@@ -44,9 +44,10 @@ const useEventInfos = ({ refreshCounter, setCallback }) => {
         ] = await client.multicall({
           contracts: calls,
           allowFailure: false,
-        })
+        });
 
-        const currentTotalSupplyMinted = await pancakeSquadContract.read.totalSupply()
+        const currentTotalSupplyMinted =
+          await pancakeSquadContract.read.totalSupply();
 
         setCallback({
           maxSupply: Number(currentMaxSupply),
@@ -55,18 +56,20 @@ const useEventInfos = ({ refreshCounter, setCallback }) => {
           maxPerTransaction: Number(currentMaxPerTransaction),
           totalTicketsDistributed: Number(currentTotalTicketsDistributed),
           saleStatus: currentSaleStatus,
-          startTimestamp: Number(currentStartTimestamp.toString().padEnd(13, '0')),
+          startTimestamp: Number(
+            currentStartTimestamp.toString().padEnd(13, "0")
+          ),
           totalSupplyMinted: Number(currentTotalSupplyMinted),
-        })
+        });
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    }
+    };
 
     if (nftSaleABI.length > 0) {
-      fetchEventInfos()
+      fetchEventInfos();
     }
-  }, [refreshCounter, setCallback])
-}
+  }, [refreshCounter, setCallback]);
+};
 
-export default useEventInfos
+export default useEventInfos;

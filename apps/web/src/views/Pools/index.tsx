@@ -1,30 +1,40 @@
-import { styled } from 'styled-components'
+import { styled } from "styled-components";
 
-import { checkIsBoostedPool } from '@pancakeswap/pools'
-import { Flex, FlexLayout, Heading, Image, Link, Loading, PageHeader, Text, ViewMode } from '@pancakeswap/uikit'
-import { Pool } from '@pancakeswap/widgets-internal'
-import { useAccount } from 'wagmi'
+import { checkIsBoostedPool } from "@pancakeswap/pools";
+import {
+  Flex,
+  FlexLayout,
+  Heading,
+  Image,
+  Link,
+  Loading,
+  PageHeader,
+  Text,
+  ViewMode,
+} from "@pancakeswap/uikit";
+import { Pool } from "@pancakeswap/widgets-internal";
+import { useAccount } from "wagmi";
 
-import { ChainId } from '@pancakeswap/chains'
-import { useTranslation } from '@pancakeswap/localization'
-import { Token } from '@pancakeswap/sdk'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import Page from 'components/Layout/Page'
-import { V3SubgraphHealthIndicator } from 'components/SubgraphHealthIndicator'
-import { TokenPairImage } from 'components/TokenImage'
-import { useActiveChainId } from 'hooks/useActiveChainId'
-import { usePoolsPageFetch, usePoolsWithVault } from 'state/pools/hooks'
+import { ChainId } from "@pancakeswap/chains";
+import { useTranslation } from "@pancakeswap/localization";
+import { Token } from "@pancakeswap/sdk";
+import ConnectWalletButton from "components/ConnectWalletButton";
+import Page from "components/Layout/Page";
+import { V3SubgraphHealthIndicator } from "components/SubgraphHealthIndicator";
+import { TokenPairImage } from "components/TokenImage";
+import { useActiveChainId } from "hooks/useActiveChainId";
+import { usePoolsPageFetch, usePoolsWithVault } from "state/pools/hooks";
 
-import CakeVaultCard from './components/CakeVaultCard'
-import AprRow from './components/PoolCard/AprRow'
-import CardActions from './components/PoolCard/CardActions'
-import CardFooter from './components/PoolCard/CardFooter'
-import PoolControls from './components/PoolControls'
-import PoolRow, { VaultPoolRow } from './components/PoolsTable/PoolRow'
+import CakeVaultCard from "./components/CakeVaultCard";
+import AprRow from "./components/PoolCard/AprRow";
+import CardActions from "./components/PoolCard/CardActions";
+import CardFooter from "./components/PoolCard/CardFooter";
+import PoolControls from "./components/PoolControls";
+import PoolRow, { VaultPoolRow } from "./components/PoolsTable/PoolRow";
 
 const CardLayout = styled(FlexLayout)`
   justify-content: center;
-`
+`;
 
 const FinishedTextContainer = styled(Flex)`
   padding-bottom: 32px;
@@ -32,55 +42,68 @@ const FinishedTextContainer = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     flex-direction: row;
   }
-`
+`;
 
 const FinishedTextLink = styled(Link)`
   font-weight: 400;
   white-space: nowrap;
   text-decoration: underline;
-`
+`;
 
 const Pools: React.FC<React.PropsWithChildren> = () => {
-  const { t } = useTranslation()
-  const { address: account } = useAccount()
-  const { chainId } = useActiveChainId()
-  const { pools, userDataLoaded } = usePoolsWithVault()
+  const { t } = useTranslation();
+  const { address: account } = useAccount();
+  const { chainId } = useActiveChainId();
+  const { pools, userDataLoaded } = usePoolsWithVault();
 
-  usePoolsPageFetch()
+  usePoolsPageFetch();
 
   return (
     <>
       {/* <VCakeModal /> */}
       <PageHeader>
-        <Flex justifyContent="space-between" flexDirection={['column', null, null, 'row']}>
-          <Flex flex="1" flexDirection="column" mr={['8px', 0]}>
+        <Flex
+          justifyContent="space-between"
+          flexDirection={["column", null, null, "row"]}
+        >
+          <Flex flex="1" flexDirection="column" mr={["8px", 0]}>
             <Heading as="h1" scale="xxl" color="secondary" mb="24px">
-              {t('Syrup Pools')}
+              {t("Syrup Pools")}
             </Heading>
             <Heading scale="md" color="text">
-              {t('Just stake some tokens to earn.')}
+              {t("Just stake some tokens to earn.")}
             </Heading>
             <Heading scale="md" color="text">
-              {t('High APR, low risk.')}
+              {t("High APR, low risk.")}
             </Heading>
           </Flex>
         </Flex>
       </PageHeader>
       <Page>
         <PoolControls pools={pools}>
-          {({ chosenPools, viewMode, stakedOnly, normalizedUrlSearch, showFinishedPools }) => (
+          {({
+            chosenPools,
+            viewMode,
+            stakedOnly,
+            normalizedUrlSearch,
+            showFinishedPools,
+          }) => (
             <>
-              {showFinishedPools && chainId === ChainId.BSC && (
+              {showFinishedPools && chainId === ChainId.MODE_MAINNET && (
                 <FinishedTextContainer>
-                  <Text fontSize={['16px', null, '20px']} color="failure" pr="4px">
-                    {t('Looking for v1 CAKE syrup pools?')}
+                  <Text
+                    fontSize={["16px", null, "20px"]}
+                    color="failure"
+                    pr="4px"
+                  >
+                    {t("Looking for v1 CAKE syrup pools?")}
                   </Text>
                   <FinishedTextLink
                     href="https://v1-farms.pancakeswap.finance/pools/history"
-                    fontSize={['16px', null, '20px']}
+                    fontSize={["16px", null, "20px"]}
                     color="failure"
                   >
-                    {t('Go to migration page')}.
+                    {t("Go to migration page")}.
                   </FinishedTextLink>
                 </FinishedTextContainer>
               )}
@@ -93,20 +116,36 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
                 <CardLayout>
                   {chosenPools.map((pool) =>
                     pool.vaultKey ? (
-                      <CakeVaultCard key={pool.vaultKey} pool={pool} showStakedOnly={stakedOnly} />
+                      <CakeVaultCard
+                        key={pool.vaultKey}
+                        pool={pool}
+                        showStakedOnly={stakedOnly}
+                      />
                     ) : (
                       <Pool.PoolCard<Token>
                         key={pool.sousId}
                         pool={pool}
-                        isBoostedPool={Boolean(chainId && checkIsBoostedPool(pool.contractAddress, chainId))}
+                        isBoostedPool={Boolean(
+                          chainId &&
+                            checkIsBoostedPool(pool.contractAddress, chainId)
+                        )}
                         isStaked={Boolean(pool?.userData?.stakedBalance?.gt(0))}
                         cardContent={
                           account ? (
-                            <CardActions pool={pool} stakedBalance={pool?.userData?.stakedBalance} />
+                            <CardActions
+                              pool={pool}
+                              stakedBalance={pool?.userData?.stakedBalance}
+                            />
                           ) : (
                             <>
-                              <Text mb="10px" textTransform="uppercase" fontSize="12px" color="textSubtle" bold>
-                                {t('Start earning')}
+                              <Text
+                                mb="10px"
+                                textTransform="uppercase"
+                                fontSize="12px"
+                                color="textSubtle"
+                                bold
+                              >
+                                {t("Start earning")}
                               </Text>
                               <ConnectWalletButton />
                             </>
@@ -120,10 +159,17 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
                             height={64}
                           />
                         }
-                        cardFooter={<CardFooter pool={pool} account={account ?? ''} />}
-                        aprRow={<AprRow pool={pool} stakedBalance={pool?.userData?.stakedBalance} />}
+                        cardFooter={
+                          <CardFooter pool={pool} account={account ?? ""} />
+                        }
+                        aprRow={
+                          <AprRow
+                            pool={pool}
+                            stakedBalance={pool?.userData?.stakedBalance}
+                          />
+                        }
                       />
-                    ),
+                    )
                   )}
                 </CardLayout>
               ) : (
@@ -131,19 +177,25 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
                   {chosenPools.map((pool) =>
                     pool.vaultKey ? (
                       <VaultPoolRow
-                        initialActivity={normalizedUrlSearch.toLowerCase() === pool.earningToken.symbol?.toLowerCase()}
+                        initialActivity={
+                          normalizedUrlSearch.toLowerCase() ===
+                          pool.earningToken.symbol?.toLowerCase()
+                        }
                         key={pool.vaultKey}
                         vaultKey={pool.vaultKey}
-                        account={account ?? ''}
+                        account={account ?? ""}
                       />
                     ) : (
                       <PoolRow
-                        initialActivity={normalizedUrlSearch.toLowerCase() === pool.earningToken.symbol?.toLowerCase()}
+                        initialActivity={
+                          normalizedUrlSearch.toLowerCase() ===
+                          pool.earningToken.symbol?.toLowerCase()
+                        }
                         key={pool.sousId}
                         sousId={pool.sousId}
-                        account={account ?? ''}
+                        account={account ?? ""}
                       />
-                    ),
+                    )
                   )}
                 </Pool.PoolsTable>
               )}
@@ -161,7 +213,7 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
         <V3SubgraphHealthIndicator />
       </Page>
     </>
-  )
-}
+  );
+};
 
-export default Pools
+export default Pools;

@@ -5,8 +5,8 @@ import { Pair } from '../src/entities'
 import { WNATIVE } from '../src/constants'
 
 describe('Pair', () => {
-  const USDC = new Token(ChainId.BSC, '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d', 18, 'USDC', 'USD Coin')
-  const DAI = new Token(ChainId.BSC, '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3', 18, 'DAI', 'DAI Stablecoin')
+  const USDC = new Token(ChainId.MODE_MAINNET, '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d', 18, 'USDC', 'USD Coin')
+  const DAI = new Token(ChainId.MODE_MAINNET, '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3', 18, 'DAI', 'DAI Stablecoin')
 
   describe('constructor', () => {
     it('cannot be used for tokens on different chains', () => {
@@ -14,7 +14,7 @@ describe('Pair', () => {
         () =>
           new Pair(
             CurrencyAmount.fromRawAmount(USDC, '100'),
-            CurrencyAmount.fromRawAmount(WNATIVE[ChainId.BSC_TESTNET], '100')
+            CurrencyAmount.fromRawAmount(WNATIVE[ChainId.MODE_TESTNET], '100')
           )
       ).toThrow('CHAIN_IDS')
     })
@@ -107,7 +107,7 @@ describe('Pair', () => {
     })
 
     it('throws if invalid token', () => {
-      expect(() => pair.priceOf(WNATIVE[ChainId.BSC])).toThrow('TOKEN')
+      expect(() => pair.priceOf(WNATIVE[ChainId.MODE_MAINNET])).toThrow('TOKEN')
     })
   })
 
@@ -124,7 +124,7 @@ describe('Pair', () => {
     it('throws if not in the pair', () => {
       expect(() =>
         new Pair(CurrencyAmount.fromRawAmount(DAI, '101'), CurrencyAmount.fromRawAmount(USDC, '100')).reserveOf(
-          WNATIVE[ChainId.BSC]
+          WNATIVE[ChainId.MODE_MAINNET]
         )
       ).toThrow('TOKEN')
     })
@@ -134,10 +134,10 @@ describe('Pair', () => {
     it('returns the token0 chainId', () => {
       expect(
         new Pair(CurrencyAmount.fromRawAmount(USDC, '100'), CurrencyAmount.fromRawAmount(DAI, '100')).chainId
-      ).toEqual(ChainId.BSC)
+      ).toEqual(ChainId.MODE_MAINNET)
       expect(
         new Pair(CurrencyAmount.fromRawAmount(DAI, '100'), CurrencyAmount.fromRawAmount(USDC, '100')).chainId
-      ).toEqual(ChainId.BSC)
+      ).toEqual(ChainId.MODE_MAINNET)
     })
   })
   describe('#involvesToken', () => {
@@ -152,7 +152,7 @@ describe('Pair', () => {
       ).toEqual(true)
       expect(
         new Pair(CurrencyAmount.fromRawAmount(USDC, '100'), CurrencyAmount.fromRawAmount(DAI, '100')).involvesToken(
-          WNATIVE[ChainId.BSC]
+          WNATIVE[ChainId.MODE_MAINNET]
         )
       ).toEqual(false)
     })

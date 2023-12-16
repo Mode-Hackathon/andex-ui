@@ -1,0 +1,3 @@
+import{a}from"./jsx-runtime-a888423b.js";import{O as s}from"./Overlay-c4441d34.js";import"./index-8db94870.js";import"./_commonjsHelpers-042e6b4d.js";import"./styled-components.browser.esm-05bde203.js";import"./Box-f877d5fa.js";import"./index.esm-8c5d6e7e.js";import"./index.esm-073a6cf8.js";import"./motion-minimal-b8fc2ac8.js";const O={title:"Components/Overlay",argTypes:{}},r=()=>a(s,{});var e,t,o;r.parameters={...r.parameters,docs:{...(e=r.parameters)==null?void 0:e.docs,source:{originalSource:`() => {
+  return <Overlay />;
+}`,...(o=(t=r.parameters)==null?void 0:t.docs)==null?void 0:o.source}}};const x=["Default"];export{r as Default,x as __namedExportsOrder,O as default};

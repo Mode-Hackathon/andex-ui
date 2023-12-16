@@ -4,8 +4,8 @@ import { Pair } from '../src/entities'
 
 describe('miscellaneous', () => {
   it('getLiquidityMinted:0', async () => {
-    const tokenA = new Token(ChainId.BSC_TESTNET, '0x0000000000000000000000000000000000000001', 18, 'A')
-    const tokenB = new Token(ChainId.BSC_TESTNET, '0x0000000000000000000000000000000000000002', 18, 'B')
+    const tokenA = new Token(ChainId.MODE_TESTNET, '0x0000000000000000000000000000000000000001', 18, 'A')
+    const tokenB = new Token(ChainId.MODE_TESTNET, '0x0000000000000000000000000000000000000002', 18, 'B')
     const pair = new Pair(CurrencyAmount.fromRawAmount(tokenA, '0'), CurrencyAmount.fromRawAmount(tokenB, '0'))
 
     expect(() => {
@@ -34,8 +34,8 @@ describe('miscellaneous', () => {
   })
 
   it('getLiquidityMinted:!0', async () => {
-    const tokenA = new Token(ChainId.BSC_TESTNET, '0x0000000000000000000000000000000000000001', 18, 'A')
-    const tokenB = new Token(ChainId.BSC_TESTNET, '0x0000000000000000000000000000000000000002', 18, 'B')
+    const tokenA = new Token(ChainId.MODE_TESTNET, '0x0000000000000000000000000000000000000001', 18, 'A')
+    const tokenB = new Token(ChainId.MODE_TESTNET, '0x0000000000000000000000000000000000000002', 18, 'B')
     const pair = new Pair(CurrencyAmount.fromRawAmount(tokenA, '10000'), CurrencyAmount.fromRawAmount(tokenB, '10000'))
 
     expect(
@@ -50,8 +50,8 @@ describe('miscellaneous', () => {
   })
 
   it('getLiquidityValue:!feeOn', async () => {
-    const tokenA = new Token(ChainId.BSC_TESTNET, '0x0000000000000000000000000000000000000001', 18, 'A')
-    const tokenB = new Token(ChainId.BSC_TESTNET, '0x0000000000000000000000000000000000000002', 18, 'B')
+    const tokenA = new Token(ChainId.MODE_TESTNET, '0x0000000000000000000000000000000000000001', 18, 'A')
+    const tokenB = new Token(ChainId.MODE_TESTNET, '0x0000000000000000000000000000000000000002', 18, 'B')
     const pair = new Pair(CurrencyAmount.fromRawAmount(tokenA, '1000'), CurrencyAmount.fromRawAmount(tokenB, '1000'))
 
     {
@@ -91,8 +91,8 @@ describe('miscellaneous', () => {
   })
 
   it('getLiquidityValue:feeOn', async () => {
-    const tokenA = new Token(ChainId.BSC_TESTNET, '0x0000000000000000000000000000000000000001', 18, 'A')
-    const tokenB = new Token(ChainId.BSC_TESTNET, '0x0000000000000000000000000000000000000002', 18, 'B')
+    const tokenA = new Token(ChainId.MODE_TESTNET, '0x0000000000000000000000000000000000000001', 18, 'A')
+    const tokenB = new Token(ChainId.MODE_TESTNET, '0x0000000000000000000000000000000000000002', 18, 'B')
     const pair = new Pair(CurrencyAmount.fromRawAmount(tokenA, '1000'), CurrencyAmount.fromRawAmount(tokenB, '1000'))
 
     const liquidityValue = pair.getLiquidityValue(

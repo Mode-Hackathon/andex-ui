@@ -106,7 +106,7 @@ export const useERC20 = (address: Address, options?: UseContractOptions) => {
 export const useCake = () => {
   const { chainId } = useActiveChainId()
 
-  return useContract((chainId && CAKE[chainId]?.address) ?? CAKE[ChainId.BSC].address, erc20ABI)
+  return useContract((chainId && CAKE[chainId]?.address) ?? CAKE[ChainId.MODE_MAINNET].address, erc20ABI)
 }
 
 export const useBunnyFactory = () => {
@@ -175,8 +175,8 @@ export const useVaultPoolContract = <T extends VaultKey>(
   vaultKey: T,
 ):
   | (T extends VaultKey.CakeVault
-      ? ReturnType<typeof getCakeVaultV2Contract>
-      : ReturnType<typeof getCakeFlexibleSideVaultV2Contract>)
+    ? ReturnType<typeof getCakeVaultV2Contract>
+    : ReturnType<typeof getCakeFlexibleSideVaultV2Contract>)
   | null => {
   const { chainId } = useActiveChainId()
   const { data: signer } = useWalletClient()
@@ -286,7 +286,7 @@ export function useWBETHContract() {
   const { chainId } = useActiveChainId()
 
   const abi = useMemo(
-    () => (chainId && [ChainId.ETHEREUM, ChainId.GOERLI].includes(chainId) ? wbethEthABI : wbethBscABI),
+    () => (chainId && [ChainId.MODE_MAINNET, ChainId.MODE_TESTNET].includes(chainId) ? wbethEthABI : wbethBscABI),
     [chainId],
   )
 

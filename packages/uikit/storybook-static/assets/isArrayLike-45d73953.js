@@ -1,0 +1,1 @@
+import{i as s}from"./get-8ca00567.js";var t=9007199254740991,o=/^(?:0|[1-9]\d*)$/;function _(r,i){var n=typeof r;return i=i??t,!!i&&(n=="number"||n!="symbol"&&o.test(r))&&r>-1&&r%1==0&&r<i}var m=_,a=9007199254740991;function e(r){return typeof r=="number"&&r>-1&&r%1==0&&r<=a}var f=e,y=s,A=f;function E(r){return r!=null&&A(r.length)&&!y(r)}var p=E;export{m as _,f as a,p as i};

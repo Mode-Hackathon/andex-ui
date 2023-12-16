@@ -12,7 +12,7 @@ export type VaultsConfigByChain = {
 
 export const VAULTS_CONFIG_BY_CHAIN = {
   [ChainId.ETHEREUM]: ethVaults,
-  [ChainId.BSC]: bscVaults,
+  [ChainId.MODE_MAINNET]: bscVaults,
 }
 
 export function isPCSVaultConfig(config: VaultConfig): config is PCSDuoTokenVaultConfig {

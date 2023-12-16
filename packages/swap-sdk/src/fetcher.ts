@@ -1,5 +1,5 @@
 import { createPublicClient, PublicClient, http, getContract, Address } from 'viem'
-import {mainnet, goerli } from 'viem/chains'
+import { mainnet, goerli } from 'viem/chains'
 import { CurrencyAmount, Token } from '@pancakeswap/swap-sdk-core'
 import { ChainId } from '@pancakeswap/chains'
 import invariant from 'tiny-invariant'
@@ -8,7 +8,7 @@ import { erc20ABI } from './abis/ERC20'
 import { pancakePairV2ABI } from './abis/IPancakePair'
 
 let TOKEN_DECIMALS_CACHE: { [chainId: number]: { [address: string]: number } } = {
-  // [ChainId.BSC]: {},
+  // [ChainId.MODE_MAINNET]: {},
 }
 
 // TODO: change clinets
@@ -36,7 +36,7 @@ export abstract class Fetcher {
    * Cannot be constructed.
    */
   // eslint-disable-next-line no-useless-constructor,@typescript-eslint/no-empty-function
-  private constructor() {}
+  private constructor() { }
 
   /**
    * Fetch information for a given token on the given chain, using the given viem provider.
@@ -62,15 +62,15 @@ export abstract class Fetcher {
       typeof TOKEN_DECIMALS_CACHE?.[chainId]?.[address] === 'number'
         ? TOKEN_DECIMALS_CACHE[chainId][address]
         : await erc20.read.decimals().then((decimals): number => {
-            TOKEN_DECIMALS_CACHE = {
-              ...TOKEN_DECIMALS_CACHE,
-              [chainId]: {
-                ...TOKEN_DECIMALS_CACHE?.[chainId],
-                [address]: decimals,
-              },
-            }
-            return decimals
-          })
+          TOKEN_DECIMALS_CACHE = {
+            ...TOKEN_DECIMALS_CACHE,
+            [chainId]: {
+              ...TOKEN_DECIMALS_CACHE?.[chainId],
+              [address]: decimals,
+            },
+          }
+          return decimals
+        })
     return new Token(chainId, address, parsedDecimals, symbol, name)
   }
 

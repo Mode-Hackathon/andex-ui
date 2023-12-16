@@ -21,9 +21,9 @@ export const useCakePrice = ({ enabled = true } = {}) => {
 }
 
 export const getCakePriceFromOracle = async () => {
-  const data = await publicClient({ chainId: ChainId.BSC }).readContract({
+  const data = await publicClient({ chainId: ChainId.MODE_MAINNET }).readContract({
     abi: chainlinkOracleABI,
-    address: contracts.chainlinkOracleCAKE[ChainId.BSC],
+    address: contracts.chainlinkOracleCAKE[ChainId.MODE_MAINNET],
     functionName: 'latestAnswer',
   })
 

@@ -12,7 +12,7 @@ import { YieldBoosterState } from './useYieldBoosterState'
 const PRECISION_FACTOR = new BN('1000000000000') // 1e12
 
 async function getPublicMultiplier({ farmBoosterContract }): Promise<number> {
-  const [cAResult, caPercisionResult, boostPercisionResult] = await publicClient({ chainId: ChainId.BSC }).multicall({
+  const [cAResult, caPercisionResult, boostPercisionResult] = await publicClient({ chainId: ChainId.MODE_MAINNET }).multicall({
     contracts: [
       {
         address: farmBoosterContract.address,
@@ -48,7 +48,7 @@ async function getPublicMultiplier({ farmBoosterContract }): Promise<number> {
 }
 
 async function getUserMultiplier({ farmBoosterContract, account, pid }): Promise<number> {
-  const [multiplierResult, boostPrecisionResult] = await publicClient({ chainId: ChainId.BSC }).multicall({
+  const [multiplierResult, boostPrecisionResult] = await publicClient({ chainId: ChainId.MODE_MAINNET }).multicall({
     contracts: [
       {
         address: farmBoosterContract.address,
@@ -113,8 +113,8 @@ export default function useBoostMultiplier({ pid, boosterState, proxyAddress }):
     return should1X
       ? getUserMultiplier({ farmBoosterContract, pid, account })
       : getPublicMultiplier({
-          farmBoosterContract,
-        })
+        farmBoosterContract,
+      })
   }, [farmBoosterContract, masterChefContract, should1X, shouldGetFromSC, pid, account, proxyAddress])
 
   const cacheName = shouldGetFromSC ? `proxy${pid}` : should1X ? `user${pid}` : `public${pid}`

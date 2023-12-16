@@ -1,25 +1,10 @@
 import { Percent, Token, WNATIVE } from '@pancakeswap/sdk'
 import { ChainId } from '@pancakeswap/chains'
 import {
-  bscTokens,
-  bscTestnetTokens,
   USDC,
   USDT,
   BUSD,
   WBTC_ETH,
-  arbitrumTokens,
-  polygonZkEvmTokens,
-  polygonZkEvmTestnetTokens,
-  zksyncTokens,
-  zkSyncTestnetTokens,
-  lineaTestnetTokens,
-  arbitrumGoerliTokens,
-  opBnbTokens,
-  opBnbTestnetTokens,
-  baseTokens,
-  baseTestnetTokens,
-  scrollSepoliaTokens,
-  lineaTokens,
 } from '@pancakeswap/tokens'
 import { ChainTokenList } from './types'
 
@@ -30,99 +15,31 @@ export {
   CUSTOM_BASES,
 } from '@pancakeswap/smart-router/evm'
 
+//TODO:
 export const CHAIN_REFRESH_TIME = {
-  [ChainId.ETHEREUM]: 12_000,
-  [ChainId.GOERLI]: 12_000,
-  [ChainId.BSC]: 6_000,
-  [ChainId.BSC_TESTNET]: 6_000,
-  [ChainId.ARBITRUM_ONE]: 10_000,
-  [ChainId.ARBITRUM_GOERLI]: 10_000,
-  [ChainId.POLYGON_ZKEVM]: 7_000,
-  [ChainId.POLYGON_ZKEVM_TESTNET]: 7_000,
-  [ChainId.ZKSYNC]: 3_000,
-  [ChainId.ZKSYNC_TESTNET]: 3_000,
-  [ChainId.LINEA]: 12_000,
-  [ChainId.LINEA_TESTNET]: 12_000,
-  [ChainId.OPBNB]: 6_000,
-  [ChainId.OPBNB_TESTNET]: 6_000,
-  [ChainId.BASE]: 6_000,
-  [ChainId.BASE_TESTNET]: 6_000,
-  [ChainId.SCROLL_SEPOLIA]: 6_000,
+  [ChainId.MODE_MAINNET]: 12_000,
+  [ChainId.MODE_TESTNET]: 12_000,
 } as const satisfies Record<ChainId, number>
 
 // used for display in the default list when adding liquidity
 export const SUGGESTED_BASES: ChainTokenList = {
-  [ChainId.ETHEREUM]: [USDC[ChainId.ETHEREUM], USDT[ChainId.ETHEREUM], WNATIVE[ChainId.ETHEREUM], WBTC_ETH],
-  [ChainId.GOERLI]: [USDC[ChainId.GOERLI], WNATIVE[ChainId.GOERLI], BUSD[ChainId.GOERLI]],
-  [ChainId.BSC]: [bscTokens.usdt, bscTokens.cake, bscTokens.btcb],
-  [ChainId.BSC_TESTNET]: [bscTestnetTokens.wbnb, bscTestnetTokens.cake, bscTestnetTokens.busd],
-  [ChainId.ARBITRUM_ONE]: [arbitrumTokens.weth, arbitrumTokens.usdt, arbitrumTokens.usdc],
-  [ChainId.ARBITRUM_GOERLI]: [arbitrumGoerliTokens.weth, arbitrumGoerliTokens.usdc],
-  [ChainId.POLYGON_ZKEVM]: [polygonZkEvmTokens.weth, polygonZkEvmTokens.usdt, polygonZkEvmTokens.usdc],
-  [ChainId.POLYGON_ZKEVM_TESTNET]: [polygonZkEvmTestnetTokens.weth, polygonZkEvmTestnetTokens.usdt],
-  [ChainId.ZKSYNC]: [zksyncTokens.usdc, zksyncTokens.weth],
-  [ChainId.ZKSYNC_TESTNET]: [zkSyncTestnetTokens.usdc, zkSyncTestnetTokens.weth],
-  [ChainId.LINEA]: [lineaTokens.usdc, lineaTokens.weth],
-  [ChainId.LINEA_TESTNET]: [lineaTestnetTokens.usdc, lineaTestnetTokens.weth],
-  [ChainId.OPBNB]: [opBnbTokens.wbnb, opBnbTokens.usdt],
-  [ChainId.OPBNB_TESTNET]: [
-    opBnbTestnetTokens.wbnb,
-    opBnbTestnetTokens.usdt,
-    opBnbTestnetTokens.usdc,
-    opBnbTestnetTokens.weth,
-  ],
-  [ChainId.BASE]: [baseTokens.usdc, baseTokens.weth],
-  [ChainId.BASE_TESTNET]: [baseTestnetTokens.usdc, baseTestnetTokens.weth],
-  [ChainId.SCROLL_SEPOLIA]: [scrollSepoliaTokens.usdc, scrollSepoliaTokens.weth],
+  [ChainId.MODE_MAINNET]: [USDC[ChainId.MODE_MAINNET], USDT[ChainId.MODE_MAINNET], WNATIVE[ChainId.MODE_MAINNET], WBTC_ETH],
+  [ChainId.MODE_TESTNET]: [USDC[ChainId.MODE_TESTNET], WNATIVE[ChainId.MODE_TESTNET], BUSD[ChainId.MODE_TESTNET]],
+
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
-  [ChainId.ETHEREUM]: [USDC[ChainId.ETHEREUM], WNATIVE[ChainId.ETHEREUM], USDT[ChainId.ETHEREUM], WBTC_ETH],
-  [ChainId.GOERLI]: [USDC[ChainId.GOERLI], WNATIVE[ChainId.GOERLI], BUSD[ChainId.GOERLI]],
-  [ChainId.BSC]: [bscTokens.wbnb, bscTokens.dai, bscTokens.busd, bscTokens.usdt, bscTokens.cake],
-  [ChainId.BSC_TESTNET]: [bscTestnetTokens.wbnb, bscTestnetTokens.cake, bscTestnetTokens.busd],
-  [ChainId.ARBITRUM_ONE]: [arbitrumTokens.weth, arbitrumTokens.usdt, arbitrumTokens.usdc],
-  [ChainId.ARBITRUM_GOERLI]: [arbitrumGoerliTokens.weth, arbitrumGoerliTokens.usdc],
-  [ChainId.POLYGON_ZKEVM]: [polygonZkEvmTokens.weth, polygonZkEvmTokens.usdt, polygonZkEvmTokens.usdc],
-  [ChainId.POLYGON_ZKEVM_TESTNET]: [polygonZkEvmTestnetTokens.weth, polygonZkEvmTestnetTokens.usdt],
-  [ChainId.ZKSYNC]: [zksyncTokens.usdc, zksyncTokens.weth],
-  [ChainId.ZKSYNC_TESTNET]: [zkSyncTestnetTokens.usdc, zkSyncTestnetTokens.weth],
-  [ChainId.LINEA]: [lineaTokens.usdc, lineaTokens.weth],
-  [ChainId.LINEA_TESTNET]: [lineaTestnetTokens.usdc, lineaTestnetTokens.weth],
-  [ChainId.OPBNB_TESTNET]: [opBnbTestnetTokens.wbnb, opBnbTestnetTokens.usdt, opBnbTestnetTokens.usdc],
-  [ChainId.OPBNB]: [opBnbTokens.wbnb, opBnbTokens.usdt],
-  [ChainId.BASE]: [baseTokens.usdc, baseTokens.weth],
-  [ChainId.BASE_TESTNET]: [baseTestnetTokens.usdc, baseTestnetTokens.weth],
-  [ChainId.SCROLL_SEPOLIA]: [scrollSepoliaTokens.usdc, scrollSepoliaTokens.weth],
+  [ChainId.MODE_MAINNET]: [USDC[ChainId.MODE_MAINNET], WNATIVE[ChainId.MODE_MAINNET], USDT[ChainId.MODE_MAINNET], WBTC_ETH],
+  [ChainId.MODE_TESTNET]: [USDC[ChainId.MODE_TESTNET], WNATIVE[ChainId.MODE_TESTNET], BUSD[ChainId.MODE_TESTNET]],
 }
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
-  [ChainId.ETHEREUM]: [
-    [WNATIVE[ChainId.ETHEREUM], USDC[ChainId.ETHEREUM]],
-    [WBTC_ETH, WNATIVE[ChainId.ETHEREUM]],
-    [WNATIVE[ChainId.ETHEREUM], USDT[ChainId.ETHEREUM]],
+  [ChainId.MODE_MAINNET]: [
+    [WNATIVE[ChainId.MODE_MAINNET], USDC[ChainId.MODE_MAINNET]],
+    [WBTC_ETH, WNATIVE[ChainId.MODE_MAINNET]],
+    [WNATIVE[ChainId.MODE_MAINNET], USDT[ChainId.MODE_MAINNET]],
   ],
-  [ChainId.BSC]: [
-    [bscTokens.cake, bscTokens.wbnb],
-    [bscTokens.busd, bscTokens.usdt],
-    [bscTokens.dai, bscTokens.usdt],
-  ],
-  [ChainId.ARBITRUM_ONE]: [
-    [arbitrumTokens.weth, arbitrumTokens.usdt],
-    [arbitrumTokens.weth, arbitrumTokens.usdc],
-  ],
-  [ChainId.ARBITRUM_GOERLI]: [[arbitrumGoerliTokens.weth, arbitrumGoerliTokens.usdc]],
-  [ChainId.POLYGON_ZKEVM]: [[polygonZkEvmTokens.weth, polygonZkEvmTokens.usdt]],
-  [ChainId.ZKSYNC]: [[zksyncTokens.usdc, zksyncTokens.weth]],
-  [ChainId.ZKSYNC_TESTNET]: [[zkSyncTestnetTokens.usdc, zkSyncTestnetTokens.weth]],
-  [ChainId.LINEA]: [[lineaTokens.usdc, lineaTokens.weth]],
-  [ChainId.LINEA_TESTNET]: [[lineaTestnetTokens.usdc, lineaTestnetTokens.weth]],
-  [ChainId.OPBNB]: [[opBnbTokens.usdt, opBnbTokens.wbnb]],
-  [ChainId.OPBNB_TESTNET]: [[opBnbTestnetTokens.usdt, opBnbTestnetTokens.wbnb]],
-  [ChainId.BASE]: [[baseTokens.usdc, baseTokens.weth]],
-  [ChainId.BASE_TESTNET]: [[baseTestnetTokens.usdc, baseTestnetTokens.weth]],
-  [ChainId.SCROLL_SEPOLIA]: [[scrollSepoliaTokens.usdc, scrollSepoliaTokens.weth]],
 }
 
 export const BIG_INT_ZERO = 0n

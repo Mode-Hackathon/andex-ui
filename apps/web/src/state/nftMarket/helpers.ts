@@ -66,14 +66,14 @@ const fetchCollectionsTotalSupply = async (collections: ApiCollection[]): Promis
     .filter((collection) => collection?.address)
     .map(
       (collection) =>
-        ({
-          abi: erc721CollectionABI,
-          address: collection.address as Address,
-          functionName: 'totalSupply',
-        } as const),
+      ({
+        abi: erc721CollectionABI,
+        address: collection.address as Address,
+        functionName: 'totalSupply',
+      } as const),
     )
   if (totalSupplyCalls.length > 0) {
-    const client = publicClient({ chainId: ChainId.BSC })
+    const client = publicClient({ chainId: ChainId.MODE_MAINNET })
     const totalSupplyRaw = await client.multicall({
       contracts: totalSupplyCalls,
     })
@@ -169,9 +169,8 @@ export const getNftsFromCollectionApi = async (
   page = 1,
 ): Promise<ApiResponseCollectionTokens> => {
   const isPBCollection = safeGetAddress(collectionAddress) === safeGetAddress(pancakeBunniesAddress)
-  const requestPath = `${API_NFT}/collections/${collectionAddress}/tokens${
-    !isPBCollection ? `?page=${page}&size=${size}` : ``
-  }`
+  const requestPath = `${API_NFT}/collections/${collectionAddress}/tokens${!isPBCollection ? `?page=${page}&size=${size}` : ``
+    }`
 
   try {
     const res = await fetch(requestPath)
@@ -490,7 +489,7 @@ export const getAccountNftsOnChainMarketData = async (
       } as const
     })
 
-    const askCallsResultsRaw = await publicClient({ chainId: ChainId.BSC }).multicall({
+    const askCallsResultsRaw = await publicClient({ chainId: ChainId.MODE_MAINNET }).multicall({
       contracts: call,
       allowFailure: false,
     })
@@ -729,8 +728,8 @@ export const getCollectionActivity = async (
   const collectionFilterGql = !isFetchAllCollections
     ? `collection: ${JSON.stringify(address)}`
     : hasCollectionFilter
-    ? `collection_in: ${JSON.stringify(nftActivityFilter.collectionFilters)}`
-    : ``
+      ? `collection_in: ${JSON.stringify(nftActivityFilter.collectionFilters)}`
+      : ``
 
   const askOrderTypeFilter = nftActivityFilter.typeFilters
     .filter((marketEvent) => marketEvent !== MarketEvent.SELL)
@@ -967,7 +966,7 @@ export const fetchWalletTokenIdsForCollections = async (
     } as const
   })
 
-  const client = publicClient({ chainId: ChainId.BSC })
+  const client = publicClient({ chainId: ChainId.MODE_MAINNET })
 
   const balanceOfCallsResultRaw = await client.multicall({
     contracts: balanceOfCalls,

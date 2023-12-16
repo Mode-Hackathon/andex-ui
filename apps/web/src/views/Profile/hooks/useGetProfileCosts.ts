@@ -24,7 +24,7 @@ const useGetProfileCosts = () => {
         const pancakeProfileAddress = getPancakeProfileAddress()
 
         const [numberCakeToReactivate, numberCakeToRegister, numberCakeToUpdate] = await publicClient({
-          chainId: ChainId.BSC,
+          chainId: ChainId.MODE_MAINNET,
         }).multicall({
           allowFailure: false,
           contracts: [

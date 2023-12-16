@@ -1,16 +1,24 @@
 /* eslint-disable react/no-array-index-key */
-import { styled } from 'styled-components'
-import { Text, Heading, Card, CardHeader, CardBody, Flex, Image } from '@pancakeswap/uikit'
-import { useTranslation } from '@pancakeswap/localization'
-import FoldableText from 'components/FoldableSection/FoldableText'
-import { useMemo } from 'react'
-import { useActiveChainId } from 'hooks/useActiveChainId'
-import { isIfoSupported } from '@pancakeswap/ifos'
-import { ChainId } from '@pancakeswap/sdk'
+import { styled } from "styled-components";
+import {
+  Text,
+  Heading,
+  Card,
+  CardHeader,
+  CardBody,
+  Flex,
+  Image,
+} from "@pancakeswap/uikit";
+import { useTranslation } from "@pancakeswap/localization";
+import FoldableText from "components/FoldableSection/FoldableText";
+import { useMemo } from "react";
+import { useActiveChainId } from "hooks/useActiveChainId";
+import { isIfoSupported } from "@pancakeswap/ifos";
+import { ChainId } from "@pancakeswap/sdk";
 
-import { getChainBasedImageUrl } from 'views/Ifos/helpers'
+import { getChainBasedImageUrl } from "views/Ifos/helpers";
 
-import config from './config'
+import config from "./config";
 
 const ImageWrapper = styled.div`
   flex: none;
@@ -22,7 +30,7 @@ const ImageWrapper = styled.div`
     order: 1;
     margin-top: 4rem;
   }
-`
+`;
 
 const DetailsWrapper = styled.div`
   order: 1;
@@ -33,47 +41,61 @@ const DetailsWrapper = styled.div`
     margin-bottom: 0;
     margin-left: 40px;
   }
-`
+`;
 
 const IfoQuestions = () => {
-  const { t } = useTranslation()
-  const { chainId: currentChainId } = useActiveChainId()
+  const { t } = useTranslation();
+  const { chainId: currentChainId } = useActiveChainId();
   const bunnyImageUrl = useMemo(() => {
-    const chainId = isIfoSupported(currentChainId) ? currentChainId : ChainId.BSC
-    return getChainBasedImageUrl({ chainId, name: 'faq-bunny' })
-  }, [currentChainId])
+    const chainId = isIfoSupported(currentChainId)
+      ? currentChainId
+      : ChainId.MODE_MAINNET;
+    return getChainBasedImageUrl({ chainId, name: "faq-bunny" });
+  }, [currentChainId]);
 
   return (
-    <Flex alignItems={['center', null, null, 'start']} flexDirection={['column', null, null, 'row']}>
+    <Flex
+      alignItems={["center", null, null, "start"]}
+      flexDirection={["column", null, null, "row"]}
+    >
       <ImageWrapper>
-        <Image src={bunnyImageUrl} alt="ifo faq bunny" width={395} height={410} />
+        <Image
+          src={bunnyImageUrl}
+          alt="ifo faq bunny"
+          width={395}
+          height={410}
+        />
       </ImageWrapper>
       <DetailsWrapper>
         <Card>
           <CardHeader>
             <Heading scale="lg" color="secondary">
-              {t('Details')}
+              {t("Details")}
             </Heading>
           </CardHeader>
           <CardBody>
             {config.map(({ title, description }, i, { length }) => {
               return (
-                <FoldableText key={i} mb={i + 1 === length ? '' : '24px'} title={title}>
+                <FoldableText
+                  key={i}
+                  mb={i + 1 === length ? "" : "24px"}
+                  title={title}
+                >
                   {description.map((desc, index) => {
                     return (
                       <Text key={index} color="textSubtle" as="p">
                         {desc}
                       </Text>
-                    )
+                    );
                   })}
                 </FoldableText>
-              )
+              );
             })}
           </CardBody>
         </Card>
       </DetailsWrapper>
     </Flex>
-  )
-}
+  );
+};
 
-export default IfoQuestions
+export default IfoQuestions;

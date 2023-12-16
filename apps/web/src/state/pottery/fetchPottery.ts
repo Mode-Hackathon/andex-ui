@@ -47,7 +47,7 @@ export const fetchPublicPotteryValue = async (potteryVaultAddress: Address) => {
       getLockTime,
       getMaxTotalDeposit,
       { lastDrawId, totalPrize },
-    ] = await publicClient({ chainId: ChainId.BSC }).multicall({
+    ] = await publicClient({ chainId: ChainId.MODE_MAINNET }).multicall({
       contracts: [
         {
           abi: potteryVaultABI,

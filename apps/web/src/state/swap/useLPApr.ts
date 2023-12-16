@@ -45,7 +45,7 @@ export const useLPApr = (pair?: Pair | null) => {
       return lpApr7d ? { lpApr7d } : undefined
     },
     {
-      enabled: Boolean(pair && pair.chainId === ChainId.BSC),
+      enabled: Boolean(pair && pair.chainId === ChainId.MODE_MAINNET),
       refetchInterval: SLOW_INTERVAL,
       refetchOnWindowFocus: false,
       refetchOnMount: false,

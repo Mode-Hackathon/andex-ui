@@ -54,7 +54,7 @@ export const useCakePoolLockInfo = () => {
       }
     },
     {
-      enabled: Boolean(account) && (chainId === ChainId.BSC || chainId === ChainId.BSC_TESTNET),
+      enabled: Boolean(account) && (chainId === ChainId.MODE_MAINNET || chainId === ChainId.MODE_TESTNET),
     },
   )
   return info || ({} as CakePoolInfo)

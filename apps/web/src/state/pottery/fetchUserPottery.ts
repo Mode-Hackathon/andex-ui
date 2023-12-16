@@ -78,7 +78,7 @@ export const fetchWithdrawAbleData = async (account: Address) => {
       { account: account.toLowerCase() },
     )
 
-    const bscClient = publicClient({ chainId: ChainId.BSC })
+    const bscClient = publicClient({ chainId: ChainId.MODE_MAINNET })
 
     const withdrawalsData = await Promise.all(
       response.withdrawals.map(async ({ id, shares, depositDate, vault }) => {

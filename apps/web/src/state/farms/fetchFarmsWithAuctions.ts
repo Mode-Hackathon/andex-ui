@@ -13,7 +13,7 @@ const fetchFarmsWithAuctions = async (
 ): Promise<{ winnerFarms: string[]; auctionHostingEndDate: string }> => {
   const farmAuctionContract = getFarmAuctionContract()
   const currentAuctionId = await farmAuctionContract.read.currentAuctionId()
-  const bscClient = publicClient({ chainId: ChainId.BSC })
+  const bscClient = publicClient({ chainId: ChainId.MODE_MAINNET })
   const [auctionDateResponse, auctionBiddersResponse] = await bscClient.multicall({
     contracts: [
       {
@@ -34,13 +34,13 @@ const fetchFarmsWithAuctions = async (
   const auctionData =
     auctionDateResponse.status === 'success'
       ? {
-          status: auctionDateResponse.result[0],
-          startBlock: auctionDateResponse.result[1],
-          endBlock: auctionDateResponse.result[2],
-          initialBidAmount: auctionDateResponse.result[3],
-          leaderboard: auctionDateResponse.result[4],
-          leaderboardThreshold: auctionDateResponse.result[5],
-        }
+        status: auctionDateResponse.result[0],
+        startBlock: auctionDateResponse.result[1],
+        endBlock: auctionDateResponse.result[2],
+        initialBidAmount: auctionDateResponse.result[3],
+        leaderboard: auctionDateResponse.result[4],
+        leaderboardThreshold: auctionDateResponse.result[5],
+      }
       : null
 
   const auctionBidders = auctionBiddersResponse.status === 'success' ? auctionBiddersResponse.result[0] : null

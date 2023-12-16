@@ -1,25 +1,30 @@
-import { ArrowForwardIcon, Button, Text, useMatchBreakpoints } from '@pancakeswap/uikit'
-import { NextLinkFromReactRouter } from '@pancakeswap/widgets-internal'
+import {
+  ArrowForwardIcon,
+  Button,
+  Text,
+  useMatchBreakpoints,
+} from "@pancakeswap/uikit";
+import { NextLinkFromReactRouter } from "@pancakeswap/widgets-internal";
 
-import { ChainId } from '@pancakeswap/chains'
-import { useTranslation } from '@pancakeswap/localization'
-import { useActiveIfoWithBlocks } from 'hooks/useActiveIfoWithBlocks'
-import Image from 'next/legacy/image'
-import { memo, useEffect, useRef } from 'react'
-import { useChainCurrentBlock } from 'state/block/hooks'
-import { styled, keyframes } from 'styled-components'
-import { getStatus } from '../../../Ifos/hooks/helpers'
-import { IFOImage, IFOMobileImage } from './images'
-import * as S from './Styled'
+import { ChainId } from "@pancakeswap/chains";
+import { useTranslation } from "@pancakeswap/localization";
+import { useActiveIfoWithBlocks } from "hooks/useActiveIfoWithBlocks";
+import Image from "next/legacy/image";
+import { memo, useEffect, useRef } from "react";
+import { useChainCurrentBlock } from "state/block/hooks";
+import { styled, keyframes } from "styled-components";
+import { getStatus } from "../../../Ifos/hooks/helpers";
+import { IFOImage, IFOMobileImage } from "./images";
+import * as S from "./Styled";
 
-const IFOHeaderMobileLimitHeight = 36
-const IFOHeaderMobileLimitWidth = 335
+const IFOHeaderMobileLimitHeight = 36;
+const IFOHeaderMobileLimitWidth = 335;
 
 const shineAnimation = keyframes`
 	0% {transform:translateX(-100%);}
   20% {transform:translateX(100%);}
 	100% {transform:translateX(100%);}
-`
+`;
 
 const RightWrapper = styled.div`
   position: absolute;
@@ -38,7 +43,7 @@ const RightWrapper = styled.div`
     right: 67px;
   }
   z-index: 0;
-`
+`;
 const IFOIconImage = styled.div<{ src: string }>`
   position: absolute;
   background-image: ${({ src }) => `url("${src}")`};
@@ -59,7 +64,7 @@ const IFOIconImage = styled.div<{ src: string }>`
     z-index: 2;
   }
   &::after {
-    content: '';
+    content: "";
     top: 0;
     transform: translateX(100%);
     width: 100%;
@@ -75,44 +80,54 @@ const IFOIconImage = styled.div<{ src: string }>`
       rgba(125, 185, 232, 0) 100%
     );
   }
-`
+`;
 
 const IFOBanner = () => {
-  const { t } = useTranslation()
-  const headingRef = useRef<HTMLDivElement>(null)
-  const currentBlock = useChainCurrentBlock(ChainId.BSC)
+  const { t } = useTranslation();
+  const headingRef = useRef<HTMLDivElement>(null);
+  const currentBlock = useChainCurrentBlock(ChainId.MODE_MAINNET);
 
-  const activeIfoWithBlocks = useActiveIfoWithBlocks()
+  const activeIfoWithBlocks = useActiveIfoWithBlocks();
 
-  const ifoName = activeIfoWithBlocks?.name ?? 'XXX'
+  const ifoName = activeIfoWithBlocks?.name ?? "XXX";
 
-  const isIfoAlive = !!(currentBlock && activeIfoWithBlocks && activeIfoWithBlocks.endBlock > currentBlock)
+  const isIfoAlive = !!(
+    currentBlock &&
+    activeIfoWithBlocks &&
+    activeIfoWithBlocks.endBlock > currentBlock
+  );
   const status = isIfoAlive
-    ? getStatus(Number(currentBlock), activeIfoWithBlocks?.startBlock, activeIfoWithBlocks?.endBlock)
-    : null
-  const { isMobile } = useMatchBreakpoints()
+    ? getStatus(
+        Number(currentBlock),
+        activeIfoWithBlocks?.startBlock,
+        activeIfoWithBlocks?.endBlock
+      )
+    : null;
+  const { isMobile } = useMatchBreakpoints();
   useEffect(() => {
-    if (!headingRef.current) return
-    if (!isMobile) headingRef.current.style.fontSize = ''
+    if (!headingRef.current) return;
+    if (!isMobile) headingRef.current.style.fontSize = "";
     else if (
       headingRef.current.offsetHeight > IFOHeaderMobileLimitHeight ||
       headingRef.current.offsetWidth > IFOHeaderMobileLimitWidth
     ) {
-      headingRef.current.style.fontSize = '20px'
+      headingRef.current.style.fontSize = "20px";
     }
-  }, [isMobile])
+  }, [isMobile]);
   return isIfoAlive && status ? (
     <S.Wrapper>
       <S.Inner>
         <S.LeftWrapper>
-          <S.StyledSubheading>{status === 'live' ? t('Live') : t('Soon')}</S.StyledSubheading>
+          <S.StyledSubheading>
+            {status === "live" ? t("Live") : t("Soon")}
+          </S.StyledSubheading>
           <S.StyledHeading scale="xl" ref={headingRef}>
-            {ifoName} {t('IFO')}
+            {ifoName} {t("IFO")}
           </S.StyledHeading>
           <NextLinkFromReactRouter to="/ifo">
             <Button>
               <Text color="invertedContrast" bold fontSize="16px" mr="4px">
-                {t('Go to IFO')}
+                {t("Go to IFO")}
               </Text>
               <ArrowForwardIcon color="invertedContrast" />
             </Button>
@@ -124,13 +139,13 @@ const IFOBanner = () => {
             onError={(event) => {
               // @ts-ignore
               // eslint-disable-next-line no-param-reassign
-              event.target.style.display = 'none'
+              event.target.style.display = "none";
             }}
           />
           {!isMobile ? (
             <Image
               src={IFOImage}
-              alt={`IFO ${activeIfoWithBlocks?.id ?? 'XXX'}`}
+              alt={`IFO ${activeIfoWithBlocks?.id ?? "XXX"}`}
               width={291}
               height={211}
               placeholder="blur"
@@ -138,7 +153,7 @@ const IFOBanner = () => {
           ) : (
             <Image
               src={IFOMobileImage}
-              alt={`IFO ${activeIfoWithBlocks?.id ?? 'XXX'}`}
+              alt={`IFO ${activeIfoWithBlocks?.id ?? "XXX"}`}
               width={150}
               height={150}
               placeholder="blur"
@@ -147,7 +162,7 @@ const IFOBanner = () => {
         </RightWrapper>
       </S.Inner>
     </S.Wrapper>
-  ) : null
-}
+  ) : null;
+};
 
-export default memo(IFOBanner)
+export default memo(IFOBanner);

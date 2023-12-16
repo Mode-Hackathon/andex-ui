@@ -4,10 +4,10 @@ import { Pair, Route, Native } from '../src/entities'
 import { WNATIVE } from '../src/constants'
 
 describe('Route', () => {
-  const ETHER = Native.onChain(ChainId.BSC)
-  const token0 = new Token(ChainId.BSC, '0x0000000000000000000000000000000000000001', 18, 't0')
-  const token1 = new Token(ChainId.BSC, '0x0000000000000000000000000000000000000002', 18, 't1')
-  const weth = WNATIVE[ChainId.BSC]
+  const ETHER = Native.onChain(ChainId.MODE_MAINNET)
+  const token0 = new Token(ChainId.MODE_MAINNET, '0x0000000000000000000000000000000000000001', 18, 't0')
+  const token1 = new Token(ChainId.MODE_MAINNET, '0x0000000000000000000000000000000000000002', 18, 't1')
+  const weth = WNATIVE[ChainId.MODE_MAINNET]
   const pair01 = new Pair(CurrencyAmount.fromRawAmount(token0, '100'), CurrencyAmount.fromRawAmount(token1, '200'))
   const pair0Weth = new Pair(CurrencyAmount.fromRawAmount(token0, '100'), CurrencyAmount.fromRawAmount(weth, '100'))
   const pair1Weth = new Pair(CurrencyAmount.fromRawAmount(token1, '175'), CurrencyAmount.fromRawAmount(weth, '100'))
@@ -18,7 +18,7 @@ describe('Route', () => {
     expect(route.path).toEqual([token0, token1])
     expect(route.input).toEqual(token0)
     expect(route.output).toEqual(token1)
-    expect(route.chainId).toEqual(ChainId.BSC)
+    expect(route.chainId).toEqual(ChainId.MODE_MAINNET)
   })
 
   it('can have a token as both input and output', () => {

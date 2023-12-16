@@ -13,17 +13,17 @@ import { snBnbABI } from 'config/abi/snBNB'
 const liquidStaking: LiquidStakingList[] = [
   {
     stakingSymbol: 'ETH / wBETH',
-    contract: WBETH[ChainId.BSC],
-    token0: WETH9[ChainId.BSC],
+    contract: WBETH[ChainId.MODE_MAINNET],
+    token0: WETH9[ChainId.MODE_MAINNET],
     token1: bscTokens.wbeth,
     abi: wbethBscABI,
     shouldCheckApproval: true,
-    approveToken: WETH9[ChainId.BSC],
+    approveToken: WETH9[ChainId.MODE_MAINNET],
     aprUrl: 'https://www.binance.com/bapi/earn/v1/public/pos/cftoken/project/getPurchasableProject',
     exchangeRateMultiCall: [
       {
         abi: wbethBscABI,
-        address: WBETH[ChainId.BSC],
+        address: WBETH[ChainId.MODE_MAINNET],
         functionName: FunctionName.exchangeRate,
       },
     ],
@@ -33,8 +33,8 @@ const liquidStaking: LiquidStakingList[] = [
   },
   {
     stakingSymbol: 'BNB / SnBNB',
-    contract: SNBNB[ChainId.BSC],
-    token0: NATIVE[ChainId.BSC],
+    contract: SNBNB[ChainId.MODE_MAINNET],
+    token0: NATIVE[ChainId.MODE_MAINNET],
     token1: bscTokens.snbnb,
     abi: snBnbABI,
     shouldCheckApproval: false,
@@ -43,7 +43,7 @@ const liquidStaking: LiquidStakingList[] = [
     exchangeRateMultiCall: [
       {
         abi: snBnbABI,
-        address: SNBNB[ChainId.BSC],
+        address: SNBNB[ChainId.MODE_MAINNET],
         functionName: FunctionName.convertSnBnbToBnb,
         args: [1000000000000000000], // 1 SnBNB
       },

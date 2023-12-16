@@ -1,9 +1,13 @@
-import { styled } from 'styled-components'
-import { useTranslation } from '@pancakeswap/localization'
-import { useEffect, useState } from 'react'
-import { ChainId } from '@pancakeswap/chains'
-import { useActiveChainId } from 'hooks/useActiveChainId'
-import { UserClaimListResponse, MAX_PER_PAGE, ClaimDetail } from 'views/AffiliatesProgram/hooks/useUserClaimList'
+import { styled } from "styled-components";
+import { useTranslation } from "@pancakeswap/localization";
+import { useEffect, useState } from "react";
+import { ChainId } from "@pancakeswap/chains";
+import { useActiveChainId } from "hooks/useActiveChainId";
+import {
+  UserClaimListResponse,
+  MAX_PER_PAGE,
+  ClaimDetail,
+} from "views/AffiliatesProgram/hooks/useUserClaimList";
 import {
   Box,
   Flex,
@@ -16,8 +20,8 @@ import {
   FlexProps,
   Button,
   useMatchBreakpoints,
-} from '@pancakeswap/uikit'
-import { formatNumber } from '@pancakeswap/utils/formatBalance'
+} from "@pancakeswap/uikit";
+import { formatNumber } from "@pancakeswap/utils/formatBalance";
 
 const Dot = styled(Box)`
   width: 8px;
@@ -26,26 +30,31 @@ const Dot = styled(Box)`
   margin-left: 8px;
   align-self: center;
   background: ${({ theme }) => theme.colors.warning};
-`
+`;
 
 interface SingleHistoricalRewardProps extends FlexProps {
-  title: string
-  isFetching: boolean
-  tableFirstTitle: string
-  isAffiliateClaim: boolean
-  dataList: UserClaimListResponse
-  currentPage: number
-  setCurrentPage: (value: number) => void
-  handleClickClaim: (isAffiliateClaim: boolean, reward: ClaimDetail) => Promise<void>
+  title: string;
+  isFetching: boolean;
+  tableFirstTitle: string;
+  isAffiliateClaim: boolean;
+  dataList: UserClaimListResponse;
+  currentPage: number;
+  setCurrentPage: (value: number) => void;
+  handleClickClaim: (
+    isAffiliateClaim: boolean,
+    reward: ClaimDetail
+  ) => Promise<void>;
 }
 
-const SingleHistoricalReward: React.FC<React.PropsWithChildren<SingleHistoricalRewardProps>> = (props) => {
+const SingleHistoricalReward: React.FC<
+  React.PropsWithChildren<SingleHistoricalRewardProps>
+> = (props) => {
   const {
     t,
     currentLanguage: { locale },
-  } = useTranslation()
-  const { chainId } = useActiveChainId()
-  const { isDesktop } = useMatchBreakpoints()
+  } = useTranslation();
+  const { chainId } = useActiveChainId();
+  const { isDesktop } = useMatchBreakpoints();
   const {
     title,
     isFetching,
@@ -55,19 +64,19 @@ const SingleHistoricalReward: React.FC<React.PropsWithChildren<SingleHistoricalR
     isAffiliateClaim,
     setCurrentPage,
     handleClickClaim,
-  } = props
-  const [maxPage, setMaxPages] = useState(1)
+  } = props;
+  const [maxPage, setMaxPages] = useState(1);
 
   useEffect(() => {
     if (dataList?.total > 0) {
-      const max = Math.ceil(dataList?.total / MAX_PER_PAGE)
-      setMaxPages(max)
+      const max = Math.ceil(dataList?.total / MAX_PER_PAGE);
+      setMaxPages(max);
     }
 
     return () => {
-      setMaxPages(1)
-    }
-  }, [dataList, setCurrentPage])
+      setMaxPages(1);
+    };
+  }, [dataList, setCurrentPage]);
 
   return (
     <Flex flexDirection="column" {...props}>
@@ -81,29 +90,59 @@ const SingleHistoricalReward: React.FC<React.PropsWithChildren<SingleHistoricalR
               {isDesktop ? (
                 <>
                   <Th>
-                    <Text fontSize="12px" bold textTransform="uppercase" color="textSubtle" textAlign="left">
+                    <Text
+                      fontSize="12px"
+                      bold
+                      textTransform="uppercase"
+                      color="textSubtle"
+                      textAlign="left"
+                    >
                       {tableFirstTitle}
                     </Text>
                   </Th>
                   <Th>
-                    <Text fontSize="12px" bold textTransform="uppercase" color="textSubtle" textAlign="left">
-                      {t('Claim Request time')}
+                    <Text
+                      fontSize="12px"
+                      bold
+                      textTransform="uppercase"
+                      color="textSubtle"
+                      textAlign="left"
+                    >
+                      {t("Claim Request time")}
                     </Text>
                   </Th>
                 </>
               ) : (
                 <Th>
-                  <Text fontSize="12px" bold textTransform="uppercase" color="textSubtle" textAlign="left">
+                  <Text
+                    fontSize="12px"
+                    bold
+                    textTransform="uppercase"
+                    color="textSubtle"
+                    textAlign="left"
+                  >
                     {`${tableFirstTitle} /`}
                   </Text>
-                  <Text fontSize="12px" bold textTransform="uppercase" color="textSubtle" textAlign="left">
-                    {t('Claim Request time')}
+                  <Text
+                    fontSize="12px"
+                    bold
+                    textTransform="uppercase"
+                    color="textSubtle"
+                    textAlign="left"
+                  >
+                    {t("Claim Request time")}
                   </Text>
                 </Th>
               )}
               <Th>
-                <Text fontSize="12px" bold textTransform="uppercase" color="textSubtle" textAlign="right">
-                  {t('State')}
+                <Text
+                  fontSize="12px"
+                  bold
+                  textTransform="uppercase"
+                  color="textSubtle"
+                  textAlign="right"
+                >
+                  {t("State")}
                 </Text>
               </Th>
             </tr>
@@ -112,7 +151,7 @@ const SingleHistoricalReward: React.FC<React.PropsWithChildren<SingleHistoricalR
             {isFetching ? (
               <tr>
                 <Td colSpan={isDesktop ? 3 : 2} textAlign="center">
-                  {t('Loading...')}
+                  {t("Loading...")}
                 </Td>
               </tr>
             ) : (
@@ -120,7 +159,7 @@ const SingleHistoricalReward: React.FC<React.PropsWithChildren<SingleHistoricalR
                 {dataList?.total === 0 ? (
                   <tr>
                     <Td colSpan={isDesktop ? 3 : 2} textAlign="center">
-                      {t('No results')}
+                      {t("No results")}
                     </Td>
                   </tr>
                 ) : (
@@ -130,76 +169,96 @@ const SingleHistoricalReward: React.FC<React.PropsWithChildren<SingleHistoricalR
                         {isDesktop ? (
                           <>
                             <Td>
-                              <Text>{`$${formatNumber(Number(reward.amountUSD), 0, 2)}`}</Text>
+                              <Text>{`$${formatNumber(
+                                Number(reward.amountUSD),
+                                0,
+                                2
+                              )}`}</Text>
                             </Td>
                             <Td>
                               <Flex>
                                 <Text color="textSubtle">
-                                  {new Date(reward.createdAt).toLocaleString(locale, {
-                                    year: 'numeric',
-                                    month: 'numeric',
-                                    day: '2-digit',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                  })}
+                                  {new Date(reward.createdAt).toLocaleString(
+                                    locale,
+                                    {
+                                      year: "numeric",
+                                      month: "numeric",
+                                      day: "2-digit",
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                    }
+                                  )}
                                 </Text>
-                                {reward.approveStatus === 'APPROVED' && !reward.process && <Dot />}
+                                {reward.approveStatus === "APPROVED" &&
+                                  !reward.process && <Dot />}
                               </Flex>
                             </Td>
                           </>
                         ) : (
                           <Td>
-                            <Text>{`$${formatNumber(Number(reward.amountUSD), 0, 2)}`}</Text>
+                            <Text>{`$${formatNumber(
+                              Number(reward.amountUSD),
+                              0,
+                              2
+                            )}`}</Text>
                             <Flex>
                               <Text color="textSubtle">
-                                {new Date(reward.createdAt).toLocaleString(locale, {
-                                  year: 'numeric',
-                                  month: 'numeric',
-                                  day: '2-digit',
-                                  hour: '2-digit',
-                                  minute: '2-digit',
-                                })}
+                                {new Date(reward.createdAt).toLocaleString(
+                                  locale,
+                                  {
+                                    year: "numeric",
+                                    month: "numeric",
+                                    day: "2-digit",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  }
+                                )}
                               </Text>
-                              {reward.approveStatus === 'APPROVED' && !reward.process && <Dot />}
+                              {reward.approveStatus === "APPROVED" &&
+                                !reward.process && <Dot />}
                             </Flex>
                           </Td>
                         )}
                         <Td>
-                          {reward.approveStatus === 'PENDING' && (
+                          {reward.approveStatus === "PENDING" && (
                             <Text color="textSubtle" textAlign="right">
-                              {t('Pending Approval')}
+                              {t("Pending Approval")}
                             </Text>
                           )}
-                          {reward.approveStatus === 'REJECTED' && (
+                          {reward.approveStatus === "REJECTED" && (
                             <Text color="failure" textAlign="right">
-                              {t('Rejected')}
+                              {t("Rejected")}
                             </Text>
                           )}
-                          {reward.approveStatus === 'APPROVED' && reward.process && (
-                            <Text color="textSubtle" textAlign="right">
-                              {t('Claimed')}
-                            </Text>
-                          )}
-                          {reward.approveStatus === 'APPROVED' && !reward.process && (
-                            <>
-                              {chainId !== ChainId.BSC ? (
-                                <Text color="textDisabled" textAlign="right">
-                                  {t('Claim')}
-                                </Text>
-                              ) : (
-                                <Button
-                                  ml="auto"
-                                  padding="0"
-                                  variant="text"
-                                  display="block"
-                                  style={{ cursor: 'pointer' }}
-                                  onClick={() => handleClickClaim(isAffiliateClaim, reward)}
-                                >
-                                  {t('Claim')}
-                                </Button>
-                              )}
-                            </>
-                          )}
+                          {reward.approveStatus === "APPROVED" &&
+                            reward.process && (
+                              <Text color="textSubtle" textAlign="right">
+                                {t("Claimed")}
+                              </Text>
+                            )}
+                          {reward.approveStatus === "APPROVED" &&
+                            !reward.process && (
+                              <>
+                                {chainId !== ChainId.MODE_MAINNET ? (
+                                  <Text color="textDisabled" textAlign="right">
+                                    {t("Claim")}
+                                  </Text>
+                                ) : (
+                                  <Button
+                                    ml="auto"
+                                    padding="0"
+                                    variant="text"
+                                    display="block"
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() =>
+                                      handleClickClaim(isAffiliateClaim, reward)
+                                    }
+                                  >
+                                    {t("Claim")}
+                                  </Button>
+                                )}
+                              </>
+                            )}
                         </Td>
                       </tr>
                     ))}
@@ -209,10 +268,15 @@ const SingleHistoricalReward: React.FC<React.PropsWithChildren<SingleHistoricalR
             )}
           </tbody>
         </Table>
-        <PaginationButton showMaxPageText currentPage={currentPage} maxPage={maxPage} setCurrentPage={setCurrentPage} />
+        <PaginationButton
+          showMaxPageText
+          currentPage={currentPage}
+          maxPage={maxPage}
+          setCurrentPage={setCurrentPage}
+        />
       </Card>
     </Flex>
-  )
-}
+  );
+};
 
-export default SingleHistoricalReward
+export default SingleHistoricalReward;

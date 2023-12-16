@@ -86,15 +86,15 @@ export const fetchLottery = async (lotteryId: string): Promise<LotteryResponse> 
 export const fetchMultipleLotteries = async (lotteryIds: string[]): Promise<LotteryResponse[]> => {
   const calls = lotteryIds.map(
     (id) =>
-      ({
-        abi: lotteryV2ABI,
-        functionName: 'viewLottery',
-        address: getLotteryV2Address(),
-        args: [BigInt(id)],
-      } as const),
+    ({
+      abi: lotteryV2ABI,
+      functionName: 'viewLottery',
+      address: getLotteryV2Address(),
+      args: [BigInt(id)],
+    } as const),
   )
   try {
-    const client = publicClient({ chainId: ChainId.BSC })
+    const client = publicClient({ chainId: ChainId.MODE_MAINNET })
     const multicallRes = await client.multicall({
       contracts: calls,
     })
@@ -116,14 +116,14 @@ export const fetchCurrentLotteryIdAndMaxBuy = async () => {
   try {
     const calls = (['currentLotteryId', 'maxNumberTicketsPerBuyOrClaim'] as const).map(
       (method) =>
-        ({
-          abi: lotteryV2ABI,
-          address: getLotteryV2Address(),
-          functionName: method,
-        } as const),
+      ({
+        abi: lotteryV2ABI,
+        address: getLotteryV2Address(),
+        functionName: method,
+      } as const),
     )
 
-    const client = publicClient({ chainId: ChainId.BSC })
+    const client = publicClient({ chainId: ChainId.MODE_MAINNET })
     const [currentLotteryId, maxNumberTicketsPerBuyOrClaim] = await client.multicall({
       contracts: calls,
       allowFailure: false,

@@ -4,5 +4,5 @@ import { vaults as ethVaults } from '../src/constants/vaults/eth'
 
 export const vaultsConfigChainMap = {
   [ChainId.ETHEREUM]: ethVaults,
-  [ChainId.BSC]: bscVaults,
+  [ChainId.MODE_MAINNET]: bscVaults,
 }

@@ -1,14 +1,14 @@
-import { useDebounce } from '@pancakeswap/hooks'
-import { useTranslation } from '@pancakeswap/localization'
-import { ChainId } from '@pancakeswap/chains'
-import { AutoColumn, BscScanIcon, Link, Text } from '@pancakeswap/uikit'
-import { useActiveChainId } from 'hooks/useActiveChainId'
-import { useGetENSAddressByName } from 'hooks/useGetENSAddressByName'
-import { useCallback } from 'react'
-import { styled } from 'styled-components'
-import { safeGetAddress } from 'utils'
-import { RowBetween } from '../../../components/Layout/Row'
-import { getBlockExploreLink, getBlockExploreName } from '../../../utils'
+import { useDebounce } from "@pancakeswap/hooks";
+import { useTranslation } from "@pancakeswap/localization";
+import { ChainId } from "@pancakeswap/chains";
+import { AutoColumn, BscScanIcon, Link, Text } from "@pancakeswap/uikit";
+import { useActiveChainId } from "hooks/useActiveChainId";
+import { useGetENSAddressByName } from "hooks/useGetENSAddressByName";
+import { useCallback } from "react";
+import { styled } from "styled-components";
+import { safeGetAddress } from "utils";
+import { RowBetween } from "../../../components/Layout/Row";
+import { getBlockExploreLink, getBlockExploreName } from "../../../utils";
 
 const InputPanel = styled.div`
   display: flex;
@@ -18,23 +18,26 @@ const InputPanel = styled.div`
   background-color: ${({ theme }) => theme.colors.backgroundAlt};
   z-index: 1;
   width: 100%;
-`
+`;
 
 const ContainerRow = styled.div<{ error: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 1.25rem;
-  border: 1px solid ${({ error, theme }) => (error ? theme.colors.failure : theme.colors.background)};
-  transition: border-color 300ms ${({ error }) => (error ? 'step-end' : 'step-start')},
-    color 500ms ${({ error }) => (error ? 'step-end' : 'step-start')};
+  border: 1px solid
+    ${({ error, theme }) =>
+      error ? theme.colors.failure : theme.colors.background};
+  transition: border-color 300ms
+      ${({ error }) => (error ? "step-end" : "step-start")},
+    color 500ms ${({ error }) => (error ? "step-end" : "step-start")};
   background-color: ${({ theme }) => theme.colors.backgroundAlt};
-`
+`;
 
 const InputContainer = styled.div`
   flex: 1;
   padding: 1rem;
-`
+`;
 
 const Input = styled.input<{ error?: boolean }>`
   font-size: 1.25rem;
@@ -42,8 +45,9 @@ const Input = styled.input<{ error?: boolean }>`
   border: none;
   flex: 1 1 auto;
   background-color: ${({ theme }) => theme.colors.backgroundAlt};
-  transition: color 300ms ${({ error }) => (error ? 'step-end' : 'step-start')};
-  color: ${({ error, theme }) => (error ? theme.colors.failure : theme.colors.primary)};
+  transition: color 300ms ${({ error }) => (error ? "step-end" : "step-start")};
+  color: ${({ error, theme }) =>
+    error ? theme.colors.failure : theme.colors.primary};
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 500;
@@ -66,37 +70,39 @@ const Input = styled.input<{ error?: boolean }>`
   ::placeholder {
     color: ${({ theme }) => theme.colors.textDisabled};
   }
-`
+`;
 
 export default function AddressInputPanel({
   id,
   value,
   onChange,
 }: {
-  id?: string
+  id?: string;
   // the typed string value
-  value: string
+  value: string;
   // triggers whenever the typed value changes
-  onChange: (value: string) => void
+  onChange: (value: string) => void;
 }) {
-  const { chainId } = useActiveChainId()
+  const { chainId } = useActiveChainId();
 
-  const { t } = useTranslation()
-  const debounceEnsName = useDebounce(value, 500)
-  const recipientENSAddress = useGetENSAddressByName(debounceEnsName)
+  const { t } = useTranslation();
+  const debounceEnsName = useDebounce(value, 500);
+  const recipientENSAddress = useGetENSAddressByName(debounceEnsName);
 
-  const address = safeGetAddress(value) ? value : safeGetAddress(recipientENSAddress)
+  const address = safeGetAddress(value)
+    ? value
+    : safeGetAddress(recipientENSAddress);
 
   const handleInput = useCallback(
     (event) => {
-      const input = event.target.value
-      const withoutSpaces = input.replace(/\s+/g, '')
-      onChange(withoutSpaces)
+      const input = event.target.value;
+      const withoutSpaces = input.replace(/\s+/g, "");
+      onChange(withoutSpaces);
     },
-    [onChange],
-  )
+    [onChange]
+  );
 
-  const error = Boolean(value.length > 0 && !address)
+  const error = Boolean(value.length > 0 && !address);
 
   return (
     <InputPanel id={id}>
@@ -104,14 +110,21 @@ export default function AddressInputPanel({
         <InputContainer>
           <AutoColumn gap="md">
             <RowBetween>
-              <Text>{t('Recipient')}</Text>
+              <Text>{t("Recipient")}</Text>
               {address && chainId && (
-                <Link external small href={getBlockExploreLink(address, 'address', chainId)}>
+                <Link
+                  external
+                  small
+                  href={getBlockExploreLink(address, "address", chainId)}
+                >
                   (
-                  {t('View on %site%', {
+                  {t("View on %site%", {
                     site: getBlockExploreName(chainId),
                   })}
-                  {chainId === ChainId.BSC && <BscScanIcon color="primary" ml="4px" />})
+                  {chainId === ChainId.MODE_MAINNET && (
+                    <BscScanIcon color="primary" ml="4px" />
+                  )}
+                  )
                 </Link>
               )}
             </RowBetween>
@@ -122,7 +135,7 @@ export default function AddressInputPanel({
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck="false"
-              placeholder={t('Wallet Address')}
+              placeholder={t("Wallet Address")}
               error={error}
               pattern="^(0x[a-fA-F0-9]{40})$"
               onChange={handleInput}
@@ -132,5 +145,5 @@ export default function AddressInputPanel({
         </InputContainer>
       </ContainerRow>
     </InputPanel>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
-import { useProfile } from 'state/profile/hooks'
-import { Box, useMatchBreakpoints, PageSection } from '@pancakeswap/uikit'
-import { useTradingCompetitionContractFanToken } from 'hooks/useContract'
-import useTheme from 'hooks/useTheme'
-import { API_PROFILE } from 'config/constants/endpoints'
+import { useState, useEffect } from "react";
+import { useProfile } from "state/profile/hooks";
+import { Box, useMatchBreakpoints, PageSection } from "@pancakeswap/uikit";
+import { useTradingCompetitionContractFanToken } from "hooks/useContract";
+import useTheme from "hooks/useTheme";
+import { API_PROFILE } from "config/constants/endpoints";
 import {
   SmartContractPhases,
   CompetitionPhases,
@@ -12,63 +12,70 @@ import {
   CLAIM,
   OVER,
   REGISTRATION,
-} from 'config/constants/trading-competition/phases'
-import { ChainId } from '@pancakeswap/chains'
-import useAccountActiveChain from 'hooks/useAccountActiveChain'
-import { DARKBG, MIDBLUEBG, MIDBLUEBG_DARK } from './pageSectionStyles'
-import Countdown from './components/Countdown'
-import FanTokenStormBunny from './pngs/fan-token-storm.png'
-import HowToJoin from './components/HowToJoin'
-import BattleCta from './components/BattleCta'
-import { CompetitionPage, BannerFlex } from './styles'
-import FanTokenBattleBanner from './fantoken/components/BattleBanner/FanTokenBattleBanner'
-import FanTokenYourScore from './fantoken/components/YourScore/FanTokenYourScore'
-import FanTokenPrizesInfo from './fantoken/components/PrizesInfo/FanTokenPrizesInfo'
-import FanTokenCakerBunny from './pngs/fan-token-cakers.png'
-import { useTeamInformation } from './useTeamInformation'
-import { useRegistrationClaimStatus } from './useRegistrationClaimStatus'
-import Footer from './Footer'
-import TeamRanksSection from './components/TeamRanksSection'
-import PrizesInfoSection from './components/PrizesInfoSection'
+} from "config/constants/trading-competition/phases";
+import { ChainId } from "@pancakeswap/chains";
+import useAccountActiveChain from "hooks/useAccountActiveChain";
+import { DARKBG, MIDBLUEBG, MIDBLUEBG_DARK } from "./pageSectionStyles";
+import Countdown from "./components/Countdown";
+import FanTokenStormBunny from "./pngs/fan-token-storm.png";
+import HowToJoin from "./components/HowToJoin";
+import BattleCta from "./components/BattleCta";
+import { CompetitionPage, BannerFlex } from "./styles";
+import FanTokenBattleBanner from "./fantoken/components/BattleBanner/FanTokenBattleBanner";
+import FanTokenYourScore from "./fantoken/components/YourScore/FanTokenYourScore";
+import FanTokenPrizesInfo from "./fantoken/components/PrizesInfo/FanTokenPrizesInfo";
+import FanTokenCakerBunny from "./pngs/fan-token-cakers.png";
+import { useTeamInformation } from "./useTeamInformation";
+import { useRegistrationClaimStatus } from "./useRegistrationClaimStatus";
+import Footer from "./Footer";
+import TeamRanksSection from "./components/TeamRanksSection";
+import PrizesInfoSection from "./components/PrizesInfoSection";
 
 const FanTokenCompetition = () => {
-  const { account, chainId } = useAccountActiveChain()
-  const { isMobile } = useMatchBreakpoints()
-  const { profile, isLoading: isProfileLoading } = useProfile()
-  const { isDark } = useTheme()
-  const tradingCompetitionContract = useTradingCompetitionContractFanToken()
-  const [currentPhase, setCurrentPhase] = useState(CompetitionPhases.OVER)
-  const { registrationSuccessful, claimSuccessful, onRegisterSuccess, onClaimSuccess } = useRegistrationClaimStatus()
+  const { account, chainId } = useAccountActiveChain();
+  const { isMobile } = useMatchBreakpoints();
+  const { profile, isLoading: isProfileLoading } = useProfile();
+  const { isDark } = useTheme();
+  const tradingCompetitionContract = useTradingCompetitionContractFanToken();
+  const [currentPhase, setCurrentPhase] = useState(CompetitionPhases.OVER);
+  const {
+    registrationSuccessful,
+    claimSuccessful,
+    onRegisterSuccess,
+    onClaimSuccess,
+  } = useRegistrationClaimStatus();
   const [userTradingInformation, setUserTradingInformation] = useState({
     isLoading: true,
     account: undefined,
     hasRegistered: false,
     hasUserClaimed: false,
-    userRewardGroup: '0',
-    userCakeRewards: '0',
-    userLazioRewards: '0',
-    userPortoRewards: '0',
-    userSantosRewards: '0',
-    userPointReward: '0',
+    userRewardGroup: "0",
+    userCakeRewards: "0",
+    userLazioRewards: "0",
+    userPortoRewards: "0",
+    userSantosRewards: "0",
+    userPointReward: "0",
     canClaimNFT: false,
-  })
+  });
   const [userLeaderboardInformation, setUserLeaderboardInformation] = useState({
     global: 0,
     team: 0,
     volume: 0,
     next_rank: 0,
-  })
+  });
 
   const {
     globalLeaderboardInformation,
     team1LeaderboardInformation,
     team2LeaderboardInformation,
     team3LeaderboardInformation,
-  } = useTeamInformation(2)
+  } = useTeamInformation(2);
 
-  const isCompetitionLive = currentPhase.state === LIVE
+  const isCompetitionLive = currentPhase.state === LIVE;
   const hasCompetitionEnded =
-    currentPhase.state === FINISHED || currentPhase.state === CLAIM || currentPhase.state === OVER
+    currentPhase.state === FINISHED ||
+    currentPhase.state === CLAIM ||
+    currentPhase.state === OVER;
 
   const {
     hasUserClaimed,
@@ -78,29 +85,34 @@ const FanTokenCompetition = () => {
     userSantosRewards,
     userPointReward,
     canClaimNFT,
-  } = userTradingInformation
+  } = userTradingInformation;
 
   const userCanClaimPrizes =
     currentPhase.state === CLAIM &&
     !hasUserClaimed &&
-    (userCakeRewards !== '0' ||
-      userLazioRewards !== '0' ||
-      userPortoRewards !== '0' ||
-      userSantosRewards !== '0' ||
-      userPointReward !== '0' ||
-      canClaimNFT)
-  const finishedAndPrizesClaimed = hasCompetitionEnded && account && hasUserClaimed
-  const finishedAndNothingToClaim = hasCompetitionEnded && account && !userCanClaimPrizes
+    (userCakeRewards !== "0" ||
+      userLazioRewards !== "0" ||
+      userPortoRewards !== "0" ||
+      userSantosRewards !== "0" ||
+      userPointReward !== "0" ||
+      canClaimNFT);
+  const finishedAndPrizesClaimed =
+    hasCompetitionEnded && account && hasUserClaimed;
+  const finishedAndNothingToClaim =
+    hasCompetitionEnded && account && !userCanClaimPrizes;
 
   useEffect(() => {
     const fetchCompetitionInfoContract = async () => {
-      const competitionStatus = await tradingCompetitionContract.read.currentStatus()
-      setCurrentPhase(SmartContractPhases[competitionStatus])
-    }
+      const competitionStatus =
+        await tradingCompetitionContract.read.currentStatus();
+      setCurrentPhase(SmartContractPhases[competitionStatus]);
+    };
 
     const fetchUserContract = async () => {
       try {
-        const user = await tradingCompetitionContract.read.claimInformation([account])
+        const user = await tradingCompetitionContract.read.claimInformation([
+          account,
+        ]);
         const userObject = {
           isLoading: false,
           account,
@@ -113,76 +125,88 @@ const FanTokenCompetition = () => {
           userSantosRewards: user[6].toString(),
           userPointReward: user[7].toString(),
           canClaimNFT: user[8],
-        }
-        setUserTradingInformation(userObject)
+        };
+        setUserTradingInformation(userObject);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
-    }
+    };
 
-    if (chainId === ChainId.BSC) {
-      fetchCompetitionInfoContract()
+    if (chainId === ChainId.MODE_MAINNET) {
+      fetchCompetitionInfoContract();
       if (account) {
-        fetchUserContract()
+        fetchUserContract();
       } else {
         setUserTradingInformation({
           isLoading: false,
           account,
           hasRegistered: false,
           hasUserClaimed: false,
-          userRewardGroup: '0',
-          userCakeRewards: '0',
-          userLazioRewards: '0',
-          userPortoRewards: '0',
-          userSantosRewards: '0',
-          userPointReward: '0',
+          userRewardGroup: "0",
+          userCakeRewards: "0",
+          userLazioRewards: "0",
+          userPortoRewards: "0",
+          userSantosRewards: "0",
+          userPointReward: "0",
           canClaimNFT: false,
-        })
+        });
       }
     }
-  }, [chainId, account, registrationSuccessful, claimSuccessful, tradingCompetitionContract])
+  }, [
+    chainId,
+    account,
+    registrationSuccessful,
+    claimSuccessful,
+    tradingCompetitionContract,
+  ]);
 
   useEffect(() => {
     const fetchUserTradingStats = async () => {
-      const res = await fetch(`${API_PROFILE}/api/users/${account}`)
-      const data = await res.json()
-      setUserLeaderboardInformation(data.leaderboard_fantoken)
-    }
+      const res = await fetch(`${API_PROFILE}/api/users/${account}`);
+      const data = await res.json();
+      setUserLeaderboardInformation(data.leaderboard_fantoken);
+    };
     // If user has not registered, user trading information will not be displayed and should not be fetched
-    if (userTradingInformation.account && userTradingInformation.hasRegistered) {
-      fetchUserTradingStats()
+    if (
+      userTradingInformation.account &&
+      userTradingInformation.hasRegistered
+    ) {
+      fetchUserTradingStats();
     }
-  }, [account, userTradingInformation])
+  }, [account, userTradingInformation]);
 
-  const isLoading = isProfileLoading || userTradingInformation.isLoading
+  const isLoading = isProfileLoading || userTradingInformation.isLoading;
 
   // Don't hide when loading. Hide if the account is connected && the user hasn't registered && the competition is live or finished
   const shouldHideCta =
     !isLoading &&
     userTradingInformation.account &&
     !userTradingInformation.hasRegistered &&
-    (isCompetitionLive || hasCompetitionEnded)
+    (isCompetitionLive || hasCompetitionEnded);
 
   return (
     <>
       <CompetitionPage>
         <PageSection
-          style={{ paddingTop: '0px' }}
-          innerProps={{ style: { paddingTop: isMobile ? '30px' : '28px' } }}
+          style={{ paddingTop: "0px" }}
+          innerProps={{ style: { paddingTop: isMobile ? "30px" : "28px" } }}
           background={DARKBG}
           hasCurvedDivider={false}
           index={1}
         >
-          <BannerFlex mb={shouldHideCta ? '0px' : '48px'}>
-            <Countdown currentPhase={currentPhase} hasCompetitionEnded={hasCompetitionEnded} />
+          <BannerFlex mb={shouldHideCta ? "0px" : "48px"}>
+            <Countdown
+              currentPhase={currentPhase}
+              hasCompetitionEnded={hasCompetitionEnded}
+            />
             <FanTokenBattleBanner />
           </BannerFlex>
         </PageSection>
         <PageSection
-          containerProps={{ style: { marginTop: '-30px' } }}
+          containerProps={{ style: { marginTop: "-30px" } }}
           background={isDark ? MIDBLUEBG_DARK : MIDBLUEBG}
           concaveDivider
-          clipFill={{ light: '#CCD8F0', dark: '#434575' }}
+          clipFill={{ light: "#CCD8F0", dark: "#434575" }}
           dividerPosition="top"
           index={2}
           dividerComponent={
@@ -204,7 +228,7 @@ const FanTokenCompetition = () => {
             )
           }
         >
-          <Box mt={shouldHideCta ? '0px' : ['94px', null, '36px']} mb="64px">
+          <Box mt={shouldHideCta ? "0px" : ["94px", null, "36px"]} mb="64px">
             {/* If competition has not yet started, render HowToJoin component - if not, render YourScore */}
             {currentPhase.state === REGISTRATION ? (
               <HowToJoin />
@@ -251,7 +275,7 @@ const FanTokenCompetition = () => {
         />
       </CompetitionPage>
     </>
-  )
-}
+  );
+};
 
-export default FanTokenCompetition
+export default FanTokenCompetition;

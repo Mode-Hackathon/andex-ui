@@ -120,9 +120,9 @@
   "peerDependencies": {
     "js-cookie": "*",
     "next-themes": "^0.2.1",
-    "react": "^17.0.0",
+    "react": "^18.2.0",
     "react-device-detect": "*",
-    "react-dom": "^17.0.0",
+    "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-transition-group": "*",
     "remark-gfm": "*",

@@ -11,12 +11,12 @@ export const nativeStableLpMap = {
     wNative: 'WETH',
     stable: 'tUSDC',
   },
-  [ChainId.BSC]: {
+  [ChainId.MODE_MAINNET]: {
     address: '0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16',
     wNative: 'WBNB',
     stable: 'BUSD',
   },
-  [ChainId.BSC_TESTNET]: {
+  [ChainId.MODE_TESTNET]: {
     address: '0x4E96D2e92680Ca65D58A0e2eB5bd1c0f44cAB897',
     wNative: 'WBNB',
     stable: 'BUSD',

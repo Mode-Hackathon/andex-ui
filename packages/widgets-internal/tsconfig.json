@@ -1,5 +1,5 @@
 {
-  "extends": "@pancakeswap/tsconfig/react-library",
+  "extends": "@repo/typescript-config/react-library",
   "compilerOptions": {
     "resolveJsonModule": true,
     "target": "ES2020",

@@ -2,7 +2,7 @@ import { goerliTestnetTokens } from '@pancakeswap/tokens'
 import { getAddress } from 'viem'
 import { SerializedFarmConfig } from '../..'
 
-const priceHelperLps: SerializedFarmConfig[] = [
+const priceHelperLps: SerializedFarmConfig[] | any = [
   {
     pid: null,
     lpSymbol: 'WETH-USDC LP',

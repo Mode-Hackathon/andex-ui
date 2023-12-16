@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
-import { useTranslation } from '@pancakeswap/localization'
-import { useProfile } from 'state/profile/hooks'
-import { Box, useMatchBreakpoints, PageSection } from '@pancakeswap/uikit'
-import { useTradingCompetitionContractMobox } from 'hooks/useContract'
-import useTheme from 'hooks/useTheme'
-import { TC_MOBOX_SUBGRAPH, API_PROFILE } from 'config/constants/endpoints'
-import orderBy from 'lodash/orderBy'
+import { useState, useEffect } from "react";
+import { useTranslation } from "@pancakeswap/localization";
+import { useProfile } from "state/profile/hooks";
+import { Box, useMatchBreakpoints, PageSection } from "@pancakeswap/uikit";
+import { useTradingCompetitionContractMobox } from "hooks/useContract";
+import useTheme from "hooks/useTheme";
+import { TC_MOBOX_SUBGRAPH, API_PROFILE } from "config/constants/endpoints";
+import orderBy from "lodash/orderBy";
 import {
   SmartContractPhases,
   CompetitionPhases,
@@ -14,67 +14,85 @@ import {
   CLAIM,
   OVER,
   REGISTRATION,
-} from 'config/constants/trading-competition/phases'
-import { ChainId } from '@pancakeswap/chains'
-import useAccountActiveChain from 'hooks/useAccountActiveChain'
-import { MIDBLUEBG, MIDBLUEBG_DARK, TRADINGCOMPETITIONBANNER } from './pageSectionStyles'
-import { RulesIcon } from './svgs'
-import Countdown from './components/Countdown'
-import StormBunny from './pngs/mobox-storm-bunny.png'
-import RibbonWithImage from './components/RibbonWithImage'
-import HowToJoin from './components/HowToJoin'
-import BattleCta from './components/BattleCta'
-import Rules from './components/Rules'
-import { UserTradingInformation, initialUserTradingInformation, initialUserLeaderboardInformation } from './types'
-import { CompetitionPage, BannerFlex } from './styles'
-import RanksIcon from './svgs/RanksIcon'
-import MoboxYourScore from './mobox/components/YourScore/MoboxYourScore'
-import MoboxBattleBanner from './mobox/components/BattleBanner/MoboxBattleBanner'
-import MoboxPrizesInfo from './mobox/components/PrizesInfo/MoboxPrizesInfo'
-import { useTeamInformation } from './useTeamInformation'
-import { useRegistrationClaimStatus } from './useRegistrationClaimStatus'
-import Footer from './Footer'
-import PrizesInfoSection from './components/PrizesInfoSection'
-import TeamRanksWithParticipants from './components/TeamRanks/TeamRanksWithParticipants'
-import MoboxCakerBunny from './pngs/mobox-cakers.png'
+} from "config/constants/trading-competition/phases";
+import { ChainId } from "@pancakeswap/chains";
+import useAccountActiveChain from "hooks/useAccountActiveChain";
+import {
+  MIDBLUEBG,
+  MIDBLUEBG_DARK,
+  TRADINGCOMPETITIONBANNER,
+} from "./pageSectionStyles";
+import { RulesIcon } from "./svgs";
+import Countdown from "./components/Countdown";
+import StormBunny from "./pngs/mobox-storm-bunny.png";
+import RibbonWithImage from "./components/RibbonWithImage";
+import HowToJoin from "./components/HowToJoin";
+import BattleCta from "./components/BattleCta";
+import Rules from "./components/Rules";
+import {
+  UserTradingInformation,
+  initialUserTradingInformation,
+  initialUserLeaderboardInformation,
+} from "./types";
+import { CompetitionPage, BannerFlex } from "./styles";
+import RanksIcon from "./svgs/RanksIcon";
+import MoboxYourScore from "./mobox/components/YourScore/MoboxYourScore";
+import MoboxBattleBanner from "./mobox/components/BattleBanner/MoboxBattleBanner";
+import MoboxPrizesInfo from "./mobox/components/PrizesInfo/MoboxPrizesInfo";
+import { useTeamInformation } from "./useTeamInformation";
+import { useRegistrationClaimStatus } from "./useRegistrationClaimStatus";
+import Footer from "./Footer";
+import PrizesInfoSection from "./components/PrizesInfoSection";
+import TeamRanksWithParticipants from "./components/TeamRanks/TeamRanksWithParticipants";
+import MoboxCakerBunny from "./pngs/mobox-cakers.png";
 
 const MoboxCompetition = () => {
-  const { account, chainId } = useAccountActiveChain()
-  const { t } = useTranslation()
-  const { isMobile } = useMatchBreakpoints()
-  const { profile, isLoading: isProfileLoading } = useProfile()
-  const { isDark, theme } = useTheme()
-  const tradingCompetitionContract = useTradingCompetitionContractMobox()
+  const { account, chainId } = useAccountActiveChain();
+  const { t } = useTranslation();
+  const { isMobile } = useMatchBreakpoints();
+  const { profile, isLoading: isProfileLoading } = useProfile();
+  const { isDark, theme } = useTheme();
+  const tradingCompetitionContract = useTradingCompetitionContractMobox();
   const [currentPhase, setCurrentPhase] = useState(() => {
-    const now = Date.now()
+    const now = Date.now();
     const actualPhase = orderBy(
       Object.values(CompetitionPhases).filter(
-        (competitionPhase) => competitionPhase.ends && now < competitionPhase.ends,
+        (competitionPhase) =>
+          competitionPhase.ends && now < competitionPhase.ends
       ),
-      'endsIn',
-      'asc',
-    )[0]
+      "endsIn",
+      "asc"
+    )[0];
 
     if (!actualPhase) {
-      return CompetitionPhases.FINISHED
+      return CompetitionPhases.FINISHED;
     }
-    return actualPhase
-  })
-  const { registrationSuccessful, claimSuccessful, onRegisterSuccess, onClaimSuccess } = useRegistrationClaimStatus()
+    return actualPhase;
+  });
+  const {
+    registrationSuccessful,
+    claimSuccessful,
+    onRegisterSuccess,
+    onClaimSuccess,
+  } = useRegistrationClaimStatus();
   const [userTradingInformation, setUserTradingInformation] =
-    useState<UserTradingInformation>(initialUserTradingInformation)
-  const [userLeaderboardInformation, setUserLeaderboardInformation] = useState(initialUserLeaderboardInformation)
+    useState<UserTradingInformation>(initialUserTradingInformation);
+  const [userLeaderboardInformation, setUserLeaderboardInformation] = useState(
+    initialUserLeaderboardInformation
+  );
 
   const {
     globalLeaderboardInformation,
     team1LeaderboardInformation,
     team2LeaderboardInformation,
     team3LeaderboardInformation,
-  } = useTeamInformation(3)
+  } = useTeamInformation(3);
 
-  const isCompetitionLive = currentPhase.state === LIVE
+  const isCompetitionLive = currentPhase.state === LIVE;
   const hasCompetitionEnded =
-    currentPhase.state === FINISHED || currentPhase.state === CLAIM || currentPhase.state === OVER
+    currentPhase.state === FINISHED ||
+    currentPhase.state === CLAIM ||
+    currentPhase.state === OVER;
 
   const {
     hasUserClaimed,
@@ -84,28 +102,33 @@ const MoboxCompetition = () => {
     userPointReward,
     canClaimMysteryBox,
     canClaimNFT,
-  } = userTradingInformation
+  } = userTradingInformation;
 
   const userCanClaimPrizes =
     currentPhase.state === CLAIM &&
     isUserActive &&
     !hasUserClaimed &&
-    (userCakeRewards !== '0' ||
-      userMoboxRewards !== '0' ||
-      userPointReward !== '0' ||
+    (userCakeRewards !== "0" ||
+      userMoboxRewards !== "0" ||
+      userPointReward !== "0" ||
       canClaimMysteryBox ||
-      canClaimNFT)
-  const finishedAndPrizesClaimed = hasCompetitionEnded && account && hasUserClaimed
-  const finishedAndNothingToClaim = hasCompetitionEnded && account && !userCanClaimPrizes
+      canClaimNFT);
+  const finishedAndPrizesClaimed =
+    hasCompetitionEnded && account && hasUserClaimed;
+  const finishedAndNothingToClaim =
+    hasCompetitionEnded && account && !userCanClaimPrizes;
   useEffect(() => {
     const fetchCompetitionInfoContract = async () => {
-      const competitionStatus = await tradingCompetitionContract.read.currentStatus()
-      setCurrentPhase(SmartContractPhases[competitionStatus])
-    }
+      const competitionStatus =
+        await tradingCompetitionContract.read.currentStatus();
+      setCurrentPhase(SmartContractPhases[competitionStatus]);
+    };
 
     const fetchUserContract = async () => {
       try {
-        const user = await tradingCompetitionContract.read.claimInformation([account])
+        const user = await tradingCompetitionContract.read.claimInformation([
+          account,
+        ]);
         const userObject = {
           isLoading: false,
           account,
@@ -123,68 +146,88 @@ const MoboxCompetition = () => {
           // The bug is only in view function though, all other code is OK
           // recalculating canClaimNFT here to get proper boolean
           canClaimNFT: user[3] > 1n,
-        }
-        setUserTradingInformation(userObject)
+        };
+        setUserTradingInformation(userObject);
       } catch (error) {
-        console.error(error)
-        setUserTradingInformation({ ...initialUserTradingInformation, isLoading: false })
+        console.error(error);
+        setUserTradingInformation({
+          ...initialUserTradingInformation,
+          isLoading: false,
+        });
       }
-    }
+    };
 
-    if (chainId === ChainId.BSC) {
-      fetchCompetitionInfoContract()
+    if (chainId === ChainId.MODE_MAINNET) {
+      fetchCompetitionInfoContract();
       if (account) {
-        setUserTradingInformation({ ...initialUserTradingInformation })
-        fetchUserContract()
+        setUserTradingInformation({ ...initialUserTradingInformation });
+        fetchUserContract();
       } else {
-        setUserTradingInformation({ ...initialUserTradingInformation, isLoading: false })
+        setUserTradingInformation({
+          ...initialUserTradingInformation,
+          isLoading: false,
+        });
       }
     }
-  }, [chainId, account, registrationSuccessful, claimSuccessful, tradingCompetitionContract])
+  }, [
+    chainId,
+    account,
+    registrationSuccessful,
+    claimSuccessful,
+    tradingCompetitionContract,
+  ]);
 
   useEffect(() => {
     const fetchUserTradingStats = async () => {
-      const res = await fetch(`${API_PROFILE}/api/users/${userTradingInformation.account}`)
-      const data = await res.json()
-      setUserLeaderboardInformation(data.leaderboard_mobox)
-    }
+      const res = await fetch(
+        `${API_PROFILE}/api/users/${userTradingInformation.account}`
+      );
+      const data = await res.json();
+      setUserLeaderboardInformation(data.leaderboard_mobox);
+    };
     // If user has not registered, user trading information will not be displayed and should not be fetched
-    if (userTradingInformation.account && userTradingInformation.hasRegistered) {
-      fetchUserTradingStats()
+    if (
+      userTradingInformation.account &&
+      userTradingInformation.hasRegistered
+    ) {
+      fetchUserTradingStats();
     } else {
-      setUserLeaderboardInformation({ ...initialUserLeaderboardInformation })
+      setUserLeaderboardInformation({ ...initialUserLeaderboardInformation });
     }
-  }, [userTradingInformation])
+  }, [userTradingInformation]);
 
-  const isLoading = isProfileLoading || userTradingInformation.isLoading
+  const isLoading = isProfileLoading || userTradingInformation.isLoading;
 
   // Don't hide when loading. Hide if the account is connected && the user hasn't registered && the competition is live or finished
   const shouldHideCta =
     !isLoading &&
     userTradingInformation.account &&
     !userTradingInformation.hasRegistered &&
-    (isCompetitionLive || hasCompetitionEnded)
+    (isCompetitionLive || hasCompetitionEnded);
 
   return (
     <>
       <CompetitionPage id="pcs-competition-page">
         <PageSection
-          style={{ paddingTop: '0px' }}
-          innerProps={{ style: { paddingTop: isMobile ? '30px' : '28px' } }}
+          style={{ paddingTop: "0px" }}
+          innerProps={{ style: { paddingTop: isMobile ? "30px" : "28px" } }}
           background={TRADINGCOMPETITIONBANNER}
           hasCurvedDivider={false}
           index={1}
         >
-          <BannerFlex mb={shouldHideCta ? '0px' : '48px'}>
-            <Countdown currentPhase={currentPhase} hasCompetitionEnded={hasCompetitionEnded} />
+          <BannerFlex mb={shouldHideCta ? "0px" : "48px"}>
+            <Countdown
+              currentPhase={currentPhase}
+              hasCompetitionEnded={hasCompetitionEnded}
+            />
             <MoboxBattleBanner />
           </BannerFlex>
         </PageSection>
         <PageSection
-          containerProps={{ style: { marginTop: '-30px' } }}
+          containerProps={{ style: { marginTop: "-30px" } }}
           background={isDark ? MIDBLUEBG_DARK : MIDBLUEBG}
           concaveDivider
-          clipFill={{ light: '#CCD8F0', dark: '#434575' }}
+          clipFill={{ light: "#CCD8F0", dark: "#434575" }}
           dividerPosition="top"
           index={2}
           dividerComponent={
@@ -206,7 +249,7 @@ const MoboxCompetition = () => {
             )
           }
         >
-          <Box mt={shouldHideCta ? '0px' : ['94px', null, '36px']} mb="64px">
+          <Box mt={shouldHideCta ? "0px" : ["94px", null, "36px"]} mb="64px">
             {/* If competition has not yet started, render HowToJoin component - if not, render YourScore */}
             {currentPhase.state === REGISTRATION ? (
               <HowToJoin />
@@ -229,14 +272,17 @@ const MoboxCompetition = () => {
         </PageSection>
         {currentPhase.state !== REGISTRATION && (
           <PageSection
-            containerProps={{ style: { marginTop: '-20px' } }}
+            containerProps={{ style: { marginTop: "-20px" } }}
             index={3}
             concaveDivider
             clipFill={{ light: theme.colors.background }}
             dividerPosition="top"
             dividerComponent={
-              <RibbonWithImage imageComponent={<RanksIcon width="175px" />} ribbonDirection="up">
-                {t('Team Ranks')}
+              <RibbonWithImage
+                imageComponent={<RanksIcon width="175px" />}
+                ribbonDirection="up"
+              >
+                {t("Team Ranks")}
               </RibbonWithImage>
             }
           >
@@ -255,16 +301,19 @@ const MoboxCompetition = () => {
         )}
         <PrizesInfoSection prizesInfoComponent={<MoboxPrizesInfo />} />
         <PageSection
-          containerProps={{ style: { marginTop: '-1px' } }}
+          containerProps={{ style: { marginTop: "-1px" } }}
           index={5}
           dividerPosition="top"
           clipFill={{
-            light: 'linear-gradient(139.73deg, #ecf5ff 0%, #f2effe 100%)',
-            dark: 'linear-gradient(139.73deg, #383357 0%, #3d2b53 100%)',
+            light: "linear-gradient(139.73deg, #ecf5ff 0%, #f2effe 100%)",
+            dark: "linear-gradient(139.73deg, #383357 0%, #3d2b53 100%)",
           }}
           dividerComponent={
-            <RibbonWithImage imageComponent={<RulesIcon width="175px" />} ribbonDirection="up">
-              {t('Rules')}
+            <RibbonWithImage
+              imageComponent={<RulesIcon width="175px" />}
+              ribbonDirection="up"
+            >
+              {t("Rules")}
             </RibbonWithImage>
           }
         >
@@ -290,7 +339,7 @@ const MoboxCompetition = () => {
         />
       </CompetitionPage>
     </>
-  )
-}
+  );
+};
 
-export default MoboxCompetition
+export default MoboxCompetition;

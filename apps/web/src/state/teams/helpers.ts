@@ -42,14 +42,14 @@ export const getTeams = async (): Promise<TeamsById> => {
 
     const calls = Array.from({ length: Number(nbTeams) }).map(
       (_, i) =>
-        ({
-          abi: pancakeProfileABI,
-          address: getPancakeProfileAddress(),
-          functionName: 'getTeamProfile',
-          args: [BigInt(i + 1)] as const,
-        } as const),
+      ({
+        abi: pancakeProfileABI,
+        address: getPancakeProfileAddress(),
+        functionName: 'getTeamProfile',
+        args: [BigInt(i + 1)] as const,
+      } as const),
     )
-    const client = publicClient({ chainId: ChainId.BSC })
+    const client = publicClient({ chainId: ChainId.MODE_MAINNET })
     const teamData = await client.multicall({
       contracts: calls,
       allowFailure: false,

@@ -40,14 +40,14 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
     async (currentBlock: number) => {
       const ifoCalls = (['startBlock', 'endBlock', 'raisingAmount', 'totalAmount'] as const).map(
         (method) =>
-          ({
-            abi: ifoV1ABI,
-            address,
-            functionName: method,
-          } as const),
+        ({
+          abi: ifoV1ABI,
+          address,
+          functionName: method,
+        } as const),
       )
 
-      const client = publicClient({ chainId: ChainId.BSC })
+      const client = publicClient({ chainId: ChainId.MODE_MAINNET })
 
       const [startBlockResult, endBlockResult, raisingAmountResult, totalAmountResult] = await client.multicall({
         contracts: ifoCalls,
@@ -72,22 +72,22 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
 
       setState(
         (prev) =>
-          ({
-            ...prev,
-            isInitialized: true,
-            status,
-            blocksRemaining,
-            secondsUntilStart: (startBlockNum - currentBlock) * BSC_BLOCK_TIME,
-            progress,
-            secondsUntilEnd: blocksRemaining * BSC_BLOCK_TIME,
-            startBlockNum,
-            endBlockNum,
-            [PoolIds.poolUnlimited]: {
-              ...prev.poolUnlimited,
-              raisingAmountPool: raisingAmount ? new BigNumber(raisingAmount.toString()) : BIG_ZERO,
-              totalAmountPool: totalAmount ? new BigNumber(totalAmount.toString()) : BIG_ZERO,
-            },
-          } as any),
+        ({
+          ...prev,
+          isInitialized: true,
+          status,
+          blocksRemaining,
+          secondsUntilStart: (startBlockNum - currentBlock) * BSC_BLOCK_TIME,
+          progress,
+          secondsUntilEnd: blocksRemaining * BSC_BLOCK_TIME,
+          startBlockNum,
+          endBlockNum,
+          [PoolIds.poolUnlimited]: {
+            ...prev.poolUnlimited,
+            raisingAmountPool: raisingAmount ? new BigNumber(raisingAmount.toString()) : BIG_ZERO,
+            totalAmountPool: totalAmount ? new BigNumber(totalAmount.toString()) : BIG_ZERO,
+          },
+        } as any),
       )
     },
     [address],

@@ -35,7 +35,7 @@ export function defineFarmV3Configs(farmConfig: FarmConfigV3[]): ComputedFarmCon
       ...config,
       token,
       quoteToken,
-      lpSymbol: `${unwrappedToken(token).symbol}-${unwrappedToken(quoteToken).symbol} LP`,
+      lpSymbol: `${unwrappedToken(token)?.symbol}-${unwrappedToken(quoteToken)?.symbol} LP`,
     }
   })
 }

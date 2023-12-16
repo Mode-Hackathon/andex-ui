@@ -96,7 +96,7 @@ export const fetchFarmUserEarnings = async (
   chainId: number,
 ) => {
   const isBscNetwork = verifyBscNetwork(chainId)
-  const multiCallChainId = farmFetcher.isTestnet(chainId) ? ChainId.BSC_TESTNET : ChainId.BSC
+  const multiCallChainId = farmFetcher.isTestnet(chainId) ? ChainId.MODE_TESTNET : ChainId.MODE_MAINNET
   const userAddress = isBscNetwork ? account : await fetchCProxyAddress(account, multiCallChainId)
   const masterChefAddress = getMasterChefV2Address(multiCallChainId)
 

@@ -39,18 +39,18 @@ export const V2_ROUTER_ADDRESS: ChainMap<string> = {
 export const STABLE_SWAP_INFO_ADDRESS: ChainMap<string> = {
   [ChainId.MODE_MAINNET]: '',
   [ChainId.MODE_TESTNET]: '',
-  // [ChainId.BSC]: '0xa680d27f63Fa5E213C502d1B3Ca1EB6a3C1b31D6',
-  // [ChainId.BSC_TESTNET]: '0xaE6C14AAA753B3FCaB96149e1E10Bc4EDF39F546',
-  
+  // [ChainId.MODE_MAINNET]: '0xa680d27f63Fa5E213C502d1B3Ca1EB6a3C1b31D6',
+  // [ChainId.MODE_TESTNET]: '0xaE6C14AAA753B3FCaB96149e1E10Bc4EDF39F546',
+
 }
 
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.MODE_MAINNET]: [WNATIVE[ChainId.MODE_MAINNET], USDC[ChainId.MODE_MAINNET], USDT[ChainId.MODE_MAINNET], WBTC_ETH],
-  [ChainId.MODE_TESTNET]: [WNATIVE[ChainId.MODE_TESTNET], USDC[ChainId.MODE_TESTNET], BUSD[ChainId.MODE_TESTNET]], 
+  [ChainId.MODE_TESTNET]: [WNATIVE[ChainId.MODE_TESTNET], USDC[ChainId.MODE_TESTNET], BUSD[ChainId.MODE_TESTNET]],
 }
 
-// const czusd = new ERC20Token(ChainId.BSC, '0xE68b79e51bf826534Ff37AA9CeE71a3842ee9c70', 18, 'CZUSD', 'CZUSD')
+// const czusd = new ERC20Token(ChainId.MODE_MAINNET, '0xE68b79e51bf826534Ff37AA9CeE71a3842ee9c70', 18, 'CZUSD', 'CZUSD')
 
 /**
  * Additional bases for specific tokens
@@ -59,8 +59,8 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
 export const ADDITIONAL_BASES: {
   [chainId in ChainId]?: { [tokenAddress: string]: Token[] }
 } = {
-  // [ChainId.BSC]: {
-    // SNFTS-SFUND
+  // [ChainId.MODE_MAINNET]: {
+  // SNFTS-SFUND
   //   [bscTokens.snfts.address]: [bscTokens.sfund],
 
   //   [bscTokens.ankr.address]: [bscTokens.ankrbnb],
@@ -103,12 +103,12 @@ export const ADDITIONAL_BASES: {
 /**
  * Some tokens can only be swapped via certain pairs, so we override the list of bases that are considered for these
  * tokens.
- * @example [AMPL.address]: [DAI, WNATIVE[ChainId.BSC]]
+ * @example [AMPL.address]: [DAI, WNATIVE[ChainId.MODE_MAINNET]]
  */
 export const CUSTOM_BASES: {
   [chainId in ChainId]?: { [tokenAddress: string]: Token[] }
 } = {
-  // [ChainId.BSC]: {
+  // [ChainId.MODE_MAINNET]: {
   //   [bscTokens.axlusdc.address]: [bscTokens.usdt],
   // },
 }

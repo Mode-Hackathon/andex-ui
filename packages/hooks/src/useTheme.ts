@@ -4,6 +4,7 @@ import { ThemeContext as StyledThemeContext } from 'styled-components'
 import { useTheme as useNextTheme } from 'next-themes'
 
 export const COOKIE_THEME_KEY = 'theme'
+// TODO:
 export const THEME_DOMAIN = '.pancakeswap.finance'
 
 const useTheme = () => {

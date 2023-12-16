@@ -20,9 +20,8 @@ export const MOONPAY_BASE_URL = 'https://api.moonpay.com'
 export const GRAPH_API_PREDICTION_V1 = 'https://api.thegraph.com/subgraphs/name/pancakeswap/prediction'
 
 export const INFO_CLIENT = 'https://proxy-worker-api.pancakeswap.com/bsc-exchange'
-export const V3_BSC_INFO_CLIENT = `https://open-platform.nodereal.io/${
-  process.env.NEXT_PUBLIC_NODE_REAL_API_INFO || process.env.NEXT_PUBLIC_NODE_REAL_API_ETH
-}/pancakeswap-v3/graphql`
+export const V3_BSC_INFO_CLIENT = `https://open-platform.nodereal.io/${process.env.NEXT_PUBLIC_NODE_REAL_API_INFO || process.env.NEXT_PUBLIC_NODE_REAL_API_ETH
+  }/pancakeswap-v3/graphql`
 
 export const INFO_CLIENT_ETH = 'https://api.thegraph.com/subgraphs/name/pancakeswap/exhange-eth'
 export const BLOCKS_CLIENT = 'https://api.thegraph.com/subgraphs/name/pancakeswap/blocks'
@@ -49,7 +48,7 @@ export const CELER_API = 'https://api.celerscan.com/scan'
 export const INFO_CLIENT_WITH_CHAIN = V2_SUBGRAPHS
 
 export const BLOCKS_CLIENT_WITH_CHAIN = {
-  [ChainId.BSC]: BLOCKS_CLIENT,
+  [ChainId.MODE_MAINNET]: BLOCKS_CLIENT,
   [ChainId.ETHEREUM]: BLOCKS_CLIENT_ETH,
   [ChainId.POLYGON_ZKEVM]: BLOCKS_CLIENT_POLYGON_ZKEVM,
   [ChainId.ZKSYNC]: BLOCKS_CLIENT_ZKSYNC,

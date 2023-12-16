@@ -17,7 +17,7 @@ import { PANCAKE_SPACE } from 'views/Voting/config'
 import { cakePoolBalanceStrategy, createTotalStrategy } from 'views/Voting/strategies'
 import { publicClient } from 'utils/wagmi'
 
-const bscClient = publicClient({ chainId: ChainId.BSC })
+const bscClient = publicClient({ chainId: ChainId.MODE_MAINNET })
 
 const useCakeBenefits = () => {
   const { address: account } = useAccount()
@@ -26,7 +26,7 @@ const useCakeBenefits = () => {
   } = useTranslation()
   const ifoCreditAddressContract = useIfoCreditAddressContract()
   const cakeVaultAddress = getCakeVaultAddress()
-  const currentBscBlock = useChainCurrentBlock(ChainId.BSC)
+  const currentBscBlock = useChainCurrentBlock(ChainId.MODE_MAINNET)
 
   const { data, status } = useSWR(account && currentBscBlock && ['cakeBenefits', account], async () => {
     const [userInfo, currentPerformanceFee, currentOverdueFee, sharePrice] = await bscClient.multicall({
@@ -83,12 +83,12 @@ const useCakeBenefits = () => {
     const lockedCake = [VaultPosition.None, VaultPosition.Flexible].includes(lockPosition)
       ? '0.00'
       : convertSharesToCake(
-          userSharesAsBignumber,
-          sharePriceAsBigNumber,
-          undefined,
-          undefined,
-          currentOverdueFeeAsBigNumber.plus(currentPerformanceFeeAsBigNumber).plus(userBoostedSharesAsBignumber),
-        ).cakeAsNumberBalance.toLocaleString('en', { maximumFractionDigits: 3 })
+        userSharesAsBignumber,
+        sharePriceAsBigNumber,
+        undefined,
+        undefined,
+        currentOverdueFeeAsBigNumber.plus(currentPerformanceFeeAsBigNumber).plus(userBoostedSharesAsBignumber),
+      ).cakeAsNumberBalance.toLocaleString('en', { maximumFractionDigits: 3 })
 
     let iCake = ''
     let vCake = { vaultScore: '0', totalScore: '0' }
@@ -98,13 +98,13 @@ const useCakeBenefits = () => {
       const credit = await ifoCreditAddressContract.read.getUserCredit([account])
       iCake = getBalanceNumber(new BigNumber(credit.toString())).toLocaleString('en', { maximumFractionDigits: 3 })
 
-      const eligiblePools = await getActivePools(ChainId.BSC, currentBscBlock)
+      const eligiblePools = await getActivePools(ChainId.MODE_MAINNET, currentBscBlock)
       const poolAddresses = eligiblePools.map(({ contractAddress }) => contractAddress)
 
       const [cakeVaultBalance, total] = await getScores(
         PANCAKE_SPACE,
         [cakePoolBalanceStrategy('v1'), createTotalStrategy(poolAddresses, 'v1')],
-        ChainId.BSC.toString(),
+        ChainId.MODE_MAINNET.toString(),
         [account],
         Number(currentBscBlock),
       )

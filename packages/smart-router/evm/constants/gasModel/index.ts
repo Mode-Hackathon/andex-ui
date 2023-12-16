@@ -23,11 +23,11 @@ import {
 
 
 export const usdGasTokensByChain = {
-  
+
   [ChainId.MODE_MAINNET]: [ethereumTokens.usdt],
   [ChainId.MODE_TESTNET]: [ethereumTokens.usdc],
-  // [ChainId.BSC]: [bscTokens.busd],
-  // [ChainId.BSC_TESTNET]: [bscTestnetTokens.busd],
+  // [ChainId.MODE_MAINNET]: [bscTokens.busd],
+  // [ChainId.MODE_TESTNET]: [bscTestnetTokens.busd],
   // [ChainId.ARBITRUM_ONE]: [arbitrumTokens.usdc],
   // [ChainId.ARBITRUM_GOERLI]: [arbitrumGoerliTokens.usdc],
   // [ChainId.POLYGON_ZKEVM]: [polygonZkEvmTokens.usdt],

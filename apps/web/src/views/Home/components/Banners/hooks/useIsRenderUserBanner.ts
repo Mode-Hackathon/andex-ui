@@ -1,7 +1,7 @@
 import { ChainId } from '@pancakeswap/chains'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import useFarmsWithBalance from 'views/Home/hooks/useFarmsWithBalance'
-import {} from 'state/farms/hooks'
+import { } from 'state/farms/hooks'
 import BigNumber from 'bignumber.js'
 import { useCakePrice } from 'hooks/useCakePrice'
 import { useMemo } from 'react'
@@ -14,7 +14,7 @@ const useIsRenderUserBanner = () => {
   const isEarningsBusdZero = new BigNumber(farmEarningsSum).multipliedBy(cakePriceBusd).isZero()
 
   return useMemo(() => {
-    return { shouldRender: Boolean(account) && chainId === ChainId.BSC, isEarningsBusdZero }
+    return { shouldRender: Boolean(account) && chainId === ChainId.MODE_MAINNET, isEarningsBusdZero }
   }, [account, chainId, isEarningsBusdZero])
 }
 

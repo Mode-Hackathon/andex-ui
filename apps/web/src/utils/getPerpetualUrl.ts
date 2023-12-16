@@ -19,7 +19,7 @@ const mapPerpChain = (chainId: ChainId): string => {
   }
 }
 
-const supportV2Chains: ChainId[] = [ChainId.BSC, ChainId.ARBITRUM_ONE]
+const supportV2Chains: ChainId[] = [ChainId.MODE_MAINNET, ChainId.ARBITRUM_ONE]
 
 export const getPerpetualUrl = ({ chainId, languageCode, isDark }: GetPerpetualUrlProps) => {
   if (!chainId || !languageCode) {

@@ -1,20 +1,25 @@
-import { useEffect } from 'react'
-import { getNftSaleAddress } from 'utils/addressHelpers'
-import { getPancakeSquadContract } from 'utils/contractHelpers'
-import { nftSaleABI } from 'config/abi/nftSale'
-import { publicClient } from 'utils/wagmi'
-import { ChainId } from '@pancakeswap/chains'
+import { useEffect } from "react";
+import { getNftSaleAddress } from "utils/addressHelpers";
+import { getPancakeSquadContract } from "utils/contractHelpers";
+import { nftSaleABI } from "config/abi/nftSale";
+import { publicClient } from "utils/wagmi";
+import { ChainId } from "@pancakeswap/chains";
 
 const useUserInfos = ({ account, refreshCounter, setCallback }) => {
   useEffect(() => {
     const fetchUserInfos = async () => {
       try {
-        const nftSaleAddress = getNftSaleAddress()
-        const pancakeSquadContract = getPancakeSquadContract()
+        const nftSaleAddress = getNftSaleAddress();
+        const pancakeSquadContract = getPancakeSquadContract();
 
         if (account) {
           const calls = (
-            ['canClaimForGen0', 'numberTicketsForGen0', 'numberTicketsUsedForGen0', 'viewNumberTicketsOfUser'] as const
+            [
+              "canClaimForGen0",
+              "numberTicketsForGen0",
+              "numberTicketsUsedForGen0",
+              "viewNumberTicketsOfUser",
+            ] as const
           ).map(
             (method) =>
               ({
@@ -22,10 +27,10 @@ const useUserInfos = ({ account, refreshCounter, setCallback }) => {
                 address: nftSaleAddress,
                 functionName: method,
                 args: [account] as const,
-              } as const),
-          )
+              } as const)
+          );
 
-          const client = publicClient({ chainId: ChainId.BSC })
+          const client = publicClient({ chainId: ChainId.MODE_MAINNET });
 
           const [
             currentCanClaimForGen0,
@@ -35,16 +40,17 @@ const useUserInfos = ({ account, refreshCounter, setCallback }) => {
           ] = await client.multicall({
             contracts: calls,
             allowFailure: false,
-          })
+          });
 
           const currentTicketsOfUser = await client.readContract({
             abi: nftSaleABI,
             address: nftSaleAddress,
-            functionName: 'ticketsOfUserBySize',
+            functionName: "ticketsOfUserBySize",
             args: [account, 0n, 600n],
-          })
+          });
 
-          const currentNumberTokensOfUser = await pancakeSquadContract.read.balanceOf(account)
+          const currentNumberTokensOfUser =
+            await pancakeSquadContract.read.balanceOf(account);
 
           setCallback({
             canClaimForGen0: currentCanClaimForGen0,
@@ -53,16 +59,16 @@ const useUserInfos = ({ account, refreshCounter, setCallback }) => {
             numberTicketsOfUser: Number(currentNumberTicketsOfUser),
             ticketsOfUser: currentTicketsOfUser,
             numberTokensOfUser: Number(currentNumberTokensOfUser),
-          })
+          });
         }
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    }
+    };
     if (nftSaleABI.length > 0) {
-      fetchUserInfos()
+      fetchUserInfos();
     }
-  }, [account, refreshCounter, setCallback])
-}
+  }, [account, refreshCounter, setCallback]);
+};
 
-export default useUserInfos
+export default useUserInfos;

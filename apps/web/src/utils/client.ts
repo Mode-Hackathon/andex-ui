@@ -21,8 +21,8 @@ export const { publicClient, chains } = configureChains(
           }
           return PUBLIC_NODES[chain.id]?.[i]
             ? {
-                http: PUBLIC_NODES[chain.id][i],
-              }
+              http: PUBLIC_NODES[chain.id][i],
+            }
             : null
         },
       })

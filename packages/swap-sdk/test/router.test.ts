@@ -13,14 +13,14 @@ function checkDeadline(deadline: string[] | string): void {
 }
 
 describe('Router', () => {
-  const ETHER = Native.onChain(ChainId.BSC)
-  const token0 = new Token(ChainId.BSC, '0x0000000000000000000000000000000000000001', 18, 't0')
-  const token1 = new Token(ChainId.BSC, '0x0000000000000000000000000000000000000002', 18, 't1')
+  const ETHER = Native.onChain(ChainId.MODE_MAINNET)
+  const token0 = new Token(ChainId.MODE_MAINNET, '0x0000000000000000000000000000000000000001', 18, 't0')
+  const token1 = new Token(ChainId.MODE_MAINNET, '0x0000000000000000000000000000000000000002', 18, 't1')
 
   const pair01 = new Pair(CurrencyAmount.fromRawAmount(token0, 1000n), CurrencyAmount.fromRawAmount(token1, 1000n))
 
   const pairWeth0 = new Pair(
-    CurrencyAmount.fromRawAmount(WNATIVE[ChainId.BSC], '1000'),
+    CurrencyAmount.fromRawAmount(WNATIVE[ChainId.MODE_MAINNET], '1000'),
     CurrencyAmount.fromRawAmount(token0, '1000')
   )
 
@@ -30,14 +30,14 @@ describe('Router', () => {
         const result = Router.swapCallParameters(
           Trade.exactIn(
             new Route([pairWeth0, pair01], ETHER, token1),
-            CurrencyAmount.fromRawAmount(Native.onChain(ChainId.BSC), 100n)
+            CurrencyAmount.fromRawAmount(Native.onChain(ChainId.MODE_MAINNET), 100n)
           ),
           { ttl: 50, recipient: '0x0000000000000000000000000000000000000004', allowedSlippage: new Percent('1', '100') }
         )
         expect(result.methodName).toEqual('swapExactETHForTokens')
         expect(result.args.slice(0, -1)).toEqual([
           '0x51',
-          [WNATIVE[ChainId.BSC].address, token0.address, token1.address],
+          [WNATIVE[ChainId.MODE_MAINNET].address, token0.address, token1.address],
           '0x0000000000000000000000000000000000000004',
         ])
         expect(result.value).toEqual('0x64')
@@ -48,7 +48,7 @@ describe('Router', () => {
         const result = Router.swapCallParameters(
           Trade.exactIn(
             new Route([pairWeth0, pair01], ETHER, token1),
-            CurrencyAmount.fromRawAmount(Native.onChain(ChainId.BSC), 100n)
+            CurrencyAmount.fromRawAmount(Native.onChain(ChainId.MODE_MAINNET), 100n)
           ),
           {
             deadline: 50,
@@ -59,7 +59,7 @@ describe('Router', () => {
         expect(result.methodName).toEqual('swapExactETHForTokens')
         expect(result.args).toEqual([
           '0x51',
-          [WNATIVE[ChainId.BSC].address, token0.address, token1.address],
+          [WNATIVE[ChainId.MODE_MAINNET].address, token0.address, token1.address],
           '0x0000000000000000000000000000000000000004',
           '0x32',
         ])
@@ -75,7 +75,7 @@ describe('Router', () => {
         expect(result.args.slice(0, -1)).toEqual([
           '0x64',
           '0x51',
-          [token1.address, token0.address, WNATIVE[ChainId.BSC].address],
+          [token1.address, token0.address, WNATIVE[ChainId.MODE_MAINNET].address],
           '0x0000000000000000000000000000000000000004',
         ])
         expect(result.value).toEqual('0x0')
@@ -106,7 +106,7 @@ describe('Router', () => {
         expect(result.methodName).toEqual('swapETHForExactTokens')
         expect(result.args.slice(0, -1)).toEqual([
           '0x64',
-          [WNATIVE[ChainId.BSC].address, token0.address, token1.address],
+          [WNATIVE[ChainId.MODE_MAINNET].address, token0.address, token1.address],
           '0x0000000000000000000000000000000000000004',
         ])
         expect(result.value).toEqual('0x80')
@@ -116,7 +116,7 @@ describe('Router', () => {
         const result = Router.swapCallParameters(
           Trade.exactOut(
             new Route([pair01, pairWeth0], token1, ETHER),
-            CurrencyAmount.fromRawAmount(Native.onChain(ChainId.BSC), 100n)
+            CurrencyAmount.fromRawAmount(Native.onChain(ChainId.MODE_MAINNET), 100n)
           ),
           { ttl: 50, recipient: '0x0000000000000000000000000000000000000004', allowedSlippage: new Percent('1', '100') }
         )
@@ -124,7 +124,7 @@ describe('Router', () => {
         expect(result.args.slice(0, -1)).toEqual([
           '0x64',
           '0x80',
-          [token1.address, token0.address, WNATIVE[ChainId.BSC].address],
+          [token1.address, token0.address, WNATIVE[ChainId.MODE_MAINNET].address],
           '0x0000000000000000000000000000000000000004',
         ])
         expect(result.value).toEqual('0x0')
@@ -152,7 +152,7 @@ describe('Router', () => {
           const result = Router.swapCallParameters(
             Trade.exactIn(
               new Route([pairWeth0, pair01], ETHER, token1),
-              CurrencyAmount.fromRawAmount(Native.onChain(ChainId.BSC), 100n)
+              CurrencyAmount.fromRawAmount(Native.onChain(ChainId.MODE_MAINNET), 100n)
             ),
             {
               ttl: 50,
@@ -164,7 +164,7 @@ describe('Router', () => {
           expect(result.methodName).toEqual('swapExactETHForTokensSupportingFeeOnTransferTokens')
           expect(result.args.slice(0, -1)).toEqual([
             '0x51',
-            [WNATIVE[ChainId.BSC].address, token0.address, token1.address],
+            [WNATIVE[ChainId.MODE_MAINNET].address, token0.address, token1.address],
             '0x0000000000000000000000000000000000000004',
           ])
           expect(result.value).toEqual('0x64')
@@ -184,7 +184,7 @@ describe('Router', () => {
           expect(result.args.slice(0, -1)).toEqual([
             '0x64',
             '0x51',
-            [token1.address, token0.address, WNATIVE[ChainId.BSC].address],
+            [token1.address, token0.address, WNATIVE[ChainId.MODE_MAINNET].address],
             '0x0000000000000000000000000000000000000004',
           ])
           expect(result.value).toEqual('0x0')
@@ -230,7 +230,7 @@ describe('Router', () => {
             Router.swapCallParameters(
               Trade.exactOut(
                 new Route([pair01, pairWeth0], token1, ETHER),
-                CurrencyAmount.fromRawAmount(Native.onChain(ChainId.BSC), 100n)
+                CurrencyAmount.fromRawAmount(Native.onChain(ChainId.MODE_MAINNET), 100n)
               ),
               {
                 ttl: 50,

@@ -1,5 +1,5 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { ChainId } from '@pancakeswap/chains'
+import { useTranslation } from "@pancakeswap/localization";
+import { ChainId } from "@pancakeswap/chains";
 import {
   AtomBox,
   Flex,
@@ -21,20 +21,23 @@ import {
   Checkbox,
   AutoRow,
   RowFixed,
-} from '@pancakeswap/uikit'
-import { ExpertModal } from '@pancakeswap/widgets-internal'
-import { useActiveChainId } from 'hooks/useActiveChainId'
-import useTheme from 'hooks/useTheme'
-import { ReactNode, useCallback, useState } from 'react'
-import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
+} from "@pancakeswap/uikit";
+import { ExpertModal } from "@pancakeswap/widgets-internal";
+import { useActiveChainId } from "hooks/useActiveChainId";
+import useTheme from "hooks/useTheme";
+import { ReactNode, useCallback, useState } from "react";
+import { useSwapActionHandlers } from "state/swap/useSwapActionHandlers";
 import {
   useAudioPlay,
   useExpertMode,
   useUserSingleHopOnly,
   useUserExpertModeAcknowledgement,
-} from '@pancakeswap/utils/user'
-import { useSubgraphHealthIndicatorManager, useUserUsernameVisibility } from 'state/user/hooks'
-import { useUserTokenRisk } from 'state/user/hooks/useUserTokenRisk'
+} from "@pancakeswap/utils/user";
+import {
+  useSubgraphHealthIndicatorManager,
+  useUserUsernameVisibility,
+} from "state/user/hooks";
+import { useUserTokenRisk } from "state/user/hooks/useUserTokenRisk";
 import {
   useOnlyOneAMMSourceEnabled,
   useUserSplitRouteEnable,
@@ -42,14 +45,14 @@ import {
   useUserV2SwapEnable,
   useUserV3SwapEnable,
   useRoutingSettingChanged,
-} from 'state/user/smartRouter'
-import { useMMLinkedPoolByDefault } from 'state/user/mmLinkedPool'
-import { styled } from 'styled-components'
-import { TOKEN_RISK } from 'components/AccessRisk'
-import AccessRiskTooltips from 'components/AccessRisk/AccessRiskTooltips'
-import GasSettings from './GasSettings'
-import TransactionSettings from './TransactionSettings'
-import { SettingsMode } from './types'
+} from "state/user/smartRouter";
+import { useMMLinkedPoolByDefault } from "state/user/mmLinkedPool";
+import { styled } from "styled-components";
+import { TOKEN_RISK } from "components/AccessRisk";
+import AccessRiskTooltips from "components/AccessRisk/AccessRiskTooltips";
+import GasSettings from "./GasSettings";
+import TransactionSettings from "./TransactionSettings";
+import { SettingsMode } from "./types";
 
 const ScrollableContainer = styled(Flex)`
   flex-direction: column;
@@ -60,7 +63,7 @@ const ScrollableContainer = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     max-height: none;
   }
-`
+`;
 
 export const withCustomOnDismiss =
   (Component) =>
@@ -70,33 +73,39 @@ export const withCustomOnDismiss =
     mode,
     ...props
   }: {
-    onDismiss?: () => void
-    customOnDismiss: () => void
-    mode: SettingsMode
+    onDismiss?: () => void;
+    customOnDismiss: () => void;
+    mode: SettingsMode;
   }) => {
     const handleDismiss = useCallback(() => {
-      onDismiss?.()
+      onDismiss?.();
       if (customOnDismiss) {
-        customOnDismiss()
+        customOnDismiss();
       }
-    }, [customOnDismiss, onDismiss])
+    }, [customOnDismiss, onDismiss]);
 
-    return <Component {...props} mode={mode} onDismiss={handleDismiss} />
-  }
+    return <Component {...props} mode={mode} onDismiss={handleDismiss} />;
+  };
 
-const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ onDismiss, mode }) => {
-  const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
-  const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] = useUserExpertModeAcknowledgement()
-  const [expertMode, setExpertMode] = useExpertMode()
-  const [audioPlay, setAudioMode] = useAudioPlay()
-  const [subgraphHealth, setSubgraphHealth] = useSubgraphHealthIndicatorManager()
-  const [userUsernameVisibility, setUserUsernameVisibility] = useUserUsernameVisibility()
-  const { onChangeRecipient } = useSwapActionHandlers()
-  const { chainId } = useActiveChainId()
-  const [tokenRisk, setTokenRisk] = useUserTokenRisk()
+const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({
+  onDismiss,
+  mode,
+}) => {
+  const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false);
+  const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] =
+    useUserExpertModeAcknowledgement();
+  const [expertMode, setExpertMode] = useExpertMode();
+  const [audioPlay, setAudioMode] = useAudioPlay();
+  const [subgraphHealth, setSubgraphHealth] =
+    useSubgraphHealthIndicatorManager();
+  const [userUsernameVisibility, setUserUsernameVisibility] =
+    useUserUsernameVisibility();
+  const { onChangeRecipient } = useSwapActionHandlers();
+  const { chainId } = useActiveChainId();
+  const [tokenRisk, setTokenRisk] = useUserTokenRisk();
 
-  const { t } = useTranslation()
-  const { isDark, setTheme } = useTheme()
+  const { t } = useTranslation();
+  const { isDark, setTheme } = useTheme();
 
   if (showConfirmExpertModal) {
     return (
@@ -106,35 +115,46 @@ const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ 
         toggleExpertMode={() => setExpertMode((s) => !s)}
         setShowExpertModeAcknowledgement={setShowExpertModeAcknowledgement}
       />
-    )
+    );
   }
 
   const handleExpertModeToggle = () => {
     if (expertMode || !showExpertModeAcknowledgement) {
-      onChangeRecipient(null)
-      setExpertMode((s) => !s)
+      onChangeRecipient(null);
+      setExpertMode((s) => !s);
     } else {
-      setShowConfirmExpertModal(true)
+      setShowConfirmExpertModal(true);
     }
-  }
+  };
 
   return (
-    <Modal title={t('Settings')} headerBackground="gradientCardHeader" onDismiss={onDismiss}>
+    <Modal
+      title={t("Settings")}
+      headerBackground="gradientCardHeader"
+      onDismiss={onDismiss}
+    >
       <ScrollableContainer>
         {mode === SettingsMode.GLOBAL && (
           <>
             <Flex pb="24px" flexDirection="column">
-              <PreTitle mb="24px">{t('Global')}</PreTitle>
+              <PreTitle mb="24px">{t("Global")}</PreTitle>
               <Flex justifyContent="space-between" mb="24px">
-                <Text>{t('Dark mode')}</Text>
-                <ThemeSwitcher isDark={isDark} toggleTheme={() => setTheme(isDark ? 'light' : 'dark')} />
+                <Text>{t("Dark mode")}</Text>
+                <ThemeSwitcher
+                  isDark={isDark}
+                  toggleTheme={() => setTheme(isDark ? "light" : "dark")}
+                />
               </Flex>
-              <Flex justifyContent="space-between" alignItems="center" mb="24px">
+              <Flex
+                justifyContent="space-between"
+                alignItems="center"
+                mb="24px"
+              >
                 <Flex alignItems="center">
-                  <Text>{t('Subgraph Health Indicator')}</Text>
+                  <Text>{t("Subgraph Health Indicator")}</Text>
                   <QuestionHelper
                     text={t(
-                      'Turn on subgraph health indicator all the time. Default is to show the indicator only when the network is delayed',
+                      "Turn on subgraph health indicator all the time. Default is to show the indicator only when the network is delayed"
                     )}
                     placement="top"
                     ml="4px"
@@ -145,36 +165,48 @@ const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ 
                   checked={subgraphHealth}
                   scale="md"
                   onChange={() => {
-                    setSubgraphHealth(!subgraphHealth)
+                    setSubgraphHealth(!subgraphHealth);
                   }}
                 />
               </Flex>
-              <Flex justifyContent="space-between" alignItems="center" mb="24px">
+              <Flex
+                justifyContent="space-between"
+                alignItems="center"
+                mb="24px"
+              >
                 <Flex alignItems="center">
-                  <Text>{t('Show username')}</Text>
-                  <QuestionHelper text={t('Shows username of wallet instead of bunnies')} placement="top" ml="4px" />
+                  <Text>{t("Show username")}</Text>
+                  <QuestionHelper
+                    text={t("Shows username of wallet instead of bunnies")}
+                    placement="top"
+                    ml="4px"
+                  />
                 </Flex>
                 <Toggle
                   id="toggle-username-visibility"
                   checked={userUsernameVisibility}
                   scale="md"
                   onChange={() => {
-                    setUserUsernameVisibility(!userUsernameVisibility)
+                    setUserUsernameVisibility(!userUsernameVisibility);
                   }}
                 />
               </Flex>
-              {chainId === ChainId.BSC && (
+              {chainId === ChainId.MODE_MAINNET && (
                 <>
-                  <Flex justifyContent="space-between" alignItems="center" mb="24px">
+                  <Flex
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mb="24px"
+                  >
                     <Flex alignItems="center">
-                      <Text>{t('Token Risk Scanning')}</Text>
+                      <Text>{t("Token Risk Scanning")}</Text>
                       <QuestionHelper
                         text={
                           <AccessRiskTooltips
                             hasResult
                             riskLevel={TOKEN_RISK.SOME_RISK}
                             riskLevelDescription={t(
-                              'Automatic risk scanning for the selected token. This scanning result is for reference only, and should NOT be taken as investment advice.',
+                              "Automatic risk scanning for the selected token. This scanning result is for reference only, and should NOT be taken as investment advice."
                             )}
                           />
                         }
@@ -187,7 +219,7 @@ const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ 
                       checked={tokenRisk}
                       scale="md"
                       onChange={() => {
-                        setTokenRisk(!tokenRisk)
+                        setTokenRisk(!tokenRisk);
                       }}
                     />
                   </Flex>
@@ -200,17 +232,23 @@ const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ 
         {mode === SettingsMode.SWAP_LIQUIDITY && (
           <>
             <Flex pt="3px" flexDirection="column">
-              <PreTitle>{t('Swaps & Liquidity')}</PreTitle>
-              <Flex justifyContent="space-between" alignItems="center" mb="24px">
-                {chainId === ChainId.BSC && <GasSettings />}
+              <PreTitle>{t("Swaps & Liquidity")}</PreTitle>
+              <Flex
+                justifyContent="space-between"
+                alignItems="center"
+                mb="24px"
+              >
+                {chainId === ChainId.MODE_MAINNET && <GasSettings />}
               </Flex>
               <TransactionSettings />
             </Flex>
             <Flex justifyContent="space-between" alignItems="center" mb="24px">
               <Flex alignItems="center">
-                <Text>{t('Expert Mode')}</Text>
+                <Text>{t("Expert Mode")}</Text>
                 <QuestionHelper
-                  text={t('Bypasses confirmation modals and allows high slippage trades. Use at your own risk.')}
+                  text={t(
+                    "Bypasses confirmation modals and allows high slippage trades. Use at your own risk."
+                  )}
                   placement="top"
                   ml="4px"
                 />
@@ -224,85 +262,102 @@ const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ 
             </Flex>
             <Flex justifyContent="space-between" alignItems="center" mb="24px">
               <Flex alignItems="center">
-                <Text>{t('Flippy sounds')}</Text>
+                <Text>{t("Flippy sounds")}</Text>
                 <QuestionHelper
-                  text={t('Fun sounds to make a truly immersive pancake-flipping trading experience')}
+                  text={t(
+                    "Fun sounds to make a truly immersive pancake-flipping trading experience"
+                  )}
                   placement="top"
                   ml="4px"
                 />
               </Flex>
-              <PancakeToggle checked={audioPlay} onChange={() => setAudioMode((s) => !s)} scale="md" />
+              <PancakeToggle
+                checked={audioPlay}
+                onChange={() => setAudioMode((s) => !s)}
+                scale="md"
+              />
             </Flex>
             <RoutingSettingsButton />
           </>
         )}
       </ScrollableContainer>
     </Modal>
-  )
-}
+  );
+};
 
-export default SettingsModal
+export default SettingsModal;
 
 export function RoutingSettingsButton({
   children,
   showRedDot = true,
   buttonProps,
 }: {
-  children?: ReactNode
-  showRedDot?: boolean
-  buttonProps?: ButtonProps
+  children?: ReactNode;
+  showRedDot?: boolean;
+  buttonProps?: ButtonProps;
 }) {
-  const [show, setShow] = useState(false)
-  const { t } = useTranslation()
-  const [isRoutingSettingChange] = useRoutingSettingChanged()
+  const [show, setShow] = useState(false);
+  const { t } = useTranslation();
+  const [isRoutingSettingChange] = useRoutingSettingChanged();
   return (
     <>
       <AtomBox textAlign="center">
         <NotificationDot show={isRoutingSettingChange && showRedDot}>
-          <Button variant="text" onClick={() => setShow(true)} scale="sm" {...buttonProps}>
-            {children || t('Customize Routing')}
+          <Button
+            variant="text"
+            onClick={() => setShow(true)}
+            scale="sm"
+            {...buttonProps}
+          >
+            {children || t("Customize Routing")}
           </Button>
         </NotificationDot>
       </AtomBox>
-      <ModalV2 isOpen={show} onDismiss={() => setShow(false)} closeOnOverlayClick>
+      <ModalV2
+        isOpen={show}
+        onDismiss={() => setShow(false)}
+        closeOnOverlayClick
+      >
         <RoutingSettings />
       </ModalV2>
     </>
-  )
+  );
 }
 
 function RoutingSettings() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const [isStableSwapByDefault, setIsStableSwapByDefault] = useUserStableSwapEnable()
-  const [v2Enable, setV2Enable] = useUserV2SwapEnable()
-  const [v3Enable, setV3Enable] = useUserV3SwapEnable()
-  const [split, setSplit] = useUserSplitRouteEnable()
-  const [isMMLinkedPoolByDefault, setIsMMLinkedPoolByDefault] = useMMLinkedPoolByDefault()
-  const [singleHopOnly, setSingleHopOnly] = useUserSingleHopOnly()
-  const onlyOneAMMSourceEnabled = useOnlyOneAMMSourceEnabled()
-  const [isRoutingSettingChange, reset] = useRoutingSettingChanged()
+  const [isStableSwapByDefault, setIsStableSwapByDefault] =
+    useUserStableSwapEnable();
+  const [v2Enable, setV2Enable] = useUserV2SwapEnable();
+  const [v3Enable, setV3Enable] = useUserV3SwapEnable();
+  const [split, setSplit] = useUserSplitRouteEnable();
+  const [isMMLinkedPoolByDefault, setIsMMLinkedPoolByDefault] =
+    useMMLinkedPoolByDefault();
+  const [singleHopOnly, setSingleHopOnly] = useUserSingleHopOnly();
+  const onlyOneAMMSourceEnabled = useOnlyOneAMMSourceEnabled();
+  const [isRoutingSettingChange, reset] = useRoutingSettingChanged();
 
   return (
     <Modal
-      title={t('Customize Routing')}
+      title={t("Customize Routing")}
       headerRightSlot={
         isRoutingSettingChange && (
           <Button variant="text" scale="sm" onClick={reset}>
-            {t('Reset')}
+            {t("Reset")}
           </Button>
         )
       }
     >
       <AutoColumn
         width={{
-          xs: '100%',
-          md: 'screenSm',
+          xs: "100%",
+          md: "screenSm",
         }}
         gap="16px"
       >
         <AtomBox>
-          <PreTitle mb="24px">{t('Liquidity source')}</PreTitle>
+          <PreTitle mb="24px">{t("Liquidity source")}</PreTitle>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
               <Text>PancakeSwap V3</Text>
@@ -311,7 +366,7 @@ function RoutingSettings() {
                   <Flex>
                     <Text mr="5px">
                       {t(
-                        'V3 offers concentrated liquidity to provide deeper liquidity for traders with the same amount of capital, offering lower slippage and more flexible trading fee tiers.',
+                        "V3 offers concentrated liquidity to provide deeper liquidity for traders with the same amount of capital, offering lower slippage and more flexible trading fee tiers."
                       )}
                     </Text>
                   </Flex>
@@ -334,10 +389,14 @@ function RoutingSettings() {
                 text={
                   <Flex flexDirection="column">
                     <Text mr="5px">
-                      {t('The previous V2 exchange is where a number of iconic, popular assets are traded.')}
+                      {t(
+                        "The previous V2 exchange is where a number of iconic, popular assets are traded."
+                      )}
                     </Text>
                     <Text mr="5px" mt="1em">
-                      {t('Recommend leaving this on to ensure backward compatibility.')}
+                      {t(
+                        "Recommend leaving this on to ensure backward compatibility."
+                      )}
                     </Text>
                   </Flex>
                 }
@@ -354,13 +413,13 @@ function RoutingSettings() {
           </Flex>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>PancakeSwap {t('StableSwap')}</Text>
+              <Text>PancakeSwap {t("StableSwap")}</Text>
               <QuestionHelper
                 text={
                   <Flex flexDirection="column">
                     <Text mr="5px">
                       {t(
-                        'StableSwap provides higher efficiency for stable or pegged assets and lower fees for trades.',
+                        "StableSwap provides higher efficiency for stable or pegged assets and lower fees for trades."
                       )}
                     </Text>
                   </Flex>
@@ -375,20 +434,24 @@ function RoutingSettings() {
               scale="md"
               checked={isStableSwapByDefault}
               onChange={() => {
-                setIsStableSwapByDefault((s) => !s)
+                setIsStableSwapByDefault((s) => !s);
               }}
             />
           </Flex>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>{`PancakeSwap ${t('MM Linked Pool')}`}</Text>
+              <Text>{`PancakeSwap ${t("MM Linked Pool")}`}</Text>
               <QuestionHelper
                 text={
                   <Flex flexDirection="column">
-                    <Text mr="5px">{t('Trade through the market makers if they provide better deal')}</Text>
+                    <Text mr="5px">
+                      {t(
+                        "Trade through the market makers if they provide better deal"
+                      )}
+                    </Text>
                     <Text mr="5px" mt="1em">
                       {t(
-                        'If a trade is going through market makers, it will no longer route through any traditional AMM DEX pools.',
+                        "If a trade is going through market makers, it will no longer route through any traditional AMM DEX pools."
                       )}
                     </Text>
                   </Flex>
@@ -407,13 +470,15 @@ function RoutingSettings() {
           {onlyOneAMMSourceEnabled && (
             <Message variant="warning">
               <MessageText>
-                {t('At least one AMM liquidity source has to be enabled to support normal trading.')}
+                {t(
+                  "At least one AMM liquidity source has to be enabled to support normal trading."
+                )}
               </MessageText>
             </Message>
           )}
         </AtomBox>
         <AtomBox>
-          <PreTitle mb="24px">{t('Routing preference')}</PreTitle>
+          <PreTitle mb="24px">{t("Routing preference")}</PreTitle>
           <AutoRow alignItems="center" mb="24px">
             <RowFixed as="label" gap="16px">
               <Checkbox
@@ -421,22 +486,22 @@ function RoutingSettings() {
                 checked={!singleHopOnly}
                 scale="sm"
                 onChange={() => {
-                  setSingleHopOnly((s) => !s)
+                  setSingleHopOnly((s) => !s);
                 }}
               />
-              <Text>{t('Allow Multihops')}</Text>
+              <Text>{t("Allow Multihops")}</Text>
             </RowFixed>
             <QuestionHelper
               text={
                 <Flex flexDirection="column">
                   <Text mr="5px">
                     {t(
-                      'Multihops enables token swaps through multiple hops between several pools to achieve the best deal.',
+                      "Multihops enables token swaps through multiple hops between several pools to achieve the best deal."
                     )}
                   </Text>
                   <Text mr="5px" mt="1em">
                     {t(
-                      'Turning this off will only allow direct swap, which may cause higher slippage or even fund loss.',
+                      "Turning this off will only allow direct swap, which may cause higher slippage or even fund loss."
                     )}
                   </Text>
                 </Flex>
@@ -452,20 +517,22 @@ function RoutingSettings() {
                 checked={split}
                 scale="sm"
                 onChange={() => {
-                  setSplit((s) => !s)
+                  setSplit((s) => !s);
                 }}
               />
-              <Text>{t('Allow Split Routing')}</Text>
+              <Text>{t("Allow Split Routing")}</Text>
             </RowFixed>
             <QuestionHelper
               text={
                 <Flex flexDirection="column">
                   <Text mr="5px">
-                    {t('Split routing enables token swaps to be broken into multiple routes to achieve the best deal.')}
+                    {t(
+                      "Split routing enables token swaps to be broken into multiple routes to achieve the best deal."
+                    )}
                   </Text>
                   <Text mr="5px" mt="1em">
                     {t(
-                      'Turning this off will only allow a single route, which may result in low efficiency or higher slippage.',
+                      "Turning this off will only allow a single route, which may result in low efficiency or higher slippage."
                     )}
                   </Text>
                 </Flex>
@@ -477,5 +544,5 @@ function RoutingSettings() {
         </AtomBox>
       </AutoColumn>
     </Modal>
-  )
+  );
 }

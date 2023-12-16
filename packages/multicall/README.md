@@ -17,31 +17,34 @@ $ pnpm add @pancakeswap/multicall @pancakeswap/sdk viem
 By default the calls will be splitted into chunks based on gas limit of each call and the rpc call gas limit of the chain
 
 ```typescript
-import { ChainId } from '@pancakeswap/chains'
-import { multicallByGasLimit, MulticallRequestWithGas } from '@pancakeswap/multicall'
+import { ChainId } from "@pancakeswap/chains";
+import {
+  multicallByGasLimit,
+  MulticallRequestWithGas,
+} from "@pancakeswap/multicall";
 
 const calls: MulticallRequestWithGas[] = [
   {
     // Target contract to call
-    target: '0x',
+    target: "0x",
     // Encoded call data
-    callData: '',
+    callData: "",
     // The maximum gas limit set to this single call
     gasLimit: 1_000_000,
   },
-]
+];
 
 const { results, blockNumber } = await multicallByGasLimit(calls, {
-  chainId: ChainId.BSC,
+  chainId: ChainId.MODE_MAINNET,
 
   // Rpc client. Please refer to `PublicClient` from viem
   client,
-})
+});
 
 for (const { success, result, gasUsed } of results) {
   if (success) {
     // Decode result
-    decodeResult(result)
+    decodeResult(result);
   }
 }
 ```
@@ -52,10 +55,10 @@ The rpc call gas limit can be overriden if provided. Once provided, the multical
 
 ```typescript
 const { results, blockNumber } = await multicallByGasLimit(calls, {
-  chainId: ChainId.BSC,
+  chainId: ChainId.MODE_MAINNET,
   client,
   gasLimit: 150_000_000,
-})
+});
 ```
 
 ## Other utilities
@@ -63,11 +66,11 @@ const { results, blockNumber } = await multicallByGasLimit(calls, {
 ### Get multicall gas limit
 
 ```typescript
-import { ChainId } from '@pancakeswap/chains'
-import { getGasLimitOnChain } from '@pancakeswap/multicall'
+import { ChainId } from "@pancakeswap/chains";
+import { getGasLimitOnChain } from "@pancakeswap/multicall";
 
 // Get the rpc call gas limit of the specified chain
-const gasLimit = await getGasLimitOnChain(ChainId.BSC)
+const gasLimit = await getGasLimitOnChain(ChainId.MODE_MAINNET);
 ```
 
 ## Supported chains

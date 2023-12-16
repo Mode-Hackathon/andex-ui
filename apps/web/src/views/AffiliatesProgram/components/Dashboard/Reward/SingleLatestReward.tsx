@@ -1,20 +1,22 @@
-import { Flex, Text, Button } from '@pancakeswap/uikit'
-import { LightGreyCard } from 'components/Card'
-import { useTranslation } from '@pancakeswap/localization'
-import { formatNumber } from '@pancakeswap/utils/formatBalance'
-import { ChainId } from '@pancakeswap/chains'
-import { useActiveChainId } from 'hooks/useActiveChainId'
+import { Flex, Text, Button } from "@pancakeswap/uikit";
+import { LightGreyCard } from "components/Card";
+import { useTranslation } from "@pancakeswap/localization";
+import { formatNumber } from "@pancakeswap/utils/formatBalance";
+import { ChainId } from "@pancakeswap/chains";
+import { useActiveChainId } from "hooks/useActiveChainId";
 
 interface SingleLatestRewardProps {
-  usdAmountTitle: string
-  usdAmount: number
-  cakeAmountTitle: string
-  cakeAmount: number
-  disabled: boolean
-  clickClaim: () => void
+  usdAmountTitle: string;
+  usdAmount: number;
+  cakeAmountTitle: string;
+  cakeAmount: number;
+  disabled: boolean;
+  clickClaim: () => void;
 }
 
-const SingleLatestReward: React.FC<React.PropsWithChildren<SingleLatestRewardProps>> = ({
+const SingleLatestReward: React.FC<
+  React.PropsWithChildren<SingleLatestRewardProps>
+> = ({
   usdAmountTitle,
   usdAmount,
   cakeAmountTitle,
@@ -22,8 +24,8 @@ const SingleLatestReward: React.FC<React.PropsWithChildren<SingleLatestRewardPro
   disabled,
   clickClaim,
 }) => {
-  const { t } = useTranslation()
-  const { chainId } = useActiveChainId()
+  const { t } = useTranslation();
+  const { chainId } = useActiveChainId();
 
   return (
     <LightGreyCard>
@@ -43,11 +45,16 @@ const SingleLatestReward: React.FC<React.PropsWithChildren<SingleLatestRewardPro
           {`~ ${formatNumber(cakeAmount)} CAKE`}
         </Text>
       </Flex>
-      <Button onClick={clickClaim} disabled={chainId !== ChainId.BSC || disabled} mt="18px" width="100%">
-        {t('Claim')}
+      <Button
+        onClick={clickClaim}
+        disabled={chainId !== ChainId.MODE_MAINNET || disabled}
+        mt="18px"
+        width="100%"
+      >
+        {t("Claim")}
       </Button>
     </LightGreyCard>
-  )
-}
+  );
+};
 
-export default SingleLatestReward
+export default SingleLatestReward;

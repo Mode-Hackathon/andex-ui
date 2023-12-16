@@ -1,23 +1,38 @@
-import { useState, useEffect } from 'react'
-import { styled } from 'styled-components'
-import BigNumber from 'bignumber.js'
-import { Modal, Text, Flex, BalanceInput, Box, Button, LogoRoundIcon, useToast } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
-import { useTranslation } from '@pancakeswap/localization'
-import { formatNumber, getBalanceAmount, getBalanceNumber } from '@pancakeswap/utils/formatBalance'
-import useTheme from 'hooks/useTheme'
-import useTokenBalance from 'hooks/useTokenBalance'
-import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
-import { useFarmAuctionContract } from 'hooks/useContract'
-import { DEFAULT_TOKEN_DECIMAL } from 'config'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import ApproveConfirmButtons, { ButtonArrangement } from 'components/ApproveConfirmButtons'
-import { ConnectedBidder, FetchStatus } from 'config/constants/types'
-import { useCakePrice } from 'hooks/useCakePrice'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import { bscTokens, CAKE } from '@pancakeswap/tokens'
-import { ChainId } from '@pancakeswap/chains'
+import { useState, useEffect } from "react";
+import { styled } from "styled-components";
+import BigNumber from "bignumber.js";
+import {
+  Modal,
+  Text,
+  Flex,
+  BalanceInput,
+  Box,
+  Button,
+  LogoRoundIcon,
+  useToast,
+} from "@pancakeswap/uikit";
+import { useAccount } from "wagmi";
+import { useTranslation } from "@pancakeswap/localization";
+import {
+  formatNumber,
+  getBalanceAmount,
+  getBalanceNumber,
+} from "@pancakeswap/utils/formatBalance";
+import useTheme from "hooks/useTheme";
+import useTokenBalance from "hooks/useTokenBalance";
+import useApproveConfirmTransaction from "hooks/useApproveConfirmTransaction";
+import { useFarmAuctionContract } from "hooks/useContract";
+import { DEFAULT_TOKEN_DECIMAL } from "config";
+import ConnectWalletButton from "components/ConnectWalletButton";
+import ApproveConfirmButtons, {
+  ButtonArrangement,
+} from "components/ApproveConfirmButtons";
+import { ConnectedBidder, FetchStatus } from "config/constants/types";
+import { useCakePrice } from "hooks/useCakePrice";
+import { useCallWithGasPrice } from "hooks/useCallWithGasPrice";
+import { ToastDescriptionWithTx } from "components/Toast";
+import { bscTokens, CAKE } from "@pancakeswap/tokens";
+import { ChainId } from "@pancakeswap/chains";
 
 const StyledModal = styled(Modal)`
   & > div:nth-child(2) {
@@ -27,24 +42,24 @@ const StyledModal = styled(Modal)`
   ${({ theme }) => theme.mediaQueries.md} {
     width: 280px;
   }
-`
+`;
 
 const ExistingInfo = styled(Box)`
   padding: 24px;
   background-color: ${({ theme }) => theme.colors.dropdown};
-`
+`;
 
 const InnerContent = styled(Box)`
   padding: 24px;
-`
+`;
 
 interface PlaceBidModalProps {
-  onDismiss?: () => void
+  onDismiss?: () => void;
   // undefined initialBidAmount is passed only if auction is not loaded
   // in this case modal will not be possible to open
-  initialBidAmount?: number
-  connectedBidder: ConnectedBidder
-  refreshBidders: () => void
+  initialBidAmount?: number;
+  connectedBidder: ConnectedBidder;
+  refreshBidders: () => void;
 }
 
 const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
@@ -53,105 +68,140 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
   connectedBidder,
   refreshBidders,
 }) => {
-  const { address: account } = useAccount()
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const { callWithGasPrice } = useCallWithGasPrice()
+  const { address: account } = useAccount();
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const { callWithGasPrice } = useCallWithGasPrice();
 
-  const [bid, setBid] = useState('')
-  const [isMultipleOfTen, setIsMultipleOfTen] = useState(false)
-  const [isMoreThanInitialBidAmount, setIsMoreThanInitialBidAmount] = useState(false)
-  const [userNotEnoughCake, setUserNotEnoughCake] = useState(false)
-  const [errorText, setErrorText] = useState(null)
+  const [bid, setBid] = useState("");
+  const [isMultipleOfTen, setIsMultipleOfTen] = useState(false);
+  const [isMoreThanInitialBidAmount, setIsMoreThanInitialBidAmount] =
+    useState(false);
+  const [userNotEnoughCake, setUserNotEnoughCake] = useState(false);
+  const [errorText, setErrorText] = useState(null);
 
-  const { balance: userCake, fetchStatus } = useTokenBalance(bscTokens.cake.address)
-  const userCakeBalance = getBalanceAmount(userCake)
+  const { balance: userCake, fetchStatus } = useTokenBalance(
+    bscTokens.cake.address
+  );
+  const userCakeBalance = getBalanceAmount(userCake);
 
-  const cakePriceBusd = useCakePrice()
-  const farmAuctionContract = useFarmAuctionContract()
+  const cakePriceBusd = useCakePrice();
+  const farmAuctionContract = useFarmAuctionContract();
 
-  const { toastSuccess } = useToast()
+  const { toastSuccess } = useToast();
 
-  const { bidderData } = connectedBidder
-  const { amount, position } = bidderData
-  const isFirstBid = amount.isZero()
-  const isInvalidFirstBid = isFirstBid && !isMoreThanInitialBidAmount
+  const { bidderData } = connectedBidder;
+  const { amount, position } = bidderData;
+  const isFirstBid = amount.isZero();
+  const isInvalidFirstBid = isFirstBid && !isMoreThanInitialBidAmount;
 
   useEffect(() => {
-    setIsMoreThanInitialBidAmount(parseFloat(bid) >= initialBidAmount)
-    setIsMultipleOfTen(parseFloat(bid) % 10 === 0 && parseFloat(bid) !== 0)
+    setIsMoreThanInitialBidAmount(parseFloat(bid) >= initialBidAmount);
+    setIsMultipleOfTen(parseFloat(bid) % 10 === 0 && parseFloat(bid) !== 0);
     if (fetchStatus === FetchStatus.Fetched && userCakeBalance.lt(bid)) {
-      setUserNotEnoughCake(true)
+      setUserNotEnoughCake(true);
     } else {
-      setUserNotEnoughCake(false)
+      setUserNotEnoughCake(false);
     }
-  }, [bid, initialBidAmount, fetchStatus, userCakeBalance])
+  }, [bid, initialBidAmount, fetchStatus, userCakeBalance]);
 
   useEffect(() => {
     if (userNotEnoughCake) {
-      setErrorText(t('Insufficient CAKE balance'))
+      setErrorText(t("Insufficient CAKE balance"));
     } else if (!isMoreThanInitialBidAmount && isFirstBid) {
-      setErrorText(t('First bid must be %initialBidAmount% CAKE or more.', { initialBidAmount }))
+      setErrorText(
+        t("First bid must be %initialBidAmount% CAKE or more.", {
+          initialBidAmount,
+        })
+      );
     } else if (!isMultipleOfTen) {
-      setErrorText(t('Bid must be a multiple of 10'))
+      setErrorText(t("Bid must be a multiple of 10"));
     } else {
-      setErrorText(null)
+      setErrorText(null);
     }
-  }, [isMultipleOfTen, isMoreThanInitialBidAmount, userNotEnoughCake, initialBidAmount, t, isFirstBid])
+  }, [
+    isMultipleOfTen,
+    isMoreThanInitialBidAmount,
+    userNotEnoughCake,
+    initialBidAmount,
+    t,
+    isFirstBid,
+  ]);
 
-  let minAmount = 0n
+  let minAmount = 0n;
   try {
-    minAmount = BigInt(new BigNumber(bid).times(DEFAULT_TOKEN_DECIMAL).toString())
+    minAmount = BigInt(
+      new BigNumber(bid).times(DEFAULT_TOKEN_DECIMAL).toString()
+    );
   } catch {
     //
   }
 
-  const { isApproving, isApproved, isConfirmed, isConfirming, handleApprove, handleConfirm } =
-    useApproveConfirmTransaction({
-      minAmount,
-      spender: farmAuctionContract?.address,
-      token: CAKE[ChainId.BSC],
-      onApproveSuccess: async ({ receipt }) => {
-        toastSuccess(
-          t('Contract approved - you can now place your bid!'),
-          <ToastDescriptionWithTx txHash={receipt.transactionHash} />,
-        )
-      },
-      onConfirm: () => {
-        const bidAmount = new BigNumber(bid).times(DEFAULT_TOKEN_DECIMAL).toString()
-        return callWithGasPrice(farmAuctionContract, 'bid', [BigInt(bidAmount)])
-      },
-      onSuccess: async ({ receipt }) => {
-        refreshBidders()
-        onDismiss?.()
-        toastSuccess(t('Bid placed!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />)
-      },
-    })
+  const {
+    isApproving,
+    isApproved,
+    isConfirmed,
+    isConfirming,
+    handleApprove,
+    handleConfirm,
+  } = useApproveConfirmTransaction({
+    minAmount,
+    spender: farmAuctionContract?.address,
+    token: CAKE[ChainId.MODE_MAINNET],
+    onApproveSuccess: async ({ receipt }) => {
+      toastSuccess(
+        t("Contract approved - you can now place your bid!"),
+        <ToastDescriptionWithTx txHash={receipt.transactionHash} />
+      );
+    },
+    onConfirm: () => {
+      const bidAmount = new BigNumber(bid)
+        .times(DEFAULT_TOKEN_DECIMAL)
+        .toString();
+      return callWithGasPrice(farmAuctionContract, "bid", [BigInt(bidAmount)]);
+    },
+    onSuccess: async ({ receipt }) => {
+      refreshBidders();
+      onDismiss?.();
+      toastSuccess(
+        t("Bid placed!"),
+        <ToastDescriptionWithTx txHash={receipt.transactionHash} />
+      );
+    },
+  });
 
   const handleInputChange = (input: string) => {
-    setBid(input)
-  }
+    setBid(input);
+  };
 
   const setPercentageValue = (percentage: number) => {
-    const rounding = percentage === 1 ? BigNumber.ROUND_FLOOR : BigNumber.ROUND_CEIL
-    const valueToSet = getBalanceAmount(userCake.times(percentage)).div(10).integerValue(rounding).times(10)
-    setBid(valueToSet.toString())
-  }
+    const rounding =
+      percentage === 1 ? BigNumber.ROUND_FLOOR : BigNumber.ROUND_CEIL;
+    const valueToSet = getBalanceAmount(userCake.times(percentage))
+      .div(10)
+      .integerValue(rounding)
+      .times(10);
+    setBid(valueToSet.toString());
+  };
   return (
-    <StyledModal title={t('Place a Bid')} onDismiss={onDismiss} headerBackground={theme.colors.gradientCardHeader}>
+    <StyledModal
+      title={t("Place a Bid")}
+      onDismiss={onDismiss}
+      headerBackground={theme.colors.gradientCardHeader}
+    >
       <ExistingInfo>
         <Flex justifyContent="space-between">
-          <Text>{t('Your existing bid')}</Text>
-          <Text>{t('%num% CAKE', { num: getBalanceNumber(amount) })}</Text>
+          <Text>{t("Your existing bid")}</Text>
+          <Text>{t("%num% CAKE", { num: getBalanceNumber(amount) })}</Text>
         </Flex>
         <Flex justifyContent="space-between">
-          <Text>{t('Your position')}</Text>
-          <Text>{position ? `#${position}` : '-'}</Text>
+          <Text>{t("Your position")}</Text>
+          <Text>{position ? `#${position}` : "-"}</Text>
         </Flex>
       </ExistingInfo>
       <InnerContent>
         <Flex justifyContent="space-between" alignItems="center" pb="8px">
-          <Text>{t('Bid a multiple of 10')}</Text>
+          <Text>{t("Bid a multiple of 10")}</Text>
           <Flex>
             <LogoRoundIcon width="24px" height="24px" mr="4px" />
             <Text bold>CAKE</Text>
@@ -159,7 +209,9 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
         </Flex>
         {isFirstBid && (
           <Text pb="8px" small>
-            {t('First bid must be %initialBidAmount% CAKE or more.', { initialBidAmount })}
+            {t("First bid must be %initialBidAmount% CAKE or more.", {
+              initialBidAmount,
+            })}
           </Text>
         )}
         <BalanceInput
@@ -168,12 +220,15 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
           value={bid}
           onUserInput={handleInputChange}
           currencyValue={
-            cakePriceBusd.gt(0) && `~${bid ? cakePriceBusd.times(new BigNumber(bid)).toNumber() : '0.00'} USD`
+            cakePriceBusd.gt(0) &&
+            `~${
+              bid ? cakePriceBusd.times(new BigNumber(bid)).toNumber() : "0.00"
+            } USD`
           }
         />
         <Flex justifyContent="flex-end" mt="8px">
           <Text fontSize="12px" color="textSubtle" mr="8px">
-            {t('Balance')}:
+            {t("Balance")}:
           </Text>
           <Text fontSize="12px" color="textSubtle">
             {formatNumber(userCakeBalance.toNumber(), 3, 3)}
@@ -224,7 +279,7 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
             onClick={() => setPercentageValue(1)}
           >
             <Text small color="currentColor" textTransform="uppercase">
-              {t('Max')}
+              {t("Max")}
             </Text>
           </Button>
         </Flex>
@@ -250,11 +305,13 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
           )}
         </Flex>
         <Text color="textSubtle" small mt="24px">
-          {t('If your bid is unsuccessful, you’ll be able to reclaim your CAKE after the auction.')}
+          {t(
+            "If your bid is unsuccessful, you’ll be able to reclaim your CAKE after the auction."
+          )}
         </Text>
       </InnerContent>
     </StyledModal>
-  )
-}
+  );
+};
 
-export default PlaceBidModal
+export default PlaceBidModal;

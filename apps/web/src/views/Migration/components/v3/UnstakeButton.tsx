@@ -1,73 +1,92 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { AutoRenewIcon, Button, useToast } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import useCatchTxError from 'hooks/useCatchTxError'
-import React, { useContext } from 'react'
-import { useAppDispatch } from 'state'
-import { fetchFarmUserDataAsync } from 'state/farms'
-import { useFarmFromPid, useFarmUser } from 'state/farms/hooks'
-import { getFullDisplayBalance } from '@pancakeswap/utils/formatBalance'
-import useUnstakeFarms from 'views/Farms/hooks/useUnstakeFarms'
-import { useERC20 } from 'hooks/useContract'
-import useProxyStakedActions from 'views/Farms/components/YieldBooster/hooks/useProxyStakedActions'
-import { YieldBoosterStateContext } from 'views/Farms/components/YieldBooster/components/ProxyFarmContainer'
-import { useActiveChainId } from 'hooks/useActiveChainId'
-import { useNonBscFarmPendingTransaction, useTransactionAdder } from 'state/transactions/hooks'
-import { FarmTransactionStatus, NonBscFarmStepType } from 'state/transactions/actions'
-import { FarmWithStakedValue } from '@pancakeswap/farms'
-import { ChainId } from '@pancakeswap/chains'
-import { pickFarmTransactionTx } from 'state/global/actions'
-import { usePublicNodeWaitForTransaction } from 'hooks/usePublicNodeWaitForTransaction'
+import { useTranslation } from "@pancakeswap/localization";
+import { AutoRenewIcon, Button, useToast } from "@pancakeswap/uikit";
+import { useAccount } from "wagmi";
+import { ToastDescriptionWithTx } from "components/Toast";
+import useCatchTxError from "hooks/useCatchTxError";
+import React, { useContext } from "react";
+import { useAppDispatch } from "state";
+import { fetchFarmUserDataAsync } from "state/farms";
+import { useFarmFromPid, useFarmUser } from "state/farms/hooks";
+import { getFullDisplayBalance } from "@pancakeswap/utils/formatBalance";
+import useUnstakeFarms from "views/Farms/hooks/useUnstakeFarms";
+import { useERC20 } from "hooks/useContract";
+import useProxyStakedActions from "views/Farms/components/YieldBooster/hooks/useProxyStakedActions";
+import { YieldBoosterStateContext } from "views/Farms/components/YieldBooster/components/ProxyFarmContainer";
+import { useActiveChainId } from "hooks/useActiveChainId";
+import {
+  useNonBscFarmPendingTransaction,
+  useTransactionAdder,
+} from "state/transactions/hooks";
+import {
+  FarmTransactionStatus,
+  NonBscFarmStepType,
+} from "state/transactions/actions";
+import { FarmWithStakedValue } from "@pancakeswap/farms";
+import { ChainId } from "@pancakeswap/chains";
+import { pickFarmTransactionTx } from "state/global/actions";
+import { usePublicNodeWaitForTransaction } from "hooks/usePublicNodeWaitForTransaction";
 
 export interface UnstakeButtonProps {
-  pid: number
-  vaultPid?: number
-  farm: FarmWithStakedValue
+  pid: number;
+  vaultPid?: number;
+  farm: FarmWithStakedValue;
 }
 
-const UnstakeButton: React.FC<React.PropsWithChildren<UnstakeButtonProps>> = ({ pid, vaultPid, farm }) => {
-  const { t } = useTranslation()
-  const { address: account } = useAccount()
-  const { chainId } = useActiveChainId()
-  const { toastSuccess } = useToast()
-  const { lpAddress } = useFarmFromPid(pid)
-  const { loading: pendingTx, fetchTxResponse, fetchWithCatchTxError } = useCatchTxError()
-  const { stakedBalance, proxy } = useFarmUser(pid)
-  const { onUnstake } = useUnstakeFarms(pid, vaultPid)
-  const dispatch = useAppDispatch()
-  const { shouldUseProxyFarm, proxyAddress } = useContext(YieldBoosterStateContext)
-  const isNeedUnstake = stakedBalance.gt(0) || proxy?.stakedBalance.gt(0)
+const UnstakeButton: React.FC<React.PropsWithChildren<UnstakeButtonProps>> = ({
+  pid,
+  vaultPid,
+  farm,
+}) => {
+  const { t } = useTranslation();
+  const { address: account } = useAccount();
+  const { chainId } = useActiveChainId();
+  const { toastSuccess } = useToast();
+  const { lpAddress } = useFarmFromPid(pid);
+  const {
+    loading: pendingTx,
+    fetchTxResponse,
+    fetchWithCatchTxError,
+  } = useCatchTxError();
+  const { stakedBalance, proxy } = useFarmUser(pid);
+  const { onUnstake } = useUnstakeFarms(pid, vaultPid);
+  const dispatch = useAppDispatch();
+  const { shouldUseProxyFarm, proxyAddress } = useContext(
+    YieldBoosterStateContext
+  );
+  const isNeedUnstake = stakedBalance.gt(0) || proxy?.stakedBalance.gt(0);
 
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const lpContract = useERC20(lpAddress)
-  const addTransaction = useTransactionAdder()
+  const lpContract = useERC20(lpAddress);
+  const addTransaction = useTransactionAdder();
 
-  const { onUnstake: onUnstakeProxyFarm, onDone } = useProxyStakedActions(pid, lpContract)
+  const { onUnstake: onUnstakeProxyFarm, onDone } = useProxyStakedActions(
+    pid,
+    lpContract
+  );
 
-  const pendingFarm = useNonBscFarmPendingTransaction(lpAddress)
-  const { waitForTransaction } = usePublicNodeWaitForTransaction()
+  const pendingFarm = useNonBscFarmPendingTransaction(lpAddress);
+  const { waitForTransaction } = usePublicNodeWaitForTransaction();
 
   // eslint-disable-next-line consistent-return
   const handleUnstake = async (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation()
+    event.stopPropagation();
 
     if (vaultPid) {
-      setIsLoading(true)
+      setIsLoading(true);
 
       const receipt = await fetchTxResponse(() => {
-        const balance = getFullDisplayBalance(stakedBalance)
-        return onUnstake(balance)
-      })
+        const balance = getFullDisplayBalance(stakedBalance);
+        return onUnstake(balance);
+      });
 
       if (vaultPid) {
         if (receipt) {
-          const amount = getFullDisplayBalance(stakedBalance)
+          const amount = getFullDisplayBalance(stakedBalance);
           addTransaction(receipt, {
-            type: 'non-bsc-farm',
+            type: "non-bsc-farm",
             translatableSummary: {
-              text: 'Unstake %amount% %lpSymbol% Token',
+              text: "Unstake %amount% %lpSymbol% Token",
               data: { amount, lpSymbol: farm.lpSymbol },
             },
             nonBscFarm: {
@@ -85,68 +104,82 @@ const UnstakeButton: React.FC<React.PropsWithChildren<UnstakeButtonProps>> = ({ 
                 },
                 {
                   step: 2,
-                  chainId: ChainId.BSC,
-                  tx: '',
+                  chainId: ChainId.MODE_MAINNET,
+                  tx: "",
                   status: FarmTransactionStatus.PENDING,
                 },
                 {
                   step: 3,
                   chainId,
-                  tx: '',
+                  tx: "",
                   status: FarmTransactionStatus.PENDING,
                 },
               ],
             },
-          })
+          });
 
-          dispatch(pickFarmTransactionTx({ tx: receipt.hash, chainId }))
+          dispatch(pickFarmTransactionTx({ tx: receipt.hash, chainId }));
         }
       }
 
       const resp = await waitForTransaction({
         hash: receipt.hash,
         chainId,
-      })
+      });
 
-      setIsLoading(false)
+      setIsLoading(false);
 
-      if (resp?.status === 'success') {
+      if (resp?.status === "success") {
         toastSuccess(
-          `${t('Unstaked')}!`,
+          `${t("Unstaked")}!`,
           <ToastDescriptionWithTx txHash={resp.transactionHash}>
-            {t('Your earnings have also been harvested to your wallet')}
-          </ToastDescriptionWithTx>,
-        )
+            {t("Your earnings have also been harvested to your wallet")}
+          </ToastDescriptionWithTx>
+        );
         if (shouldUseProxyFarm) {
-          onDone()
+          onDone();
         }
 
-        dispatch(fetchFarmUserDataAsync({ account, pids: [pid], proxyAddress, chainId }))
+        dispatch(
+          fetchFarmUserDataAsync({
+            account,
+            pids: [pid],
+            proxyAddress,
+            chainId,
+          })
+        );
       }
     } else {
       const receipt = await fetchWithCatchTxError(() => {
         if (shouldUseProxyFarm) {
-          const balance = getFullDisplayBalance(proxy?.stakedBalance)
-          return onUnstakeProxyFarm(balance)
+          const balance = getFullDisplayBalance(proxy?.stakedBalance);
+          return onUnstakeProxyFarm(balance);
         }
-        const balance = getFullDisplayBalance(stakedBalance)
-        return onUnstake(balance)
-      })
+        const balance = getFullDisplayBalance(stakedBalance);
+        return onUnstake(balance);
+      });
 
       if (receipt?.status) {
         toastSuccess(
-          `${t('Unstaked')}!`,
+          `${t("Unstaked")}!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
-            {t('Your earnings have also been harvested to your wallet')}
-          </ToastDescriptionWithTx>,
-        )
+            {t("Your earnings have also been harvested to your wallet")}
+          </ToastDescriptionWithTx>
+        );
         if (shouldUseProxyFarm) {
-          onDone()
+          onDone();
         }
-        dispatch(fetchFarmUserDataAsync({ account, pids: [pid], proxyAddress, chainId }))
+        dispatch(
+          fetchFarmUserDataAsync({
+            account,
+            pids: [pid],
+            proxyAddress,
+            chainId,
+          })
+        );
       }
     }
-  }
+  };
 
   return (
     <>
@@ -157,7 +190,7 @@ const UnstakeButton: React.FC<React.PropsWithChildren<UnstakeButtonProps>> = ({ 
           isLoading={pendingTx || isLoading}
           endIcon={<AutoRenewIcon spin color="currentColor" />}
         >
-          {t('Confirming')}
+          {t("Confirming")}
         </Button>
       ) : (
         <Button
@@ -166,11 +199,11 @@ const UnstakeButton: React.FC<React.PropsWithChildren<UnstakeButtonProps>> = ({ 
           disabled={!isNeedUnstake || pendingFarm.length > 0}
           onClick={handleUnstake}
         >
-          {isNeedUnstake ? t('Unstake All') : t('Unstaked')}
+          {isNeedUnstake ? t("Unstake All") : t("Unstaked")}
         </Button>
       )}
     </>
-  )
-}
+  );
+};
 
-export default UnstakeButton
+export default UnstakeButton;

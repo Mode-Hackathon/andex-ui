@@ -49,7 +49,7 @@ export const useIsMMQuotingPair = (
     )
       return false
     if (
-      chainId === ChainId.BSC &&
+      chainId === ChainId.MODE_MAINNET &&
       inputCurrency.isToken &&
       outputCurrency.isToken &&
       MM_STABLE_TOKENS_WHITE_LIST[chainId][inputCurrency.address] &&
@@ -59,20 +59,20 @@ export const useIsMMQuotingPair = (
       return false
     if (
       list[
-        (inputCurrency.isToken
-          ? inputCurrency.address
-          : IS_SUPPORT_NATIVE_TOKEN
+      (inputCurrency.isToken
+        ? inputCurrency.address
+        : IS_SUPPORT_NATIVE_TOKEN
           ? inputCurrency.wrapped.address
           : NATIVE_CURRENCY_ADDRESS
-        ).toLowerCase()
+      ).toLowerCase()
       ] &&
       list[
-        (outputCurrency.isToken
-          ? outputCurrency.address
-          : IS_SUPPORT_NATIVE_TOKEN
+      (outputCurrency.isToken
+        ? outputCurrency.address
+        : IS_SUPPORT_NATIVE_TOKEN
           ? inputCurrency.wrapped.address
           : NATIVE_CURRENCY_ADDRESS
-        ).toLowerCase()
+      ).toLowerCase()
       ]
     )
       return true

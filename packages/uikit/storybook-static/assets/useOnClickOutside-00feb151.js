@@ -1,0 +1,1 @@
+import{r as s}from"./index-8db94870.js";const o=(e,n)=>{s.useEffect(()=>{if(e){const t=r=>{e.contains(r.target)||n(r)};return document.addEventListener("mousedown",t),document.addEventListener("touchstart",t),()=>{document.removeEventListener("mousedown",t),document.removeEventListener("touchstart",t)}}},[e,n])},c=o;export{c as u};

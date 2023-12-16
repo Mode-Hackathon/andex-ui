@@ -1,7 +1,7 @@
-import { useCallback } from 'react'
-import { Currency, Token } from '@pancakeswap/sdk'
-import { ChainId } from '@pancakeswap/chains'
-import { styled } from 'styled-components'
+import { useCallback } from "react";
+import { Currency, Token } from "@pancakeswap/sdk";
+import { ChainId } from "@pancakeswap/chains";
+import { styled } from "styled-components";
 import {
   Button,
   Text,
@@ -13,25 +13,27 @@ import {
   BscScanIcon,
   AutoColumn,
   ColumnCenter,
-} from '@pancakeswap/uikit'
-import { ConfirmationPendingContent } from '@pancakeswap/widgets-internal'
-import { useTranslation } from '@pancakeswap/localization'
-import { wrappedCurrency } from 'utils/wrappedCurrency'
-import { WrappedTokenInfo } from '@pancakeswap/token-lists'
-import { useActiveChainId } from 'hooks/useActiveChainId'
-import { getBlockExploreLink, getBlockExploreName } from 'utils'
-import AddToWalletButton, { AddToWalletTextOptions } from '../AddToWallet/AddToWalletButton'
+} from "@pancakeswap/uikit";
+import { ConfirmationPendingContent } from "@pancakeswap/widgets-internal";
+import { useTranslation } from "@pancakeswap/localization";
+import { wrappedCurrency } from "utils/wrappedCurrency";
+import { WrappedTokenInfo } from "@pancakeswap/token-lists";
+import { useActiveChainId } from "hooks/useActiveChainId";
+import { getBlockExploreLink, getBlockExploreName } from "utils";
+import AddToWalletButton, {
+  AddToWalletTextOptions,
+} from "../AddToWallet/AddToWalletButton";
 
 const Wrapper = styled.div`
   width: 100%;
-`
+`;
 const Section = styled(AutoColumn)`
   padding: 24px;
-`
+`;
 
 const ConfirmedIcon = styled(ColumnCenter)`
   padding: 24px 0;
-`
+`;
 
 export function TransactionSubmittedContent({
   onDismiss,
@@ -39,14 +41,14 @@ export function TransactionSubmittedContent({
   hash,
   currencyToAdd,
 }: {
-  onDismiss: () => void
-  hash: string | undefined
-  chainId: ChainId
-  currencyToAdd?: Currency | undefined
+  onDismiss: () => void;
+  hash: string | undefined;
+  chainId: ChainId;
+  currencyToAdd?: Currency | undefined;
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const token: Token | undefined = wrappedCurrency(currencyToAdd, chainId)
+  const token: Token | undefined = wrappedCurrency(currencyToAdd, chainId);
 
   return (
     <Wrapper>
@@ -55,13 +57,19 @@ export function TransactionSubmittedContent({
           <ArrowUpIcon strokeWidth={0.5} width="90px" color="primary" />
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify="center">
-          <Text fontSize="20px">{t('Transaction Submitted')}</Text>
+          <Text fontSize="20px">{t("Transaction Submitted")}</Text>
           {chainId && hash && (
-            <Link external small href={getBlockExploreLink(hash, 'transaction', chainId)}>
-              {t('View on %site%', {
+            <Link
+              external
+              small
+              href={getBlockExploreLink(hash, "transaction", chainId)}
+            >
+              {t("View on %site%", {
                 site: getBlockExploreName(chainId),
               })}
-              {chainId === ChainId.BSC && <BscScanIcon color="primary" ml="4px" />}
+              {chainId === ChainId.MODE_MAINNET && (
+                <BscScanIcon color="primary" ml="4px" />
+              )}
             </Link>
           )}
           {currencyToAdd && (
@@ -74,44 +82,63 @@ export function TransactionSubmittedContent({
               tokenAddress={token.address}
               tokenSymbol={currencyToAdd.symbol}
               tokenDecimals={token.decimals}
-              tokenLogo={token instanceof WrappedTokenInfo ? token.logoURI : undefined}
+              tokenLogo={
+                token instanceof WrappedTokenInfo ? token.logoURI : undefined
+              }
             />
           )}
           <Button onClick={onDismiss} mt="20px">
-            {t('Close')}
+            {t("Close")}
           </Button>
         </AutoColumn>
       </Section>
     </Wrapper>
-  )
+  );
 }
 
 interface ConfirmationModalProps {
-  title: string
-  customOnDismiss?: () => void
-  hash: string | undefined
-  content: () => React.ReactNode
-  attemptingTxn: boolean
-  pendingText: string
-  currencyToAdd?: Currency | undefined
+  title: string;
+  customOnDismiss?: () => void;
+  hash: string | undefined;
+  content: () => React.ReactNode;
+  attemptingTxn: boolean;
+  pendingText: string;
+  currencyToAdd?: Currency | undefined;
 }
 
 const TransactionConfirmationModal: React.FC<
-  React.PropsWithChildren<InjectedModalProps & ConfirmationModalProps & ModalProps>
-> = ({ title, onDismiss, customOnDismiss, attemptingTxn, hash, pendingText, content, currencyToAdd, ...props }) => {
-  const { chainId } = useActiveChainId()
+  React.PropsWithChildren<
+    InjectedModalProps & ConfirmationModalProps & ModalProps
+  >
+> = ({
+  title,
+  onDismiss,
+  customOnDismiss,
+  attemptingTxn,
+  hash,
+  pendingText,
+  content,
+  currencyToAdd,
+  ...props
+}) => {
+  const { chainId } = useActiveChainId();
 
   const handleDismiss = useCallback(() => {
     if (customOnDismiss) {
-      customOnDismiss()
+      customOnDismiss();
     }
-    onDismiss?.()
-  }, [customOnDismiss, onDismiss])
+    onDismiss?.();
+  }, [customOnDismiss, onDismiss]);
 
-  if (!chainId) return null
+  if (!chainId) return null;
 
   return (
-    <Modal title={title} headerBackground="gradientCardHeader" {...props} onDismiss={handleDismiss}>
+    <Modal
+      title={title}
+      headerBackground="gradientCardHeader"
+      {...props}
+      onDismiss={handleDismiss}
+    >
       {attemptingTxn ? (
         <ConfirmationPendingContent pendingText={pendingText} />
       ) : hash ? (
@@ -125,7 +152,7 @@ const TransactionConfirmationModal: React.FC<
         content()
       )}
     </Modal>
-  )
-}
+  );
+};
 
-export default TransactionConfirmationModal
+export default TransactionConfirmationModal;

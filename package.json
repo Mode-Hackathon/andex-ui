@@ -5,7 +5,8 @@
     "build": "turbo build",
     "storybook": "turbo run start --filter=uikit...",
     "build:storybook": "turbo run build:storybook --filter=uikit...",
-    "dev": "turbo dev",
+    "build:web": "turbo run build:storybook --filter=web...",
+    "dev": "turbo run dev --filter=web... --concurrency=24",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

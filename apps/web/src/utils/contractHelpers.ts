@@ -101,7 +101,7 @@ import { Address, erc20ABI, erc721ABI } from 'wagmi'
 export const getContract = <TAbi extends Abi | unknown[], TWalletClient extends WalletClient>({
   abi,
   address,
-  chainId = ChainId.BSC,
+  chainId = ChainId.MODE_MAINNET,
   publicClient,
   signer,
 }: {
@@ -149,7 +149,7 @@ export const getPointCenterIfoContract = (signer?: WalletClient) => {
 export const getCakeContract = (chainId?: number) => {
   return getContract({
     abi: erc20ABI,
-    address: chainId ? CAKE[chainId]?.address : CAKE[ChainId.BSC].address,
+    address: chainId ? CAKE[chainId]?.address : CAKE[ChainId.MODE_MAINNET].address,
     chainId,
   })
 }
@@ -248,7 +248,7 @@ export const getPotteryDrawContract = (walletClient?: WalletClient) => {
 }
 
 export const getIfoCreditAddressContract = (signer?: WalletClient) => {
-  return getIfoCreditAddressContract_(ChainId.BSC, getViemClients, signer)
+  return getIfoCreditAddressContract_(ChainId.MODE_MAINNET, getViemClients, signer)
 }
 
 export const getBCakeFarmBoosterContract = (signer?: WalletClient) => {
@@ -377,11 +377,11 @@ export const getMasterChefV3Contract = (signer?: WalletClient, chainId?: number)
   const mcv3Address = getMasterChefV3Address(chainId)
   return mcv3Address
     ? getContract({
-        abi: masterChefV3ABI,
-        address: mcv3Address,
-        chainId,
-        signer,
-      })
+      abi: masterChefV3ABI,
+      address: mcv3Address,
+      chainId,
+      signer,
+    })
     : null
 }
 
@@ -464,7 +464,7 @@ export const getFixedStakingContract = (signer?: WalletClient, chainId?: number)
 export const getVeCakeContract = (signer?: WalletClient, chainId?: number) => {
   return getContract({
     abi: veCakeABI,
-    address: getVeCakeAddress(chainId) ?? getVeCakeAddress(ChainId.BSC),
+    address: getVeCakeAddress(chainId) ?? getVeCakeAddress(ChainId.MODE_MAINNET),
     signer,
     chainId,
   })
@@ -473,7 +473,7 @@ export const getVeCakeContract = (signer?: WalletClient, chainId?: number) => {
 export const getGaugesVotingContract = (signer?: WalletClient, chainId?: number) => {
   return getContract({
     abi: gaugesVotingABI,
-    address: getGaugesVotingAddress(chainId) ?? getGaugesVotingAddress(ChainId.BSC),
+    address: getGaugesVotingAddress(chainId) ?? getGaugesVotingAddress(ChainId.MODE_MAINNET),
     signer,
     chainId,
   })
@@ -482,7 +482,7 @@ export const getGaugesVotingContract = (signer?: WalletClient, chainId?: number)
 export const getCalcGaugesVotingContract = (signer?: WalletClient, chainId?: number) => {
   return getContract({
     abi: calcGaugesVotingABI,
-    address: getCalcGaugesVotingAddress(chainId) ?? getCalcGaugesVotingAddress(ChainId.BSC),
+    address: getCalcGaugesVotingAddress(chainId) ?? getCalcGaugesVotingAddress(ChainId.MODE_MAINNET),
     signer,
     chainId,
   })
@@ -491,7 +491,7 @@ export const getCalcGaugesVotingContract = (signer?: WalletClient, chainId?: num
 export const getRevenueSharingCakePoolContract = (signer?: WalletClient, chainId?: number) => {
   return getContract({
     abi: revenueSharingPoolProxyABI,
-    address: getRevenueSharingCakePoolAddress(chainId) ?? getRevenueSharingCakePoolAddress(ChainId.BSC),
+    address: getRevenueSharingCakePoolAddress(chainId) ?? getRevenueSharingCakePoolAddress(ChainId.MODE_MAINNET),
     signer,
     chainId,
   })
@@ -500,7 +500,7 @@ export const getRevenueSharingCakePoolContract = (signer?: WalletClient, chainId
 export const getRevenueSharingVeCakeContract = (signer?: WalletClient, chainId?: number) => {
   return getContract({
     abi: revenueSharingPoolProxyABI,
-    address: getRevenueSharingVeCakeAddress(chainId) ?? getRevenueSharingVeCakeAddress(ChainId.BSC),
+    address: getRevenueSharingVeCakeAddress(chainId) ?? getRevenueSharingVeCakeAddress(ChainId.MODE_MAINNET),
     signer,
     chainId,
   })
@@ -509,7 +509,7 @@ export const getRevenueSharingVeCakeContract = (signer?: WalletClient, chainId?:
 export const getRevenueSharingPoolGatewayContract = (signer?: WalletClient, chainId?: number) => {
   return getContract({
     abi: revenueSharingPoolGatewayABI,
-    address: getRevenueSharingPoolGatewayAddress(chainId) ?? getRevenueSharingPoolGatewayAddress(ChainId.BSC),
+    address: getRevenueSharingPoolGatewayAddress(chainId) ?? getRevenueSharingPoolGatewayAddress(ChainId.MODE_MAINNET),
     signer,
     chainId,
   })

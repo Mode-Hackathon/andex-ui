@@ -115,36 +115,36 @@ export const fetchCakePoolPublicDataAsync = () => async (dispatch) => {
 
 export const fetchCakePoolUserDataAsync =
   ({ account, chainId }: { account: string; chainId: ChainId }) =>
-  async (dispatch) => {
-    const client = publicClient({ chainId: ChainId.BSC })
-    const [allowance, stakingTokenBalance] = await client.multicall({
-      contracts: [
-        {
-          abi: erc20ABI,
-          address: bscTokens.cake.address,
-          functionName: 'allowance',
-          args: [account as Address, getCakeVaultAddress(chainId)],
-        },
-        {
-          abi: erc20ABI,
-          address: bscTokens.cake.address,
-          functionName: 'balanceOf',
-          args: [account as Address],
-        },
-      ],
-      allowFailure: false,
-    })
+    async (dispatch) => {
+      const client = publicClient({ chainId: ChainId.MODE_MAINNET })
+      const [allowance, stakingTokenBalance] = await client.multicall({
+        contracts: [
+          {
+            abi: erc20ABI,
+            address: bscTokens.cake.address,
+            functionName: 'allowance',
+            args: [account as Address, getCakeVaultAddress(chainId)],
+          },
+          {
+            abi: erc20ABI,
+            address: bscTokens.cake.address,
+            functionName: 'balanceOf',
+            args: [account as Address],
+          },
+        ],
+        allowFailure: false,
+      })
 
-    dispatch(
-      setPoolUserData({
-        sousId: 0,
-        data: {
-          allowance: new BigNumber(allowance.toString()).toJSON(),
-          stakingTokenBalance: new BigNumber(stakingTokenBalance.toString()).toJSON(),
-        },
-      }),
-    )
-  }
+      dispatch(
+        setPoolUserData({
+          sousId: 0,
+          data: {
+            allowance: new BigNumber(allowance.toString()).toJSON(),
+            stakingTokenBalance: new BigNumber(stakingTokenBalance.toString()).toJSON(),
+          },
+        }),
+      )
+    }
 
 export const fetchPoolsPublicDataAsync = (chainId: number) => async (dispatch, getState) => {
   try {
@@ -188,8 +188,8 @@ export const fetchPoolsPublicDataAsync = (chainId: number) => async (dispatch, g
     const bnbBusdFarms =
       activePriceHelperLpsConfig.length > 0
         ? [...orderBy(farmsV3Data, 'lmPoolLiquidity', 'desc'), ...farmsV2Data].filter(
-            (farm) => farm.token.symbol === 'BUSD' && farm.quoteToken.symbol === 'WBNB',
-          )
+          (farm) => farm.token.symbol === 'BUSD' && farm.quoteToken.symbol === 'WBNB',
+        )
         : []
     const farmsWithPricesOfDifferentTokenPools =
       bnbBusdFarms.length > 0
@@ -236,11 +236,11 @@ export const fetchPoolsPublicDataAsync = (chainId: number) => async (dispatch, g
         ? isLegacyPool(pool)
           ? getPoolAprByTokenPerBlock(stakingTokenPrice, earningTokenPrice, totalStaked, parseFloat(pool.tokenPerBlock))
           : getPoolAprByTokenPerSecond(
-              stakingTokenPrice,
-              earningTokenPrice,
-              totalStaked,
-              parseFloat(pool.tokenPerSecond),
-            )
+            stakingTokenPrice,
+            earningTokenPrice,
+            totalStaked,
+            parseFloat(pool.tokenPerSecond),
+          )
         : 0
 
       const profileRequirement = profileRequirements[pool.sousId] ? profileRequirements[pool.sousId] : undefined
@@ -412,14 +412,14 @@ export const fetchIfoPublicDataAsync = createAsyncThunk<PublicIfoData, ChainId>(
 
 export const fetchUserIfoCreditDataAsync =
   ({ account, chainId }: { account: Address; chainId: ChainId }) =>
-  async (dispatch) => {
-    try {
-      const credit = await fetchUserIfoCredit({ account, chainId, provider: getViemClients })
-      dispatch(setIfoUserCreditData(credit))
-    } catch (error) {
-      console.error('[Ifo Credit Action] Error fetching user Ifo credit data', error)
+    async (dispatch) => {
+      try {
+        const credit = await fetchUserIfoCredit({ account, chainId, provider: getViemClients })
+        dispatch(setIfoUserCreditData(credit))
+      } catch (error) {
+        console.error('[Ifo Credit Action] Error fetching user Ifo credit data', error)
+      }
     }
-  }
 export const fetchCakeFlexibleSideVaultUserData = createAsyncThunk<
   SerializedVaultUser,
   { account: Address; chainId: ChainId }

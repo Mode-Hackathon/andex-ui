@@ -14,7 +14,7 @@ export const getNodeRealUrl = (chainId: number, key?: string) => {
         host = `eth-goerli.nodereal.io/v1/${key}`
       }
       break
-    case ChainId.BSC:
+    case ChainId.MODE_MAINNET:
       if (key) {
         host = `bsc-mainnet.nodereal.io/v1/${key}`
       }

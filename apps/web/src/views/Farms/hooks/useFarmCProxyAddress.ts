@@ -5,7 +5,7 @@ import { Address } from 'wagmi'
 import { useQuery } from '@tanstack/react-query'
 
 export const useFarmCProxyAddress = (account?: string, chainId?: number) => {
-  const multiCallChainId = farmFetcher.isTestnet(chainId) ? ChainId.BSC_TESTNET : ChainId.BSC
+  const multiCallChainId = farmFetcher.isTestnet(chainId) ? ChainId.MODE_TESTNET : ChainId.MODE_MAINNET
   const { data } = useQuery(
     ['cProxyAddress', account, chainId],
     async () => fetchCProxyAddress(account as Address, multiCallChainId),

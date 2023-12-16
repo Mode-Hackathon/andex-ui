@@ -65,7 +65,7 @@ const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
       return
     }
 
-    const [offeringAmount, userInfoResponse, refundingAmount] = await publicClient({ chainId: ChainId.BSC }).multicall({
+    const [offeringAmount, userInfoResponse, refundingAmount] = await publicClient({ chainId: ChainId.MODE_MAINNET }).multicall({
       contracts: [
         {
           address,
@@ -91,9 +91,9 @@ const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
 
     const parsedUserInfo: UserInfo = userInfoResponse
       ? {
-          amount: new BigNumber(userInfoResponse[0].toString()),
-          claimed: userInfoResponse[1],
-        }
+        amount: new BigNumber(userInfoResponse[0].toString()),
+        claimed: userInfoResponse[1],
+      }
       : { amount: BIG_ZERO, claimed: false }
 
     setState((prevState) => ({

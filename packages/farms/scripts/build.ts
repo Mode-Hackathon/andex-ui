@@ -5,7 +5,7 @@ import fs from 'fs'
 import ethFarms from '../constants/eth'
 import goerliFarms from '../constants/goerli'
 import bscTestnetFarms from '../constants/bscTestnet'
-import bscFarms from '../constants/bsc'
+// import bscFarms from '../constants/bsc'
 
 import lpHelpers1 from '../constants/priceHelperLps/1'
 import lpHelpers5 from '../constants/priceHelperLps/5'
@@ -15,7 +15,7 @@ import lpHelpers56 from '../constants/priceHelperLps/56'
 const chains = [
   [1, ethFarms, lpHelpers1],
   [5, goerliFarms, lpHelpers5],
-  [56, bscFarms, lpHelpers56],
+  // [56, bscFarms, lpHelpers56],
   [97, bscTestnetFarms, lpHelpers97],
 ]
 
@@ -39,5 +39,7 @@ export const saveList = async () => {
     console.info('Lp list saved to ', lpPriceHelperListPath)
   }
 }
+
+// TODO:
 
 saveList()

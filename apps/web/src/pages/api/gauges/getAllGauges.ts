@@ -17,7 +17,7 @@ const handler: NextApiHandler = async (req, res) => {
   try {
     const gauges = await getAllGauges(
       getViemClients({
-        chainId: testnet ? ChainId.BSC_TESTNET : ChainId.BSC,
+        chainId: testnet ? ChainId.MODE_TESTNET : ChainId.MODE_MAINNET,
       }),
       {
         testnet,

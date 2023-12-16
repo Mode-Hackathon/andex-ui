@@ -1,13 +1,17 @@
-import { useChainCurrentBlock } from 'state/block/hooks'
-import { useActiveIfoWithBlocks } from 'hooks/useActiveIfoWithBlocks'
-import { ChainId } from '@pancakeswap/chains'
+import { useChainCurrentBlock } from "state/block/hooks";
+import { useActiveIfoWithBlocks } from "hooks/useActiveIfoWithBlocks";
+import { ChainId } from "@pancakeswap/chains";
 
 const useIsRenderIfoBanner = () => {
-  const currentBlock = useChainCurrentBlock(ChainId.BSC)
+  const currentBlock = useChainCurrentBlock(ChainId.MODE_MAINNET);
 
-  const activeIfoWithBlocks = useActiveIfoWithBlocks()
+  const activeIfoWithBlocks = useActiveIfoWithBlocks();
 
-  return !!(currentBlock && activeIfoWithBlocks && activeIfoWithBlocks.endBlock > currentBlock)
-}
+  return !!(
+    currentBlock &&
+    activeIfoWithBlocks &&
+    activeIfoWithBlocks.endBlock > currentBlock
+  );
+};
 
-export default useIsRenderIfoBanner
+export default useIsRenderIfoBanner;

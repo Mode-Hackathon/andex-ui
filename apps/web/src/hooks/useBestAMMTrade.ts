@@ -178,9 +178,8 @@ function bestTradeHookFactory({
           return undefined
         }
         const deferAmount = CurrencyAmount.fromRawAmount(amount.currency, deferQuotient)
-        const label = `[BEST_AMM](${key}) chain ${currency.chainId}, ${deferAmount.toExact()} ${
-          amount.currency.symbol
-        } -> ${currency.symbol}, tradeType ${tradeType}`
+        const label = `[BEST_AMM](${key}) chain ${currency.chainId}, ${deferAmount.toExact()} ${amount.currency.symbol
+          } -> ${currency.symbol}, tradeType ${tradeType}`
         SmartRouter.log(label)
         SmartRouter.metric(label, candidatePools)
         const res = await getBestTrade(deferAmount, currency, tradeType, {
@@ -363,8 +362,8 @@ function useQuoteProvider2(chainId?: ChainId) {
         gasLimit,
         multicallConfigs: {
           ...BATCH_MULTICALL_CONFIGS,
-          [ChainId.BSC]: {
-            ...BATCH_MULTICALL_CONFIGS[ChainId.BSC],
+          [ChainId.MODE_MAINNET]: {
+            ...BATCH_MULTICALL_CONFIGS[ChainId.MODE_MAINNET],
             defaultConfig: {
               gasLimitPerCall: 1_000_000,
             },

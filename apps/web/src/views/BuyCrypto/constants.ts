@@ -42,7 +42,7 @@ export const supportedTokenMap: {
     [ONRAMP_PROVIDERS.Transak]: string[]
   }
 } = {
-  [ChainId.BSC]: {
+  [ChainId.MODE_MAINNET]: {
     [ONRAMP_PROVIDERS.MoonPay]: SUPPORTED_MOONPAY_BSC_TOKENS,
     [ONRAMP_PROVIDERS.Mercuryo]: SUPPORTED_MERCURYO_BSC_TOKENS,
     [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_BSC_TOKENS,
@@ -83,7 +83,7 @@ export const supportedTokenMap: {
 export const whiteListedFiatCurrenciesMap: {
   [chainId: number]: string[]
 } = {
-  [ChainId.BSC]: DEFAULT_FIAT_CURRENCIES,
+  [ChainId.MODE_MAINNET]: DEFAULT_FIAT_CURRENCIES,
   [ChainId.ETHEREUM]: DEFAULT_FIAT_CURRENCIES,
   [ChainId.ARBITRUM_ONE]: DEFAULT_FIAT_CURRENCIES,
   [ChainId.ZKSYNC]: DEFAULT_FIAT_CURRENCIES,
@@ -106,7 +106,7 @@ export const getNetworkDisplay = (chainId: number | undefined): string => {
   switch (chainId as ChainId) {
     case ChainId.ETHEREUM:
       return 'Ethereum'
-    case ChainId.BSC:
+    case ChainId.MODE_MAINNET:
       return 'BNB Smart Chain'
     case ChainId.ZKSYNC:
       return 'zkSync Era'
@@ -125,7 +125,7 @@ export const getNetworkDisplay = (chainId: number | undefined): string => {
 
 export const chainIdToMercuryoNetworkId: { [id: number]: string } = {
   [ChainId.ETHEREUM]: 'ETHEREUM',
-  [ChainId.BSC]: 'BINANCESMARTCHAIN',
+  [ChainId.MODE_MAINNET]: 'BINANCESMARTCHAIN',
   [ChainId.ARBITRUM_ONE]: 'ARBITRUM',
   [ChainId.ZKSYNC]: 'ZKSYNC',
   [ChainId.POLYGON_ZKEVM]: 'ZKEVM',
@@ -135,7 +135,7 @@ export const chainIdToMercuryoNetworkId: { [id: number]: string } = {
 
 export const chainIdToMoonPayNetworkId: { [id: number]: string } = {
   [ChainId.ETHEREUM]: '',
-  [ChainId.BSC]: '_bsc',
+  [ChainId.MODE_MAINNET]: '_bsc',
   [ChainId.ARBITRUM_ONE]: '_arbitrum',
   [ChainId.ZKSYNC]: '_zksync',
   [ChainId.POLYGON_ZKEVM]: '_polygonzkevm',
@@ -145,7 +145,7 @@ export const chainIdToMoonPayNetworkId: { [id: number]: string } = {
 
 export const chainIdToTransakNetworkId: { [id: number]: string } = {
   [ChainId.ETHEREUM]: 'ethereum',
-  [ChainId.BSC]: 'bsc',
+  [ChainId.MODE_MAINNET]: 'bsc',
   [ChainId.ARBITRUM_ONE]: 'arbitrum',
   [ChainId.ZKSYNC]: 'zksync',
   [ChainId.POLYGON_ZKEVM]: 'polygonzkevm',

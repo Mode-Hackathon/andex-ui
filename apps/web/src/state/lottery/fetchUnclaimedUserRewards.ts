@@ -32,7 +32,7 @@ const fetchCakeRewardsForTickets = async (
   })
 
   try {
-    const client = publicClient({ chainId: ChainId.BSC })
+    const client = publicClient({ chainId: ChainId.MODE_MAINNET })
     const cakeRewards = await client.multicall({
       contracts: calls,
       allowFailure: false,

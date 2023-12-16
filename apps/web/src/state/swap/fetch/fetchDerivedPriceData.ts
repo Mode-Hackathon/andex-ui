@@ -24,17 +24,17 @@ type Protocol = (typeof PROTOCOL)[number]
 type ProtocolEndpoint = Record<Protocol, string>
 
 const SWAP_INFO_BY_CHAIN = {
-  [ChainId.BSC]: {
+  [ChainId.MODE_MAINNET]: {
     v2: INFO_CLIENT,
     stable: STABLESWAP_SUBGRAPH_CLIENT,
-    // v3: V3_SUBGRAPH_URLS[ChainId.BSC],
+    // v3: V3_SUBGRAPH_URLS[ChainId.MODE_MAINNET],
   },
   [ChainId.ETHEREUM]: {
     v2: INFO_CLIENT_ETH,
     // v3: V3_SUBGRAPH_URLS[ChainId.ETHEREUM],
   },
-  [ChainId.BSC_TESTNET]: {
-    v3: V3_SUBGRAPH_URLS[ChainId.BSC_TESTNET],
+  [ChainId.MODE_TESTNET]: {
+    v3: V3_SUBGRAPH_URLS[ChainId.MODE_TESTNET],
   },
   [ChainId.GOERLI]: {},
   [ChainId.ARBITRUM_ONE]: {

@@ -26,24 +26,24 @@ export const fetchMasterChefFarmPoolLength = async (chainId: number) => {
 
 const masterChefFarmCalls = (farm: SerializedFarm) => {
   const { pid, quoteToken } = farm
-  const multiCallChainId = farmFetcher.isTestnet(quoteToken.chainId) ? ChainId.BSC_TESTNET : ChainId.BSC
+  const multiCallChainId = farmFetcher.isTestnet(quoteToken.chainId) ? ChainId.MODE_TESTNET : ChainId.MODE_MAINNET
   const masterChefAddress = getMasterChefV2Address(multiCallChainId)
   const masterChefPid = pid
 
   return masterChefPid || masterChefPid === 0
     ? ([
-        {
-          abi: masterChefV2ABI,
-          address: masterChefAddress,
-          functionName: 'poolInfo',
-          args: [masterChefPid],
-        },
-        {
-          abi: masterChefV2ABI,
-          address: masterChefAddress,
-          functionName: 'totalRegularAllocPoint',
-        },
-      ] as const)
+      {
+        abi: masterChefV2ABI,
+        address: masterChefAddress,
+        functionName: 'poolInfo',
+        args: [masterChefPid],
+      },
+      {
+        abi: masterChefV2ABI,
+        address: masterChefAddress,
+        functionName: 'totalRegularAllocPoint',
+      },
+    ] as const)
     : ([null, null] as const)
 }
 
@@ -60,7 +60,7 @@ export const fetchMasterChefData = async (
     .filter((masterChefCall) => masterChefCall[0] !== null && masterChefCall[1] !== null)
     .flat()
 
-  const multiCallChainId = farmFetcher.isTestnet(chainId) ? ChainId.BSC_TESTNET : ChainId.BSC
+  const multiCallChainId = farmFetcher.isTestnet(chainId) ? ChainId.MODE_TESTNET : ChainId.MODE_MAINNET
   const client = publicClient({ chainId: multiCallChainId })
   const masterChefMultiCallResult = await client.multicall({
     contracts: masterChefAggregatedCalls,

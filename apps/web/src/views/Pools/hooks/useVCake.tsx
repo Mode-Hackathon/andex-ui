@@ -1,37 +1,37 @@
-import { ChainId } from '@pancakeswap/chains'
-import useAccountActiveChain from 'hooks/useAccountActiveChain'
-import { useVCakeContract } from 'hooks/useContract'
-import { useQuery } from '@tanstack/react-query'
+import { ChainId } from "@pancakeswap/chains";
+import useAccountActiveChain from "hooks/useAccountActiveChain";
+import { useVCakeContract } from "hooks/useContract";
+import { useQuery } from "@tanstack/react-query";
 
 interface UseVCake {
-  isInitialization?: boolean
-  refresh: () => void
+  isInitialization?: boolean;
+  refresh: () => void;
 }
 
 const useVCake = (): UseVCake => {
-  const { account, chainId } = useAccountActiveChain()
-  const vCakeContract = useVCakeContract({ chainId })
+  const { account, chainId } = useAccountActiveChain();
+  const vCakeContract = useVCakeContract({ chainId });
 
   const { data, refetch } = useQuery(
-    ['/v-cake-initialization', account, chainId],
+    ["/v-cake-initialization", account, chainId],
     async () => {
-      if (!account) return undefined
+      if (!account) return undefined;
       try {
-        return await vCakeContract.read.initialization([account])
+        return await vCakeContract.read.initialization([account]);
       } catch (error) {
-        console.error('[ERROR] Fetching vCake initialization', error)
-        return undefined
+        console.error("[ERROR] Fetching vCake initialization", error);
+        return undefined;
       }
     },
     {
-      enabled: Boolean(account && chainId === ChainId.BSC),
-    },
-  )
+      enabled: Boolean(account && chainId === ChainId.MODE_MAINNET),
+    }
+  );
 
   return {
     isInitialization: data,
     refresh: refetch,
-  }
-}
+  };
+};
 
-export default useVCake
+export default useVCake;

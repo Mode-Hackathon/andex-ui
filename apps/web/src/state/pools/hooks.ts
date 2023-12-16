@@ -167,7 +167,7 @@ export const useCakeVaultPublicData = () => {
 }
 
 const useCakeVaultChain = (chainId?: ChainId) => {
-  return useMemo(() => getSourceChain(chainId) || ChainId.BSC, [chainId])
+  return useMemo(() => getSourceChain(chainId) || ChainId.MODE_MAINNET, [chainId])
 }
 
 export const useFetchIfo = () => {

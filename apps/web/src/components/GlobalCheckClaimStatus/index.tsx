@@ -1,22 +1,24 @@
-import { ChainId } from '@pancakeswap/chains'
-import useAccountActiveChain from 'hooks/useAccountActiveChain'
-import AnniversaryAchievementModal from './AnniversaryAchievementModal'
-import V3AirdropModal from './V3AirdropModal'
+import { ChainId } from "@pancakeswap/chains";
+import useAccountActiveChain from "hooks/useAccountActiveChain";
+// import AnniversaryAchievementModal from "./AnniversaryAchievementModal";
+import V3AirdropModal from "./V3AirdropModal";
 
 interface GlobalCheckClaimStatusProps {
-  excludeLocations: string[]
+  excludeLocations: string[];
 }
 
 // change it to true if we have events to check claim status
-const enable = true
+const enable = false;
 
-const GlobalCheckClaimStatus: React.FC<React.PropsWithChildren<GlobalCheckClaimStatusProps>> = (props) => {
-  const { account, chainId } = useAccountActiveChain()
-  if (!enable || chainId !== ChainId.BSC || !account) {
-    return null
+const GlobalCheckClaimStatus: React.FC<
+  React.PropsWithChildren<GlobalCheckClaimStatusProps>
+> = (props) => {
+  const { account, chainId } = useAccountActiveChain();
+  if (!enable || chainId !== ChainId.MODE_MAINNET || !account) {
+    return null;
   }
-  return <GlobalCheckClaim key={account} {...props} />
-}
+  return <GlobalCheckClaim key={account} {...props} />;
+};
 
 /**
  * This is represented as a component rather than a hook because we need to keep it
@@ -25,13 +27,15 @@ const GlobalCheckClaimStatus: React.FC<React.PropsWithChildren<GlobalCheckClaimS
  * TODO: Put global checks in redux or make a generic area to house global checks
  */
 
-const GlobalCheckClaim: React.FC<React.PropsWithChildren<GlobalCheckClaimStatusProps>> = ({ excludeLocations }) => {
+const GlobalCheckClaim: React.FC<
+  React.PropsWithChildren<GlobalCheckClaimStatusProps>
+> = ({ excludeLocations }) => {
   return (
     <>
-      <AnniversaryAchievementModal excludeLocations={excludeLocations} />
+      {/* <AnniversaryAchievementModal excludeLocations={excludeLocations} /> */}
       <V3AirdropModal />
     </>
-  )
-}
+  );
+};
 
-export default GlobalCheckClaimStatus
+export default GlobalCheckClaimStatus;

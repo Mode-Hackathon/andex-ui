@@ -1,9 +1,9 @@
-import { styled } from 'styled-components'
-import { Text, Flex, Skeleton } from '@pancakeswap/uikit'
-import { FarmWidget } from '@pancakeswap/widgets-internal'
-import { TokenPairImage } from 'components/TokenImage'
-import { Token } from '@pancakeswap/swap-sdk-core'
-import { ChainId } from '@pancakeswap/chains'
+import { styled } from "styled-components";
+import { Text, Flex, Skeleton } from "@pancakeswap/uikit";
+import { FarmWidget } from "@pancakeswap/widgets-internal";
+import { TokenPairImage } from "components/TokenImage";
+import { Token } from "@pancakeswap/swap-sdk-core";
+import { ChainId } from "@pancakeswap/chains";
 
 const TokenWrapper = styled.div`
   padding-right: 8px;
@@ -12,27 +12,32 @@ const TokenWrapper = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 40px;
   }
-`
+`;
 
-const { V3Tag, V3FeeTag, EthTag, BscTag, ZkEVMTag, ZkSyncTag, ArbTag, BaseTag, LineaTag } = FarmWidget.Tags
+const {
+  V3Tag,
+  V3FeeTag,
+  EthTag,
+  BscTag,
+  ZkEVMTag,
+  ZkSyncTag,
+  ArbTag,
+  BaseTag,
+  LineaTag,
+} = FarmWidget.Tags;
 
 interface PairInfoProps {
-  isReady: boolean
-  lpSymbol: string
-  token: Token
-  quoteToken: Token
-  feeAmount: number
-  chainId: ChainId
+  isReady: boolean;
+  lpSymbol: string;
+  token: Token;
+  quoteToken: Token;
+  feeAmount: number;
+  chainId: ChainId;
 }
 
-const PairInfo: React.FunctionComponent<React.PropsWithChildren<PairInfoProps>> = ({
-  isReady,
-  lpSymbol,
-  token,
-  quoteToken,
-  feeAmount,
-  chainId,
-}) => {
+const PairInfo: React.FunctionComponent<
+  React.PropsWithChildren<PairInfoProps>
+> = ({ isReady, lpSymbol, token, quoteToken, feeAmount, chainId }) => {
   if (!isReady) {
     return (
       <Flex alignItems="center">
@@ -42,7 +47,7 @@ const PairInfo: React.FunctionComponent<React.PropsWithChildren<PairInfoProps>> 
           <Skeleton width={60} height={24} />
         </div>
       </Flex>
-    )
+    );
   }
 
   return (
@@ -60,19 +65,19 @@ const PairInfo: React.FunctionComponent<React.PropsWithChildren<PairInfoProps>> 
           </TokenWrapper>
         )}
         <Flex width="100%">
-          <Flex alignSelf="center" width={['115px']}>
+          <Flex alignSelf="center" width={["115px"]}>
             <Text lineHeight="110%" bold>
               {lpSymbol}
             </Text>
           </Flex>
-          <Flex ml={['auto', 'auto', 'auto', 'auto', '4px']}>
+          <Flex ml={["auto", "auto", "auto", "auto", "4px"]}>
             <Flex>
               <V3FeeTag feeAmount={feeAmount} scale="sm" />
               <V3Tag ml="4px" scale="sm" />
             </Flex>
             <Flex ml="4px">
               {chainId === ChainId.ETHEREUM && <EthTag />}
-              {chainId === ChainId.BSC && <BscTag />}
+              {chainId === ChainId.MODE_MAINNET && <BscTag />}
               {chainId === ChainId.POLYGON_ZKEVM && <ZkEVMTag />}
               {chainId === ChainId.ZKSYNC && <ZkSyncTag />}
               {chainId === ChainId.ARBITRUM_ONE && <ArbTag />}
@@ -83,7 +88,7 @@ const PairInfo: React.FunctionComponent<React.PropsWithChildren<PairInfoProps>> 
         </Flex>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default PairInfo
+export default PairInfo;

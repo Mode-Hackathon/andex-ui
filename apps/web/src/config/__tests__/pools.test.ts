@@ -17,7 +17,7 @@ describe.concurrent(
       const pools = getPoolsConfig(chainId) ?? []
       // Pool 0 is special (cake pool)
       // Pool 78 is a broken pool, not used, and break the tests
-      const idsToRemove = chainId === ChainId.BSC ? [0, 78] : chainId === ChainId.BSC_TESTNET ? [0] : []
+      const idsToRemove = chainId === ChainId.MODE_MAINNET ? [0, 78] : chainId === ChainId.MODE_TESTNET ? [0] : []
       // Test only against the last 10 pools, for performance concern
       const poolsToTest = pools.filter((pool) => !idsToRemove.includes(pool.sousId)).slice(0, 10)
 

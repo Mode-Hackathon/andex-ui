@@ -4,7 +4,7 @@ import { getCakePriceFromOracle } from 'hooks/useCakePrice'
 
 const CHAIN_MAPPING = {
   [ChainId.ETHEREUM]: 'ethereum',
-  [ChainId.BSC]: 'bsc',
+  [ChainId.MODE_MAINNET]: 'bsc',
   [ChainId.ARBITRUM_ONE]: 'arbitrum',
   [ChainId.ZKSYNC]: 'era',
   [ChainId.LINEA]: 'linea',

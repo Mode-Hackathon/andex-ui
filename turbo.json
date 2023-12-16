@@ -31,6 +31,11 @@
     "build:list": {
       "outputs": ["list/**"]
     },
+    "dev": {
+      "dependsOn": ["@pancakeswap/next-config#build"],
+      "cache": false,
+      "persistent": true
+    },
     "integration-test": {
       "dependsOn": ["^build"],
       "outputs": []

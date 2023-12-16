@@ -11,17 +11,17 @@ import { wbethBscABI } from 'config/abi/wbethBSC'
 const liquidStaking: LiquidStakingList[] = [
   {
     stakingSymbol: 'ETH / wBETH',
-    contract: WBETH[ChainId.BSC],
-    token0: WETH9[ChainId.BSC_TESTNET],
+    contract: WBETH[ChainId.MODE_MAINNET],
+    token0: WETH9[ChainId.MODE_TESTNET],
     token1: bscTokens.wbeth,
     abi: wbethBscABI,
     shouldCheckApproval: true,
-    approveToken: WETH9[ChainId.BSC_TESTNET],
+    approveToken: WETH9[ChainId.MODE_TESTNET],
     aprUrl: 'https://www.binance.com/bapi/earn/v1/public/pos/cftoken/project/getPurchasableProject',
     exchangeRateMultiCall: [
       {
         abi: wbethBscABI,
-        address: WBETH[ChainId.BSC_TESTNET],
+        address: WBETH[ChainId.MODE_TESTNET],
         functionName: FunctionName.exchangeRate,
       },
     ],

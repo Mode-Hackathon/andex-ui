@@ -13,15 +13,14 @@ export function getTokenInfoPath(
   dataSource: InfoDataSource = InfoDataSource.V3,
   stableSwapPath = '',
 ) {
-  return `/info${dataSource === InfoDataSource.V3 ? '/v3' : ''}${multiChainPaths[chainId]}/tokens/${address}?chain=${
-    CHAIN_QUERY_NAME[chainId]
-  }${stableSwapPath.replace('?', '&')}`
+  return `/info${dataSource === InfoDataSource.V3 ? '/v3' : ''}${multiChainPaths[chainId]}/tokens/${address}?chain=${CHAIN_QUERY_NAME[chainId]
+    }${stableSwapPath.replace('?', '&')}`
 }
 
 // TODO: refactor
 export function getChainName(chainId: ChainId) {
   switch (chainId) {
-    case ChainId.BSC:
+    case ChainId.MODE_MAINNET:
       return 'BSC'
     case ChainId.ETHEREUM:
       return 'ETH'

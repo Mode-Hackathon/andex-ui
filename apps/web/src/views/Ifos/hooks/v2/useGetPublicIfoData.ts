@@ -66,7 +66,7 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
 
   const fetchIfoData = useCallback(
     async (currentBlock: number) => {
-      const client = publicClient({ chainId: ChainId.BSC })
+      const client = publicClient({ chainId: ChainId.MODE_MAINNET })
       const [startBlock, endBlock, poolBasic, poolUnlimited, taxRate, numberPoints, thresholdPoints] =
         await client.multicall({
           contracts: [
@@ -128,24 +128,24 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
 
       setState(
         (prev) =>
-          ({
-            ...prev,
-            isInitialized: true,
-            secondsUntilEnd: blocksRemaining * BSC_BLOCK_TIME,
-            secondsUntilStart: (startBlockNum - currentBlock) * BSC_BLOCK_TIME,
-            poolBasic: {
-              ...poolBasicFormatted,
-              taxRate: 0,
-            },
-            poolUnlimited: { ...poolUnlimitedFormatted, taxRate: taxRateNum },
-            status,
-            progress,
-            blocksRemaining,
-            startBlockNum,
-            endBlockNum,
-            thresholdPoints,
-            numberPoints: numberPoints ? Number(numberPoints) : 0,
-          } as any),
+        ({
+          ...prev,
+          isInitialized: true,
+          secondsUntilEnd: blocksRemaining * BSC_BLOCK_TIME,
+          secondsUntilStart: (startBlockNum - currentBlock) * BSC_BLOCK_TIME,
+          poolBasic: {
+            ...poolBasicFormatted,
+            taxRate: 0,
+          },
+          poolUnlimited: { ...poolUnlimitedFormatted, taxRate: taxRateNum },
+          status,
+          progress,
+          blocksRemaining,
+          startBlockNum,
+          endBlockNum,
+          thresholdPoints,
+          numberPoints: numberPoints ? Number(numberPoints) : 0,
+        } as any),
       )
     },
     [address],

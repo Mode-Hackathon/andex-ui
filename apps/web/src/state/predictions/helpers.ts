@@ -40,7 +40,7 @@ export const deserializeRound = (round: ReduxNodeRound): NodeRound => ({
 })
 
 // TODO: refactor it when multi-chain
-const bscClient = publicClient({ chainId: ChainId.BSC })
+const bscClient = publicClient({ chainId: ChainId.MODE_MAINNET })
 
 export enum Result {
   WIN = 'win',
@@ -165,12 +165,12 @@ export const getLedgerData = async (
   const response = await bscClient.multicall({
     contracts: epochs.map(
       (epoch) =>
-        ({
-          address,
-          abi: predictionsV2ABI,
-          functionName: 'ledger',
-          args: [BigInt(epoch), account] as const,
-        } as const),
+      ({
+        address,
+        abi: predictionsV2ABI,
+        functionName: 'ledger',
+        args: [BigInt(epoch), account] as const,
+      } as const),
     ),
     allowFailure: false,
   })
@@ -259,12 +259,12 @@ export const getClaimStatuses = async (
   const response = await bscClient.multicall({
     contracts: epochs.map(
       (epoch) =>
-        ({
-          address,
-          abi: predictionsV2ABI,
-          functionName: 'claimable',
-          args: [BigInt(epoch), account] as const,
-        } as const),
+      ({
+        address,
+        abi: predictionsV2ABI,
+        functionName: 'claimable',
+        args: [BigInt(epoch), account] as const,
+      } as const),
     ),
     allowFailure: false,
   })
@@ -319,12 +319,12 @@ export const getRoundsData = async (epochs: number[], address: Address): Promise
   const response = await bscClient.multicall({
     contracts: epochs.map(
       (epoch) =>
-        ({
-          address,
-          abi: predictionsV2ABI,
-          functionName: 'rounds',
-          args: [BigInt(epoch)] as const,
-        } as const),
+      ({
+        address,
+        abi: predictionsV2ABI,
+        functionName: 'rounds',
+        args: [BigInt(epoch)] as const,
+      } as const),
     ),
     allowFailure: false,
   })

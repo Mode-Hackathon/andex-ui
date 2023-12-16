@@ -1,18 +1,18 @@
 import { ChainId } from "@pancakeswap/chains";
 import { Currency, NATIVE, Token } from "@pancakeswap/sdk";
-import { bscTokens, ethereumTokens } from "@pancakeswap/tokens";
+import { ethereumTokens } from "@pancakeswap/tokens";
 import memoize from "lodash/memoize";
 import { getAddress } from "viem";
 
 const mapping: { [key: number]: string } = {
-  [ChainId.BSC]: "smartchain",
-  [ChainId.ETHEREUM]: "ethereum",
-  [ChainId.POLYGON_ZKEVM]: "polygonzkevm",
-  [ChainId.ARBITRUM_ONE]: "arbitrum",
-  [ChainId.ZKSYNC]: "zksync",
-  [ChainId.BASE]: "base",
-  [ChainId.LINEA]: "linea",
-  [ChainId.OPBNB]: "opbnb",
+  [ChainId.MODE_MAINNET]: "mode",
+  [ChainId.MODE_TESTNET]: "modetestnet",
+  // [ChainId.POLYGON_ZKEVM]: "polygonzkevm",
+  // [ChainId.ARBITRUM_ONE]: "arbitrum",
+  // [ChainId.ZKSYNC]: "zksync",
+  // [ChainId.BASE]: "base",
+  // [ChainId.LINEA]: "linea",
+  // [ChainId.OPBNB]: "opbnb",
 };
 
 export const getTokenLogoURL = memoize(
@@ -40,14 +40,14 @@ export const getTokenLogoURLByAddress = memoize(
 );
 
 const chainName: { [key: number]: string } = {
-  [ChainId.BSC]: "",
-  [ChainId.ETHEREUM]: "eth",
-  [ChainId.POLYGON_ZKEVM]: "polygon-zkevm",
-  [ChainId.ARBITRUM_ONE]: "arbitrum",
-  [ChainId.ZKSYNC]: "zksync",
-  [ChainId.LINEA]: "linea",
-  [ChainId.BASE]: "base",
-  [ChainId.OPBNB]: "opbnb",
+  [ChainId.MODE_MAINNET]: "mode",
+  [ChainId.MODE_TESTNET]: "mode-testnet",
+  // [ChainId.POLYGON_ZKEVM]: "polygon-zkevm",
+  // [ChainId.ARBITRUM_ONE]: "arbitrum",
+  // [ChainId.ZKSYNC]: "zksync",
+  // [ChainId.LINEA]: "linea",
+  // [ChainId.BASE]: "base",
+  // [ChainId.OPBNB]: "opbnb",
 };
 
 // TODO: move to utils or token-list
@@ -56,19 +56,18 @@ export const getTokenListBaseURL = (chainId: number) =>
 
 export const getTokenListTokenUrl = (token: Token) =>
   Object.keys(chainName).includes(String(token.chainId))
-    ? `https://tokens.pancakeswap.finance/images/${
-        token.chainId === ChainId.BSC ? "" : `${chainName[token.chainId]}/`
-      }${token.address}.png`
+    ? `https://tokens.pancakeswap.finance/images/${token.chainId === ChainId.MODE_MAINNET ? "" : `${chainName[token.chainId]}/`
+    }${token.address}.png`
     : null;
 
 const commonCurrencySymbols = [
   ethereumTokens.usdt,
   ethereumTokens.usdc,
-  bscTokens.cake,
+  // bscTokens.cake,
   ethereumTokens.wbtc,
   ethereumTokens.weth,
-  NATIVE[ChainId.BSC],
-  bscTokens.busd,
+  NATIVE[ChainId.MODE_MAINNET],
+  // bscTokens.busd,
   ethereumTokens.dai,
 ].map(({ symbol }) => symbol);
 

@@ -5,7 +5,7 @@ import campaigns from 'config/constants/campaigns'
 
 // TODO: multichain support
 describe('Config IFOs', async () => {
-  const ifos = await getIfoConfig(ChainId.BSC)
+  const ifos = await getIfoConfig(ChainId.MODE_MAINNET)
   it.each(ifos.map((ifo) => ifo.id))('IFO %s has an unique id', (id) => {
     const duplicates = ifos.filter((i) => id === i.id)
     expect(duplicates).toHaveLength(1)
