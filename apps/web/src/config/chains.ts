@@ -32,28 +32,44 @@ export const L2_CHAIN_IDS: ChainId[] = [
 export const CHAINS = [
   {
     id: 34443,
-    name: 'Mode Testnet',
-    network: 'arbitrum',
+    name: 'Mode Mainnet',
+    network: 'mode',
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
-      alchemy: {
-        http: ['https://arb-mainnet.g.alchemy.com/v2'],
-        webSocket: ['wss://arb-mainnet.g.alchemy.com/v2'],
-      },
-      infura: {
-        http: ['https://arbitrum-mainnet.infura.io/v3'],
-        webSocket: ['wss://arbitrum-mainnet.infura.io/ws/v3'],
-      },
       default: {
-        http: ['https://arb1.arbitrum.io/rpc'],
+        http: ['https://mainnet.mode.network'],
       },
       public: {
-        http: ['https://arb1.arbitrum.io/rpc'],
+        http: ['https://mainnet.mode.network'],
       },
     },
     blockExplorers: {
-      etherscan: { name: 'Arbiscan', url: 'https://arbiscan.io' },
-      default: { name: 'Arbiscan', url: 'https://arbiscan.io' },
+      etherscan: { name: 'Mode Explorer', url: 'https://explorer.mode.network' },
+      default: { name: 'Mode Explorer', url: 'https://explorer.mode.network' },
+    },
+    contracts: {
+      multicall3: {
+        address: '0xca11bde05977b3631167028862be2a173976ca11',
+        blockCreated: 7654707,
+      },
+    },
+  },
+  {
+    id: 919,
+    name: 'Mode Testnet',
+    network: 'mode',
+    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+    rpcUrls: {
+      default: {
+        http: ['https://sepolia.mode.network'],
+      },
+      public: {
+        http: ['https://sepolia.mode.network/'],
+      },
+    },
+    blockExplorers: {
+      etherscan: { name: 'Mode Explorer', url: 'https://sepolia.explorer.mode.network/' },
+      default: { name: 'Mode Explorer', url: 'https://sepolia.explorer.mode.network/' },
     },
     contracts: {
       multicall3: {

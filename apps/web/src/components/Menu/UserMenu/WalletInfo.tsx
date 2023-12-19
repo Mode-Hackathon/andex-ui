@@ -55,7 +55,7 @@ const WalletInfo: React.FC<WalletInfoProps> = ({
   const { t } = useTranslation();
   const { account, chainId, chain } = useActiveWeb3React();
   const { domainName } = useDomainNameForAddress(account);
-  const isBSC = chainId === ChainId.MODE_MAINNET;
+  const isBSC = false;
   const bnbBalance = useBalance({
     address: account,
     chainId: ChainId.MODE_MAINNET,
@@ -237,7 +237,7 @@ const WalletInfo: React.FC<WalletInfoProps> = ({
           <Flex bg={COLORS.BNB} borderRadius="16px" pl="4px" pr="8px" py="2px">
             <ChainLogo chainId={ChainId.MODE_MAINNET} />
             <Text color="white" ml="4px">
-              BNB Smart Chain
+              MODE
             </Text>
           </Flex>
           <ScanLink

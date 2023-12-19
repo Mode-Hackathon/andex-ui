@@ -23,8 +23,8 @@ import { useSwitchNetwork } from "hooks/useSwitchNetwork";
 import { useMemo } from "react";
 import { useRouter } from "next/router";
 import { chains } from "utils/wagmi";
-import Image from "next/image";
-import { ASSET_CDN } from "config/constants/endpoints";
+// import Image from "next/image";
+// import { ASSET_CDN } from "config/constants/endpoints";
 
 import { ChainLogo } from "./Logo/ChainLogo";
 
@@ -66,7 +66,7 @@ const NetworkSelect = ({ switchNetwork, chainId }) => {
             </Text>
           </UserMenuItem>
         ))}
-      <UserMenuItem
+      {/* <UserMenuItem
         key={`aptos-${AptosChain.id}`}
         style={{ justifyContent: "flex-start" }}
         as="a"
@@ -83,7 +83,7 @@ const NetworkSelect = ({ switchNetwork, chainId }) => {
         <Text color="text" pl="12px">
           {AptosChain.name}
         </Text>
-      </UserMenuItem>
+      </UserMenuItem> */}
     </>
   );
 };
@@ -204,7 +204,7 @@ export const NetworkSwitcher = () => {
         mr="8px"
         placement="bottom"
         variant={isLoading ? "pending" : isWrongNetwork ? "danger" : "default"}
-        avatarSrc={`${ASSET_CDN}/web/chains/${chainId}.png`}
+        avatarSrc={`/images/chains/${chainId}.png`}
         disabled={cannotChangeNetwork}
         text={
           isLoading ? (

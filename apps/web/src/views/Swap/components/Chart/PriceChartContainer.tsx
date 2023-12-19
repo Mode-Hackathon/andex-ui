@@ -1,25 +1,27 @@
-import { Currency, WNATIVE } from '@pancakeswap/sdk'
-import useTheme from 'hooks/useTheme'
-import { useCallback, useState } from 'react'
-import BnbWbnbNotice from './BnbWbnbNotice'
-import PriceChart from './PriceChart'
+import { Currency, WNATIVE } from "@pancakeswap/sdk";
+import useTheme from "hooks/useTheme";
+import { useCallback, useState } from "react";
+import BnbWbnbNotice from "./BnbWbnbNotice";
+import PriceChart from "./PriceChart";
 
 type PriceChartContainerProps = {
-  inputCurrencyId: string
-  inputCurrency: Currency
-  outputCurrencyId: string
-  outputCurrency: Currency
-  isChartExpanded: boolean
-  setIsChartExpanded: React.Dispatch<React.SetStateAction<boolean>>
-  isChartDisplayed: boolean
+  inputCurrencyId: string;
+  inputCurrency: Currency;
+  outputCurrencyId: string;
+  outputCurrency: Currency;
+  isChartExpanded: boolean;
+  setIsChartExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  isChartDisplayed: boolean;
   currentSwapPrice: {
-    [key: string]: number
-  }
-  isMobile?: boolean
-  isFullWidthContainer?: boolean
-}
+    [key: string]: number;
+  };
+  isMobile?: boolean;
+  isFullWidthContainer?: boolean;
+};
 
-const PriceChartContainer: React.FC<React.PropsWithChildren<PriceChartContainerProps>> = ({
+const PriceChartContainer: React.FC<
+  React.PropsWithChildren<PriceChartContainerProps>
+> = ({
   inputCurrency,
   outputCurrency,
   isChartExpanded,
@@ -29,25 +31,28 @@ const PriceChartContainer: React.FC<React.PropsWithChildren<PriceChartContainerP
   isFullWidthContainer = false,
   currentSwapPrice,
 }) => {
-  const token0Address = inputCurrency?.wrapped.address?.toLocaleLowerCase()
-  const token1Address = outputCurrency?.wrapped.address?.toLocaleLowerCase()
-  const [isPairReversed, setIsPairReversed] = useState(false)
-  const togglePairReversed = useCallback(() => setIsPairReversed((prePairReversed) => !prePairReversed), [])
+  const token0Address = inputCurrency?.wrapped.address?.toLocaleLowerCase();
+  const token1Address = outputCurrency?.wrapped.address?.toLocaleLowerCase();
+  const [isPairReversed, setIsPairReversed] = useState(false);
+  const togglePairReversed = useCallback(
+    () => setIsPairReversed((prePairReversed) => !prePairReversed),
+    []
+  );
 
-  const { isDark } = useTheme()
+  const { isDark } = useTheme();
 
   if (!isChartDisplayed) {
-    return null
+    return null;
   }
 
   const isWrap =
     inputCurrency &&
     outputCurrency &&
-    WNATIVE[inputCurrency.chainId].equals(inputCurrency.wrapped) &&
-    WNATIVE[outputCurrency.chainId].equals(outputCurrency.wrapped)
+    [inputCurrency.chainId].equals(inputCurrency.wrapped) &&
+    WNATIVE[outputCurrency.chainId].equals(outputCurrency.wrapped);
 
   if (isWrap) {
-    return <BnbWbnbNotice isDark={isDark} isChartExpanded={isChartExpanded} />
+    return <BnbWbnbNotice isDark={isDark} isChartExpanded={isChartExpanded} />;
   }
 
   return (
@@ -64,7 +69,7 @@ const PriceChartContainer: React.FC<React.PropsWithChildren<PriceChartContainerP
       isFullWidthContainer={isFullWidthContainer}
       currentSwapPrice={currentSwapPrice}
     />
-  )
-}
+  );
+};
 
-export default PriceChartContainer
+export default PriceChartContainer;

@@ -14,7 +14,7 @@ const FACTORY_ADDRESS_ETH = '0x1097053Fd2ea711dad45caCcc45EfF7548fCB362'
 
 export const FACTORY_ADDRESS_MAP = {
   [ChainId.MODE_MAINNET]: FACTORY_ADDRESS_ETH,
-  [ChainId.MODE_TESTNET]: FACTORY_ADDRESS_ETH,
+  [ChainId.MODE_TESTNET]: '0xb9B05c16399633828CacabC229aaa4C4cE1e59bE',
 } as const satisfies Record<ChainId, Address>
 
 export const INIT_CODE_HASH = '0x00fb7f630766e6a796048ea87d01acd3068e8ff67d078148a3fa3f4a84f69bd5'
@@ -36,7 +36,7 @@ export const WETH9 = {
   ),
   [ChainId.MODE_TESTNET]: new ERC20Token(
     ChainId.MODE_TESTNET,
-    '0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6',
+    '0xB8349Dc6cD9AC6dFbb77d21825f22FA9981D3236',
     18,
     'WETH',
     'Wrapped Ether',
