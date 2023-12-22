@@ -1,7 +1,7 @@
-import { createGlobalStyle } from 'styled-components'
-import { PancakeTheme } from '@pancakeswap/uikit'
+import { createGlobalStyle } from "styled-components";
+import { PancakeTheme } from "@pancakeswap/uikit";
 
-declare module 'styled-components' {
+declare module "styled-components" {
   /* eslint-disable @typescript-eslint/no-empty-interface */
   export interface DefaultTheme extends PancakeTheme {}
 }
@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: ${({ theme }) => theme.colors.background};
+    background: ${({ theme }) => theme.colors.background};
 
     img {
       height: auto;
@@ -33,6 +33,6 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
     z-index: 2;
   }
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;

@@ -28,8 +28,8 @@ const SwitchIconButton = styled(IconButton)`
 
 const SwitchButton = (props: ButtonProps) => (
   <SwitchIconButton variant="light" scale="sm" {...props}>
-    <ArrowDownIcon className="icon-down" color="primary" />
-    <ArrowUpDownIcon className="icon-up-down" color="primary" />
+    <ArrowDownIcon className="icon-down" color="white" />
+    <ArrowUpDownIcon className="icon-up-down" color="white" />
   </SwitchIconButton>
 );
 

@@ -31,6 +31,7 @@ const Page: React.FC<
     <Swap.Page
       removePadding={removePadding}
       noMinHeight={noMinHeight}
+      // className=""
       hideFooterOnDesktop={hideFooterOnDesktop}
       helpUrl={helpUrl}
       externalText={externalText}

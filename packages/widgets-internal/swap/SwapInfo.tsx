@@ -27,13 +27,13 @@ export const SwapInfo = ({ allowedSlippage, price, onSlippageClick, allowedSlipp
             {t("Slippage Tolerance")}
             {onSlippageClick ? (
               <IconButton scale="sm" variant="text" onClick={onSlippageClick}>
-                <PencilIcon color="primary" width="10px" />
+                <PencilIcon color="secondary" width="10px" />
               </IconButton>
             ) : null}
           </SwapInfoLabel>
           {isMounted &&
             (allowedSlippageSlot ?? (
-              <Text bold color="primary">
+              <Text bold color="secondary">
                 {allowedSlippage / 100}%
               </Text>
             ))}

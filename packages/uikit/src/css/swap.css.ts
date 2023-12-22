@@ -109,7 +109,7 @@ export const pageVariants = recipe({
       alignItems: "center",
       width: "100%",
       height: "100%",
-      background: "gradientBubblegum",
+      // background: "transparent",
       padding: "16px",
       paddingBottom: "0px",
     }),
