@@ -3,13 +3,8 @@ import { CAKE } from '@pancakeswap/tokens'
 import { getCakePriceFromOracle } from 'hooks/useCakePrice'
 
 const CHAIN_MAPPING = {
-  [ChainId.ETHEREUM]: 'ethereum',
-  [ChainId.MODE_MAINNET]: 'bsc',
-  [ChainId.ARBITRUM_ONE]: 'arbitrum',
-  [ChainId.ZKSYNC]: 'era',
-  [ChainId.LINEA]: 'linea',
-  [ChainId.BASE]: 'base',
-  [ChainId.POLYGON_ZKEVM]: 'polygon_zkevm',
+  // [ChainId.ETHEREUM]: 'ethereum',
+  [ChainId.MODE_MAINNET]: 'mode',
 } as const satisfies Record<number, string>
 
 // use for fetch usd outside of the liquidity pools on PancakeSwap

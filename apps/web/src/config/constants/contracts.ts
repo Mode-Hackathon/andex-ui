@@ -90,7 +90,7 @@ export default {
     [ChainId.MODE_TESTNET]: '0x',
   },
   chainlinkOracleCAKE: {
-    [ChainId.MODE_MAINNET]: '0xB6064eD41d4f67e353768aA239cA86f4F73665a1',
+    [ChainId.MODE_MAINNET]: '0x',
     [ChainId.MODE_TESTNET]: '0x',
   },
   predictionsV1: {
@@ -173,7 +173,7 @@ export default {
   },
   tradingReward: {
     // [ChainId.ETHEREUM]: '0x',
-    [ChainId.MODE_MAINNET]: '0xa842a4AD40FEbbd034fbeF25C7a880464a90e695',
+    [ChainId.MODE_MAINNET]: '0x',
     [ChainId.MODE_TESTNET]: '0x',
   },
   nftPositionManager: {

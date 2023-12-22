@@ -29,6 +29,6 @@ export const SERVER_NODES = {
 } satisfies Record<ChainId, readonly string[]>
 
 export const PUBLIC_NODES = {
-  [ChainId.MODE_MAINNET]: ['https://arb1.arbitrum.io/rpc'],
-  [ChainId.MODE_TESTNET]: ['https://arb1.arbitrum.io/rpc']
+  [ChainId.MODE_MAINNET]: ['https://mainnet.mode.network'],
+  [ChainId.MODE_TESTNET]: ['https://sepolia.mode.network/']
 } satisfies Record<ChainId, readonly string[]>

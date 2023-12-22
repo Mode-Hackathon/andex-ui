@@ -12,7 +12,7 @@ export const CAKE_MAINNET = new ERC20Token(
 
 export const CAKE_TESTNET = new ERC20Token(
   ChainId.MODE_TESTNET,
-  '0x8d008B313C1d6C7fE2982F62d32Da7507cF43551',
+  '0x32E0DdB7f502D87065091bDa62529337dD2062d0',
   18,
   'CAKE',
   'PancakeSwap Token',
@@ -47,8 +47,8 @@ export const USDC_ETH = new ERC20Token(
 
 export const USDC_GOERLI = new ERC20Token(
   ChainId.MODE_TESTNET,
-  '0x07865c6E87B9F70255377e024ace6630C1Eaa37F',
-  6,
+  '0x4D73C3e06b7FAFF35EB32f512917704A937eA439',
+  18,
   'tUSDC',
   'test USD Coin',
 )
@@ -100,7 +100,7 @@ export const BUSD_ETH = new ERC20Token(
 
 export const BUSD_GOERLI = new ERC20Token(
   ChainId.MODE_TESTNET,
-  '0xb809b9B2dc5e93CB863176Ea2D565425B03c0540',
+  '0xbf09acbE62F9883D7FCb05dA735555Bb4846E710',
   18,
   'BUSD',
   'Binance USD',
@@ -123,13 +123,13 @@ export const CAKE = {
   ),
   [ChainId.MODE_TESTNET]: new ERC20Token(
     ChainId.MODE_TESTNET,
-    '0xc2C3eAbE0368a2Ea97f485b03D1098cdD7d0c081',
+    '0x32E0DdB7f502D87065091bDa62529337dD2062d0',
     18,
     'CAKE',
     'PancakeSwap Token',
     'https://pancakeswap.finance/',
   ),
-  
+
 }
 
 export const USDC = {

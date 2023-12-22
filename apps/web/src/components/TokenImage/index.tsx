@@ -15,12 +15,12 @@ interface TokenPairImageProps
 
 export const tokenImageChainNameMapping = {
   [ChainId.MODE_MAINNET]: "",
-  [ChainId.ETHEREUM]: "eth/",
-  [ChainId.POLYGON_ZKEVM]: "polygon-zkevm/",
-  [ChainId.ZKSYNC]: "zksync/",
-  [ChainId.ARBITRUM_ONE]: "arbitrum/",
-  [ChainId.LINEA]: "linea/",
-  [ChainId.BASE]: "base/",
+  // [ChainId.ETHEREUM]: "eth/",
+  // [ChainId.POLYGON_ZKEVM]: "polygon-zkevm/",
+  // [ChainId.ZKSYNC]: "zksync/",
+  // [ChainId.ARBITRUM_ONE]: "arbitrum/",
+  // [ChainId.LINEA]: "linea/",
+  // [ChainId.BASE]: "base/",
 };
 
 const getImageUrlFromToken = (token: Token) => {

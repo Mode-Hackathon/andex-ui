@@ -49,7 +49,7 @@ export const CHAINS = [
     },
     contracts: {
       multicall3: {
-        address: '0xca11bde05977b3631167028862be2a173976ca11',
+        address: '0x17cd82fc4E76Cb09C66B8098dA182Eaa78BCB3de',
         blockCreated: 7654707,
       },
     },
@@ -73,7 +73,7 @@ export const CHAINS = [
     },
     contracts: {
       multicall3: {
-        address: '0xca11bde05977b3631167028862be2a173976ca11',
+        address: '0x17cd82fc4E76Cb09C66B8098dA182Eaa78BCB3de',
         blockCreated: 7654707,
       },
     },

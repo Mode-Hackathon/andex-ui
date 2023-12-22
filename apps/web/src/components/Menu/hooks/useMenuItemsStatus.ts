@@ -4,7 +4,7 @@ import { PotteryDepositStatus } from 'state/types'
 import { useCompetitionStatus } from './useCompetitionStatus'
 import { usePotteryStatus } from './usePotteryStatus'
 import { useVotingStatus } from './useVotingStatus'
-import { useTradingRewardStatus } from './useTradingRewardStatus'
+// import { useTradingRewardStatus } from './useTradingRewardStatus'
 import { useIfoStatus } from './useIfoStatus'
 
 export const useMenuItemsStatus = (): Record<string, string> => {
@@ -13,7 +13,7 @@ export const useMenuItemsStatus = (): Record<string, string> => {
   const potteryStatus = usePotteryStatus()
   const votingStatus = useVotingStatus()
   const isUserLocked = useUserCakeLockStatus()
-  const tradingRewardStatus = useTradingRewardStatus()
+  // const tradingRewardStatus = useTradingRewardStatus()
 
   return useMemo(() => {
     return {
@@ -28,9 +28,11 @@ export const useMenuItemsStatus = (): Record<string, string> => {
       ...(isUserLocked && {
         '/pools': 'lock_end',
       }),
-      ...(tradingRewardStatus && {
-        '/trading-reward': tradingRewardStatus,
-      }),
+      // ...(tradingRewardStatus && {
+      //   '/trading-reward': tradingRewardStatus,
+      // }),
     }
-  }, [competitionStatus, ifoStatus, potteryStatus, votingStatus, isUserLocked, tradingRewardStatus])
+  }, [competitionStatus, ifoStatus, potteryStatus, votingStatus, isUserLocked,
+    //  tradingRewardStatus
+  ])
 }

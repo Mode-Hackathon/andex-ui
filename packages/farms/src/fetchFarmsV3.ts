@@ -39,13 +39,14 @@ export async function farmV3FetchFarms({
 }) {
   const [poolInfos, cakePrice, v3PoolData] = await Promise.all([
     fetchPoolInfos(farms, chainId, provider, masterChefAddress),
-    provider({ chainId: ChainId.MODE_MAINNET })
-      .readContract({
-        abi: chainlinkAbi,
-        address: '0xB6064eD41d4f67e353768aA239cA86f4F73665a1',
-        functionName: 'latestAnswer',
-      })
-      .then((res) => formatUnits(res, 8)),
+    // provider({ chainId: ChainId.MODE_MAINNET })
+    //   .readContract({
+    //     abi: chainlinkAbi,
+    //     address: '0xB6064eD41d4f67e353768aA239cA86f4F73665a1',
+    //     functionName: 'latestAnswer',
+    //   })
+    //   .then((res) => formatUnits(res, 8)),
+    1,
     fetchV3Pools(farms, chainId, provider),
   ])
 
