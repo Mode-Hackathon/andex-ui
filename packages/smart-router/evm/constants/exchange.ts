@@ -28,7 +28,7 @@ import { ChainMap, ChainTokenList } from '../types'
 
 export const SMART_ROUTER_ADDRESSES = {
   [ChainId.MODE_MAINNET]: '0x13f4EA83D0bd40E75C8222255bc855a974568Dd4',
-  [ChainId.MODE_TESTNET]: '0x9a489505a00cE272eAa5e07Dba6491314CaE3796',
+  [ChainId.MODE_TESTNET]: '0x774F469f4b7a46A50220a0C1Caf6508f87C083a6',
 } as const satisfies Record<ChainId, string>
 
 export const V2_ROUTER_ADDRESS: ChainMap<string> = {

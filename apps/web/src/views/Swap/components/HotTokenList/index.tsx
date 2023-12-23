@@ -67,7 +67,7 @@ const MenuWrapper = styled.div`
 
 const LIQUIDITY_FILTER = {
   [ChainId.MODE_MAINNET]: 100000,
-  [ChainId.ETHEREUM]: 50000,
+  // [ChainId.ETHEREUM]: 50000,
 };
 const HotTokenList: React.FC<{
   handleOutputSelect: (newCurrencyOutput: Currency) => void;

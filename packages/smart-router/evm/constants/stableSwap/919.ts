@@ -5,7 +5,7 @@ import { ChainId } from '@pancakeswap/chains'
 import { StableSwapPool } from './types'
 
 const mockUSDT = new ERC20Token(
-  ChainId.MODE_MAINNET,
+  ChainId.MODE_TESTNET,
   '0x0fB5D7c73FA349A90392f873a4FA1eCf6a3d0a96',
   18,
   'USDT',

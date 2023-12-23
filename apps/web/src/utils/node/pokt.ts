@@ -1,11 +1,11 @@
 import { ChainId } from '@pancakeswap/chains'
 
 const pocketPrefix = {
-  [ChainId.ARBITRUM_ONE]: 'arbitrum-one',
-  [ChainId.BASE]: 'base-mainnet',
-  [ChainId.MODE_MAINNET]: 'bsc-mainnet',
-  [ChainId.ETHEREUM]: 'eth-mainnet',
-  [ChainId.POLYGON_ZKEVM]: 'polygon-zkevm-mainnet',
+  // [ChainId.ARBITRUM_ONE]: 'arbitrum-one',
+  // [ChainId.BASE]: 'base-mainnet',
+  [ChainId.MODE_MAINNET]: 'mode-mainnet',
+  // [ChainId.ETHEREUM]: 'eth-mainnet',
+  // [ChainId.POLYGON_ZKEVM]: 'polygon-zkevm-mainnet',
 } as const
 
 export const getPoktUrl = (chainId: keyof typeof pocketPrefix, key?: string) => {

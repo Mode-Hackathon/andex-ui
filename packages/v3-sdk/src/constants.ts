@@ -1,7 +1,7 @@
 import { ChainId } from '@pancakeswap/chains'
 import { Address, Hash } from 'viem'
 
-const FACTORY_ADDRESS = '0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865'
+const FACTORY_ADDRESS = '0x300C518432A4567AE2ca0aee0ADEf5Fd66Dc317C'
 //TODO:
 /**
  * To compute Pool address use DEPLOYER_ADDRESSES instead
@@ -11,7 +11,7 @@ export const FACTORY_ADDRESSES = {
   [ChainId.MODE_TESTNET]: FACTORY_ADDRESS,
 } as const satisfies Record<ChainId, Address>
 
-const DEPLOYER_ADDRESS = '0x41ff9AA7e16B8B1a8a8dc4f0eFacd93D02d071c9'
+const DEPLOYER_ADDRESS = '0xfFD97758fe3cC45Aa72a6B0A33D95Dc6D64bc913'
 
 export const DEPLOYER_ADDRESSES = {
   [ChainId.MODE_MAINNET]: DEPLOYER_ADDRESS,

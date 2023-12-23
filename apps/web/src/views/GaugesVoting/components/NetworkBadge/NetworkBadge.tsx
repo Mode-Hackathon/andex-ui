@@ -5,37 +5,37 @@ import { chains } from "utils/wagmi";
 import { NetworkLogo, NetworkLogoTheme } from "./NetworkLogo";
 
 const SHORT_NAME = {
-  [ChainId.MODE_MAINNET]: "BSC",
+  [ChainId.MODE_MAINNET]: "MODE",
   // ATPOS: APT
-  [ChainId.ETHEREUM]: "ETH",
-  [ChainId.POLYGON_ZKEVM]: "zkEVM",
-  [ChainId.ZKSYNC]: "zkSync",
-  [ChainId.ARBITRUM_ONE]: "ARB",
-  [ChainId.LINEA]: "LINEA",
-  [ChainId.BASE]: "BASE",
-  [ChainId.OPBNB]: "opBNB",
+  // [ChainId.ETHEREUM]: "ETH",
+  // [ChainId.POLYGON_ZKEVM]: "zkEVM",
+  // [ChainId.ZKSYNC]: "zkSync",
+  // [ChainId.ARBITRUM_ONE]: "ARB",
+  // [ChainId.LINEA]: "LINEA",
+  // [ChainId.BASE]: "BASE",
+  // [ChainId.OPBNB]: "opBNB",
 };
 
 const NETWORK_COLOR_DEFAULT = {
   [ChainId.MODE_MAINNET]: "#1E1E1E",
-  [ChainId.OPBNB]: "#1E1E1E",
-  [ChainId.ETHEREUM]: "#627EEA",
-  [ChainId.POLYGON_ZKEVM]: "linear-gradient(180deg, #9132D2 0%, #803DE1 100%)",
-  [ChainId.ZKSYNC]: "#1E1E1E",
-  [ChainId.ARBITRUM_ONE]: "#2D364D",
-  [ChainId.LINEA]: "#1E1E1E",
-  [ChainId.BASE]: "#FFFFFF",
+  [ChainId.MODE_TESTNET]: "#1E1E1E",
+  // [ChainId.ETHEREUM]: "#627EEA",
+  // [ChainId.POLYGON_ZKEVM]: "linear-gradient(180deg, #9132D2 0%, #803DE1 100%)",
+  // [ChainId.ZKSYNC]: "#1E1E1E",
+  // [ChainId.ARBITRUM_ONE]: "#2D364D",
+  // [ChainId.LINEA]: "#1E1E1E",
+  // [ChainId.BASE]: "#FFFFFF",
 };
 
 const NETWORK_COLOR_COLORED = {
   [ChainId.MODE_MAINNET]: "#F0B90B",
-  [ChainId.OPBNB]: "#1E1E1E",
-  [ChainId.ETHEREUM]: "#627EEA",
-  [ChainId.POLYGON_ZKEVM]: "linear-gradient(180deg, #9132D2 0%, #803DE1 100%)",
-  [ChainId.ZKSYNC]: "#3567F6",
-  [ChainId.ARBITRUM_ONE]: "#2D364D",
-  [ChainId.LINEA]: "#83DCFB",
-  [ChainId.BASE]: "#0052FF",
+  [ChainId.MODE_TESTNET]: "#1E1E1E",
+  // [ChainId.ETHEREUM]: "#627EEA",
+  // [ChainId.POLYGON_ZKEVM]: "linear-gradient(180deg, #9132D2 0%, #803DE1 100%)",
+  // [ChainId.ZKSYNC]: "#3567F6",
+  // [ChainId.ARBITRUM_ONE]: "#2D364D",
+  // [ChainId.LINEA]: "#83DCFB",
+  // [ChainId.BASE]: "#0052FF",
 };
 
 const NETWORK_COLOR_PURE_BLACK = "#000000";

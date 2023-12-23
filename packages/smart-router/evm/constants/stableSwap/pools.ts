@@ -2,7 +2,7 @@ import { ChainId } from '@pancakeswap/chains'
 
 import { StableSwapPool } from './types'
 import { pools as bscPools } from './56'
-import { pools as bscTestnetPools } from './97'
+import { pools as bscTestnetPools } from './919'
 
 //TODO: change config where necessary
 

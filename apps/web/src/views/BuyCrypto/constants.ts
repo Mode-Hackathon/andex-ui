@@ -42,41 +42,41 @@ export const supportedTokenMap: {
     [ONRAMP_PROVIDERS.Transak]: string[]
   }
 } = {
-  [ChainId.MODE_MAINNET]: {
-    [ONRAMP_PROVIDERS.MoonPay]: SUPPORTED_MOONPAY_BSC_TOKENS,
-    [ONRAMP_PROVIDERS.Mercuryo]: SUPPORTED_MERCURYO_BSC_TOKENS,
-    [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_BSC_TOKENS,
-  },
-  [ChainId.ETHEREUM]: {
-    [ONRAMP_PROVIDERS.MoonPay]: SUPPORTED_MONPAY_ETH_TOKENS,
-    [ONRAMP_PROVIDERS.Mercuryo]: SUPPORTED_MERCURYO_ETH_TOKENS,
-    [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_ETH_TOKENS,
-  },
-  [ChainId.ARBITRUM_ONE]: {
-    [ONRAMP_PROVIDERS.MoonPay]: SUPPORTED_MOONPAY_ARBITRUM_TOKENS,
-    [ONRAMP_PROVIDERS.Mercuryo]: SUPPORTED_MERCURYO_ARBITRUM_TOKENS,
-    [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_ARBITRUM_TOKENS,
-  },
-  [ChainId.ZKSYNC]: {
-    [ONRAMP_PROVIDERS.MoonPay]: SUPPORTED_MOONPAY_ZKSYNC_TOKENS,
-    [ONRAMP_PROVIDERS.Mercuryo]: [],
-    [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_ZKSYNC_TOKENS,
-  },
-  [ChainId.LINEA]: {
-    [ONRAMP_PROVIDERS.MoonPay]: [],
-    [ONRAMP_PROVIDERS.Mercuryo]: [],
-    [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_LINEA_TOKENS,
-  },
-  [ChainId.POLYGON_ZKEVM]: {
-    [ONRAMP_PROVIDERS.MoonPay]: [],
-    [ONRAMP_PROVIDERS.Mercuryo]: [],
-    [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_ZKEVM_TOKENS,
-  },
-  [ChainId.BASE]: {
-    [ONRAMP_PROVIDERS.MoonPay]: [],
-    [ONRAMP_PROVIDERS.Mercuryo]: [],
-    [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_BASE_TOKENS,
-  },
+  // [ChainId.MODE_MAINNET]: {
+  //   [ONRAMP_PROVIDERS.MoonPay]: SUPPORTED_MOONPAY_BSC_TOKENS,
+  //   [ONRAMP_PROVIDERS.Mercuryo]: SUPPORTED_MERCURYO_BSC_TOKENS,
+  //   [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_BSC_TOKENS,
+  // },
+  // [ChainId.ETHEREUM]: {
+  //   [ONRAMP_PROVIDERS.MoonPay]: SUPPORTED_MONPAY_ETH_TOKENS,
+  //   [ONRAMP_PROVIDERS.Mercuryo]: SUPPORTED_MERCURYO_ETH_TOKENS,
+  //   [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_ETH_TOKENS,
+  // },
+  // [ChainId.ARBITRUM_ONE]: {
+  //   [ONRAMP_PROVIDERS.MoonPay]: SUPPORTED_MOONPAY_ARBITRUM_TOKENS,
+  //   [ONRAMP_PROVIDERS.Mercuryo]: SUPPORTED_MERCURYO_ARBITRUM_TOKENS,
+  //   [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_ARBITRUM_TOKENS,
+  // },
+  // [ChainId.ZKSYNC]: {
+  //   [ONRAMP_PROVIDERS.MoonPay]: SUPPORTED_MOONPAY_ZKSYNC_TOKENS,
+  //   [ONRAMP_PROVIDERS.Mercuryo]: [],
+  //   [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_ZKSYNC_TOKENS,
+  // },
+  // [ChainId.LINEA]: {
+  //   [ONRAMP_PROVIDERS.MoonPay]: [],
+  //   [ONRAMP_PROVIDERS.Mercuryo]: [],
+  //   [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_LINEA_TOKENS,
+  // },
+  // [ChainId.POLYGON_ZKEVM]: {
+  //   [ONRAMP_PROVIDERS.MoonPay]: [],
+  //   [ONRAMP_PROVIDERS.Mercuryo]: [],
+  //   [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_ZKEVM_TOKENS,
+  // },
+  // [ChainId.BASE]: {
+  //   [ONRAMP_PROVIDERS.MoonPay]: [],
+  //   [ONRAMP_PROVIDERS.Mercuryo]: [],
+  //   [ONRAMP_PROVIDERS.Transak]: SUPPORTED_TRANSAK_BASE_TOKENS,
+  // },
   // Add more chainId mappings as needed
 }
 
@@ -84,12 +84,12 @@ export const whiteListedFiatCurrenciesMap: {
   [chainId: number]: string[]
 } = {
   [ChainId.MODE_MAINNET]: DEFAULT_FIAT_CURRENCIES,
-  [ChainId.ETHEREUM]: DEFAULT_FIAT_CURRENCIES,
-  [ChainId.ARBITRUM_ONE]: DEFAULT_FIAT_CURRENCIES,
-  [ChainId.ZKSYNC]: DEFAULT_FIAT_CURRENCIES,
-  [ChainId.LINEA]: WHITELISTED_FIAT_CURRENCIES_LINEA,
-  [ChainId.POLYGON_ZKEVM]: DEFAULT_FIAT_CURRENCIES,
-  [ChainId.BASE]: WHITELISTED_FIAT_CURRENCIES_BASE,
+  // [ChainId.ETHEREUM]: DEFAULT_FIAT_CURRENCIES,
+  // [ChainId.ARBITRUM_ONE]: DEFAULT_FIAT_CURRENCIES,
+  // [ChainId.ZKSYNC]: DEFAULT_FIAT_CURRENCIES,
+  // [ChainId.LINEA]: WHITELISTED_FIAT_CURRENCIES_LINEA,
+  // [ChainId.POLYGON_ZKEVM]: DEFAULT_FIAT_CURRENCIES,
+  // [ChainId.BASE]: WHITELISTED_FIAT_CURRENCIES_BASE,
 }
 
 export function isBuyCryptoSupported(chain: ChainId) {
@@ -104,53 +104,53 @@ export const providerFeeTypes: { [provider in ONRAMP_PROVIDERS]: string[] } = {
 
 export const getNetworkDisplay = (chainId: number | undefined): string => {
   switch (chainId as ChainId) {
-    case ChainId.ETHEREUM:
-      return 'Ethereum'
-    case ChainId.MODE_MAINNET:
-      return 'BNB Smart Chain'
-    case ChainId.ZKSYNC:
-      return 'zkSync Era'
-    case ChainId.ARBITRUM_ONE:
-      return 'Arbitrum One'
-    case ChainId.POLYGON_ZKEVM:
-      return 'Polygon zkEVM'
-    case ChainId.LINEA:
-      return 'Linea Mainnet'
-    case ChainId.BASE:
-      return 'Base Mainnet'
+    // case ChainId.ETHEREUM:
+    //   return 'Ethereum'
+    // case ChainId.MODE_MAINNET:
+    //   return 'BNB Smart Chain'
+    // case ChainId.ZKSYNC:
+    //   return 'zkSync Era'
+    // case ChainId.ARBITRUM_ONE:
+    //   return 'Arbitrum One'
+    // case ChainId.POLYGON_ZKEVM:
+    //   return 'Polygon zkEVM'
+    // case ChainId.LINEA:
+    //   return 'Linea Mainnet'
+    // case ChainId.BASE:
+    //   return 'Base Mainnet'
     default:
       return ''
   }
 }
 
 export const chainIdToMercuryoNetworkId: { [id: number]: string } = {
-  [ChainId.ETHEREUM]: 'ETHEREUM',
-  [ChainId.MODE_MAINNET]: 'BINANCESMARTCHAIN',
-  [ChainId.ARBITRUM_ONE]: 'ARBITRUM',
-  [ChainId.ZKSYNC]: 'ZKSYNC',
-  [ChainId.POLYGON_ZKEVM]: 'ZKEVM',
-  [ChainId.LINEA]: 'LINEA',
-  [ChainId.BASE]: 'BASE',
+  // [ChainId.ETHEREUM]: 'ETHEREUM',
+  [ChainId.MODE_MAINNET]: 'MODE',
+  // [ChainId.ARBITRUM_ONE]: 'ARBITRUM',
+  // [ChainId.ZKSYNC]: 'ZKSYNC',
+  // [ChainId.POLYGON_ZKEVM]: 'ZKEVM',
+  // [ChainId.LINEA]: 'LINEA',
+  // [ChainId.BASE]: 'BASE',
 }
 
 export const chainIdToMoonPayNetworkId: { [id: number]: string } = {
-  [ChainId.ETHEREUM]: '',
-  [ChainId.MODE_MAINNET]: '_bsc',
-  [ChainId.ARBITRUM_ONE]: '_arbitrum',
-  [ChainId.ZKSYNC]: '_zksync',
-  [ChainId.POLYGON_ZKEVM]: '_polygonzkevm',
-  [ChainId.LINEA]: '_linea',
-  [ChainId.BASE]: '_base',
+  // [ChainId.ETHEREUM]: '',
+  [ChainId.MODE_MAINNET]: '',
+  // [ChainId.ARBITRUM_ONE]: '_arbitrum',
+  // [ChainId.ZKSYNC]: '_zksync',
+  // [ChainId.POLYGON_ZKEVM]: '_polygonzkevm',
+  // [ChainId.LINEA]: '_linea',
+  // [ChainId.BASE]: '_base',
 }
 
 export const chainIdToTransakNetworkId: { [id: number]: string } = {
-  [ChainId.ETHEREUM]: 'ethereum',
+  // [ChainId.ETHEREUM]: 'ethereum',
   [ChainId.MODE_MAINNET]: 'bsc',
-  [ChainId.ARBITRUM_ONE]: 'arbitrum',
-  [ChainId.ZKSYNC]: 'zksync',
-  [ChainId.POLYGON_ZKEVM]: 'polygonzkevm',
-  [ChainId.LINEA]: 'linea',
-  [ChainId.BASE]: 'base',
+  //   [ChainId.ARBITRUM_ONE]: 'arbitrum',
+  //   [ChainId.ZKSYNC]: 'zksync',
+  //   [ChainId.POLYGON_ZKEVM]: 'polygonzkevm',
+  //   [ChainId.LINEA]: 'linea',
+  //   [ChainId.BASE]: 'base',
 }
 
 export const combinedNetworkIdMap: {
@@ -167,16 +167,16 @@ export const getChainCurrencyWarningMessages = (
 ) => {
   const networkDisplay = getNetworkDisplay(chainId)
   return {
-    [ChainId.ARBITRUM_ONE]: t(
+    [ChainId.MODE_MAINNET]: t(
       'UEDC.e quotes are currently unavailable in USD on Arbitrum. Please select another currency to receive USDC.e quotes',
       { chainId: networkDisplay },
     ),
-    [ChainId.LINEA]: t('%chainId% supports limited fiat currencies. USD are not supported', {
-      chainId: networkDisplay,
-    }),
-    [ChainId.BASE]: t('%chainId% supports limited fiat currencies. USD are not supported', {
-      chainId: networkDisplay,
-    }),
+    // [ChainId.LINEA]: t('%chainId% supports limited fiat currencies. USD are not supported', {
+    //   chainId: networkDisplay,
+    // }),
+    // [ChainId.BASE]: t('%chainId% supports limited fiat currencies. USD are not supported', {
+    //   chainId: networkDisplay,
+    // }),
   }
 }
 

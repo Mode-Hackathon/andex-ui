@@ -9,11 +9,11 @@ import { useChainName } from "../hooks/useChainNames";
 import { getChainBasedImageUrl } from "../helpers";
 
 const BACKGROUND = {
-  [ChainId.POLYGON_ZKEVM]: "linear-gradient(180deg, #9132D2 0%, #803DE1 100%)",
+  // [ChainId.POLYGON_ZKEVM]: "linear-gradient(180deg, #9132D2 0%, #803DE1 100%)",
   [ChainId.MODE_MAINNET]: "#D8A70A",
   [ChainId.MODE_TESTNET]: "#D8A70A",
-  [ChainId.ETHEREUM]: "#627AD8",
-  [ChainId.GOERLI]: "#627AD8",
+  // [ChainId.ETHEREUM]: "#627AD8",
+  // [ChainId.GOERLI]: "#627AD8",
 };
 
 const Container = styled(Box)`
