@@ -1,27 +1,42 @@
-import { useEffect, useRef } from 'react'
-import { Flex, Grid, Box, Text, Button, BinanceIcon, ErrorIcon, useTooltip, Skeleton } from '@pancakeswap/uikit'
-import { escapeRegExp } from 'utils'
-import { useTranslation } from '@pancakeswap/localization'
-import { NftToken } from 'state/nftMarket/types'
-import { useGetCollection } from 'state/nftMarket/hooks'
-import { useBNBPrice } from 'hooks/useBNBPrice'
-import { Divider } from '../shared/styles'
-import { GreyedOutContainer, BnbAmountCell, RightAlignedInput, FeeAmountCell } from './styles'
+import { useEffect, useRef } from "react";
+import {
+  Flex,
+  Grid,
+  Box,
+  Text,
+  Button,
+  BinanceIcon,
+  ErrorIcon,
+  useTooltip,
+  Skeleton,
+} from "@pancakeswap/uikit";
+import { escapeRegExp } from "utils";
+import { useTranslation } from "@pancakeswap/localization";
+import { NftToken } from "state/nftMarket/types";
+import { useGetCollection } from "state/nftMarket/hooks";
+import { useBNBPrice } from "hooks/useBNBPrice";
+import { Divider } from "../shared/styles";
+import {
+  GreyedOutContainer,
+  BnbAmountCell,
+  RightAlignedInput,
+  FeeAmountCell,
+} from "./styles";
 
 interface SetPriceStageProps {
-  nftToSell: NftToken
-  variant: 'set' | 'adjust'
-  currentPrice?: string
-  lowestPrice?: number
-  price: string
-  setPrice: React.Dispatch<React.SetStateAction<string>>
-  continueToNextStage: () => void
+  nftToSell: NftToken;
+  variant: "set" | "adjust";
+  currentPrice?: string;
+  lowestPrice?: number;
+  price: string;
+  setPrice: React.Dispatch<React.SetStateAction<string>>;
+  continueToNextStage: () => void;
 }
 
-const MIN_PRICE = 0.005
-const MAX_PRICE = 10000
+const MIN_PRICE = 0.005;
+const MAX_PRICE = 10000;
 
-const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`) // match escaped "." characters via in a non-capturing group
+const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`); // match escaped "." characters via in a non-capturing group
 
 // Stage where user puts price for NFT they're about to put on sale
 // Also shown when user wants to adjust the price of already listed NFT
@@ -34,63 +49,75 @@ const SetPriceStage: React.FC<React.PropsWithChildren<SetPriceStageProps>> = ({
   setPrice,
   continueToNextStage,
 }) => {
-  const { t } = useTranslation()
-  const inputRef = useRef<HTMLInputElement>()
-  const adjustedPriceIsTheSame = variant === 'adjust' && parseFloat(currentPrice) === parseFloat(price)
-  const priceIsValid = !price || Number.isNaN(parseFloat(price)) || parseFloat(price) <= 0
+  const { t } = useTranslation();
+  const inputRef = useRef<HTMLInputElement>();
+  const adjustedPriceIsTheSame =
+    variant === "adjust" && parseFloat(currentPrice) === parseFloat(price);
+  const priceIsValid =
+    !price || Number.isNaN(parseFloat(price)) || parseFloat(price) <= 0;
 
-  const { creatorFee = '', tradingFee = '' } = useGetCollection(nftToSell.collectionAddress) || {}
-  const creatorFeeAsNumber = parseFloat(creatorFee)
-  const tradingFeeAsNumber = parseFloat(tradingFee)
-  const bnbBusdPrice = useBNBPrice()
-  const priceAsFloat = parseFloat(price)
-  const priceInUsd = bnbBusdPrice.multipliedBy(priceAsFloat).toNumber()
+  const { creatorFee = "", tradingFee = "" } =
+    useGetCollection(nftToSell.collectionAddress) || {};
+  const creatorFeeAsNumber = parseFloat(creatorFee);
+  const tradingFeeAsNumber = parseFloat(tradingFee);
+  const bnbBusdPrice = useBNBPrice();
+  const priceAsFloat = parseFloat(price);
+  const priceInUsd = bnbBusdPrice.multipliedBy(priceAsFloat).toNumber();
 
-  const priceIsOutOfRange = priceAsFloat > MAX_PRICE || priceAsFloat < MIN_PRICE
+  const priceIsOutOfRange =
+    priceAsFloat > MAX_PRICE || priceAsFloat < MIN_PRICE;
 
   const enforcer = (nextUserInput: string) => {
-    if (nextUserInput === '' || inputRegex.test(escapeRegExp(nextUserInput))) {
-      setPrice(nextUserInput)
+    if (nextUserInput === "" || inputRegex.test(escapeRegExp(nextUserInput))) {
+      setPrice(nextUserInput);
     }
-  }
+  };
 
   const { tooltip, tooltipVisible, targetRef } = useTooltip(
     <>
       <Text>
         {t(
-          'When selling NFTs from this collection, a portion of the BNB paid will be diverted before reaching the seller:',
+          "When selling NFTs from this collection, a portion of the BNB paid will be diverted before reaching the seller:"
         )}
       </Text>
       {creatorFeeAsNumber > 0 && (
-        <Text>{t('%percentage%% royalties to the collection owner', { percentage: creatorFee })}</Text>
+        <Text>
+          {t("%percentage%% royalties to the collection owner", {
+            percentage: creatorFee,
+          })}
+        </Text>
       )}
-      <Text>{t('%percentage%% trading fee will be used to buy & burn CAKE', { percentage: tradingFee })}</Text>
-    </>,
-  )
+      <Text>
+        {t("%percentage%% trading fee will be used to buy & burn CAKE", {
+          percentage: tradingFee,
+        })}
+      </Text>
+    </>
+  );
 
   useEffect(() => {
     if (inputRef && inputRef.current) {
-      inputRef.current.focus()
+      inputRef.current.focus();
     }
-  }, [inputRef])
+  }, [inputRef]);
 
   const getButtonText = () => {
-    if (variant === 'adjust') {
+    if (variant === "adjust") {
       if (adjustedPriceIsTheSame || priceIsValid) {
-        return t('Input New Sale Price')
+        return t("Input New Sale Price");
       }
-      return t('Confirm')
+      return t("Confirm");
     }
-    return t('Enable Listing')
-  }
+    return t("Enable Listing");
+  };
   return (
     <>
       <Text fontSize="24px" bold p="16px">
-        {variant === 'set' ? t('Set Price') : t('Adjust Sale Price')}
+        {variant === "set" ? t("Set Price") : t("Adjust Sale Price")}
       </Text>
       <GreyedOutContainer>
         <Text fontSize="12px" color="secondary" textTransform="uppercase" bold>
-          {t('Set Price')}
+          {t("Set Price")}
         </Text>
         <Flex>
           <Flex flex="1" alignItems="center">
@@ -110,7 +137,7 @@ const SetPriceStage: React.FC<React.PropsWithChildren<SetPriceStageProps>> = ({
               ref={inputRef}
               isWarning={priceIsOutOfRange}
               onChange={(e) => {
-                enforcer(e.target.value.replace(/,/g, '.'))
+                enforcer(e.target.value.replace(/,/g, "."));
               }}
             />
           </Flex>
@@ -118,23 +145,30 @@ const SetPriceStage: React.FC<React.PropsWithChildren<SetPriceStageProps>> = ({
         <Flex alignItems="center" height="21px" justifyContent="flex-end">
           {!Number.isNaN(priceInUsd) && (
             <Text fontSize="12px" color="textSubtle">
-              {`$${priceInUsd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+              {`$${priceInUsd.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}`}
             </Text>
           )}
         </Flex>
         {priceIsOutOfRange && (
           <Text fontSize="12px" color="failure">
-            {t('Allowed price range is between %minPrice% and %maxPrice% WBNB', {
-              minPrice: MIN_PRICE,
-              maxPrice: MAX_PRICE,
-            })}
+            {t(
+              "Allowed price range is between %minPrice% and %maxPrice% WBNB",
+              {
+                minPrice: MIN_PRICE,
+                maxPrice: MAX_PRICE,
+              }
+            )}
           </Text>
         )}
         <Flex mt="8px">
-          {Number.isFinite(creatorFeeAsNumber) && Number.isFinite(tradingFeeAsNumber) ? (
+          {Number.isFinite(creatorFeeAsNumber) &&
+          Number.isFinite(tradingFeeAsNumber) ? (
             <>
               <Text small color="textSubtle" mr="8px">
-                {t('Seller pays %percentage%% platform fee on sale', {
+                {t("Seller pays %percentage%% platform fee on sale", {
                   percentage: creatorFeeAsNumber + tradingFeeAsNumber,
                 })}
               </Text>
@@ -149,10 +183,15 @@ const SetPriceStage: React.FC<React.PropsWithChildren<SetPriceStageProps>> = ({
         </Flex>
         <Flex justifyContent="space-between" alignItems="center" mt="16px">
           <Text small color="textSubtle">
-            {t('Platform fee if sold')}
+            {t("Platform fee if sold")}
           </Text>
-          {Number.isFinite(creatorFeeAsNumber) && Number.isFinite(tradingFeeAsNumber) ? (
-            <FeeAmountCell bnbAmount={priceAsFloat} creatorFee={creatorFeeAsNumber} tradingFee={tradingFeeAsNumber} />
+          {Number.isFinite(creatorFeeAsNumber) &&
+          Number.isFinite(tradingFeeAsNumber) ? (
+            <FeeAmountCell
+              bnbAmount={priceAsFloat}
+              creatorFee={creatorFeeAsNumber}
+              tradingFee={tradingFeeAsNumber}
+            />
           ) : (
             <Skeleton width={40} />
           )}
@@ -160,7 +199,7 @@ const SetPriceStage: React.FC<React.PropsWithChildren<SetPriceStageProps>> = ({
         {lowestPrice && (
           <Flex justifyContent="space-between" alignItems="center" mt="16px">
             <Text small color="textSubtle">
-              {t('Lowest price on market')}
+              {t("Lowest price on market")}
             </Text>
             <BnbAmountCell bnbAmount={lowestPrice} />
           </Flex>
@@ -172,10 +211,14 @@ const SetPriceStage: React.FC<React.PropsWithChildren<SetPriceStageProps>> = ({
         </Flex>
         <Box>
           <Text small color="textSubtle">
-            {t('The NFT will be removed from your wallet and put on sale at this price.')}
+            {t(
+              "The NFT will be removed from your wallet and put on sale at this price."
+            )}
           </Text>
           <Text small color="textSubtle">
-            {t('Sales are in WBNB. You can swap WBNB to BNB 1:1 for free with PancakeSwap.')}
+            {t(
+              "Sales are in WBNB. You can swap WBNB to BNB 1:1 for free with Andex."
+            )}
           </Text>
         </Box>
       </Grid>
@@ -190,7 +233,7 @@ const SetPriceStage: React.FC<React.PropsWithChildren<SetPriceStageProps>> = ({
         </Button>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default SetPriceStage
+export default SetPriceStage;

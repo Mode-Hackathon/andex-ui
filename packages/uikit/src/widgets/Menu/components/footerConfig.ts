@@ -95,7 +95,7 @@ export const footerLinks: (t: ContextApi["t"]) => FooterLinkType[] = (t) => [
     items: [
       {
         label: t("Terms Of Service"),
-        href: "https://pancakeswap.finance/terms-of-service",
+        href: "https://andex.onrender.com/terms-of-service",
       },
       {
         label: t("Blog"),

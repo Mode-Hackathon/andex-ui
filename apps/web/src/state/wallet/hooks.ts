@@ -38,6 +38,8 @@ export function useNativeBalances(uncheckedAddresses?: (string | undefined)[]): 
     args: useMemo(() => addresses.map((address) => [address] as const), [addresses]),
   })
 
+  console.log('result', results, addresses)
+
   return useMemo(
     () =>
       addresses.reduce<{ [address: string]: CurrencyAmount<Native> }>((memo, address, i) => {
@@ -80,13 +82,13 @@ export function useTokenBalancesWithLoadingIndicator(
       () =>
         address && validatedTokens.length > 0
           ? validatedTokens.reduce<{ [tokenAddress: string]: CurrencyAmount<Token> | undefined }>((memo, token, i) => {
-              const value = balances?.[i]?.result
-              const amount = typeof value !== 'undefined' ? BigInt(value.toString()) : undefined
-              if (typeof amount !== 'undefined') {
-                memo[token.address] = CurrencyAmount.fromRawAmount(token, amount)
-              }
-              return memo
-            }, {})
+            const value = balances?.[i]?.result
+            const amount = typeof value !== 'undefined' ? BigInt(value.toString()) : undefined
+            if (typeof amount !== 'undefined') {
+              memo[token.address] = CurrencyAmount.fromRawAmount(token, amount)
+            }
+            return memo
+          }, {})
           : {},
       [address, validatedTokens, balances],
     ),
@@ -135,6 +137,8 @@ export function useCurrencyBalances(
       currencies?.map((currency) => {
         if (!account || !currency) return undefined
         if (currency?.isToken) return tokenBalances[currency.address]
+
+        console.log('balance', nativeBalance, currency?.isNative)
         if (currency?.isNative) return nativeBalance[account]
         return undefined
       }) ?? [],

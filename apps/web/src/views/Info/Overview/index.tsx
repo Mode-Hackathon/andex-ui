@@ -1,22 +1,22 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { Card, Flex, Heading } from '@pancakeswap/uikit'
-import Page from 'components/Layout/Page'
-import { useMemo } from 'react'
+import { useTranslation } from "@pancakeswap/localization";
+import { Card, Flex, Heading } from "@pancakeswap/uikit";
+import Page from "components/Layout/Page";
+import { useMemo } from "react";
 import {
   useAllTokenDataQuery,
   useProtocolChartDataQuery,
   useProtocolDataQuery,
   useProtocolTransactionsQuery,
-} from 'state/info/hooks'
-import { TokenData } from 'state/info/types'
-import { styled } from 'styled-components'
-import BarChart from 'views/Info/components/InfoCharts/BarChart'
-import LineChart from 'views/Info/components/InfoCharts/LineChart'
-import PoolTable from 'views/Info/components/InfoTables/PoolsTable'
-import TokenTable from 'views/Info/components/InfoTables/TokensTable'
-import TransactionTable from 'views/Info/components/InfoTables/TransactionsTable'
-import HoverableChart from '../components/InfoCharts/HoverableChart'
-import { useNonSpamPoolsData } from '../hooks/usePoolsData'
+} from "state/info/hooks";
+import { TokenData } from "state/info/types";
+import { styled } from "styled-components";
+import BarChart from "views/Info/components/InfoCharts/BarChart";
+import LineChart from "views/Info/components/InfoCharts/LineChart";
+import PoolTable from "views/Info/components/InfoTables/PoolsTable";
+import TokenTable from "views/Info/components/InfoTables/TokensTable";
+import TransactionTable from "views/Info/components/InfoTables/TransactionsTable";
+import HoverableChart from "../components/InfoCharts/HoverableChart";
+import { useNonSpamPoolsData } from "../hooks/usePoolsData";
 
 export const ChartCardsContainer = styled(Flex)`
   justify-content: space-between;
@@ -32,41 +32,48 @@ export const ChartCardsContainer = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     flex-direction: row;
   }
-`
+`;
 
 const Overview: React.FC<React.PropsWithChildren> = () => {
   const {
     t,
     currentLanguage: { locale },
-  } = useTranslation()
+  } = useTranslation();
 
-  const protocolData = useProtocolDataQuery()
-  const chartData = useProtocolChartDataQuery()
-  const transactions = useProtocolTransactionsQuery()
+  const protocolData = useProtocolDataQuery();
+  const chartData = useProtocolChartDataQuery();
+  const transactions = useProtocolTransactionsQuery();
 
   const currentDate = useMemo(
-    () => new Date().toLocaleString(locale, { month: 'short', year: 'numeric', day: 'numeric' }),
-    [locale],
-  )
+    () =>
+      new Date().toLocaleString(locale, {
+        month: "short",
+        year: "numeric",
+        day: "numeric",
+      }),
+    [locale]
+  );
 
-  const allTokens = useAllTokenDataQuery()
+  const allTokens = useAllTokenDataQuery();
 
   const formattedTokens = useMemo(() => {
     return Object.values(allTokens)
       .map((token) => token.data)
-      .filter<TokenData>((token): token is TokenData => token?.name !== 'unknown')
-  }, [allTokens])
+      .filter<TokenData>(
+        (token): token is TokenData => token?.name !== "unknown"
+      );
+  }, [allTokens]);
 
-  const { poolsData } = useNonSpamPoolsData()
+  const { poolsData } = useNonSpamPoolsData();
 
   const somePoolsAreLoading = useMemo(() => {
-    return poolsData.some((pool) => !pool?.token0Price)
-  }, [poolsData])
+    return poolsData.some((pool) => !pool?.token0Price);
+  }, [poolsData]);
 
   return (
     <Page>
       <Heading scale="lg" mb="16px" id="info-overview-title">
-        {t('PancakeSwap Info & Analytics')}
+        {t("Andex Info & Analytics")}
       </Heading>
       <ChartCardsContainer>
         <Card>
@@ -75,7 +82,7 @@ const Overview: React.FC<React.PropsWithChildren> = () => {
             protocolData={protocolData}
             currentDate={currentDate}
             valueProperty="liquidityUSD"
-            title={t('Liquidity')}
+            title={t("Liquidity")}
             ChartComponent={LineChart}
           />
         </Card>
@@ -85,25 +92,25 @@ const Overview: React.FC<React.PropsWithChildren> = () => {
             protocolData={protocolData}
             currentDate={currentDate}
             valueProperty="volumeUSD"
-            title={t('Volume 24H')}
+            title={t("Volume 24H")}
             ChartComponent={BarChart}
           />
         </Card>
       </ChartCardsContainer>
       <Heading scale="lg" mt="40px" mb="16px">
-        {t('Top Tokens')}
+        {t("Top Tokens")}
       </Heading>
       <TokenTable tokenDatas={formattedTokens} />
       <Heading scale="lg" mt="40px" mb="16px">
-        {t('Top Pairs')}
+        {t("Top Pairs")}
       </Heading>
       <PoolTable poolDatas={poolsData} loading={somePoolsAreLoading} />
       <Heading scale="lg" mt="40px" mb="16px">
-        {t('Transactions')}
+        {t("Transactions")}
       </Heading>
       <TransactionTable transactions={transactions} />
     </Page>
-  )
-}
+  );
+};
 
-export default Overview
+export default Overview;

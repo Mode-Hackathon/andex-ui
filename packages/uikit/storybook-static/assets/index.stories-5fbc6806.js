@@ -4,7 +4,7 @@ import{j as r,a as n,F as A}from"./jsx-runtime-a888423b.js";import{c as S}from".
   & > a + a {
     margin-left: 16px;
   }
-`,p=()=>r(A,{children:[n(o,{mb:"32px",children:n("button",{type:"button",children:"Unstyled Button"})}),n(o,{mb:"32px",children:Object.values(D).map(e=>n(o,{mb:"32px",children:Object.values(O).map(t=>n(a,{variant:e,scale:t,mr:"8px",children:`${S(e)} ${t.toUpperCase()}`},t))},e))}),r(o,{children:[n(a,{mr:"8px",disabled:!0,children:"Disabled"}),n(a,{variant:"secondary",mr:"8px",disabled:!0,children:"Disabled"}),n(a,{disabled:!0,p:"0 45px",decorator:{text:"Soon"},children:"Locked"})]})]}),l=()=>r(A,{children:[n(o,{mb:"32px",children:Object.values(D).map(e=>n(o,{mb:"32px",children:Object.values(O).map(t=>n(a,{as:"a",href:"https://pancakeswap.finance",variant:e,scale:t,external:!0,mr:"8px",children:`${S(e)} anchor ${t.toUpperCase()}`},t))},e))}),r(o,{children:[n(a,{as:"a",href:"https://pancakeswap.finance",mr:"8px",external:!0,disabled:!0,children:"Disabled"}),n(a,{as:"a",href:"https://pancakeswap.finance",variant:"secondary",external:!0,disabled:!0,children:"Disabled"})]})]}),u=()=>n(o,{width:"640px",children:r(j,{children:[n(c,{children:n(a,{as:V,to:"/router-link",variant:"secondary",children:"As an React Router link"})}),n(c,{children:n(a,{width:"100%",children:"Full size"})}),r(c,{children:[n(a,{isLoading:!0,endIcon:n(N,{spin:!0,color:"currentColor"}),children:"Approving"}),n(a,{isLoading:!0,variant:"success",children:"Approving"})]}),r(c,{children:[n(a,{startIcon:n(d,{}),children:"Start Icon"}),n(a,{endIcon:n(d,{}),children:"End Icon"}),n(a,{startIcon:n(d,{}),endIcon:n(d,{}),children:"Start & End Icon"})]}),r(c,{children:[n(i,{children:n(d,{})}),n(i,{variant:"secondary",children:n(h,{})})]}),r(c,{children:[n(i,{scale:"sm",variant:"danger",children:n(d,{})}),n(i,{scale:"sm",variant:"success",children:n(h,{color:"currentColor"})})]})]})}),m=()=>{const[e,t]=F.useState(!1);return n(o,{width:"640px",children:n(j,{children:r(c,{children:[n(x,{expanded:e,onClick:()=>t(s=>!s)}),n(B,{expanded:e,onClick:()=>t(s=>!s),children:"ExpandableLabel"})]})})})};var v,f,I;p.parameters={...p.parameters,docs:{...(v=p.parameters)==null?void 0:v.docs,source:{originalSource:`() => {
+`,p=()=>r(A,{children:[n(o,{mb:"32px",children:n("button",{type:"button",children:"Unstyled Button"})}),n(o,{mb:"32px",children:Object.values(D).map(e=>n(o,{mb:"32px",children:Object.values(O).map(t=>n(a,{variant:e,scale:t,mr:"8px",children:`${S(e)} ${t.toUpperCase()}`},t))},e))}),r(o,{children:[n(a,{mr:"8px",disabled:!0,children:"Disabled"}),n(a,{variant:"secondary",mr:"8px",disabled:!0,children:"Disabled"}),n(a,{disabled:!0,p:"0 45px",decorator:{text:"Soon"},children:"Locked"})]})]}),l=()=>r(A,{children:[n(o,{mb:"32px",children:Object.values(D).map(e=>n(o,{mb:"32px",children:Object.values(O).map(t=>n(a,{as:"a",href:"https://andex.onrender.com",variant:e,scale:t,external:!0,mr:"8px",children:`${S(e)} anchor ${t.toUpperCase()}`},t))},e))}),r(o,{children:[n(a,{as:"a",href:"https://andex.onrender.com",mr:"8px",external:!0,disabled:!0,children:"Disabled"}),n(a,{as:"a",href:"https://andex.onrender.com",variant:"secondary",external:!0,disabled:!0,children:"Disabled"})]})]}),u=()=>n(o,{width:"640px",children:r(j,{children:[n(c,{children:n(a,{as:V,to:"/router-link",variant:"secondary",children:"As an React Router link"})}),n(c,{children:n(a,{width:"100%",children:"Full size"})}),r(c,{children:[n(a,{isLoading:!0,endIcon:n(N,{spin:!0,color:"currentColor"}),children:"Approving"}),n(a,{isLoading:!0,variant:"success",children:"Approving"})]}),r(c,{children:[n(a,{startIcon:n(d,{}),children:"Start Icon"}),n(a,{endIcon:n(d,{}),children:"End Icon"}),n(a,{startIcon:n(d,{}),endIcon:n(d,{}),children:"Start & End Icon"})]}),r(c,{children:[n(i,{children:n(d,{})}),n(i,{variant:"secondary",children:n(h,{})})]}),r(c,{children:[n(i,{scale:"sm",variant:"danger",children:n(d,{})}),n(i,{scale:"sm",variant:"success",children:n(h,{color:"currentColor"})})]})]})}),m=()=>{const[e,t]=F.useState(!1);return n(o,{width:"640px",children:n(j,{children:r(c,{children:[n(x,{expanded:e,onClick:()=>t(s=>!s)}),n(B,{expanded:e,onClick:()=>t(s=>!s),children:"ExpandableLabel"})]})})})};var v,f,I;p.parameters={...p.parameters,docs:{...(v=p.parameters)==null?void 0:v.docs,source:{originalSource:`() => {
   return <>
       <Box mb="32px">
         <button type="button">Unstyled Button</button>
@@ -40,7 +40,7 @@ import{j as r,a as n,F as A}from"./jsx-runtime-a888423b.js";import{c as S}from".
         {Object.values(variants).map(variant => {
         return <Box key={variant} mb="32px">
               {Object.values(scales).map(scale => {
-            return <Button as="a" href="https://pancakeswap.finance" key={scale} variant={variant} scale={scale} external mr="8px">
+            return <Button as="a" href="https://andex.onrender.com" key={scale} variant={variant} scale={scale} external mr="8px">
                     {\`\${capitalize(variant)} anchor \${scale.toUpperCase()}\`}
                   </Button>;
           })}
@@ -48,10 +48,10 @@ import{j as r,a as n,F as A}from"./jsx-runtime-a888423b.js";import{c as S}from".
       })}
       </Box>
       <Box>
-        <Button as="a" href="https://pancakeswap.finance" mr="8px" external disabled>
+        <Button as="a" href="https://andex.onrender.com" mr="8px" external disabled>
           Disabled
         </Button>
-        <Button as="a" href="https://pancakeswap.finance" variant="secondary" external disabled>
+        <Button as="a" href="https://andex.onrender.com" variant="secondary" external disabled>
           Disabled
         </Button>
       </Box>

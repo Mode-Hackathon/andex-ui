@@ -1,11 +1,26 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { Box, Flex, Link, OpenNewIcon, Text, useMatchBreakpoints, Button } from '@pancakeswap/uikit'
-import { ASSET_CDN } from 'config/constants/endpoints'
-import Image from 'next/legacy/image'
-import { memo } from 'react'
-import { styled, keyframes } from 'styled-components'
-import * as S from './Styled'
-import { gameDesktopBg, gameMobileBunny, gameDesktopBunny, gameCube, gameText, gameMobileText } from './images'
+import { useTranslation } from "@pancakeswap/localization";
+import {
+  Box,
+  Flex,
+  Link,
+  OpenNewIcon,
+  Text,
+  useMatchBreakpoints,
+  Button,
+} from "@pancakeswap/uikit";
+import { ASSET_CDN } from "config/constants/endpoints";
+import Image from "next/legacy/image";
+import { memo } from "react";
+import { styled, keyframes } from "styled-components";
+import * as S from "./Styled";
+import {
+  gameDesktopBg,
+  gameMobileBunny,
+  gameDesktopBunny,
+  gameCube,
+  gameText,
+  gameMobileText,
+} from "./images";
 
 const flyingAnim = keyframes`
   from {
@@ -17,9 +32,9 @@ const flyingAnim = keyframes`
   to {
     transform: translate(0, 0px);
   }
-`
+`;
 
-const pancakeSwapLogo = `${ASSET_CDN}/web/banners/ethXpancakeswap.png`
+const pancakeSwapLogo = `${ASSET_CDN}/web/banners/ethXpancakeswap.png`;
 
 const RightWrapper = styled.div`
   position: absolute;
@@ -51,7 +66,7 @@ const RightWrapper = styled.div`
       right: 8%;
     }
   }
-`
+`;
 
 const BgWrapper = styled.div`
   position: absolute;
@@ -68,17 +83,17 @@ const BgWrapper = styled.div`
     top: 0px;
     height: 100% !important;
   }
-`
+`;
 const Header = styled.div`
   padding-right: 100px;
   position: relative;
-  font-family: 'Kanit';
+  font-family: "Kanit";
   font-style: normal;
   font-weight: 800;
   font-size: 24px;
   line-height: 98%;
   letter-spacing: 0.01em;
-  font-feature-settings: 'liga' off;
+  font-feature-settings: "liga" off;
   background: linear-gradient(28deg, #ffb237 -0.47%, #ffeb37 54.35%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -103,7 +118,7 @@ const Header = styled.div`
   ${({ theme }) => theme.mediaQueries.lg} {
     font-size: 33px;
   }
-`
+`;
 
 const GradientText = styled(Text)<{ backgroundColor?: string }>`
   font-size: 19.823px;
@@ -114,11 +129,11 @@ const GradientText = styled(Text)<{ backgroundColor?: string }>`
   background: ${({ backgroundColor }) => backgroundColor};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-`
+`;
 
 const GameBanner = () => {
-  const { t, currentLanguage } = useTranslation()
-  const { isMobile, isDesktop } = useMatchBreakpoints()
+  const { t, currentLanguage } = useTranslation();
+  const { isMobile, isDesktop } = useMatchBreakpoints();
 
   return (
     <S.Wrapper
@@ -127,7 +142,13 @@ const GameBanner = () => {
       }}
     >
       <S.Inner>
-        <S.LeftWrapper position="relative" style={{ zIndex: 3, justifyContent: isMobile ? 'flex-start' : 'center' }}>
+        <S.LeftWrapper
+          position="relative"
+          style={{
+            zIndex: 3,
+            justifyContent: isMobile ? "flex-start" : "center",
+          }}
+        >
           <Flex alignItems="center" mb="8px" style={{ gap: isMobile ? 8 : 10 }}>
             <Image
               src={pancakeSwapLogo}
@@ -137,68 +158,126 @@ const GameBanner = () => {
               unoptimized
             />
           </Flex>
-          <Header data-text={isMobile ? t('Gaming Marketplace') : t('PancakeSwap Gaming Marketplace')}>
-            {isMobile ? t('Gaming Marketplace') : t('PancakeSwap Gaming Marketplace')}
+          <Header
+            data-text={
+              isMobile ? t("Gaming Marketplace") : t("Andex Gaming Marketplace")
+            }
+          >
+            {isMobile ? t("Gaming Marketplace") : t("Andex Gaming Marketplace")}
           </Header>
           <Box>
             {isDesktop ? (
               <Flex mt="8px">
                 <GradientText backgroundColor="#34FBA6" mr="4px">
-                  {t('Explore Your')}
+                  {t("Explore Your")}
                 </GradientText>
-                {currentLanguage.code === 'en' ? (
+                {currentLanguage.code === "en" ? (
                   <Box m="4px 4px 0 0">
-                    <Image src={gameText} alt="gameText" width={177} height={19} placeholder="blur" />
+                    <Image
+                      src={gameText}
+                      alt="gameText"
+                      width={177}
+                      height={19}
+                      placeholder="blur"
+                    />
                   </Box>
                 ) : (
                   <>
-                    <GradientText backgroundColor="#88FF5C 120%">{t('GameFi Spirit')}</GradientText>
+                    <GradientText backgroundColor="#88FF5C 120%">
+                      {t("GameFi Spirit")}
+                    </GradientText>
                     <Text as="span" m="0 2px">
                       💚
                     </Text>
                   </>
                 )}
                 <GradientText backgroundColor="linear-gradient(90deg, #88FF5C 10.97%, #F4E23B 27.39%, #FFDF38 99.79%)">
-                  {t('1.5M Monthly Players Await!')}
+                  {t("1.5M Monthly Players Await!")}
                 </GradientText>
               </Flex>
             ) : (
               <>
-                {currentLanguage.code === 'en' ? (
+                {currentLanguage.code === "en" ? (
                   <Box mt="8px">
-                    <Image src={gameMobileText} alt="gameMobileText" width={84} height={20} placeholder="blur" />
+                    <Image
+                      src={gameMobileText}
+                      alt="gameMobileText"
+                      width={84}
+                      height={20}
+                      placeholder="blur"
+                    />
                   </Box>
                 ) : (
                   <Text fontSize={20} bold color="#05FFC3">
-                    {t('is Live')}
+                    {t("is Live")}
                   </Text>
                 )}
               </>
             )}
           </Box>
-          <Link style={{ textDecoration: 'none' }} external href="https://pancakeswap.games/">
-            <Button variant="text" pl="0px" pt="0px" scale={isMobile ? 'sm' : 'md'}>
-              <Text textTransform={isMobile ? 'uppercase' : 'capitalize'} bold fontSize="16px" color="#05FFC3">
-                {t('Try Now')}
+          <Link
+            style={{ textDecoration: "none" }}
+            external
+            href="https://pancakeswap.games/"
+          >
+            <Button
+              variant="text"
+              pl="0px"
+              pt="0px"
+              scale={isMobile ? "sm" : "md"}
+            >
+              <Text
+                textTransform={isMobile ? "uppercase" : "capitalize"}
+                bold
+                fontSize="16px"
+                color="#05FFC3"
+              >
+                {t("Try Now")}
               </Text>
               <OpenNewIcon color="#05FFC3" />
             </Button>
           </Link>
         </S.LeftWrapper>
         <RightWrapper>
-          <Image src={gameCube} alt="gameCube" width={52} height={52} placeholder="blur" />
+          <Image
+            src={gameCube}
+            alt="gameCube"
+            width={52}
+            height={52}
+            placeholder="blur"
+          />
           {isDesktop ? (
-            <Image src={gameDesktopBunny} alt="gameDesktopBunny" width={264.5} height={192} placeholder="blur" />
+            <Image
+              src={gameDesktopBunny}
+              alt="gameDesktopBunny"
+              width={264.5}
+              height={192}
+              placeholder="blur"
+            />
           ) : (
-            <Image src={gameMobileBunny} alt="gameMobileBunny" width={338} height={176} placeholder="blur" />
+            <Image
+              src={gameMobileBunny}
+              alt="gameMobileBunny"
+              width={338}
+              height={176}
+              placeholder="blur"
+            />
           )}
           <BgWrapper>
-            {isDesktop && <Image src={gameDesktopBg} alt="gameBg" width={1126} height={192} placeholder="blur" />}
+            {isDesktop && (
+              <Image
+                src={gameDesktopBg}
+                alt="gameBg"
+                width={1126}
+                height={192}
+                placeholder="blur"
+              />
+            )}
           </BgWrapper>
         </RightWrapper>
       </S.Inner>
     </S.Wrapper>
-  )
-}
+  );
+};
 
-export default memo(GameBanner)
+export default memo(GameBanner);

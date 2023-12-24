@@ -1,17 +1,31 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { Flex, Link, OpenNewIcon, Text, useMatchBreakpoints, Button, Svg, SvgProps } from '@pancakeswap/uikit'
-import { ASSET_CDN } from 'config/constants/endpoints'
-import Image from 'next/legacy/image'
-import { memo } from 'react'
-import { styled } from 'styled-components'
-import * as S from './Styled'
-import { baseBunny, baseBgMobile, baseTree, baseBg, baseMoon } from './images'
-import { flyingAnim } from './animations'
+import { useTranslation } from "@pancakeswap/localization";
+import {
+  Flex,
+  Link,
+  OpenNewIcon,
+  Text,
+  useMatchBreakpoints,
+  Button,
+  Svg,
+  SvgProps,
+} from "@pancakeswap/uikit";
+import { ASSET_CDN } from "config/constants/endpoints";
+import Image from "next/legacy/image";
+import { memo } from "react";
+import { styled } from "styled-components";
+import * as S from "./Styled";
+import { baseBunny, baseBgMobile, baseTree, baseBg, baseMoon } from "./images";
+import { flyingAnim } from "./animations";
 
-const pancakeSwapLogo = `${ASSET_CDN}/web/banners/ethXpancakeswap.png`
+const pancakeSwapLogo = `${ASSET_CDN}/web/banners/ethXpancakeswap.png`;
 
 const BaseLogo = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 16" fill="none" {...props}>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 60 16"
+    fill="none"
+    {...props}
+  >
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -19,7 +33,7 @@ const BaseLogo = (props: SvgProps) => (
       fill="white"
     />
   </Svg>
-)
+);
 
 const RightWrapper = styled.div`
   position: absolute;
@@ -46,7 +60,7 @@ const RightWrapper = styled.div`
     z-index: 3;
     animation: ${flyingAnim} 3.5s ease-in-out infinite;
   }
-`
+`;
 
 const BgWrapper = styled.div`
   position: absolute;
@@ -80,11 +94,11 @@ const BgWrapper = styled.div`
     right: 0px;
     z-index: 3;
   }
-`
+`;
 const Header = styled.div`
   padding-right: 100px;
   position: relative;
-  font-family: 'Kanit';
+  font-family: "Kanit";
   font-style: normal;
   font-weight: 800;
   font-size: 25px;
@@ -97,10 +111,10 @@ const Header = styled.div`
     margin-top: 0px;
     margin-bottom: 10px;
   }
-`
+`;
 const SubTitle = styled.div`
   color: #ffffff;
-  font-feature-settings: 'liga' off;
+  font-feature-settings: "liga" off;
   font-family: Kanit;
   font-size: 19.847px;
   font-style: normal;
@@ -110,27 +124,33 @@ const SubTitle = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     margin-bottom: 10px;
   }
-`
+`;
 
 const Divider = styled.div`
   height: 15px;
   width: 1px;
   background-color: ${({ theme }) => theme.colors.white};
-`
+`;
 
 const BaseBanner = () => {
-  const { t } = useTranslation()
-  const { isMobile, isDesktop } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const { isMobile, isDesktop } = useMatchBreakpoints();
 
   return (
     <S.Wrapper
       style={{
         background: `linear-gradient(180deg, #0052FF 0%, #FFF 100%)`,
-        overflow: isMobile ? 'hidden' : 'visible',
+        overflow: isMobile ? "hidden" : "visible",
       }}
     >
       <S.Inner>
-        <S.LeftWrapper position="relative" style={{ zIndex: 3, justifyContent: isMobile ? 'flex-start' : 'center' }}>
+        <S.LeftWrapper
+          position="relative"
+          style={{
+            zIndex: 3,
+            justifyContent: isMobile ? "flex-start" : "center",
+          }}
+        >
           <Flex alignItems="center" mb="8px" style={{ gap: isMobile ? 8 : 10 }}>
             <Image
               src={pancakeSwapLogo}
@@ -142,16 +162,30 @@ const BaseBanner = () => {
             <Divider />
             <BaseLogo width={60} height={16} />
           </Flex>
-          <Header>{isMobile ? t('Base is LIVE!') : t('PancakeSwap Now Live on Base!')}</Header>
-          {!isMobile && <SubTitle>{t('Swap and Provide Liquidity Now')}</SubTitle>}
+          <Header>
+            {isMobile ? t("Base is LIVE!") : t("Andex Now Live on Base!")}
+          </Header>
+          {!isMobile && (
+            <SubTitle>{t("Swap and Provide Liquidity Now")}</SubTitle>
+          )}
           <Link
-            style={{ textDecoration: 'none' }}
+            style={{ textDecoration: "none" }}
             external
             href="https://blog.pancakeswap.finance/articles/pancake-swap-v3-on-base"
           >
-            <Button variant="text" pl="0px" pt="0px" scale={isMobile ? 'sm' : 'md'}>
-              <Text textTransform={isMobile ? 'uppercase' : 'capitalize'} bold fontSize="16px" color="#000000">
-                {t('Get Started')}
+            <Button
+              variant="text"
+              pl="0px"
+              pt="0px"
+              scale={isMobile ? "sm" : "md"}
+            >
+              <Text
+                textTransform={isMobile ? "uppercase" : "capitalize"}
+                bold
+                fontSize="16px"
+                color="#000000"
+              >
+                {t("Get Started")}
               </Text>
               <OpenNewIcon color="#000000" />
             </Button>
@@ -160,26 +194,62 @@ const BaseBanner = () => {
         <RightWrapper>
           {isDesktop ? (
             <>
-              <Image src={baseBunny} alt="baseBunny" width={218} height={203} placeholder="blur" />
-              <Image src={baseMoon} alt="baseMoon" width={123} height={94} placeholder="blur" />
+              <Image
+                src={baseBunny}
+                alt="baseBunny"
+                width={218}
+                height={203}
+                placeholder="blur"
+              />
+              <Image
+                src={baseMoon}
+                alt="baseMoon"
+                width={123}
+                height={94}
+                placeholder="blur"
+              />
             </>
           ) : (
-            <Image src={baseBunny} alt="baseBunny" width={196} height={182} placeholder="blur" />
+            <Image
+              src={baseBunny}
+              alt="baseBunny"
+              width={196}
+              height={182}
+              placeholder="blur"
+            />
           )}
           <BgWrapper>
             {isDesktop ? (
               <>
-                <Image src={baseBg} alt="baseBg" width={624} height={192} placeholder="blur" />
-                <Image src={baseTree} alt="baseTree" width={149} height={150} placeholder="blur" />
+                <Image
+                  src={baseBg}
+                  alt="baseBg"
+                  width={624}
+                  height={192}
+                  placeholder="blur"
+                />
+                <Image
+                  src={baseTree}
+                  alt="baseTree"
+                  width={149}
+                  height={150}
+                  placeholder="blur"
+                />
               </>
             ) : (
-              <Image src={baseBgMobile} alt="baseBgMobile" width={316} height={176} placeholder="blur" />
+              <Image
+                src={baseBgMobile}
+                alt="baseBgMobile"
+                width={316}
+                height={176}
+                placeholder="blur"
+              />
             )}
           </BgWrapper>
         </RightWrapper>
       </S.Inner>
     </S.Wrapper>
-  )
-}
+  );
+};
 
-export default memo(BaseBanner)
+export default memo(BaseBanner);

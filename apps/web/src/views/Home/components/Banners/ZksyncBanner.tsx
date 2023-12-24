@@ -1,16 +1,22 @@
-import { Button, Flex, Text, useMatchBreakpoints, OpenNewIcon } from '@pancakeswap/uikit'
-import { NextLinkFromReactRouter } from '@pancakeswap/widgets-internal'
+import {
+  Button,
+  Flex,
+  Text,
+  useMatchBreakpoints,
+  OpenNewIcon,
+} from "@pancakeswap/uikit";
+import { NextLinkFromReactRouter } from "@pancakeswap/widgets-internal";
 
-import { useTranslation } from '@pancakeswap/localization'
-import Image from 'next/legacy/image'
-import { styled, css } from 'styled-components'
+import { useTranslation } from "@pancakeswap/localization";
+import Image from "next/legacy/image";
+import { styled, css } from "styled-components";
 
-import { ASSET_CDN } from 'config/constants/endpoints'
+import { ASSET_CDN } from "config/constants/endpoints";
 
-import { zkSyncBg, zkSyncBunny, zkSyncBgMobile, eraLogo } from './images'
-import * as S from './Styled'
+import { zkSyncBg, zkSyncBunny, zkSyncBgMobile, eraLogo } from "./images";
+import * as S from "./Styled";
 
-const pancakeSwapLogo = `${ASSET_CDN}/web/banners/ethXpancakeswap.png`
+const pancakeSwapLogo = `${ASSET_CDN}/web/banners/ethXpancakeswap.png`;
 
 const RightWrapper = styled.div`
   position: absolute;
@@ -41,11 +47,11 @@ const RightWrapper = styled.div`
     right: 230px;
     top: -10%;
   }
-`
+`;
 
 const Title = styled.div`
   position: relative;
-  font-family: 'Kanit';
+  font-family: "Kanit";
   font-size: 25.526px;
   font-style: normal;
   font-weight: 800;
@@ -59,7 +65,7 @@ const Title = styled.div`
     margin-bottom: 4px;
     width: 100%;
   }
-`
+`;
 
 const sharedStyle = css`
   box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.1);
@@ -69,37 +75,43 @@ const sharedStyle = css`
     border-radius: 16px;
     padding: 12px 24px;
   }
-`
+`;
 
 const Divider = styled.div`
   height: 15px;
   width: 1px;
   background-color: ${({ theme }) => theme.colors.white};
-`
+`;
 
 const StyledButtonLeft = styled(Button)`
   ${sharedStyle}
   > div {
     color: ${({ theme }) => theme.colors.white};
   }
-`
+`;
 
 export const ZksyncBanner = () => {
-  const { t } = useTranslation()
-  const { isMobile, isDesktop } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const { isMobile, isDesktop } = useMatchBreakpoints();
 
-  const title = isDesktop ? t('PancakeSwap Now Live on zkSync Era!') : t('Zksync is LIVE!')
+  const title = isDesktop
+    ? t("Andex Now Live on zkSync Era!")
+    : t("Zksync is LIVE!");
 
   return (
     <S.Wrapper
       style={{
         background: `linear-gradient(180deg, #CCA382 0%, #9DC38F 49.77%, #9FCCCF 100%)`,
-        overflow: !isDesktop ? 'hidden' : 'visible',
+        overflow: !isDesktop ? "hidden" : "visible",
       }}
     >
       <S.Inner>
         <S.LeftWrapper>
-          <Flex alignItems="center" mb="8px" style={{ gap: isMobile ? 10 : 14 }}>
+          <Flex
+            alignItems="center"
+            mb="8px"
+            style={{ gap: isMobile ? 10 : 14 }}
+          >
             <Image
               src={pancakeSwapLogo}
               alt="pancakeSwapLogo"
@@ -108,12 +120,17 @@ export const ZksyncBanner = () => {
               unoptimized
             />
             <Divider />
-            <Image src={eraLogo} alt="eraLogo" width={isMobile ? 73 : 88} height={isMobile ? 14 : 16} />
+            <Image
+              src={eraLogo}
+              alt="eraLogo"
+              width={isMobile ? 73 : 88}
+              height={isMobile ? 14 : 16}
+            />
           </Flex>
           <Title>{title}</Title>
           {isDesktop && (
             <Text color="white" fontSize={20} fontWeight={700} mb="8px">
-              {t('Swap and Provide Liquidity on zkSync Era Now')}
+              {t("Swap and Provide Liquidity on zkSync Era Now")}
             </Text>
           )}
           <Flex>
@@ -121,9 +138,12 @@ export const ZksyncBanner = () => {
               target="_blank"
               to="https://blog.pancakeswap.finance/articles/pancake-swap-v3-on-zk-sync-era"
             >
-              <StyledButtonLeft scale={['xs', 'sm', 'md']} style={{ borderRadius: isMobile && '20px' }}>
-                <Text bold fontSize={['12px', '16px']} mr="4px">
-                  {isMobile ? t('Start Now') : t('Get Started')}
+              <StyledButtonLeft
+                scale={["xs", "sm", "md"]}
+                style={{ borderRadius: isMobile && "20px" }}
+              >
+                <Text bold fontSize={["12px", "16px"]} mr="4px">
+                  {isMobile ? t("Start Now") : t("Get Started")}
                 </Text>
                 <OpenNewIcon color="white" />
               </StyledButtonLeft>
@@ -132,13 +152,33 @@ export const ZksyncBanner = () => {
         </S.LeftWrapper>
         <RightWrapper>
           {!isDesktop ? (
-            <Image src={zkSyncBgMobile} alt="zkSyncBgMobile" width={270} height={239} placeholder="blur" />
+            <Image
+              src={zkSyncBgMobile}
+              alt="zkSyncBgMobile"
+              width={270}
+              height={239}
+              placeholder="blur"
+            />
           ) : (
-            <Image src={zkSyncBg} alt="zkSyncBg" width={624} height={177} placeholder="blur" />
+            <Image
+              src={zkSyncBg}
+              alt="zkSyncBg"
+              width={624}
+              height={177}
+              placeholder="blur"
+            />
           )}
-          {isDesktop && <Image src={zkSyncBunny} alt="zkSyncBunny" width={201} height={203} placeholder="blur" />}
+          {isDesktop && (
+            <Image
+              src={zkSyncBunny}
+              alt="zkSyncBunny"
+              width={201}
+              height={203}
+              placeholder="blur"
+            />
+          )}
         </RightWrapper>
       </S.Inner>
     </S.Wrapper>
-  )
-}
+  );
+};

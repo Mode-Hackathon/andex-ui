@@ -236,21 +236,22 @@ export function useSingleContractMultipleData<TAbi extends Abi | readonly unknow
     () =>
       contract && contract.abi && contract.address && args && args.length > 0
         ? args.map((inputs) => {
-            if (!contract.address) return undefined
-            return {
-              address: contract.address,
-              callData: encodeFunctionData({
-                abi: contract.abi,
-                functionName,
-                args: inputs,
-              } as unknown as EncodeFunctionDataParameters),
-            }
-          })
+          if (!contract.address) return undefined
+          return {
+            address: contract.address,
+            callData: encodeFunctionData({
+              abi: contract.abi,
+              functionName,
+              args: inputs,
+            } as unknown as EncodeFunctionDataParameters),
+          }
+        })
         : [],
     [args, contract, functionName],
   )
 
   const results = useCallsData(calls, options)
+  console.log(results, 'results')
 
   const queryClient = useQueryClient()
 
@@ -287,10 +288,10 @@ export function useMultipleContractSingleData<TAbi extends Abi | readonly unknow
     () =>
       abi && enabled
         ? encodeFunctionData({
-            abi,
-            functionName,
-            args,
-          } as unknown as EncodeFunctionDataParameters)
+          abi,
+          functionName,
+          args,
+        } as unknown as EncodeFunctionDataParameters)
         : undefined,
     [abi, args, enabled, functionName],
   )
@@ -299,13 +300,13 @@ export function useMultipleContractSingleData<TAbi extends Abi | readonly unknow
     () =>
       addresses && addresses.length > 0 && callData
         ? addresses.map<Call | undefined>((address) => {
-            return address && callData
-              ? {
-                  address,
-                  callData,
-                }
-              : undefined
-          })
+          return address && callData
+            ? {
+              address,
+              callData,
+            }
+            : undefined
+        })
         : [],
     [addresses, callData],
   )
@@ -343,15 +344,15 @@ export function useSingleCallResult<TAbi extends Abi | readonly unknown[], TFunc
   const calls = useMemo<Call[]>(() => {
     return contract && contract.abi && contract.address
       ? [
-          {
-            address: contract.address,
-            callData: encodeFunctionData({
-              abi: contract.abi,
-              args,
-              functionName,
-            } as unknown as EncodeFunctionDataParameters),
-          },
-        ]
+        {
+          address: contract.address,
+          callData: encodeFunctionData({
+            abi: contract.abi,
+            args,
+            functionName,
+          } as unknown as EncodeFunctionDataParameters),
+        },
+      ]
       : []
   }, [contract, args, functionName])
 

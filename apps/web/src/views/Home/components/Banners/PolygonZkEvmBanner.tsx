@@ -1,17 +1,23 @@
-import { Button, Flex, Text, useMatchBreakpoints, OpenNewIcon } from '@pancakeswap/uikit'
-import { NextLinkFromReactRouter } from '@pancakeswap/widgets-internal'
+import {
+  Button,
+  Flex,
+  Text,
+  useMatchBreakpoints,
+  OpenNewIcon,
+} from "@pancakeswap/uikit";
+import { NextLinkFromReactRouter } from "@pancakeswap/widgets-internal";
 
-import { useTranslation } from '@pancakeswap/localization'
-import Image from 'next/legacy/image'
-import { styled, css } from 'styled-components'
+import { useTranslation } from "@pancakeswap/localization";
+import Image from "next/legacy/image";
+import { styled, css } from "styled-components";
 
-import { ASSET_CDN } from 'config/constants/endpoints'
+import { ASSET_CDN } from "config/constants/endpoints";
 
-import { polygonZkBunny, polygonZkBgMobile, polygonZkBg } from './images'
-import * as S from './Styled'
-import { flyingAnim } from './animations'
+import { polygonZkBunny, polygonZkBgMobile, polygonZkBg } from "./images";
+import * as S from "./Styled";
+import { flyingAnim } from "./animations";
 
-const pancakeSwapLogo = `${ASSET_CDN}/web/banners/ethXpancakeswap.png`
+const pancakeSwapLogo = `${ASSET_CDN}/web/banners/ethXpancakeswap.png`;
 
 const RightWrapper = styled.div`
   position: absolute;
@@ -34,15 +40,15 @@ const RightWrapper = styled.div`
       top: -50%;
     }
   }
-`
+`;
 
 const Title = styled.div`
   position: relative;
-  font-family: 'Kanit';
+  font-family: "Kanit";
   font-style: normal;
   line-height: 98%;
   letter-spacing: 0.01em;
-  font-feature-settings: 'liga' off;
+  font-feature-settings: "liga" off;
   background: linear-gradient(166.02deg, #ffb237 -5.1%, #ffeb37 75.24%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -54,8 +60,9 @@ const Title = styled.div`
 
   &::after {
     letter-spacing: 0.01em;
-    font-feature-settings: 'liga' off;
-    background: linear-gradient(0deg, #832e00, #832e00), linear-gradient(18.74deg, #ffdf37 7.81%, #ffeb37 81.03%);
+    font-feature-settings: "liga" off;
+    background: linear-gradient(0deg, #832e00, #832e00),
+      linear-gradient(18.74deg, #ffdf37 7.81%, #ffeb37 81.03%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -73,7 +80,7 @@ const Title = styled.div`
     margin-bottom: 4px;
     width: 100%;
   }
-`
+`;
 
 const sharedStyle = css`
   box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.1);
@@ -83,14 +90,14 @@ const sharedStyle = css`
     border-radius: 16px;
     padding: 12px 24px;
   }
-`
+`;
 
 const StyledButtonLeft = styled(Button)`
   ${sharedStyle}
   > div {
     color: ${({ theme }) => theme.colors.white};
   }
-`
+`;
 
 const BGWrapper = styled.div`
   position: absolute;
@@ -116,18 +123,20 @@ const BGWrapper = styled.div`
       height: 194px !important;
     }
   }
-`
+`;
 
 export const PolygonZkEvmBanner = () => {
-  const { t } = useTranslation()
-  const { isMobile, isDesktop } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const { isMobile, isDesktop } = useMatchBreakpoints();
 
-  const title = isDesktop ? t('PancakeSwap Now Live on Polygon zkEVM!') : t('Polygon zkEVM is LIVE!')
+  const title = isDesktop
+    ? t("Andex Now Live on Polygon zkEVM!")
+    : t("Polygon zkEVM is LIVE!");
 
   return (
     <S.Wrapper
       style={{
-        background: 'linear-gradient(180deg, #9132D2 0%, #803DE1 100%)',
+        background: "linear-gradient(180deg, #9132D2 0%, #803DE1 100%)",
       }}
     >
       <S.Inner>
@@ -144,7 +153,7 @@ export const PolygonZkEvmBanner = () => {
           <Title data-text={title}>{title}</Title>
           {isDesktop && (
             <Text color="#FFE437" fontSize={24} fontWeight={700} mb="8px">
-              {t('Swap, LP, and Farms on Polygon zkEVM now')}
+              {t("Swap, LP, and Farms on Polygon zkEVM now")}
             </Text>
           )}
           <Flex>
@@ -152,9 +161,9 @@ export const PolygonZkEvmBanner = () => {
               target="_blank"
               to="https://blog.pancakeswap.finance/articles/pancake-swap-expands-to-polygon-zk-evm-a-new-era-of-multichain-de-fi-begins"
             >
-              <StyledButtonLeft scale={['xs', 'sm', 'md']}>
-                <Text bold fontSize={['12px', '16px']} mr="4px">
-                  {t('Get Started')}
+              <StyledButtonLeft scale={["xs", "sm", "md"]}>
+                <Text bold fontSize={["12px", "16px"]} mr="4px">
+                  {t("Get Started")}
                 </Text>
                 <OpenNewIcon color="white" />
               </StyledButtonLeft>
@@ -164,18 +173,42 @@ export const PolygonZkEvmBanner = () => {
         <RightWrapper>
           <BGWrapper>
             {isMobile ? (
-              <Image src={polygonZkBgMobile} alt="Background" width={338} height={176} unoptimized />
+              <Image
+                src={polygonZkBgMobile}
+                alt="Background"
+                width={338}
+                height={176}
+                unoptimized
+              />
             ) : (
-              <Image src={polygonZkBg} alt="Background" width={1126} height={192} unoptimized />
+              <Image
+                src={polygonZkBg}
+                alt="Background"
+                width={1126}
+                height={192}
+                unoptimized
+              />
             )}
           </BGWrapper>
           {isMobile ? (
-            <Image src={polygonZkBunny} alt="GalxeTraverseBunny" width={173} height={138} placeholder="blur" />
+            <Image
+              src={polygonZkBunny}
+              alt="GalxeTraverseBunny"
+              width={173}
+              height={138}
+              placeholder="blur"
+            />
           ) : (
-            <Image src={polygonZkBunny} alt="GalxeTraverseBunny" width={335} height={268} placeholder="blur" />
+            <Image
+              src={polygonZkBunny}
+              alt="GalxeTraverseBunny"
+              width={335}
+              height={268}
+              placeholder="blur"
+            />
           )}
         </RightWrapper>
       </S.Inner>
     </S.Wrapper>
-  )
-}
+  );
+};

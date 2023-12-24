@@ -27,7 +27,7 @@ export const MerklNoticeContent: React.FC<MerklNoticeContentProps> = ({ linkColo
           </p>
           <br />
           {t(
-            "To earn Merkl rewards, continue seeding liquidity on PancakeSwap, but DO NOT stake your LP token in the Farm. Otherwise, you will not accrue rewards."
+            "To earn Merkl rewards, continue seeding liquidity on Andex, but DO NOT stake your LP token in the Farm. Otherwise, you will not accrue rewards.",
           )}
         </Text>
       </Box>

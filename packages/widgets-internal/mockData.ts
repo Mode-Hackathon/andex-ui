@@ -7,8 +7,8 @@ export const cakeToken = new ERC20Token(
   "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
   18,
   "CAKE",
-  "PancakeSwap Token",
-  "https://pancakeswap.finance/"
+  "Andex Token",
+  "https://andex.onrender.com/"
 );
 
 export const bscToken = new ERC20Token(

@@ -6,8 +6,8 @@ export const CAKE_MAINNET = new ERC20Token(
   '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',
   18,
   'CAKE',
-  'PancakeSwap Token',
-  'https://pancakeswap.finance/',
+  'Andex Token',
+  'https://andex.onrender.com/',
 )
 
 export const CAKE_TESTNET = new ERC20Token(
@@ -15,8 +15,8 @@ export const CAKE_TESTNET = new ERC20Token(
   '0x32E0DdB7f502D87065091bDa62529337dD2062d0',
   18,
   'CAKE',
-  'PancakeSwap Token',
-  'https://pancakeswap.finance/',
+  'Andex Token',
+  'https://andex.onrender.com/',
 )
 
 export const USDC_BSC = new ERC20Token(
@@ -118,16 +118,16 @@ export const CAKE = {
     '0x152649eA73beAb28c5b49B26eb48f7EAD6d4c898',
     18,
     'CAKE',
-    'PancakeSwap Token',
-    'https://pancakeswap.finance/',
+    'Andex Token',
+    'https://andex.onrender.com/',
   ),
   [ChainId.MODE_TESTNET]: new ERC20Token(
     ChainId.MODE_TESTNET,
     '0x32E0DdB7f502D87065091bDa62529337dD2062d0',
     18,
     'CAKE',
-    'PancakeSwap Token',
-    'https://pancakeswap.finance/',
+    'Andex Token',
+    'https://andex.onrender.com/',
   ),
 
 }

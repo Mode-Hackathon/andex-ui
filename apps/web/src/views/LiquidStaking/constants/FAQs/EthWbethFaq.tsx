@@ -1,5 +1,5 @@
-import { Trans } from '@pancakeswap/localization'
-import { Link, LinkExternal } from '@pancakeswap/uikit'
+import { Trans } from "@pancakeswap/localization";
+import { Link, LinkExternal } from "@pancakeswap/uikit";
 
 export const EthWbethFaq = () => [
   {
@@ -7,8 +7,9 @@ export const EthWbethFaq = () => [
     title: <Trans>How does wBETH generate staking rewards?</Trans>,
     description: (
       <Trans>
-        Liquid Staking Derivatives generate staking rewards through the Ethereum network. When you stake ETH via
-        Binance, you will get BETH as the reward for staking your ETH. wBETH is the 1:1 wrapped version of BETH that can
+        Liquid Staking Derivatives generate staking rewards through the Ethereum
+        network. When you stake ETH via Binance, you will get BETH as the reward
+        for staking your ETH. wBETH is the 1:1 wrapped version of BETH that can
         be used on-chain.
       </Trans>
     ),
@@ -19,10 +20,14 @@ export const EthWbethFaq = () => [
     description: (
       <>
         <Trans>
-          Post-merge, the APR is hovering at around 3-5% for Ethereum validators. For wBETH, the daily APR is published
-          by the Binance Earn team
+          Post-merge, the APR is hovering at around 3-5% for Ethereum
+          validators. For wBETH, the daily APR is published by the Binance Earn
+          team
         </Trans>
-        <LinkExternal style={{ display: 'inline-flex' }} href="https://www.binance.com/en/eth2">
+        <LinkExternal
+          style={{ display: "inline-flex" }}
+          href="https://www.binance.com/en/eth2"
+        >
           <Trans>here.</Trans>
         </LinkExternal>
       </>
@@ -34,11 +39,11 @@ export const EthWbethFaq = () => [
     description: (
       <>
         <Trans>
-          wBETH is the wrapped version of BETH. Unlike BETH, wBETH can be obtained and utilized on-chain. For a
-          side-by-side comparison,
-        </Trans>{' '}
+          wBETH is the wrapped version of BETH. Unlike BETH, wBETH can be
+          obtained and utilized on-chain. For a side-by-side comparison,
+        </Trans>{" "}
         <LinkExternal
-          style={{ display: 'inline-flex' }}
+          style={{ display: "inline-flex" }}
           href="https://www.binance.com/en/support/announcement/binance-introduces-wrapped-beacon-eth-wbeth-on-eth-staking-a1197f34d832445db41654ad01f56b4d"
         >
           <Trans>visit this page.</Trans>
@@ -51,19 +56,23 @@ export const EthWbethFaq = () => [
     title: <Trans>How can I use wBETH?</Trans>,
     description: (
       <Trans>
-        While accruing ETH staking rewards, you can use wBETH to explore other DeFi use cases including swapping,
-        lending/borrowing, yield farming, collateralization and more. Stay tuned for more announcements and content on
-        wBETH utility.
+        While accruing ETH staking rewards, you can use wBETH to explore other
+        DeFi use cases including swapping, lending/borrowing, yield farming,
+        collateralization and more. Stay tuned for more announcements and
+        content on wBETH utility.
       </Trans>
     ),
   },
   {
     id: 5,
     // eslint-disable-next-line react/no-unescaped-entities
-    title: <Trans>Do I need to claim staking rewards if I'm using wBETH?</Trans>,
+    title: (
+      <Trans>Do I need to claim staking rewards if I'm using wBETH?</Trans>
+    ),
     description: (
       <Trans>
-        No. Staking rewards accrue in the wBETH token. This means that the wBETH token will increase in value over ETH.
+        No. Staking rewards accrue in the wBETH token. This means that the wBETH
+        token will increase in value over ETH.
       </Trans>
     ),
   },
@@ -73,14 +82,14 @@ export const EthWbethFaq = () => [
     description: (
       <>
         <Trans>You can convert wBETH to ETH through</Trans>
-        <Link m="0 4px" style={{ display: 'inline' }} href="/swap">
+        <Link m="0 4px" style={{ display: "inline" }} href="/swap">
           <Trans>our swap page</Trans>.
         </Link>
         <Trans>
-          PancakeSwap is also working to support a conversion contract on our liquid staking page to convert wBETH back
-          to ETH seamlessly.
+          Andex is also working to support a conversion contract on our liquid
+          staking page to convert wBETH back to ETH seamlessly.
         </Trans>
       </>
     ),
   },
-]
+];

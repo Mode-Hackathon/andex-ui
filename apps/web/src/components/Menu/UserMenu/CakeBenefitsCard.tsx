@@ -10,14 +10,14 @@ import {
   Skeleton,
   Text,
   useMatchBreakpoints,
-} from '@pancakeswap/uikit'
-import { NextLinkFromReactRouter } from '@pancakeswap/widgets-internal'
+} from "@pancakeswap/uikit";
+import { NextLinkFromReactRouter } from "@pancakeswap/widgets-internal";
 
-import { VaultPosition } from 'utils/cakePool'
-import { FetchStatus } from 'config/constants/types'
-import { useTranslation } from '@pancakeswap/localization'
-import { styled } from 'styled-components'
-import useCakeBenefits from './hooks/useCakeBenefits'
+import { VaultPosition } from "utils/cakePool";
+import { FetchStatus } from "config/constants/types";
+import { useTranslation } from "@pancakeswap/localization";
+import { styled } from "styled-components";
+import useCakeBenefits from "./hooks/useCakeBenefits";
 
 const CakeBenefitsCardWrapper = styled(Box)`
   width: 100%;
@@ -25,7 +25,7 @@ const CakeBenefitsCardWrapper = styled(Box)`
   padding: 1px 1px 3px 1px;
   background: linear-gradient(180deg, #53dee9, #7645d9);
   border-radius: ${({ theme }) => theme.radii.default};
-`
+`;
 
 const CakeBenefitsCardInner = styled(Box)`
   position: relative;
@@ -36,7 +36,7 @@ const CakeBenefitsCardInner = styled(Box)`
 
   &:before {
     position: absolute;
-    content: '';
+    content: "";
     top: 0;
     left: 0;
     z-index: -1;
@@ -46,16 +46,19 @@ const CakeBenefitsCardInner = styled(Box)`
     border-radius: ${({ theme }) => theme.radii.default};
     background: ${({ theme }) => theme.colors.gradientBubblegum};
   }
-`
+`;
 
 interface CakeBenefitsCardProps {
-  onDismiss: () => void
+  onDismiss: () => void;
 }
 
-const CakeBenefitsCard: React.FC<React.PropsWithChildren<CakeBenefitsCardProps>> = ({ onDismiss }) => {
-  const { t } = useTranslation()
-  const { data: cakeBenefits, status: cakeBenefitsFetchStatus } = useCakeBenefits()
-  const { isMobile } = useMatchBreakpoints()
+const CakeBenefitsCard: React.FC<
+  React.PropsWithChildren<CakeBenefitsCardProps>
+> = ({ onDismiss }) => {
+  const { t } = useTranslation();
+  const { data: cakeBenefits, status: cakeBenefitsFetchStatus } =
+    useCakeBenefits();
+  const { isMobile } = useMatchBreakpoints();
 
   const {
     targetRef: cakeTargetRef,
@@ -64,22 +67,25 @@ const CakeBenefitsCard: React.FC<React.PropsWithChildren<CakeBenefitsCardProps>>
   } = useTooltip(
     <>
       <Text>
-        {t(`%lockedCake% CAKE (including rewards) are locked in the CAKE Pool until %lockedEndTime%`, {
-          lockedCake: cakeBenefits?.lockedCake,
-          lockedEndTime: cakeBenefits?.lockedEndTime,
-        })}
+        {t(
+          `%lockedCake% CAKE (including rewards) are locked in the CAKE Pool until %lockedEndTime%`,
+          {
+            lockedCake: cakeBenefits?.lockedCake,
+            lockedEndTime: cakeBenefits?.lockedEndTime,
+          }
+        )}
       </Text>
       <NextLinkFromReactRouter to="/pools" onClick={onDismiss}>
         <Text bold color="primary">
-          {t('Learn More')}
+          {t("Learn More")}
         </Text>
       </NextLinkFromReactRouter>
     </>,
     {
-      placement: 'bottom',
+      placement: "bottom",
       ...(isMobile && { hideTimeout: 2000 }),
-    },
-  )
+    }
+  );
 
   const {
     targetRef: iCakeTargetRef,
@@ -88,21 +94,24 @@ const CakeBenefitsCard: React.FC<React.PropsWithChildren<CakeBenefitsCardProps>>
   } = useTooltip(
     <>
       <Text>
-        {t(`iCAKE allows you to participate in the IFO public sales and commit up to %iCake% amount of CAKE.`, {
-          iCake: cakeBenefits?.iCake,
-        })}
+        {t(
+          `iCAKE allows you to participate in the IFO public sales and commit up to %iCake% amount of CAKE.`,
+          {
+            iCake: cakeBenefits?.iCake,
+          }
+        )}
       </Text>
       <NextLinkFromReactRouter to="/ifo" onClick={onDismiss}>
         <Text bold color="primary">
-          {t('Learn More')}
+          {t("Learn More")}
         </Text>
       </NextLinkFromReactRouter>
     </>,
     {
-      placement: 'bottom',
+      placement: "bottom",
       ...(isMobile && { hideTimeout: 2000 }),
-    },
-  )
+    }
+  );
 
   const {
     targetRef: bCakeTargetRef,
@@ -110,18 +119,20 @@ const CakeBenefitsCard: React.FC<React.PropsWithChildren<CakeBenefitsCardProps>>
     tooltipVisible: bCakeTooltipVisible,
   } = useTooltip(
     <>
-      <Text>{t(`bCAKE allows you to boost your yield in PancakeSwap Farms by up to 2x.`)}</Text>
+      <Text>
+        {t(`bCAKE allows you to boost your yield in Andex Farms by up to 2x.`)}
+      </Text>
       <NextLinkFromReactRouter to="/farms" onClick={onDismiss}>
         <Text bold color="primary">
-          {t('Learn More')}
+          {t("Learn More")}
         </Text>
       </NextLinkFromReactRouter>
     </>,
     {
-      placement: 'bottom',
+      placement: "bottom",
       ...(isMobile && { hideTimeout: 2000 }),
-    },
-  )
+    }
+  );
 
   const {
     targetRef: vCakeTargetRef,
@@ -130,31 +141,36 @@ const CakeBenefitsCard: React.FC<React.PropsWithChildren<CakeBenefitsCardProps>>
   } = useTooltip(
     <>
       <Text>
-        {t(`vCAKE boosts your voting power to %totalScore% in the PancakeSwap voting governance.`, {
-          totalScore: cakeBenefits?.vCake?.totalScore,
-        })}
+        {t(
+          `vCAKE boosts your voting power to %totalScore% in the Andex voting governance.`,
+          {
+            totalScore: cakeBenefits?.vCake?.totalScore,
+          }
+        )}
       </Text>
       <NextLinkFromReactRouter to="/voting" onClick={onDismiss}>
         <Text bold color="primary">
-          {t('Learn More')}
+          {t("Learn More")}
         </Text>
       </NextLinkFromReactRouter>
     </>,
     {
-      placement: 'bottom',
+      placement: "bottom",
       ...(isMobile && { hideTimeout: 2000 }),
-    },
-  )
+    }
+  );
 
   return cakeBenefitsFetchStatus === FetchStatus.Fetched ? (
     <>
-      {[VaultPosition.None, VaultPosition.Flexible].includes(cakeBenefits?.lockPosition) ? (
+      {[VaultPosition.None, VaultPosition.Flexible].includes(
+        cakeBenefits?.lockPosition
+      ) ? (
         <>
           <Flex flexDirection="row" alignItems="center">
             <Tag variant="secondary" mr="auto">
               <Flex alignItems="center">
                 <Box as={LockIcon} mr="4px" />
-                {t('No CAKE locked')}
+                {t("No CAKE locked")}
               </Flex>
             </Tag>
             <Text fontSize="16px">{cakeBenefits?.lockedCake}</Text>
@@ -162,25 +178,31 @@ const CakeBenefitsCard: React.FC<React.PropsWithChildren<CakeBenefitsCardProps>>
           <Message mt="8px" mb="16px" variant="warning">
             <MessageText maxWidth="200px">
               {t(
-                'Lock CAKE to enjoy the benefits of farm yield boosting, participating in IFOs, voting power boosts, and so much more!',
-              )}{' '}
+                "Lock CAKE to enjoy the benefits of farm yield boosting, participating in IFOs, voting power boosts, and so much more!"
+              )}{" "}
               <NextLinkFromReactRouter
-                style={{ textDecoration: 'underline', fontWeight: 'bold' }}
+                style={{ textDecoration: "underline", fontWeight: "bold" }}
                 to="/pools"
                 onClick={onDismiss}
               >
-                {t('Go to Pools')}
+                {t("Go to Pools")}
               </NextLinkFromReactRouter>
             </MessageText>
           </Message>
         </>
-      ) : [VaultPosition.LockedEnd, VaultPosition.AfterBurning].includes(cakeBenefits?.lockPosition) ? (
+      ) : [VaultPosition.LockedEnd, VaultPosition.AfterBurning].includes(
+          cakeBenefits?.lockPosition
+        ) ? (
         <>
-          <Flex flexDirection="row" justifyContent="space-between" alignItems="center">
+          <Flex
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Tag variant="failure" mr="auto">
               <Flex alignItems="center">
                 <Box as={LockIcon} mr="4px" />
-                {t('CAKE staking expired')}
+                {t("CAKE staking expired")}
               </Flex>
             </Tag>
             <Text fontSize="16px">{cakeBenefits?.lockedCake}</Text>
@@ -188,14 +210,14 @@ const CakeBenefitsCard: React.FC<React.PropsWithChildren<CakeBenefitsCardProps>>
           <Message mt="8px" mb="16px" variant="warning">
             <MessageText maxWidth="200px">
               {t(
-                'Renew your staking position to continue enjoying the benefits of farm yield boosting, participating in IFOs, voting power boosts, and so much more!',
-              )}{' '}
+                "Renew your staking position to continue enjoying the benefits of farm yield boosting, participating in IFOs, voting power boosts, and so much more!"
+              )}{" "}
               <NextLinkFromReactRouter
-                style={{ textDecoration: 'underline', fontWeight: 'bold' }}
+                style={{ textDecoration: "underline", fontWeight: "bold" }}
                 to="/pools"
                 onClick={onDismiss}
               >
-                {t('Go to Pools')}
+                {t("Go to Pools")}
               </NextLinkFromReactRouter>
             </MessageText>
           </Message>
@@ -207,7 +229,7 @@ const CakeBenefitsCard: React.FC<React.PropsWithChildren<CakeBenefitsCardProps>>
               <Tag variant="secondary" mr="auto">
                 <Flex alignItems="center">
                   <Box as={LockIcon} mr="4px" />
-                  {t('CAKE locked')}
+                  {t("CAKE locked")}
                 </Flex>
               </Tag>
               <TooltipText ref={cakeTargetRef} bold fontSize="16px">
@@ -216,21 +238,36 @@ const CakeBenefitsCard: React.FC<React.PropsWithChildren<CakeBenefitsCardProps>>
               {cakeTooltipVisible && cakeTooltip}
             </Flex>
             <Flex mt="10px" flexDirection="row" alignItems="center">
-              <TooltipText ref={iCakeTargetRef} color="textSubtle" fontSize="16px" mr="auto">
+              <TooltipText
+                ref={iCakeTargetRef}
+                color="textSubtle"
+                fontSize="16px"
+                mr="auto"
+              >
                 iCAKE
               </TooltipText>
               {iCakeTooltipVisible && iCakeTooltip}
               {cakeBenefits?.iCake}
             </Flex>
             <Flex mt="10px" flexDirection="row" alignItems="center">
-              <TooltipText ref={bCakeTargetRef} color="textSubtle" fontSize="16px" mr="auto">
+              <TooltipText
+                ref={bCakeTargetRef}
+                color="textSubtle"
+                fontSize="16px"
+                mr="auto"
+              >
                 bCAKE
               </TooltipText>
               {bCakeTooltipVisible && bCakeTooltip}
-              {t('Up to %boostMultiplier%x', { boostMultiplier: 2 })}
+              {t("Up to %boostMultiplier%x", { boostMultiplier: 2 })}
             </Flex>
             <Flex mt="10px" flexDirection="row" alignItems="center">
-              <TooltipText ref={vCakeTargetRef} color="textSubtle" fontSize="16px" mr="auto">
+              <TooltipText
+                ref={vCakeTargetRef}
+                color="textSubtle"
+                fontSize="16px"
+                mr="auto"
+              >
                 vCAKE
               </TooltipText>
               {vCakeTooltipVisible && vCakeTooltip}
@@ -242,7 +279,7 @@ const CakeBenefitsCard: React.FC<React.PropsWithChildren<CakeBenefitsCardProps>>
     </>
   ) : (
     <Skeleton width="100%" height={146} borderRadius="16px" marginBottom={24} />
-  )
-}
+  );
+};
 
-export default CakeBenefitsCard
+export default CakeBenefitsCard;

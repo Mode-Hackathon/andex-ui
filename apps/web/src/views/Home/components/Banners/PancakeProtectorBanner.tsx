@@ -1,20 +1,32 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { ArrowForwardIcon, Box, Button, Flex, Link, useMatchBreakpoints } from '@pancakeswap/uikit'
-import { ASSET_CDN } from 'config/constants/endpoints'
-import Image from 'next/legacy/image'
-import { memo } from 'react'
-import { styled, css } from 'styled-components'
-import * as S from './Styled'
+import { useTranslation } from "@pancakeswap/localization";
+import {
+  ArrowForwardIcon,
+  Box,
+  Button,
+  Flex,
+  Link,
+  useMatchBreakpoints,
+} from "@pancakeswap/uikit";
+import { ASSET_CDN } from "config/constants/endpoints";
+import Image from "next/legacy/image";
+import { memo } from "react";
+import { styled, css } from "styled-components";
+import * as S from "./Styled";
 
-const { pancakeProtectorBunny, pancakeProtectorBgMobile, pancakeProtectorBg, pancakeSwapLogo } = {
+const {
+  pancakeProtectorBunny,
+  pancakeProtectorBgMobile,
+  pancakeProtectorBg,
+  pancakeSwapLogo,
+} = {
   pancakeSwapLogo: `${ASSET_CDN}/web/banners/ethXpancakeswap.png`,
   pancakeProtectorBunny: `${ASSET_CDN}/web/banners/pancakeProtectorBunny.png`,
   pancakeProtectorBg: `${ASSET_CDN}/web/banners/pancakeProtectorBg.png`,
   pancakeProtectorBgMobile: `${ASSET_CDN}/web/banners/pancakeProtectorBgMobile.png`,
-}
+};
 
 const textStyle = css`
-  font-family: 'Kanit';
+  font-family: "Kanit";
   font-style: normal;
   font-weight: 800;
   line-height: 98%;
@@ -25,7 +37,7 @@ const textStyle = css`
   background-clip: text;
   text-fill-color: transparent;
   filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
-`
+`;
 
 const BGWrapper = styled.div`
   position: absolute;
@@ -53,7 +65,7 @@ const BGWrapper = styled.div`
       height: 194px !important;
     }
   }
-`
+`;
 
 const RightWrapper = styled.div`
   position: absolute;
@@ -73,7 +85,7 @@ const RightWrapper = styled.div`
       bottom: 2px;
     }
   }
-`
+`;
 const Header = styled.div`
   ${textStyle}
   font-size: 29px;
@@ -85,12 +97,12 @@ const Header = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     word-spacing: normal;
   }
-`
+`;
 
 const StyledSubheading = styled.div`
   ${textStyle}
   font-size: 19px;
-`
+`;
 
 const StyledButton = styled(Button)`
   box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.1);
@@ -103,7 +115,7 @@ const StyledButton = styled(Button)`
     padding: 4px 8px;
     font-size: 16px;
   }
-`
+`;
 
 const LogoBox = styled(Box)`
   margin-bottom: 0px;
@@ -115,17 +127,17 @@ const LogoBox = styled(Box)`
     transform: scale(1);
     margin-bottom: 10px;
   }
-`
+`;
 const Devider = styled.div`
   background: #ffffff;
   height: 10px;
   width: 2px;
   border-radius: 1px;
-`
+`;
 
 const PancakeProtectorBanner = () => {
-  const { t } = useTranslation()
-  const { isMobile, isDesktop } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const { isMobile, isDesktop } = useMatchBreakpoints();
 
   return (
     <S.Wrapper
@@ -136,24 +148,44 @@ const PancakeProtectorBanner = () => {
       <S.Inner>
         <S.LeftWrapper position="relative" style={{ zIndex: 2 }}>
           <LogoBox>
-            <Image src={pancakeSwapLogo} alt="pancakeSwapLogo" width={119} height={18} unoptimized />
+            <Image
+              src={pancakeSwapLogo}
+              alt="pancakeSwapLogo"
+              width={119}
+              height={18}
+              unoptimized
+            />
           </LogoBox>
-          <Header>{t('Join Pancake Protectors')}</Header>
-          <StyledSubheading>{isDesktop && t('Exclusive Perks for PancakeSwap Bunnies and Squads')}</StyledSubheading>
+          <Header>{t("Join Pancake Protectors")}</Header>
+          <StyledSubheading>
+            {isDesktop && t("Exclusive Perks for Andex Bunnies and Squads")}
+          </StyledSubheading>
           <Flex alignItems="center" style={{ gap: isMobile ? 4 : 16 }}>
             <Link
               href="https://blog.pancakeswap.finance/articles/pancake-protectors-is-here-discover-the-power-of-cake-and-perks-for-pancake-squads-and-bunnies"
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: "none" }}
               external
             >
-              <StyledButton variant="text" scale={isMobile ? 'sm' : 'md'} style={{ color: 'white', paddingLeft: 0 }}>
-                {t('Details')}
+              <StyledButton
+                variant="text"
+                scale={isMobile ? "sm" : "md"}
+                style={{ color: "white", paddingLeft: 0 }}
+              >
+                {t("Details")}
               </StyledButton>
             </Link>
             <Devider />
-            <Link href="https://protectors.pancakeswap.finance" external style={{ textDecoration: 'none' }}>
-              <StyledButton variant="text" style={{ color: 'white' }} scale={isMobile ? 'sm' : 'md'}>
-                {t('Play Now')}
+            <Link
+              href="https://protectors.pancakeswap.finance"
+              external
+              style={{ textDecoration: "none" }}
+            >
+              <StyledButton
+                variant="text"
+                style={{ color: "white" }}
+                scale={isMobile ? "sm" : "md"}
+              >
+                {t("Play Now")}
                 <ArrowForwardIcon color="white" />
               </StyledButton>
             </Link>
@@ -161,13 +193,31 @@ const PancakeProtectorBanner = () => {
         </S.LeftWrapper>
         <RightWrapper>
           {!isMobile ? (
-            <Image src={pancakeProtectorBunny} alt="pancakeProtectorBunny" width={193} height={232} unoptimized />
+            <Image
+              src={pancakeProtectorBunny}
+              alt="pancakeProtectorBunny"
+              width={193}
+              height={232}
+              unoptimized
+            />
           ) : (
-            <Image src={pancakeProtectorBunny} alt="pancakeProtectorBunnyMobile" width={132} height={160} unoptimized />
+            <Image
+              src={pancakeProtectorBunny}
+              alt="pancakeProtectorBunnyMobile"
+              width={132}
+              height={160}
+              unoptimized
+            />
           )}
           <BGWrapper>
             {!isMobile ? (
-              <Image src={pancakeProtectorBg} alt="pancakeProtectorBg" width={1126} height={192} unoptimized />
+              <Image
+                src={pancakeProtectorBg}
+                alt="pancakeProtectorBg"
+                width={1126}
+                height={192}
+                unoptimized
+              />
             ) : (
               <Image
                 src={pancakeProtectorBgMobile}
@@ -181,7 +231,7 @@ const PancakeProtectorBanner = () => {
         </RightWrapper>
       </S.Inner>
     </S.Wrapper>
-  )
-}
+  );
+};
 
-export default memo(PancakeProtectorBanner)
+export default memo(PancakeProtectorBanner);

@@ -7,7 +7,7 @@ const CHAIN_MAPPING = {
   [ChainId.MODE_MAINNET]: 'mode',
 } as const satisfies Record<number, string>
 
-// use for fetch usd outside of the liquidity pools on PancakeSwap
+// use for fetch usd outside of the liquidity pools on Andex
 export const fetchTokenUSDValue = async (chainId: number, tokenAddresses: string[]) => {
   if (!tokenAddresses.length || !CHAIN_MAPPING[chainId]) return new Map<string, string>()
 

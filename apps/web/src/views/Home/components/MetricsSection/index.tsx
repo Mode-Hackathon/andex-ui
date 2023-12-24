@@ -1,13 +1,13 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { Flex, Text, useMatchBreakpoints } from '@pancakeswap/uikit'
-import Image from 'next/legacy/image'
-import { styled } from 'styled-components'
-import { useQuery } from '@tanstack/react-query'
-import aptosBallRocket from '../../images/aptos-ball-rocket.png'
-import bnbBallRocket from '../../images/bnb-ball-rocket.png'
-import ethBallRocket from '../../images/eth-ball-rocket.png'
-import { ChainTags } from './ChainTags'
-import { MetricsCard } from './MetricsCard'
+import { useTranslation } from "@pancakeswap/localization";
+import { Flex, Text, useMatchBreakpoints } from "@pancakeswap/uikit";
+import Image from "next/legacy/image";
+import { styled } from "styled-components";
+import { useQuery } from "@tanstack/react-query";
+import aptosBallRocket from "../../images/aptos-ball-rocket.png";
+import bnbBallRocket from "../../images/bnb-ball-rocket.png";
+import ethBallRocket from "../../images/eth-ball-rocket.png";
+import { ChainTags } from "./ChainTags";
+import { MetricsCard } from "./MetricsCard";
 
 const ImageLayer = styled.div`
   position: absolute;
@@ -21,7 +21,7 @@ const ImageLayer = styled.div`
   ${({ theme }) => theme.mediaQueries.lg} {
     display: block;
   }
-`
+`;
 const BnbBallRocket = styled.div`
   position: absolute;
   left: -65px;
@@ -29,7 +29,7 @@ const BnbBallRocket = styled.div`
     bottom: 151px;
     left: 20px;
   }
-`
+`;
 const EthBallRocket = styled.div`
   position: absolute;
   right: 0;
@@ -38,7 +38,7 @@ const EthBallRocket = styled.div`
     right: 0;
     bottom: -30px;
   }
-`
+`;
 
 const AptosBallRocket = styled.div`
   position: absolute;
@@ -48,51 +48,81 @@ const AptosBallRocket = styled.div`
     top: 72px;
     right: 119px;
   }
-`
+`;
 
 const Stats = () => {
-  const { t } = useTranslation()
-  const { data: tvl = 0 } = useQuery<number>(['tvl'], { enabled: false })
-  const { data: txCount = 0 } = useQuery<number>(['totalTx30Days'], { enabled: false })
-  const { data: addressCount = 0 } = useQuery<number>(['addressCount30Days'], { enabled: false })
-  const { isMobile, isSm, isMd, isXxl } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const { data: tvl = 0 } = useQuery<number>(["tvl"], { enabled: false });
+  const { data: txCount = 0 } = useQuery<number>(["totalTx30Days"], {
+    enabled: false,
+  });
+  const { data: addressCount = 0 } = useQuery<number>(["addressCount30Days"], {
+    enabled: false,
+  });
+  const { isMobile, isSm, isMd, isXxl } = useMatchBreakpoints();
 
   return (
-    <Flex justifyContent="center" alignItems="center" flexDirection="column" overflow="hidden">
-      <Text textAlign="center" lineHeight="110%" fontWeight={600} mb="4px" fontSize={isMobile ? '20px' : '32px'}>
-        {t('Shaping the Future of Decentralized Trading:')}
+    <Flex
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+      overflow="hidden"
+    >
+      <Text
+        textAlign="center"
+        lineHeight="110%"
+        fontWeight={600}
+        mb="4px"
+        fontSize={isMobile ? "20px" : "32px"}
+      >
+        {t("Shaping the Future of Decentralized Trading:")}
       </Text>
       <Text
         textAlign="center"
         lineHeight="110%"
         fontWeight={600}
-        fontSize={isMobile ? '20px' : '32px'}
-        mb={isMobile ? '32px' : '48px'}
+        fontSize={isMobile ? "20px" : "32px"}
+        mb={isMobile ? "32px" : "48px"}
       >
-        {t('PancakeSwap’s Unstoppable Expansion')}
+        {t("Andex’s Unstoppable Expansion")}
       </Text>
       <Flex
         justifyContent="center"
         alignItems="center"
-        flexDirection={isMobile ? 'column' : 'row'}
-        width={['100%', '100%', '100%', '800px']}
+        flexDirection={isMobile ? "column" : "row"}
+        width={["100%", "100%", "100%", "800px"]}
         style={{ gap: isMobile ? 32 : 50 }}
-        mb={isMobile ? '32px' : '48px'}
+        mb={isMobile ? "32px" : "48px"}
         flexWrap="wrap"
       >
         <MetricsCard
-          width={isSm || isMd ? '100%' : 'auto'}
-          title={t('Total Users:')}
+          width={isSm || isMd ? "100%" : "auto"}
+          title={t("Total Users:")}
           value={addressCount}
-          description={t('in the last 30 days')}
+          description={t("in the last 30 days")}
         />
-        <MetricsCard title={t('Total Trades:')} value={txCount} description={t('in the last 30 days')} />
-        <MetricsCard title={t('Total Value Locked:')} value={tvl} description={t('in the last 30 days')} prefix="$" />
+        <MetricsCard
+          title={t("Total Trades:")}
+          value={txCount}
+          description={t("in the last 30 days")}
+        />
+        <MetricsCard
+          title={t("Total Value Locked:")}
+          value={tvl}
+          description={t("in the last 30 days")}
+          prefix="$"
+        />
       </Flex>
       <ChainTags />
       <ImageLayer>
         <BnbBallRocket>
-          <Image src={bnbBallRocket} alt="bnbBallRocket" width={144} height={168} placeholder="blur" />
+          <Image
+            src={bnbBallRocket}
+            alt="bnbBallRocket"
+            width={144}
+            height={168}
+            placeholder="blur"
+          />
         </BnbBallRocket>
         <EthBallRocket>
           <Image
@@ -114,7 +144,7 @@ const Stats = () => {
         </AptosBallRocket>
       </ImageLayer>
     </Flex>
-  )
-}
+  );
+};
 
-export default Stats
+export default Stats;

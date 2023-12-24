@@ -1,4 +1,4 @@
-import { useTranslation } from '@pancakeswap/localization'
+import { useTranslation } from "@pancakeswap/localization";
 import {
   BarChartIcon,
   FavoriteBorderIcon,
@@ -9,25 +9,25 @@ import {
   Text,
   VerifiedIcon,
   useMatchBreakpoints,
-} from '@pancakeswap/uikit'
-import useTheme from 'hooks/useTheme'
-import { useMemo } from 'react'
-import { styled } from 'styled-components'
-import { useLatestArticle } from '../../hooks/useAllArticle'
+} from "@pancakeswap/uikit";
+import useTheme from "hooks/useTheme";
+import { useMemo } from "react";
+import { styled } from "styled-components";
+import { useLatestArticle } from "../../hooks/useAllArticle";
 
 export const BlogImage = styled.div`
   width: 100%;
   height: 140px;
   border-radius: 16px;
   background-size: cover;
-`
+`;
 export const Divider = styled.div`
   width: 1px;
   height: 16px;
   background-color: ${({ theme }) => theme.colors.cardBorder};
   border-radius: 25%;
   margin: 0 8px;
-`
+`;
 
 export const Wrapper = styled.div`
   border-radius: 32px;
@@ -41,7 +41,7 @@ export const Wrapper = styled.div`
   ${({ theme }) => theme.mediaQueries.lg} {
     width: 340px;
   }
-`
+`;
 
 const LogoBox = styled.div`
   display: flex;
@@ -50,12 +50,12 @@ const LogoBox = styled.div`
   border-radius: 8px;
   justify-content: center;
   background: linear-gradient(180deg, #53dee9 0%, #1fc7d4 100%);
-`
+`;
 
 const TweetWrapper = styled.div`
   overflow: hidden;
   margin-top: 5px;
-`
+`;
 const TweetBox = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -66,21 +66,21 @@ const TweetBox = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
-`
+`;
 
 export const useTweetsData = () => {
   return useMemo(() => {
     return [
       {
         tweet: `🎂 3 years ago, we planted the seed on the BNB Chain, and today, it has grown into Everyone's Favorite DEX across eight blockchains.`,
-        link: 'https://x.com/PancakeSwap/status/1705190230394032541?s=20',
-        date: 'Sep 22',
-        like: '249',
-        impression: '19.7k',
+        link: "https://x.com/Andex/status/1705190230394032541?s=20",
+        date: "Sep 22",
+        like: "249",
+        impression: "19.7k",
       },
-    ]
-  }, [])
-}
+    ];
+  }, []);
+};
 
 const StyledText = styled(Text)`
   text-overflow: ellipsis;
@@ -99,37 +99,41 @@ const StyledText = styled(Text)`
   @media screen and (max-width: 762px) and (min-width: 700px) {
     width: 66px;
   }
-`
+`;
 
 export const TwitterCards: React.FC = () => {
-  const { t } = useTranslation()
-  const tweets = useTweetsData()
-  const { theme } = useTheme()
-  const { isMobile } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const tweets = useTweetsData();
+  const { theme } = useTheme();
+  const { isMobile } = useMatchBreakpoints();
   return (
     <Wrapper>
       <Text bold mb="24px">
-        {t('Top Tweet of the week')}
+        {t("Top Tweet of the week")}
       </Text>
       <LogoBox>
         <LogoIcon width={30} />
       </LogoBox>
       <Flex alignItems="center">
         <Text mt="10px" fontSize={14} bold>
-          PancakeSwap🥞Ev3ryone&#39;s Favourite D3X
+          Andex🥞Ev3ryone&#39;s Favourite D3X
         </Text>
         <VerifiedIcon ml="3px" mt="9px" color={theme.colors.secondary} />
       </Flex>
       <Flex style={{ gap: 0 }} alignItems="center" justifyContent="center">
         <StyledText fontSize={14} color={theme.colors.textSubtle}>
-          @PancakeSwap
+          @Andex
         </StyledText>
         <Divider />
         <Text fontSize={14} color={theme.colors.textSubtle}>
           {tweets[0].date}
         </Text>
         <Divider />
-        <FavoriteBorderIcon width={isMobile ? 14 : 16} color={theme.colors.textSubtle} mr="2px" />
+        <FavoriteBorderIcon
+          width={isMobile ? 14 : 16}
+          color={theme.colors.textSubtle}
+          mr="2px"
+        />
         <Text fontSize={14} color={theme.colors.textSubtle}>
           {tweets[0].like}
         </Text>
@@ -143,37 +147,48 @@ export const TwitterCards: React.FC = () => {
         <TweetBox>{tweets[0].tweet}</TweetBox>
       </TweetWrapper>
       <Link external href={tweets[0].link} marginTop="5px">
-        {t('Web link')} <OpenNewIcon ml="3px" color="primary" />
+        {t("Web link")} <OpenNewIcon ml="3px" color="primary" />
       </Link>
     </Wrapper>
-  )
-}
+  );
+};
 
 export const BlogCard: React.FC = () => {
-  const { t } = useTranslation()
-  const { articlesData } = useLatestArticle()
-  const { theme } = useTheme()
+  const { t } = useTranslation();
+  const { articlesData } = useLatestArticle();
+  const { theme } = useTheme();
   return (
     <Wrapper
       onClick={() => {
         window.open(
-          `https://blog.pancakeswap.finance/articles/${articlesData?.data?.[0]?.slug ?? ''}`,
-          '_blank',
-          'noopener noreferrer',
-        )
+          `https://blog.pancakeswap.finance/articles/${
+            articlesData?.data?.[0]?.slug ?? ""
+          }`,
+          "_blank",
+          "noopener noreferrer"
+        );
       }}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: "pointer" }}
     >
       <Text bold mb="24px">
-        {t('Latest Blog Post')}
+        {t("Latest Blog Post")}
       </Text>
-      <BlogImage style={{ backgroundImage: `url(${articlesData?.data?.[0]?.imgUrl ?? ''})` }} />
-      <Text mt="8px" fontSize={14} color={theme.colors.textSubtle} textAlign="left">
-        {articlesData?.data?.[0]?.createAt ?? ''}
+      <BlogImage
+        style={{
+          backgroundImage: `url(${articlesData?.data?.[0]?.imgUrl ?? ""})`,
+        }}
+      />
+      <Text
+        mt="8px"
+        fontSize={14}
+        color={theme.colors.textSubtle}
+        textAlign="left"
+      >
+        {articlesData?.data?.[0]?.createAt ?? ""}
       </Text>
       <Text mt="10px" fontSize={14} bold>
-        {articlesData?.data?.[0]?.title ?? ''}
+        {articlesData?.data?.[0]?.title ?? ""}
       </Text>
     </Wrapper>
-  )
-}
+  );
+};

@@ -1,14 +1,26 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { ArrowForwardIcon, Button, Link, Text, useMatchBreakpoints, useModal, Flex, Box } from '@pancakeswap/uikit'
-import USCitizenConfirmModal from 'components/Modal/USCitizenConfirmModal'
-import { ASSET_CDN } from 'config/constants/endpoints'
-import { useActiveChainId } from 'hooks/useActiveChainId'
-import { useUserNotUsCitizenAcknowledgement, IdType } from 'hooks/useUserIsUsCitizenAcknowledgement'
-import Image from 'next/legacy/image'
-import { memo, useMemo } from 'react'
-import { styled, useTheme } from 'styled-components'
-import { getPerpetualUrl } from 'utils/getPerpetualUrl'
-import * as S from './Styled'
+import { useTranslation } from "@pancakeswap/localization";
+import {
+  ArrowForwardIcon,
+  Button,
+  Link,
+  Text,
+  useMatchBreakpoints,
+  useModal,
+  Flex,
+  Box,
+} from "@pancakeswap/uikit";
+import USCitizenConfirmModal from "components/Modal/USCitizenConfirmModal";
+import { ASSET_CDN } from "config/constants/endpoints";
+import { useActiveChainId } from "hooks/useActiveChainId";
+import {
+  useUserNotUsCitizenAcknowledgement,
+  IdType,
+} from "hooks/useUserIsUsCitizenAcknowledgement";
+import Image from "next/legacy/image";
+import { memo, useMemo } from "react";
+import { styled, useTheme } from "styled-components";
+import { getPerpetualUrl } from "utils/getPerpetualUrl";
+import * as S from "./Styled";
 
 const {
   apolloXCampaignBg,
@@ -22,7 +34,7 @@ const {
   apolloXCampaignTitle: `${ASSET_CDN}/web/banners/ApolloXCampaignTitle.png`,
   apolloXCampaignBgMobile: `${ASSET_CDN}/web/banners/ApolloXCampaignBgMobile.png`,
   apolloXCampaignBunnyMobile: `${ASSET_CDN}/web/banners/ApolloXCampaignBunnyMobile.png`,
-}
+};
 
 const RightWrapper = styled.div`
   position: absolute;
@@ -59,7 +71,7 @@ const RightWrapper = styled.div`
     right: 0px;
     z-index: 1;
   }
-`
+`;
 const Header = styled.div`
   color: white;
   font-size: 24px;
@@ -74,7 +86,7 @@ const Header = styled.div`
     font-size: 40px;
     color: #7645d9;
     background: #ffffff;
-    font-family: 'Kanit';
+    font-family: "Kanit";
     -webkit-background-clip: text;
     font-weight: 800;
     font-size: 31.0448px;
@@ -82,22 +94,22 @@ const Header = styled.div`
     -webkit-text-stroke: 6px transparent;
     text-transform: none;
     letter-spacing: 0.01em;
-    font-feature-settings: 'liga' off;
+    font-feature-settings: "liga" off;
     margin-bottom: 4px;
     padding: 0px 15px 0px 3px;
     margin-top: 10px;
   }
-`
+`;
 
 const StyledSubheading = styled.div`
   position: relative;
-  font-family: 'Kanit';
+  font-family: "Kanit";
   font-style: normal;
   font-weight: 800;
   font-size: 24px;
   line-height: 98%;
   letter-spacing: 0.01em;
-  font-feature-settings: 'liga' off;
+  font-feature-settings: "liga" off;
   background: linear-gradient(166.02deg, #ffb237 -5.1%, #ffeb37 75.24%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -127,7 +139,7 @@ const StyledSubheading = styled.div`
       padding-right: 0px;
     }
   }
-`
+`;
 
 const StyledButton = styled(Button)`
   margin-top: 10px;
@@ -140,25 +152,33 @@ const StyledButton = styled(Button)`
     height: 48px;
     padding: 4px 8px;
   }
-`
+`;
 
 const PerpetualBanner = () => {
   const {
     t,
     currentLanguage: { code },
-  } = useTranslation()
-  const { isDesktop, isMobile } = useMatchBreakpoints()
-  const { isDark } = useTheme()
-  const { chainId } = useActiveChainId()
+  } = useTranslation();
+  const { isDesktop, isMobile } = useMatchBreakpoints();
+  const { isDark } = useTheme();
+  const { chainId } = useActiveChainId();
 
-  const perpetualUrl = useMemo(() => getPerpetualUrl({ chainId, languageCode: code, isDark }), [chainId, code, isDark])
+  const perpetualUrl = useMemo(
+    () => getPerpetualUrl({ chainId, languageCode: code, isDark }),
+    [chainId, code, isDark]
+  );
   const [onUSCitizenModalPresent] = useModal(
-    <USCitizenConfirmModal title={t('PancakeSwap Perpetuals')} id={IdType.PERPETUALS} />,
+    <USCitizenConfirmModal
+      title={t("Andex Perpetuals")}
+      id={IdType.PERPETUALS}
+    />,
     false,
     false,
-    'usCitizenConfirmModal',
-  )
-  const [userNotUsCitizenAcknowledgement] = useUserNotUsCitizenAcknowledgement(IdType.PERPETUALS)
+    "usCitizenConfirmModal"
+  );
+  const [userNotUsCitizenAcknowledgement] = useUserNotUsCitizenAcknowledgement(
+    IdType.PERPETUALS
+  );
 
   return (
     <S.Wrapper
@@ -168,7 +188,10 @@ const PerpetualBanner = () => {
     >
       <S.Inner>
         <S.LeftWrapper position="relative" style={{ zIndex: 2 }}>
-          <Box height={isMobile ? '20px' : '26px'} mt={isMobile ? '-10px' : '0px'}>
+          <Box
+            height={isMobile ? "20px" : "26px"}
+            mt={isMobile ? "-10px" : "0px"}
+          >
             <Image
               src={apolloXCampaignTitle}
               alt="apolloXCampaignTitle"
@@ -177,13 +200,15 @@ const PerpetualBanner = () => {
               unoptimized
               style={{
                 transform: `scale(${isMobile ? 0.8 : 1})`,
-                transformOrigin: 'top left',
+                transformOrigin: "top left",
               }}
             />
           </Box>
-          <Header>{t('Trade now to win $5000 in rewards')}</Header>
-          <StyledSubheading data-text={t('25 winners every day until May 1st!')}>
-            {t('25 winners every day until May 1st!')}
+          <Header>{t("Trade now to win $5000 in rewards")}</Header>
+          <StyledSubheading
+            data-text={t("25 winners every day until May 1st!")}
+          >
+            {t("25 winners every day until May 1st!")}
           </StyledSubheading>
           <Flex style={{ gap: isMobile ? 4 : 16 }}>
             <Link
@@ -191,21 +216,21 @@ const PerpetualBanner = () => {
               external
               onClick={(e) => {
                 if (!userNotUsCitizenAcknowledgement) {
-                  e.stopPropagation()
-                  e.preventDefault()
-                  onUSCitizenModalPresent()
+                  e.stopPropagation();
+                  e.preventDefault();
+                  onUSCitizenModalPresent();
                 }
               }}
             >
-              <StyledButton scale={isMobile ? 'sm' : 'md'}>
+              <StyledButton scale={isMobile ? "sm" : "md"}>
                 <Text
                   color="invertedContrast"
-                  textTransform={isMobile ? 'uppercase' : 'capitalize'}
+                  textTransform={isMobile ? "uppercase" : "capitalize"}
                   bold
-                  fontSize={isMobile ? '12px' : '16px'}
+                  fontSize={isMobile ? "12px" : "16px"}
                   mr="4px"
                 >
-                  {isMobile ? t('Trade Now') : t('Start Trading')}
+                  {isMobile ? t("Trade Now") : t("Start Trading")}
                 </Text>
                 {!isMobile && <ArrowForwardIcon color="invertedContrast" />}
               </StyledButton>
@@ -213,17 +238,21 @@ const PerpetualBanner = () => {
             <Link
               href="https://blog.pancakeswap.finance/articles/pancake-swap-s-perpetual-trading-powered-by-apollo-x-v2-now-fully-on-chain-with-low-fees-and-more-transparency"
               external
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: "none" }}
             >
-              <StyledButton variant="tertiary" style={{ background: 'white' }} scale={isMobile ? 'sm' : 'md'}>
+              <StyledButton
+                variant="tertiary"
+                style={{ background: "white" }}
+                scale={isMobile ? "sm" : "md"}
+              >
                 <Text
                   color="primary"
                   bold
-                  fontSize={isMobile ? '12px' : '16px'}
-                  textTransform={isMobile ? 'uppercase' : 'capitalize'}
+                  fontSize={isMobile ? "12px" : "16px"}
+                  textTransform={isMobile ? "uppercase" : "capitalize"}
                   mr="4px"
                 >
-                  {t('Learn More')}
+                  {t("Learn More")}
                 </Text>
               </StyledButton>
             </Link>
@@ -231,19 +260,43 @@ const PerpetualBanner = () => {
         </S.LeftWrapper>
         <RightWrapper>
           {isDesktop ? (
-            <Image src={apolloXCampaignBunny} alt="apolloXCampaignBunny" width={212} height={246} unoptimized />
+            <Image
+              src={apolloXCampaignBunny}
+              alt="apolloXCampaignBunny"
+              width={212}
+              height={246}
+              unoptimized
+            />
           ) : (
-            <Image src={apolloXCampaignBunnyMobile} alt="PerpetualBanner" width={152} height={188} unoptimized />
+            <Image
+              src={apolloXCampaignBunnyMobile}
+              alt="PerpetualBanner"
+              width={152}
+              height={188}
+              unoptimized
+            />
           )}
           {isDesktop ? (
-            <Image src={apolloXCampaignBg} alt="apolloXCampaignBg" width={422} height={192} unoptimized />
+            <Image
+              src={apolloXCampaignBg}
+              alt="apolloXCampaignBg"
+              width={422}
+              height={192}
+              unoptimized
+            />
           ) : (
-            <Image src={apolloXCampaignBgMobile} alt="apolloXCampaignBgMobile" width={200} height={176} unoptimized />
+            <Image
+              src={apolloXCampaignBgMobile}
+              alt="apolloXCampaignBgMobile"
+              width={200}
+              height={176}
+              unoptimized
+            />
           )}
         </RightWrapper>
       </S.Inner>
     </S.Wrapper>
-  )
-}
+  );
+};
 
-export default memo(PerpetualBanner)
+export default memo(PerpetualBanner);
