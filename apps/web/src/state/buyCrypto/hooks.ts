@@ -22,13 +22,8 @@ type CurrencyLimits = {
 }
 
 const defaultTokenByChain = {
-  [ChainId.ETHEREUM]: 'ETH',
-  [ChainId.MODE_MAINNET]: 'BNB',
-  [ChainId.ZKSYNC]: 'ETH',
-  [ChainId.ARBITRUM_ONE]: 'ETH',
-  [ChainId.LINEA]: 'ETH',
-  [ChainId.POLYGON_ZKEVM]: 'ETH',
-  [ChainId.BASE]: 'ETH',
+  [ChainId.MODE_TESTNET]: 'ETH',
+  [ChainId.MODE_MAINNET]: 'ETH',
 }
 
 export function useBuyCryptoState() {

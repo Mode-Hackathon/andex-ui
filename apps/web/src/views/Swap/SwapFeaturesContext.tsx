@@ -31,7 +31,7 @@ const CHART_SUPPORT_CHAIN_IDS = [
 ];
 const ACCESS_TOKEN_SUPPORT_CHAIN_IDS = [ChainId.MODE_MAINNET];
 const STABLE_SUPPORT_CHAIN_IDS = [ChainId.MODE_TESTNET, ChainId.MODE_MAINNET];
-const HOT_TOKEN_SUPPORT_CHAIN_IDS = [ChainId.MODE_MAINNET, ChainId.ETHEREUM];
+const HOT_TOKEN_SUPPORT_CHAIN_IDS = [ChainId.MODE_MAINNET];
 
 export const SwapFeaturesProvider: React.FC<React.PropsWithChildren> = ({
   children,

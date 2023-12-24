@@ -19,34 +19,34 @@ export { getFarmsPriceHelperLpFiles }
 
 export const getPoolsPriceHelperLpFiles = (chainId: ChainId) => {
   switch (chainId) {
-    case ChainId.MODE_MAINNET:
-      return PoolsBscPriceHelper
-    case ChainId.MODE_TESTNET:
-      return PoolsBscTestnetPriceHelper
-    case ChainId.ETHEREUM:
-      return PoolsEthereumPriceHelper
-    case ChainId.GOERLI:
-      return PoolsGoerliPriceHelper
-    case ChainId.ARBITRUM_ONE:
-      return PoolsArbPriceHelper
-    case ChainId.ARBITRUM_GOERLI:
-      return PoolsArbTestnetPriceHelper
-    case ChainId.ZKSYNC:
-      return PoolsZkSyncPriceHelper
-    case ChainId.ZKSYNC_TESTNET:
-      return PoolsZkSyncTestnetPriceHelper
-    case ChainId.BASE:
-      return PoolsBasePriceHelper
-    case ChainId.BASE_TESTNET:
-      return PoolsBaseTestnetPriceHelper
-    case ChainId.LINEA:
-      return PoolsLineaPriceHelper
-    case ChainId.LINEA_TESTNET:
-      return PoolsLineaTestnetPriceHelper
-    case ChainId.POLYGON_ZKEVM:
-      return PoolsPolygonZkEvmPriceHelper
-    case ChainId.POLYGON_ZKEVM_TESTNET:
-      return PoolsPolygonZkEvmTestnetPriceHelper
+    // case ChainId.MODE_MAINNET:
+    //   return PoolsBscPriceHelper
+    // case ChainId.MODE_TESTNET:
+    //   return PoolsBscTestnetPriceHelper
+    // case ChainId.ETHEREUM:
+    //   return PoolsEthereumPriceHelper
+    // case ChainId.GOERLI:
+    //   return PoolsGoerliPriceHelper
+    // case ChainId.ARBITRUM_ONE:
+    //   return PoolsArbPriceHelper
+    // case ChainId.ARBITRUM_GOERLI:
+    //   return PoolsArbTestnetPriceHelper
+    // case ChainId.ZKSYNC:
+    //   return PoolsZkSyncPriceHelper
+    // case ChainId.ZKSYNC_TESTNET:
+    //   return PoolsZkSyncTestnetPriceHelper
+    // case ChainId.BASE:
+    //   return PoolsBasePriceHelper
+    // case ChainId.BASE_TESTNET:
+    //   return PoolsBaseTestnetPriceHelper
+    // case ChainId.LINEA:
+    //   return PoolsLineaPriceHelper
+    // case ChainId.LINEA_TESTNET:
+    //   return PoolsLineaTestnetPriceHelper
+    // case ChainId.POLYGON_ZKEVM:
+    //   return PoolsPolygonZkEvmPriceHelper
+    // case ChainId.POLYGON_ZKEVM_TESTNET:
+    //   return PoolsPolygonZkEvmTestnetPriceHelper
     default:
       return []
   }

@@ -38,7 +38,7 @@ const SwapWarningModal: React.FC<
   const { chainId } = useActiveChainId();
 
   const TOKEN_WARNINGS = {
-    [ChainId.ETHEREUM]: ETH_WARNING_LIST,
+    // [ChainId.ETHEREUM]: ETH_WARNING_LIST,
     [ChainId.MODE_MAINNET]: BSC_WARNING_LIST,
   };
 

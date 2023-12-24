@@ -21,10 +21,8 @@ export function getTokenInfoPath(
 export function getChainName(chainId: ChainId) {
   switch (chainId) {
     case ChainId.MODE_MAINNET:
-      return 'BSC'
-    case ChainId.ETHEREUM:
       return 'ETH'
     default:
-      return 'BSC'
+      return 'ETH'
   }
 }

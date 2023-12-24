@@ -5,7 +5,7 @@ import { pancakeV3PoolABI } from '@pancakeswap/v3-sdk'
 import { publicClient } from 'utils/client'
 import { describe, expect, it } from 'vitest'
 
-const mainnetVaults = [vaultsConfigChainMap[ChainId.MODE_MAINNET], vaultsConfigChainMap[ChainId.ETHEREUM]]
+const mainnetVaults = [vaultsConfigChainMap[ChainId.MODE_MAINNET]]
 
 function hasDuplicates(array: any[]) {
   return new Set(array).size !== array.length

@@ -17,7 +17,7 @@ function getUnsAddress(networkId) {
 }
 
 export const useUnsNameForAddress = (address: Address, fetchData = true) => {
-  const unsEtherContract = useUNSContract(getUnsAddress(1), ChainId.ETHEREUM, undefined)
+  const unsEtherContract = useUNSContract(getUnsAddress(1), ChainId.MODE_MAINNET, undefined)
   const unsPolygonContract = useUNSContract(getUnsAddress(137), undefined, polygonRpcProvider)
 
   const { data: unsName, status } = useSWRImmutable(

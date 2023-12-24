@@ -30,7 +30,7 @@ export default MigratePage;
 
 MigratePage.chains = [
   ChainId.MODE_MAINNET,
-  ChainId.ETHEREUM,
+  // ChainId.ETHEREUM,
   ChainId.MODE_TESTNET,
   ChainId.GOERLI,
 ];

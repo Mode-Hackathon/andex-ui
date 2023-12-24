@@ -7,15 +7,11 @@ interface GetPerpetualUrlProps {
   languageCode: string | undefined
   isDark: boolean
 }
-
+// TODO
 const mapPerpChain = (chainId: ChainId): string => {
   switch (chainId) {
-    case ChainId.ETHEREUM:
-      return 'ethereum'
-    case ChainId.ARBITRUM_ONE:
-      return 'arbitrum'
     default:
-      return 'bsc'
+      return 'eth'
   }
 }
 

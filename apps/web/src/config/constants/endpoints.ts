@@ -49,13 +49,13 @@ export const INFO_CLIENT_WITH_CHAIN = V2_SUBGRAPHS
 
 export const BLOCKS_CLIENT_WITH_CHAIN = {
   [ChainId.MODE_MAINNET]: BLOCKS_CLIENT,
-  [ChainId.ETHEREUM]: BLOCKS_CLIENT_ETH,
-  [ChainId.POLYGON_ZKEVM]: BLOCKS_CLIENT_POLYGON_ZKEVM,
-  [ChainId.ZKSYNC]: BLOCKS_CLIENT_ZKSYNC,
-  [ChainId.ARBITRUM_ONE]: 'https://api.thegraph.com/subgraphs/name/ianlapham/arbitrum-one-blocks',
-  [ChainId.LINEA]: BLOCKS_CLIENT_LINEA,
-  [ChainId.BASE]: BLOCKS_CLIENT_BASE,
-  [ChainId.OPBNB]: BLOCKS_CLIENT_OPBNB,
+  // [ChainId.ETHEREUM]: BLOCKS_CLIENT_ETH,
+  // [ChainId.POLYGON_ZKEVM]: BLOCKS_CLIENT_POLYGON_ZKEVM,
+  // [ChainId.ZKSYNC]: BLOCKS_CLIENT_ZKSYNC,
+  // [ChainId.ARBITRUM_ONE]: 'https://api.thegraph.com/subgraphs/name/ianlapham/arbitrum-one-blocks',
+  // [ChainId.LINEA]: BLOCKS_CLIENT_LINEA,
+  // [ChainId.BASE]: BLOCKS_CLIENT_BASE,
+  // [ChainId.OPBNB]: BLOCKS_CLIENT_OPBNB,
 }
 
 export const ASSET_CDN = 'https://assets.pancakeswap.finance'

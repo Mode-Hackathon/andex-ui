@@ -54,7 +54,7 @@ const feeAmount = FeeAmount.MEDIUM;
 
 const MOCK_TOKENS = {
   [ChainId.MODE_MAINNET]: [bscTokens.cake, bscTokens.wbnb],
-  [ChainId.ETHEREUM]: [ethereumTokens.wbtc, ethereumTokens.weth],
+  // [ChainId.ETHEREUM]: [ethereumTokens.wbtc, ethereumTokens.weth],
 };
 
 const distributions = {
