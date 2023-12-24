@@ -6,6 +6,7 @@
     "storybook": "turbo run start --filter=uikit...",
     "build:storybook": "turbo run build:storybook --filter=uikit...",
     "build:web": "turbo run build:storybook --filter=web...",
+    "build:packages":	"turbo run build --filter=./packages/*",
     "dev": "turbo run dev --filter=web... --concurrency=24",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
