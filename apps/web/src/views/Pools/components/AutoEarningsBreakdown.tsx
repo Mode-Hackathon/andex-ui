@@ -1,25 +1,33 @@
-import { Text, Box } from '@pancakeswap/uikit'
-import { Pool } from '@pancakeswap/widgets-internal'
+import { Text, Box } from "@pancakeswap/uikit";
+import { Pool } from "@pancakeswap/widgets-internal";
 
-import { useTranslation } from '@pancakeswap/localization'
-import { useVaultPoolByKey } from 'state/pools/hooks'
-import { VaultKey, DeserializedLockedVaultUser } from 'state/types'
-import { Token } from '@pancakeswap/sdk'
-import dayjs from 'dayjs'
-import { getCakeVaultEarnings } from '../helpers'
+import { useTranslation } from "@pancakeswap/localization";
+// import { useVaultPoolByKey } from 'state/pools/hooks'
+import { VaultKey, DeserializedLockedVaultUser } from "state/types";
+import { Token } from "@pancakeswap/sdk";
+import dayjs from "dayjs";
+import { getCakeVaultEarnings } from "../helpers";
+import BigNumber from "bignumber.js";
 
 interface AutoEarningsBreakdownProps {
-  pool: Pool.DeserializedPool<Token>
-  account: string
+  pool: Pool.DeserializedPool<Token>;
+  account: string;
 }
 
-const AutoEarningsBreakdown: React.FC<React.PropsWithChildren<AutoEarningsBreakdownProps>> = ({ pool, account }) => {
+const AutoEarningsBreakdown: React.FC<
+  React.PropsWithChildren<AutoEarningsBreakdownProps>
+> = ({ pool, account }) => {
   const {
     t,
     currentLanguage: { locale },
-  } = useTranslation()
-  const { earningTokenPrice } = pool
-  const { pricePerFullShare, userData } = useVaultPoolByKey(pool.vaultKey)
+  } = useTranslation();
+  const { earningTokenPrice } = pool;
+  // const { pricePerFullShare, userData } = useVaultPoolByKey(pool.vaultKey)
+  const { pricePerFullShare, userData } = {
+    pricePerFullShare: new BigNumber(0),
+    userData: {} as any,
+  };
+
   const { autoCakeToDisplay, autoUsdToDisplay } = getCakeVaultEarnings(
     account,
     userData.cakeAtLastUserAction,
@@ -30,34 +38,45 @@ const AutoEarningsBreakdown: React.FC<React.PropsWithChildren<AutoEarningsBreakd
       ? (userData as DeserializedLockedVaultUser).currentPerformanceFee
           .plus((userData as DeserializedLockedVaultUser).currentOverdueFee)
           .plus((userData as DeserializedLockedVaultUser).userBoostedShare)
-      : null,
-  )
+      : null
+  );
 
-  const lastActionInMs = userData.lastUserActionTime ? parseInt(userData.lastUserActionTime) * 1000 : 0
-  const hourDiffSinceLastAction = dayjs().diff(dayjs(lastActionInMs), 'hours')
-  const earnedCakePerHour = hourDiffSinceLastAction ? autoCakeToDisplay / hourDiffSinceLastAction : 0
-  const earnedUsdPerHour = hourDiffSinceLastAction ? autoUsdToDisplay / hourDiffSinceLastAction : 0
+  const lastActionInMs = userData.lastUserActionTime
+    ? parseInt(userData.lastUserActionTime) * 1000
+    : 0;
+  const hourDiffSinceLastAction = dayjs().diff(dayjs(lastActionInMs), "hours");
+  const earnedCakePerHour = hourDiffSinceLastAction
+    ? autoCakeToDisplay / hourDiffSinceLastAction
+    : 0;
+  const earnedUsdPerHour = hourDiffSinceLastAction
+    ? autoUsdToDisplay / hourDiffSinceLastAction
+    : 0;
 
   return (
     <>
-      <Text>{t('Earned since your last action')}:</Text>
+      <Text>{t("Earned since your last action")}:</Text>
       <Text bold>
         {new Date(lastActionInMs).toLocaleString(locale, {
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
           hour12: false,
         })}
       </Text>
       {hourDiffSinceLastAction ? (
         <Box mt="12px">
-          <Text>{t('Hourly Average')}:</Text>
+          <Text>{t("Hourly Average")}:</Text>
           <Text bold>
-            {earnedCakePerHour < 0.01 ? '<0.01' : earnedCakePerHour.toFixed(2)} CAKE
+            {earnedCakePerHour < 0.01 ? "<0.01" : earnedCakePerHour.toFixed(2)}{" "}
+            CAKE
             <Text display="inline-block" ml="5px">
-              ({earnedUsdPerHour < 0.01 ? '<0.01' : `~${earnedUsdPerHour.toFixed(2)}`} USD)
+              (
+              {earnedUsdPerHour < 0.01
+                ? "<0.01"
+                : `~${earnedUsdPerHour.toFixed(2)}`}{" "}
+              USD)
             </Text>
           </Text>
         </Box>
@@ -65,12 +84,12 @@ const AutoEarningsBreakdown: React.FC<React.PropsWithChildren<AutoEarningsBreakd
       <Box mt="12px">
         <Text>
           {t(
-            '*Please note that any deposit, withdraw, extend or convert action will combine earned rewards with the original staked amount. Resetting this number to 0.',
+            "*Please note that any deposit, withdraw, extend or convert action will combine earned rewards with the original staked amount. Resetting this number to 0."
           )}
         </Text>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default AutoEarningsBreakdown
+export default AutoEarningsBreakdown;

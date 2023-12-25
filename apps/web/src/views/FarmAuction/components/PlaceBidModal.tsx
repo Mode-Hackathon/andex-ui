@@ -31,7 +31,7 @@ import { ConnectedBidder, FetchStatus } from "config/constants/types";
 import { useCakePrice } from "hooks/useCakePrice";
 import { useCallWithGasPrice } from "hooks/useCallWithGasPrice";
 import { ToastDescriptionWithTx } from "components/Toast";
-import { bscTokens, CAKE } from "@pancakeswap/tokens";
+import { goerliTestnetTokens, CAKE } from "@pancakeswap/tokens";
 import { ChainId } from "@pancakeswap/chains";
 
 const StyledModal = styled(Modal)`
@@ -81,7 +81,7 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
   const [errorText, setErrorText] = useState(null);
 
   const { balance: userCake, fetchStatus } = useTokenBalance(
-    bscTokens.cake.address
+    goerliTestnetTokens.cake.address
   );
   const userCakeBalance = getBalanceAmount(userCake);
 

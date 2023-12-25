@@ -54,7 +54,7 @@ const ClaimModal: React.FC<React.PropsWithChildren<CompetitionProps>> = ({
   const { cakeReward, darReward } = useModCompetitionRewards({
     userCakeRewards,
     userDarRewards,
-  });
+  }) as any;
   const achievement = getRewardGroupAchievements(
     modPrizes,
     userRewardGroup,

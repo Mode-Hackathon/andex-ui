@@ -91,7 +91,7 @@ export async function farmV3FetchFarms({
     ...commonPrice,
   }
 
-  const farmsWithPrice = getFarmsPrices(farmsData, cakePrice, combinedCommonPrice)
+  const farmsWithPrice = getFarmsPrices(farmsData, cakePrice.toString(), combinedCommonPrice)
 
   return farmsWithPrice
 }

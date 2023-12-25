@@ -2,7 +2,7 @@ import { getBalanceNumber } from '@pancakeswap/utils/formatBalance'
 import { easterPrizes, PrizesConfig } from 'config/constants/trading-competition/prizes'
 import BigNumber from 'bignumber.js'
 import { useStablecoinPrice } from 'hooks/useBUSDPrice'
-import { bscTokens } from '@pancakeswap/tokens'
+import { goerliTestnetTokens } from '@pancakeswap/tokens'
 import { multiplyPriceByAmount } from 'utils/prices'
 import { useCakePrice } from 'hooks/useCakePrice'
 
@@ -31,33 +31,33 @@ export const useFanTokenCompetitionRewards = ({
   userPortoRewards: string | number
   userSantosRewards: string | number
 }) => {
-  const lazioPriceBUSD = useStablecoinPrice(bscTokens.lazio)
-  const portoPriceBUSD = useStablecoinPrice(bscTokens.porto)
-  const santosPriceBUSD = useStablecoinPrice(bscTokens.santos)
-  const cakeAsBigNumber = new BigNumber(userCakeRewards as string)
-  const lazioAsBigNumber = new BigNumber(userLazioRewards as string)
-  const portoAsBigNumber = new BigNumber(userPortoRewards as string)
-  const santosAsBigNumber = new BigNumber(userSantosRewards as string)
-  const cakeBalance = getBalanceNumber(cakeAsBigNumber)
-  const lazioBalance = getBalanceNumber(lazioAsBigNumber, 8)
-  const portoBalance = getBalanceNumber(portoAsBigNumber, 8)
-  const santosBalance = getBalanceNumber(santosAsBigNumber, 8)
-  const cakePriceBusd = useCakePrice()
+  // const lazioPriceBUSD = useStablecoinPrice(goerliTestnetTokens.lazio)
+  // const portoPriceBUSD = useStablecoinPrice(goerliTestnetTokens.porto)
+  // const santosPriceBUSD = useStablecoinPrice(goerliTestnetTokens.santos)
+  // const cakeAsBigNumber = new BigNumber(userCakeRewards as string)
+  // const lazioAsBigNumber = new BigNumber(userLazioRewards as string)
+  // const portoAsBigNumber = new BigNumber(userPortoRewards as string)
+  // const santosAsBigNumber = new BigNumber(userSantosRewards as string)
+  // const cakeBalance = getBalanceNumber(cakeAsBigNumber)
+  // const lazioBalance = getBalanceNumber(lazioAsBigNumber, 8)
+  // const portoBalance = getBalanceNumber(portoAsBigNumber, 8)
+  // const santosBalance = getBalanceNumber(santosAsBigNumber, 8)
+  // const cakePriceBusd = useCakePrice()
 
-  const dollarValueOfTokensReward =
-    cakePriceBusd && lazioPriceBUSD && portoPriceBUSD && santosPriceBUSD
-      ? cakePriceBusd.multipliedBy(cakeBalance).toNumber() +
-        multiplyPriceByAmount(lazioPriceBUSD, lazioBalance, 8) +
-        multiplyPriceByAmount(portoPriceBUSD, portoBalance, 8) +
-        multiplyPriceByAmount(santosPriceBUSD, santosBalance, 8)
-      : null
+  // const dollarValueOfTokensReward =
+  //   cakePriceBusd && lazioPriceBUSD && portoPriceBUSD && santosPriceBUSD
+  //     ? cakePriceBusd.multipliedBy(cakeBalance).toNumber() +
+  //     multiplyPriceByAmount(lazioPriceBUSD, lazioBalance, 8) +
+  //     multiplyPriceByAmount(portoPriceBUSD, portoBalance, 8) +
+  //     multiplyPriceByAmount(santosPriceBUSD, santosBalance, 8)
+  //     : null
 
   return {
-    cakeReward: cakeBalance,
-    lazioReward: lazioBalance,
-    portoReward: portoBalance,
-    santosReward: santosBalance,
-    dollarValueOfTokensReward,
+    // cakeReward: cakeBalance,
+    // lazioReward: lazioBalance,
+    // portoReward: portoBalance,
+    // santosReward: santosBalance,
+    // dollarValueOfTokensReward,
   }
 }
 
@@ -68,7 +68,7 @@ export const useMoboxCompetitionRewards = ({
   userCakeRewards: string | number
   userMoboxRewards: string | number
 }) => {
-  const moboxPriceBUSD = useStablecoinPrice(bscTokens.mbox)
+  const moboxPriceBUSD = useStablecoinPrice(goerliTestnetTokens.cake)
   const cakeAsBigNumber = new BigNumber(userCakeRewards as string)
   const moboxAsBigNumber = new BigNumber(userMoboxRewards as string)
   const cakeBalance = getBalanceNumber(cakeAsBigNumber)
@@ -94,23 +94,23 @@ export const useModCompetitionRewards = ({
   userCakeRewards: string | number
   userDarRewards: string | number
 }) => {
-  const darPriceBUSD = useStablecoinPrice(bscTokens.dar)
-  const cakeAsBigNumber = new BigNumber(userCakeRewards as string)
-  const darAsBigNumber = new BigNumber(userDarRewards as string)
-  const cakeBalance = getBalanceNumber(cakeAsBigNumber)
-  const darBalance = getBalanceNumber(darAsBigNumber, bscTokens.dar.decimals)
-  const cakePriceBusd = useCakePrice()
+  // const darPriceBUSD = useStablecoinPrice(goerliTestnetTokens.dar)
+  // const cakeAsBigNumber = new BigNumber(userCakeRewards as string)
+  // const darAsBigNumber = new BigNumber(userDarRewards as string)
+  // const cakeBalance = getBalanceNumber(cakeAsBigNumber)
+  // const darBalance = getBalanceNumber(darAsBigNumber, goerliTestnetTokens.dar.decimals)
+  // const cakePriceBusd = useCakePrice()
 
-  const dollarValueOfTokensReward =
-    cakePriceBusd && darPriceBUSD
-      ? cakePriceBusd.multipliedBy(cakeBalance).toNumber() +
-        multiplyPriceByAmount(darPriceBUSD, darBalance, bscTokens.dar.decimals)
-      : null
+  // const dollarValueOfTokensReward =
+  //   cakePriceBusd && darPriceBUSD
+  //     ? cakePriceBusd.multipliedBy(cakeBalance).toNumber() +
+  //     multiplyPriceByAmount(darPriceBUSD, darBalance, goerliTestnetTokens.dar.decimals)
+  //     : null
 
   return {
-    cakeReward: cakeBalance,
-    darReward: darBalance,
-    dollarValueOfTokensReward,
+    // cakeReward: cakeBalance,
+    // darReward: darBalance,
+    // dollarValueOfTokensReward,
   }
 }
 

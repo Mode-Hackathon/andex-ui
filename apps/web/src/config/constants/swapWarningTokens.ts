@@ -4,7 +4,7 @@ import { ethereumTokens } from '@pancakeswap/tokens'
 import { bscWarningTokens } from 'config/constants/warningTokens'
 
 const { alETH } = ethereumTokens
-// const { bondly, itam, ccar, bttold, abnbc, metis } = bscTokens
+// const { bondly, itam, ccar, bttold, abnbc, metis } = goerliTestnetTokens
 // const { pokemoney, free, safemoon, gala, xcad, lusd } = bscWarningTokens
 
 interface WarningTokenList {

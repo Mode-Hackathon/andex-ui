@@ -1,7 +1,7 @@
 import { useIntersectionObserver } from "@pancakeswap/hooks";
 import { useTranslation } from "@pancakeswap/localization";
 import { ChainId } from "@pancakeswap/chains";
-import { bscTokens } from "@pancakeswap/tokens";
+import { goerliTestnetTokens } from "@pancakeswap/tokens";
 import {
   Balance,
   Flex,
@@ -104,12 +104,12 @@ const CakeDataRow = () => {
         contracts: [
           {
             abi: erc20ABI,
-            address: bscTokens.cake.address,
+            address: goerliTestnetTokens.cake.address,
             functionName: "totalSupply",
           },
           {
             abi: erc20ABI,
-            address: bscTokens.cake.address,
+            address: goerliTestnetTokens.cake.address,
             functionName: "balanceOf",
             args: ["0x000000000000000000000000000000000000dEaD"],
           },

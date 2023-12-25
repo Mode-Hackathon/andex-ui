@@ -3,8 +3,8 @@ import { useMemo } from 'react'
 import { chains } from 'utils/wagmi'
 
 const SHORT_NAME = {
-  [ChainId.POLYGON_ZKEVM]: 'zkEVM',
-  [ChainId.MODE_MAINNET]: 'BNB Chain',
+  // [ChainId.POLYGON_ZKEVM]: 'zkEVM',
+  [ChainId.MODE_MAINNET]: 'MODE MAINNET',
 }
 
 type ChainNameOptions = {

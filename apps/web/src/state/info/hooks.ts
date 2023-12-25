@@ -184,10 +184,10 @@ export const useAllTokenHighLight = ({
   const tokensWithData = useMemo(() => {
     return data
       ? Object.keys(data)
-          .map((k) => {
-            return data?.[k]?.data
-          })
-          .filter((d) => d && d.exists)
+        .map((k) => {
+          return data?.[k]?.data
+        })
+        .filter((d) => d && d.exists)
       : []
   }, [data])
   return useMemo(() => {
@@ -239,8 +239,8 @@ export const useTokenDatasQuery = (addresses?: string[], withSettings = true): T
   const allData = useMemo(() => {
     return data && data.length > 0
       ? data.reduce((a, b) => {
-          return { ...a, ...b }
-        }, {})
+        return { ...a, ...b }
+      }, {})
       : {}
   }, [data])
 
@@ -329,8 +329,8 @@ export const useGetChainName = () => {
   const { pathname, query } = useRouter()
 
   const getChain = useCallback(() => {
-    if (pathname.includes('eth') || query.chain === 'eth') return 'ETH'
-    return 'BSC'
+    // if (pathname.includes('eth') || query.chain === 'eth') return 'ETH'
+    return 'MODE'
   }, [pathname, query])
   const [name, setName] = useState<MultiChainName | null>(() => getChain())
   const result = useMemo(() => name, [name])
@@ -346,22 +346,10 @@ export const useChainNameByQuery = (): MultiChainName => {
   const { query } = useRouter()
   const chainName = useMemo(() => {
     switch (query?.chainName) {
-      case 'eth':
-        return 'ETH'
-      case 'polygon-zkevm':
-        return 'POLYGON_ZKEVM'
-      case 'zksync':
-        return 'ZKSYNC'
-      case 'arb':
-        return 'ARB'
-      case 'linea':
-        return 'LINEA'
-      case 'base':
-        return 'BASE'
-      case 'opbnb':
-        return 'OPBNB'
+      case 'mode-testnet':
+        return 'MODE TESTNET'
       default:
-        return 'BSC'
+        return 'MODE'
     }
   }, [query])
   return chainName

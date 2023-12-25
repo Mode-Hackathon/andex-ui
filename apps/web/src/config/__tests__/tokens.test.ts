@@ -1,5 +1,5 @@
 import { ERC20Token, Token } from '@pancakeswap/sdk'
-import { bscTokens, ethereumTokens } from '@pancakeswap/tokens'
+import { goerliTestnetTokens, ethereumTokens } from '@pancakeswap/tokens'
 import omitBy from 'lodash/omitBy'
 import slice from 'lodash/slice'
 import { publicClient } from 'utils/client'
@@ -12,8 +12,8 @@ const whitelist = ['deprecated_tusd', 'deprecated_rpg', 'deprecated_mix']
 // remove ONE because there are two tokens with the symbol ONE (Harmony ONE and BigONE)
 // remove HERO because there are two tokens with the symbol HERO (StepHero and Hero)
 // remove aBNBc because the token has been exploited
-const bscTokensToTest = omitBy(
-  bscTokens,
+const goerliTestnetTokensToTest = omitBy(
+  goerliTestnetTokens,
   (token) =>
     token.symbol.toLowerCase() === 'bnb' ||
     token.symbol.toLowerCase() === 'one' ||
@@ -21,7 +21,7 @@ const bscTokensToTest = omitBy(
     token.symbol.toLowerCase() === 'abnbc' ||
     token.symbol.toLowerCase() === 'hero',
 )
-const tokenListsToTest: [Record<string, ERC20Token>, Record<string, ERC20Token>] = [bscTokensToTest, ethereumTokens]
+const tokenListsToTest: [Record<string, ERC20Token>, Record<string, ERC20Token>] = [goerliTestnetTokensToTest, ethereumTokens]
 
 const tokenTables: [string, ERC20Token][] = tokenListsToTest.reduce(
   (acc, cur) => [...acc, ...Object.entries(cur)],

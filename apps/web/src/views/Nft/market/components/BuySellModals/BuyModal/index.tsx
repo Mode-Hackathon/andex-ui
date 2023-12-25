@@ -2,7 +2,7 @@ import { MaxUint256 } from "@pancakeswap/swap-sdk-core";
 import { formatEther, parseUnits } from "viem";
 import { TranslateFunction, useTranslation } from "@pancakeswap/localization";
 import { ChainId } from "@pancakeswap/chains";
-import { bscTokens } from "@pancakeswap/tokens";
+import { goerliTestnetTokens } from "@pancakeswap/tokens";
 import { InjectedModalProps, useToast } from "@pancakeswap/uikit";
 import { ToastDescriptionWithTx } from "components/Toast";
 import useApproveConfirmTransaction from "hooks/useApproveConfirmTransaction";
@@ -56,7 +56,7 @@ const BuyModal: React.FC<React.PropsWithChildren<BuyModalProps>> = ({
   const wbnbAddress =
     chainId === ChainId.MODE_TESTNET
       ? TESTNET_WBNB_NFT_ADDRESS
-      : bscTokens.wbnb.address;
+      : goerliTestnetTokens.weth.address;
   const wbnbContractReader = useERC20(wbnbAddress);
   const wbnbContractApprover = useERC20(wbnbAddress);
   const nftMarketContract = useNftMarketContract();

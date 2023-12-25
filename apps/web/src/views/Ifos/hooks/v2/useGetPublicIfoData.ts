@@ -2,10 +2,10 @@ import BigNumber from 'bignumber.js'
 import { useState, useCallback } from 'react'
 import { BSC_BLOCK_TIME } from 'config'
 import { ifoV2ABI } from 'config/abi/ifoV2'
-import { bscTokens } from '@pancakeswap/tokens'
+import { goerliTestnetTokens } from '@pancakeswap/tokens'
 import { Ifo, IfoStatus } from '@pancakeswap/ifos'
-
-import { useLpTokenPrice } from 'state/farms/hooks'
+// TODO
+// import { useLpTokenPrice } from 'state/farms/hooks'
 import { useCakePrice } from 'hooks/useCakePrice'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import { publicClient } from 'utils/wagmi'
@@ -32,8 +32,10 @@ const formatPool = (pool) => ({
 const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
   const { address } = ifo
   const cakePriceUsd = useCakePrice()
-  const lpTokenPriceInUsd = useLpTokenPrice(ifo.currency.symbol)
-  const currencyPriceInUSD = ifo.currency === bscTokens.cake ? cakePriceUsd : lpTokenPriceInUsd
+  // const lpTokenPriceInUsd = useLpTokenPrice(ifo.currency.symbol)
+  const lpTokenPriceInUsd = new BigNumber(0)
+
+  const currencyPriceInUSD = ifo.currency === goerliTestnetTokens.cake ? cakePriceUsd : lpTokenPriceInUsd
 
   const [state, setState] = useState({
     isInitialized: false,

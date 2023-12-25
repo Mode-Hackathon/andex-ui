@@ -32,5 +32,5 @@ MigratePage.chains = [
   ChainId.MODE_MAINNET,
   // ChainId.ETHEREUM,
   ChainId.MODE_TESTNET,
-  ChainId.GOERLI,
+  // ChainId.GOERLI,
 ];

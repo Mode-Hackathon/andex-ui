@@ -1,5 +1,5 @@
 import { createPublicClient, http } from 'viem'
-import { bscTokens } from '@pancakeswap/tokens'
+import { goerliTestnetTokens } from '@pancakeswap/tokens'
 import BigNumber from 'bignumber.js'
 import { SNAPSHOT_HUB_API } from 'config/constants/endpoints'
 import fromPairs from 'lodash/fromPairs'
@@ -45,7 +45,7 @@ export interface Message {
 }
 
 const STRATEGIES = [
-  { name: 'cake', params: { symbol: 'CAKE', address: bscTokens.cake.address, decimals: 18, max: 300 } },
+  { name: 'cake', params: { symbol: 'CAKE', address: goerliTestnetTokens.cake.address, decimals: 18, max: 300 } },
 ]
 const NETWORK = '56'
 
@@ -185,8 +185,8 @@ export const getVotingPower = async (
     const versionOne =
       version === 'v0'
         ? {
-            ifoPoolBalance: ifoPoolBalance[account] ? ifoPoolBalance[account] : 0,
-          }
+          ifoPoolBalance: ifoPoolBalance[account] ? ifoPoolBalance[account] : 0,
+        }
         : {}
 
     return {

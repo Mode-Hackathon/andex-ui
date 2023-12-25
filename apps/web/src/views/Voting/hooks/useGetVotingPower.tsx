@@ -2,7 +2,7 @@ import { ChainId } from "@pancakeswap/chains";
 import { useAccount, Address } from "wagmi";
 import { useQuery } from "@tanstack/react-query";
 import { getActivePools } from "utils/calls";
-import { bscTokens } from "@pancakeswap/tokens";
+import { goerliTestnetTokens } from "@pancakeswap/tokens";
 import { publicClient } from "utils/wagmi";
 import { getVotingPower } from "../helpers";
 
@@ -38,7 +38,7 @@ const useGetVotingPower = (
         .filter(
           (pair) =>
             pair.stakingToken.address.toLowerCase() ===
-            bscTokens.cake.address.toLowerCase()
+            goerliTestnetTokens.cake.address.toLowerCase()
         )
         .map(({ contractAddress }) => contractAddress);
 

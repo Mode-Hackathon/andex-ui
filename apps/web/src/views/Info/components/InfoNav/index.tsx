@@ -42,6 +42,7 @@ import {
   opBNB,
 } from "wagmi/chains";
 import { ASSET_CDN } from "config/constants/endpoints";
+import { CHAINS } from "config/chains";
 
 const NavWrapper = styled(Flex)`
   background: ${({ theme }) => theme.colors.gradientCardHeader};
@@ -124,16 +125,7 @@ const InfoNav: React.FC<{ isStableSwap: boolean }> = ({ isStableSwap }) => {
   );
 };
 
-const targetChains = [
-  mainnet,
-  bsc,
-  polygonZkEvm,
-  zkSync,
-  arbitrum,
-  linea,
-  base,
-  opBNB,
-];
+const targetChains = [...CHAINS];
 
 export const NetworkSwitcher: React.FC<{ activeIndex: number }> = ({
   activeIndex,

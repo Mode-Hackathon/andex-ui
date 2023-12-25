@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { bscTokens } from '@pancakeswap/tokens'
+import { goerliTestnetTokens } from '@pancakeswap/tokens'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import { getBep20Contract, getPotteryVaultContract, getPotteryDrawContract } from 'utils/contractHelpers'
 import { request, gql } from 'graphql-request'
@@ -14,7 +14,7 @@ const potteryDrawContract = getPotteryDrawContract()
 
 export const fetchPotterysAllowance = async (account: Address, potteryVaultAddress: Address) => {
   try {
-    const contract = getBep20Contract(bscTokens.cake.address)
+    const contract = getBep20Contract(goerliTestnetTokens.cake.address)
     const allowances = await contract.read.allowance([account, potteryVaultAddress])
     return new BigNumber(allowances.toString()).toJSON()
   } catch (error) {

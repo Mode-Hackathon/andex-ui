@@ -1,5 +1,5 @@
-import { bscTokens } from '@pancakeswap/tokens'
-import { useMemo } from 'react'
+import { goerliTestnetTokens } from "@pancakeswap/tokens";
+import { useMemo } from "react";
 import {
   Card,
   IfoSkeletonCardTokens,
@@ -7,43 +7,43 @@ import {
   IfoSkeletonCardDetails,
   Box,
   IfoGenericIfoCard,
-} from '@pancakeswap/uikit'
-import { useTranslation } from '@pancakeswap/localization'
-import styled from 'styled-components'
-import { PoolIds } from '@pancakeswap/ifos'
+} from "@pancakeswap/uikit";
+import { useTranslation } from "@pancakeswap/localization";
+import styled from "styled-components";
+import { PoolIds } from "@pancakeswap/ifos";
 
-import { useFetchIfo } from 'state/pools/hooks'
+// import { useFetchIfo } from "state/pools/hooks";
 
-import { CardsWrapper } from './components/IfoCardStyles'
-import { StyledCardBody } from './components/IfoFoldableCard/index'
-import IfoContainer from './components/IfoContainer'
-import IfoSteps from './components/IfoSteps'
-import { cardConfig } from './components/IfoFoldableCard/IfoPoolCard'
+import { CardsWrapper } from "./components/IfoCardStyles";
+import { StyledCardBody } from "./components/IfoFoldableCard/index";
+import IfoContainer from "./components/IfoContainer";
+import IfoSteps from "./components/IfoSteps";
+import { cardConfig } from "./components/IfoFoldableCard/IfoPoolCard";
 
 const CurveBox = styled(Box)`
   border-bottom-left-radius: 100% 40px;
   border-bottom-right-radius: 100% 40px;
   background-color: ${({ theme }) => theme.colors.backgroundDisabled};
-`
+`;
 
 function Placeholder() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const basicConfig = useMemo(
     () =>
       cardConfig(t, PoolIds.poolBasic, {
         version: 7,
       }),
-    [t],
-  )
+    [t]
+  );
 
   const unlimitedConfig = useMemo(
     () =>
       cardConfig(t, PoolIds.poolUnlimited, {
         version: 7,
       }),
-    [t],
-  )
+    [t]
+  );
 
   const skeletons = (
     <Box width="100%">
@@ -55,13 +55,13 @@ function Placeholder() {
         <IfoSkeletonCardDetails />
       </Box>
     </Box>
-  )
+  );
 
   return (
     <Card
       background="bubblegum"
       style={{
-        width: '100%',
+        width: "100%",
       }}
     >
       <CurveBox height={[100, 110, 160, 160]} />
@@ -84,17 +84,22 @@ function Placeholder() {
         </CardsWrapper>
       </StyledCardBody>
     </Card>
-  )
+  );
 }
 
 export function IfoPlaceholder() {
-  useFetchIfo()
+  // useFetchIfo();
   return (
     <IfoContainer
       ifoSection={<Placeholder />}
       ifoSteps={
-        <IfoSteps isLive={false} hasClaimed={false} isCommitted={false} ifoCurrencyAddress={bscTokens.cake.address} />
+        <IfoSteps
+          isLive={false}
+          hasClaimed={false}
+          isCommitted={false}
+          ifoCurrencyAddress={goerliTestnetTokens.cake.address}
+        />
       }
     />
-  )
+  );
 }

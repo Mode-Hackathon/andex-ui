@@ -181,8 +181,8 @@ export async function fetchTopTokens(dataClient: GraphQLClient, blocks?: Block[]
 
 export const useTopTokensData = ():
   | {
-      [address: string]: TokenData
-    }
+    [address: string]: TokenData
+  }
   | undefined => {
   const chainName = useChainNameByQuery()
   const chainId = multiChainId[chainName]
@@ -208,6 +208,7 @@ export const useTokensData = (addresses: string[], targetChainId?: ChainId): Tok
   const chainName = useChainNameByQuery()
   const chainId = targetChainId ?? multiChainId[chainName]
   const [t24, t48, t7d] = getDeltaTimestamps()
+  // @ts-ignore
   const { blocks } = useBlockFromTimeStampQuery([t24, t48, t7d], undefined, undefined, getChainName(chainId))
 
   const { data } = useQuery(
@@ -339,8 +340,8 @@ export async function fetchTopPools(dataClient: GraphQLClient, chainId: ChainId,
 
 export const useTopPoolsData = ():
   | {
-      [address: string]: PoolData
-    }
+    [address: string]: PoolData
+  }
   | undefined => {
   const chainName = useChainNameByQuery()
   const chainId = multiChainId[chainName]

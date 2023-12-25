@@ -1,6 +1,6 @@
 import { NATIVE, WETH9 } from '@pancakeswap/sdk'
 import { ChainId } from '@pancakeswap/chains'
-import { bscTokens } from '@pancakeswap/tokens'
+import { goerliTestnetTokens } from '@pancakeswap/tokens'
 import { LiquidStakingList, FunctionName } from 'views/LiquidStaking/constants/types'
 import { WBETH, SNBNB } from 'config/constants/liquidStaking'
 // FAQs
@@ -15,7 +15,7 @@ const liquidStaking: LiquidStakingList[] = [
     stakingSymbol: 'ETH / wBETH',
     contract: WBETH[ChainId.MODE_MAINNET],
     token0: WETH9[ChainId.MODE_MAINNET],
-    token1: bscTokens.wbeth,
+    token1: goerliTestnetTokens.weth,
     abi: wbethBscABI,
     shouldCheckApproval: true,
     approveToken: WETH9[ChainId.MODE_MAINNET],
@@ -30,28 +30,7 @@ const liquidStaking: LiquidStakingList[] = [
     stakingMethodArgs: ['convertedStakeAmount', 'masterChefAddress'],
     stakingOverrides: [],
     FAQs: EthWbethFaq(),
-  },
-  {
-    stakingSymbol: 'BNB / SnBNB',
-    contract: SNBNB[ChainId.MODE_MAINNET],
-    token0: NATIVE[ChainId.MODE_MAINNET],
-    token1: bscTokens.snbnb,
-    abi: snBnbABI,
-    shouldCheckApproval: false,
-    approveToken: null,
-    aprUrl: 'https://www.synclub.io/staas/v1/public/staking/snbnb/apy',
-    exchangeRateMultiCall: [
-      {
-        abi: snBnbABI,
-        address: SNBNB[ChainId.MODE_MAINNET],
-        functionName: FunctionName.convertSnBnbToBnb,
-        args: [1000000000000000000], // 1 SnBNB
-      },
-    ],
-    stakingMethodArgs: [],
-    stakingOverrides: ['value'],
-    FAQs: BnbSnbnbFaq(),
-  },
+  }
 ]
 
 export default liquidStaking

@@ -1,6 +1,6 @@
 import { ChainId } from '@gelatonetwork/limit-orders-lib'
 import { CHAINS } from 'config/chains'
-import { TransactionReceipt, createPublicClient, http, PublicClient } from 'viem'
+import { TransactionReceipt, createPublicClient, http, PublicClient, Chain } from 'viem'
 import { useCallback } from 'react'
 import { WaitForTransactionArgs, waitForTransaction } from 'wagmi/actions'
 import { useActiveChainId } from './useActiveChainId'
@@ -9,7 +9,7 @@ const viemClientsPublicNodes = CHAINS.reduce((prev, cur) => {
   return {
     ...prev,
     [cur.id]: createPublicClient({
-      chain: cur,
+      chain: cur as Chain,
       transport: http(cur.rpcUrls.public.http[0], {
         timeout: 15_000,
       }),
@@ -30,8 +30,8 @@ export function usePublicNodeWaitForTransaction() {
   const waitForTransaction_ = useCallback(
     async (opts: WaitForTransactionArgs): Promise<TransactionReceipt> => {
       // our custom node might be late to sync up
-      if (viemClientsPublicNodes[chainId]) {
-        return viemClientsPublicNodes[chainId].waitForTransactionReceipt(opts)
+      if (viemClientsPublicNodes[chainId as ChainId]) {
+        return viemClientsPublicNodes[chainId as ChainId].waitForTransactionReceipt(opts)
       }
       return waitForTransaction({ ...opts, chainId })
     },

@@ -2,7 +2,7 @@ import { useState, useCallback, useMemo, useEffect } from "react";
 import { useIsTransactionPending } from "state/transactions/hooks";
 import { getFullDisplayBalance } from "@pancakeswap/utils/formatBalance";
 import { useAppDispatch } from "state";
-import { updateUserBalance } from "state/pools";
+// import { updateUserBalance } from "state/pools";
 import { Native } from "@pancakeswap/sdk";
 import { ChainId } from "@pancakeswap/chains";
 import { CAKE } from "@pancakeswap/tokens";
@@ -43,7 +43,8 @@ export const useCakeEnable = (enableAmount: BigNumber) => {
 
   useEffect(() => {
     if (pendingEnableTx && transactionHash && !isTransactionPending) {
-      dispatch(updateUserBalance({ sousId: 0, account, chainId }));
+      // TODO
+      // dispatch(updateUserBalance({ sousId: 0, account, chainId }));
       setPendingEnableTx(isTransactionPending);
     }
   }, [

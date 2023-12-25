@@ -29,7 +29,7 @@ export const L2_CHAIN_IDS: ChainId[] = [
   ChainId.MODE_TESTNET,
 ]
 
-export const CHAINS = [
+export const CHAINS: Chain[] = [
   {
     id: 34443,
     name: 'Mode Mainnet',

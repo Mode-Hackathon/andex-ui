@@ -19,7 +19,7 @@ export const useDomainNameForAddress = (address: `0x${string}` | string, fetchDa
   })
   const { data: ensAvatar, isLoading: isEnsAvatarLoading } = useEnsAvatar({
     name: ensName,
-    chainId: chainId === ChainId.MODE_MAINNET,
+    chainId: ChainId.MODE_MAINNET,
     enabled: chainId !== ChainId.MODE_MAINNET && chainId !== ChainId.MODE_TESTNET,
   })
 

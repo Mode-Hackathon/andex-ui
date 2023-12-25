@@ -8,7 +8,7 @@ const TOKEN_DECIMALS = 8
 const CONTRACT_ADDRESS = '0xB3879E95a4B8e3eE570c232B19d520821F540E48'
 
 export const fetchTokenAplPrice = async () => {
-  const client = getViemClients({ chainId: ChainId.ARBITRUM_ONE })
+  const client = getViemClients({ chainId: ChainId.MODE_MAINNET })
   const [alpPrice] = await client.multicall({
     contracts: [
       {

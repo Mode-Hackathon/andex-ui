@@ -7,7 +7,7 @@ export default function useNativeCurrency(): NativeCurrency {
   const { chainId } = useActiveChainId()
   return useMemo(() => {
     try {
-      return Native.onChain(chainId)
+      return Native.onChain(chainId as ChainId)
     } catch (e) {
       return Native.onChain(ChainId.MODE_MAINNET)
     }

@@ -4,9 +4,10 @@ import { Address } from 'viem'
 import BigNumber from 'bignumber.js'
 import { Ifo, PoolIds, ifoV7ABI } from '@pancakeswap/ifos'
 import { useERC20, useIfoV7Contract } from 'hooks/useContract'
-import { fetchCakeVaultUserData } from 'state/pools'
+// TODO
+// import { fetchCakeVaultUserData } from 'state/pools'
 import { useAppDispatch } from 'state'
-import { useIfoCredit } from 'state/pools/hooks'
+// import { useIfoCredit } from 'state/pools/hooks'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import { publicClient } from 'utils/wagmi'
 
@@ -53,7 +54,8 @@ const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
   const { chainId: currenctChainId } = useActiveChainId()
   const [state, setState] = useState<WalletIfoState>(initialState)
   const dispatch = useAppDispatch()
-  const credit = useIfoCredit()
+  // const credit = useIfoCredit()
+  const credit = new BigNumber(0)
   const { chainId } = ifo
   const sourceChain = useIfoSourceChain(chainId)
 
@@ -142,13 +144,13 @@ const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
       basicReleasableAmount,
       unlimitedReleasableAmount,
     ]: [boolean | undefined, boolean | undefined, any | null, any | null, any | null, any | null] = [
-      false,
-      false,
-      null,
-      null,
-      null,
-      null,
-    ]
+        false,
+        false,
+        null,
+        null,
+        null,
+        null,
+      ]
 
     if (version >= 3.1) {
       const [
@@ -208,46 +210,46 @@ const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
       unlimitedReleasableAmount = unlimitedReleasableAmountResult.result
     }
 
-    dispatch(fetchCakeVaultUserData({ account, chainId: sourceChain }))
+    // dispatch(fetchCakeVaultUserData({ account, chainId: sourceChain }))
 
     setState(
       (prevState) =>
-        ({
-          ...prevState,
-          isInitialized: true,
-          poolBasic: {
-            ...prevState.poolBasic,
-            amountTokenCommittedInLP: new BigNumber(userInfo[0][0].toString()),
-            offeringAmountInToken: new BigNumber(amounts[0][0].toString()),
-            refundingAmountInLP: new BigNumber(amounts[0][1].toString()),
-            taxAmountInLP: new BigNumber(amounts[0][2].toString()),
-            hasClaimed: userInfo[1][0],
-            isQualifiedNFT,
-            isQualifiedPoints,
-            vestingReleased: basicSchedule ? new BigNumber(basicSchedule.released.toString()) : BIG_ZERO,
-            vestingAmountTotal: basicSchedule ? new BigNumber(basicSchedule.amountTotal.toString()) : BIG_ZERO,
-            isVestingInitialized: basicSchedule ? basicSchedule.isVestingInitialized : false,
-            vestingId: basicId ? basicId.toString() : '0',
-            vestingComputeReleasableAmount: basicReleasableAmount
-              ? new BigNumber(basicReleasableAmount.toString())
-              : BIG_ZERO,
-          },
-          poolUnlimited: {
-            ...prevState.poolUnlimited,
-            amountTokenCommittedInLP: new BigNumber(userInfo[0][1].toString()),
-            offeringAmountInToken: new BigNumber(amounts[1][0].toString()),
-            refundingAmountInLP: new BigNumber(amounts[1][1].toString()),
-            taxAmountInLP: new BigNumber(amounts[1][2].toString()),
-            hasClaimed: userInfo[1][1],
-            vestingReleased: unlimitedSchedule ? new BigNumber(unlimitedSchedule.released.toString()) : BIG_ZERO,
-            vestingAmountTotal: unlimitedSchedule ? new BigNumber(unlimitedSchedule.amountTotal.toString()) : BIG_ZERO,
-            isVestingInitialized: unlimitedSchedule ? unlimitedSchedule.isVestingInitialized : false,
-            vestingId: unlimitedId ? unlimitedId.toString() : '0',
-            vestingComputeReleasableAmount: unlimitedReleasableAmount
-              ? new BigNumber(unlimitedReleasableAmount.toString())
-              : BIG_ZERO,
-          },
-        } as any),
+      ({
+        ...prevState,
+        isInitialized: true,
+        poolBasic: {
+          ...prevState.poolBasic,
+          amountTokenCommittedInLP: new BigNumber(userInfo[0][0].toString()),
+          offeringAmountInToken: new BigNumber(amounts[0][0].toString()),
+          refundingAmountInLP: new BigNumber(amounts[0][1].toString()),
+          taxAmountInLP: new BigNumber(amounts[0][2].toString()),
+          hasClaimed: userInfo[1][0],
+          isQualifiedNFT,
+          isQualifiedPoints,
+          vestingReleased: basicSchedule ? new BigNumber(basicSchedule.released.toString()) : BIG_ZERO,
+          vestingAmountTotal: basicSchedule ? new BigNumber(basicSchedule.amountTotal.toString()) : BIG_ZERO,
+          isVestingInitialized: basicSchedule ? basicSchedule.isVestingInitialized : false,
+          vestingId: basicId ? basicId.toString() : '0',
+          vestingComputeReleasableAmount: basicReleasableAmount
+            ? new BigNumber(basicReleasableAmount.toString())
+            : BIG_ZERO,
+        },
+        poolUnlimited: {
+          ...prevState.poolUnlimited,
+          amountTokenCommittedInLP: new BigNumber(userInfo[0][1].toString()),
+          offeringAmountInToken: new BigNumber(amounts[1][0].toString()),
+          refundingAmountInLP: new BigNumber(amounts[1][1].toString()),
+          taxAmountInLP: new BigNumber(amounts[1][2].toString()),
+          hasClaimed: userInfo[1][1],
+          vestingReleased: unlimitedSchedule ? new BigNumber(unlimitedSchedule.released.toString()) : BIG_ZERO,
+          vestingAmountTotal: unlimitedSchedule ? new BigNumber(unlimitedSchedule.amountTotal.toString()) : BIG_ZERO,
+          isVestingInitialized: unlimitedSchedule ? unlimitedSchedule.isVestingInitialized : false,
+          vestingId: unlimitedId ? unlimitedId.toString() : '0',
+          vestingComputeReleasableAmount: unlimitedReleasableAmount
+            ? new BigNumber(unlimitedReleasableAmount.toString())
+            : BIG_ZERO,
+        },
+      } as any),
     )
   }, [account, address, dispatch, version, chainId, sourceChain])
 

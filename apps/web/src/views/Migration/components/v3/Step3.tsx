@@ -11,7 +11,7 @@ import { Chart } from "@pancakeswap/widgets-internal";
 import { format } from "d3";
 import { useTranslation } from "@pancakeswap/localization";
 import { ChainId } from "@pancakeswap/chains";
-import { bscTokens, ethereumTokens } from "@pancakeswap/tokens";
+import { goerliTestnetTokens, ethereumTokens } from "@pancakeswap/tokens";
 import { FeeAmount } from "@pancakeswap/v3-sdk";
 import { LightCard } from "components/Card";
 import { Bound } from "config/constants/types";
@@ -53,7 +53,7 @@ const ZOOM = {
 const feeAmount = FeeAmount.MEDIUM;
 
 const MOCK_TOKENS = {
-  [ChainId.MODE_MAINNET]: [bscTokens.cake, bscTokens.wbnb],
+  [ChainId.MODE_MAINNET]: [goerliTestnetTokens.cake, goerliTestnetTokens.weth],
   // [ChainId.ETHEREUM]: [ethereumTokens.wbtc, ethereumTokens.weth],
 };
 

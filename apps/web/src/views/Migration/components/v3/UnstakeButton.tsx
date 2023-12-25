@@ -5,13 +5,13 @@ import { ToastDescriptionWithTx } from "components/Toast";
 import useCatchTxError from "hooks/useCatchTxError";
 import React, { useContext } from "react";
 import { useAppDispatch } from "state";
-import { fetchFarmUserDataAsync } from "state/farms";
-import { useFarmFromPid, useFarmUser } from "state/farms/hooks";
+// import { fetchFarmUserDataAsync } from "state/farms";
+// import { useFarmFromPid, useFarmUser } from "state/farms/hooks";
 import { getFullDisplayBalance } from "@pancakeswap/utils/formatBalance";
-import useUnstakeFarms from "views/Farms/hooks/useUnstakeFarms";
+// import useUnstakeFarms from "views/Farms/hooks/useUnstakeFarms";
 import { useERC20 } from "hooks/useContract";
-import useProxyStakedActions from "views/Farms/components/YieldBooster/hooks/useProxyStakedActions";
-import { YieldBoosterStateContext } from "views/Farms/components/YieldBooster/components/ProxyFarmContainer";
+// import useProxyStakedActions from "views/Farms/components/YieldBooster/hooks/useProxyStakedActions";
+// import { YieldBoosterStateContext } from "views/Farms/components/YieldBooster/components/ProxyFarmContainer";
 import { useActiveChainId } from "hooks/useActiveChainId";
 import {
   useNonBscFarmPendingTransaction,
@@ -25,6 +25,8 @@ import { FarmWithStakedValue } from "@pancakeswap/farms";
 import { ChainId } from "@pancakeswap/chains";
 import { pickFarmTransactionTx } from "state/global/actions";
 import { usePublicNodeWaitForTransaction } from "hooks/usePublicNodeWaitForTransaction";
+import { zeroAddress } from "viem";
+import BigNumber from "bignumber.js";
 
 export interface UnstakeButtonProps {
   pid: number;
@@ -41,29 +43,50 @@ const UnstakeButton: React.FC<React.PropsWithChildren<UnstakeButtonProps>> = ({
   const { address: account } = useAccount();
   const { chainId } = useActiveChainId();
   const { toastSuccess } = useToast();
-  const { lpAddress } = useFarmFromPid(pid);
+  // const { lpAddress } = useFarmFromPid(pid);
+  const lpAddress = zeroAddress;
+
   const {
     loading: pendingTx,
     fetchTxResponse,
     fetchWithCatchTxError,
   } = useCatchTxError();
-  const { stakedBalance, proxy } = useFarmUser(pid);
-  const { onUnstake } = useUnstakeFarms(pid, vaultPid);
+  // const { stakedBalance, proxy } = useFarmUser(pid);
+  // const { onUnstake } = useUnstakeFarms(pid, vaultPid);
+  // const dispatch = useAppDispatch();
+  // const { shouldUseProxyFarm, proxyAddress } = useContext(
+  //   YieldBoosterStateContext
+  // );
+  const { stakedBalance, proxy } = {
+    stakedBalance: new BigNumber(0),
+    proxy: {},
+  };
+  const { onUnstake } = { onUnstake: (e: any) => {} };
   const dispatch = useAppDispatch();
-  const { shouldUseProxyFarm, proxyAddress } = useContext(
-    YieldBoosterStateContext
-  );
-  const isNeedUnstake = stakedBalance.gt(0) || proxy?.stakedBalance.gt(0);
+  const { shouldUseProxyFarm, proxyAddress } = {
+    shouldUseProxyFarm: false,
+    proxyAddress: zeroAddress,
+  };
+  const isNeedUnstake =
+    stakedBalance.gt(0) || (proxy as any)?.stakedBalance.gt(0);
 
   const [isLoading, setIsLoading] = React.useState(false);
 
   const lpContract = useERC20(lpAddress);
   const addTransaction = useTransactionAdder();
 
-  const { onUnstake: onUnstakeProxyFarm, onDone } = useProxyStakedActions(
-    pid,
-    lpContract
-  );
+  // const { onUnstake: onUnstakeProxyFarm, onDone } = useProxyStakedActions(
+  //   pid,
+  //   lpContract
+  // );
+  const { onUnstake: onUnstakeProxyFarm, onDone } = {
+    onUnstake: (e: any) => {},
+    onDone: () => {},
+  };
+  // const { onUnstake: onUnstakeProxyFarm, onDone } = useProxyStakedActions(
+  //   pid,
+  //   lpContract
+  // );
 
   const pendingFarm = useNonBscFarmPendingTransaction(lpAddress);
   const { waitForTransaction } = usePublicNodeWaitForTransaction();
@@ -75,6 +98,7 @@ const UnstakeButton: React.FC<React.PropsWithChildren<UnstakeButtonProps>> = ({
     if (vaultPid) {
       setIsLoading(true);
 
+      //@ts-ignore
       const receipt = await fetchTxResponse(() => {
         const balance = getFullDisplayBalance(stakedBalance);
         return onUnstake(balance);
@@ -140,23 +164,23 @@ const UnstakeButton: React.FC<React.PropsWithChildren<UnstakeButtonProps>> = ({
           onDone();
         }
 
-        dispatch(
-          fetchFarmUserDataAsync({
-            account,
-            pids: [pid],
-            proxyAddress,
-            chainId,
-          })
-        );
+        // dispatch(
+        //   fetchFarmUserDataAsync({
+        //     account,
+        //     pids: [pid],
+        //     proxyAddress,
+        //     chainId,
+        //   })
+        // );
       }
     } else {
       const receipt = await fetchWithCatchTxError(() => {
         if (shouldUseProxyFarm) {
-          const balance = getFullDisplayBalance(proxy?.stakedBalance);
-          return onUnstakeProxyFarm(balance);
+          const balance = getFullDisplayBalance((proxy as any)?.stakedBalance);
+          return onUnstakeProxyFarm(balance) as any;
         }
         const balance = getFullDisplayBalance(stakedBalance);
-        return onUnstake(balance);
+        return onUnstake(balance) as any;
       });
 
       if (receipt?.status) {
@@ -169,14 +193,14 @@ const UnstakeButton: React.FC<React.PropsWithChildren<UnstakeButtonProps>> = ({
         if (shouldUseProxyFarm) {
           onDone();
         }
-        dispatch(
-          fetchFarmUserDataAsync({
-            account,
-            pids: [pid],
-            proxyAddress,
-            chainId,
-          })
-        );
+        // dispatch(
+        //   fetchFarmUserDataAsync({
+        //     account,
+        //     pids: [pid],
+        //     proxyAddress,
+        //     chainId,
+        //   })
+        // );
       }
     }
   };

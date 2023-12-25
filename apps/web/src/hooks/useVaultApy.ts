@@ -2,7 +2,8 @@ import BN from 'bignumber.js'
 import toString from 'lodash/toString'
 import { BLOCKS_PER_YEAR } from 'config'
 import { useCallback, useMemo } from 'react'
-import { useCakeVault } from 'state/pools/hooks'
+// TODO
+// import { useCakeVault } from 'state/pools/hooks'
 import useSWRImmutable from 'swr/immutable'
 import { masterChefV2ABI } from 'config/abi/masterchefV2'
 import { getMasterChefV2Address } from 'utils/addressHelpers'
@@ -34,11 +35,15 @@ const getLockedApy = (flexibleApy: string, boostFactor: BN) => new BN(flexibleAp
 const cakePoolPID = 0
 
 export function useVaultApy({ duration = MAX_LOCK_DURATION }: { duration?: number } = {}) {
-  const {
-    totalShares = BIG_ZERO,
-    pricePerFullShare = BIG_ZERO,
-    fees: { performanceFeeAsDecimal } = { performanceFeeAsDecimal: DEFAULT_PERFORMANCE_FEE_DECIMALS },
-  } = useCakeVault()
+  // const {
+  //   totalShares = BIG_ZERO,
+  //   pricePerFullShare = BIG_ZERO,
+  //   fees: { performanceFeeAsDecimal } = { performanceFeeAsDecimal: DEFAULT_PERFORMANCE_FEE_DECIMALS },
+  // } = useCakeVault()
+
+  const totalShares = BIG_ZERO
+  const pricePerFullShare = BIG_ZERO
+  const performanceFeeAsDecimal = DEFAULT_PERFORMANCE_FEE_DECIMALS
 
   const totalSharesAsEtherBN = useMemo(() => new BN(totalShares.toString()), [totalShares])
   const pricePerFullShareAsEtherBN = useMemo(() => new BN(pricePerFullShare.toString()), [pricePerFullShare])

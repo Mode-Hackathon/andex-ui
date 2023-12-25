@@ -29,45 +29,8 @@ const SWAP_INFO_BY_CHAIN = {
     stable: STABLESWAP_SUBGRAPH_CLIENT,
     // v3: V3_SUBGRAPH_URLS[ChainId.MODE_MAINNET],
   },
-  [ChainId.ETHEREUM]: {
-    v2: INFO_CLIENT_ETH,
-    // v3: V3_SUBGRAPH_URLS[ChainId.ETHEREUM],
-  },
   [ChainId.MODE_TESTNET]: {
     v3: V3_SUBGRAPH_URLS[ChainId.MODE_TESTNET],
-  },
-  [ChainId.GOERLI]: {},
-  [ChainId.ARBITRUM_ONE]: {
-    v2: INFO_CLIENT_WITH_CHAIN[ChainId.ARBITRUM_ONE],
-    v3: V3_SUBGRAPH_URLS[ChainId.ARBITRUM_ONE],
-  },
-  [ChainId.ARBITRUM_GOERLI]: {},
-  [ChainId.POLYGON_ZKEVM]: {
-    v3: V3_SUBGRAPH_URLS[ChainId.POLYGON_ZKEVM],
-  },
-  [ChainId.POLYGON_ZKEVM_TESTNET]: {},
-  [ChainId.ZKSYNC]: {
-    v3: V3_SUBGRAPH_URLS[ChainId.ZKSYNC],
-  },
-  [ChainId.ZKSYNC_TESTNET]: {},
-  [ChainId.LINEA]: {},
-  [ChainId.LINEA_TESTNET]: {
-    v2: INFO_CLIENT_WITH_CHAIN[ChainId.LINEA_TESTNET],
-    v3: V3_SUBGRAPH_URLS[ChainId.LINEA_TESTNET],
-  },
-  [ChainId.OPBNB]: {
-    v2: INFO_CLIENT_WITH_CHAIN[ChainId.OPBNB],
-    v3: V3_SUBGRAPH_URLS[ChainId.OPBNB],
-  },
-  [ChainId.OPBNB_TESTNET]: {},
-  [ChainId.BASE]: {
-    v3: V3_SUBGRAPH_URLS[ChainId.BASE],
-  },
-  [ChainId.BASE_TESTNET]: {
-    v3: V3_SUBGRAPH_URLS[ChainId.BASE_TESTNET],
-  },
-  [ChainId.SCROLL_SEPOLIA]: {
-    v3: V3_SUBGRAPH_URLS[ChainId.SCROLL_SEPOLIA],
   },
 } satisfies Record<ChainId, Partial<ProtocolEndpoint>>
 

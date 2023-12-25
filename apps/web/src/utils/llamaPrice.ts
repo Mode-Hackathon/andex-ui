@@ -36,7 +36,7 @@ export const fetchTokenUSDValue = async (chainId: number, tokenAddresses: string
     .filter(Boolean)
 
   if (cakeAddress.length > 0) {
-    const cakePrice = parseFloat(await getCakePriceFromOracle())
+    const cakePrice = parseFloat((await getCakePriceFromOracle()).toString())
     cakeAddress.forEach((address) => {
       tokenPriceArray = {
         coins: {

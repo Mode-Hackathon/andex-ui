@@ -5,12 +5,9 @@ import { Call } from './actions'
 import { RetryableError } from './retry'
 
 const l2DifferentBlockNumberChains = [
-  ChainId.ZKSYNC,
-  ChainId.ZKSYNC_TESTNET,
-  ChainId.ARBITRUM_ONE,
-  ChainId.ARBITRUM_GOERLI,
-  ChainId.OPBNB_TESTNET,
-  ChainId.OPBNB,
+  ChainId.MODE_MAINNET,
+  ChainId.MODE_TESTNET,
+
 ]
 
 export type FetchChunkResult = ReturnType<typeof fetchChunk>
@@ -32,7 +29,7 @@ export async function fetchChunk(
   const client = getViemClients({ chainId })
   try {
     // prettier-ignore
-    [resultsBlockNumber, , returnData] = await client.readContract({
+    [resultsBlockNumber, , returnData] = await client?.readContract({
       abi: multicall3ABI,
       address: getMulticall3ContractAddress(chainId),
       functionName: 'tryBlockAndAggregate',

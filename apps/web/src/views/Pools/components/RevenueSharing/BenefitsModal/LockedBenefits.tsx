@@ -17,16 +17,17 @@ import BenefitsText from "views/Pools/components/RevenueSharing/BenefitsModal/Be
 import useCakeBenefits from "components/Menu/UserMenu/hooks/useCakeBenefits";
 import { useVaultApy } from "hooks/useVaultApy";
 import { VaultKey, DeserializedLockedCakeVault } from "state/types";
-import { useVaultPoolByKey } from "state/pools/hooks";
+// import { useVaultPoolByKey } from "state/pools/hooks";
 import useUserDataInVaultPresenter from "views/Pools/components/LockedPool/hooks/useUserDataInVaultPresenter";
 
 const LockedBenefits = () => {
   const { t } = useTranslation();
   const { data: cakeBenefits } = useCakeBenefits();
   const { getLockedApy, getBoostFactor } = useVaultApy();
-  const { userData } = useVaultPoolByKey(
-    VaultKey.CakeVault
-  ) as DeserializedLockedCakeVault;
+  // const { userData } = useVaultPoolByKey(
+  //   VaultKey.CakeVault
+  // ) as DeserializedLockedCakeVault;
+  const userData = {} as any;
   const { secondDuration } = useUserDataInVaultPresenter({
     lockStartTime: userData?.lockStartTime ?? "0",
     lockEndTime: userData?.lockEndTime ?? "0",

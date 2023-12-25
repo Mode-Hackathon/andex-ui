@@ -1,23 +1,33 @@
-import { Text, TokenPairImage as UITokenPairImage, useMatchBreakpoints, Skeleton, Box } from '@pancakeswap/uikit'
-import { Pool, FarmWidget } from '@pancakeswap/widgets-internal'
-import BigNumber from 'bignumber.js'
-import { useActiveChainId } from 'hooks/useActiveChainId'
-import { TokenPairImage } from 'components/TokenImage'
-import { vaultPoolConfig } from 'config/constants/pools'
-import { useTranslation } from '@pancakeswap/localization'
-import { memo, useMemo } from 'react'
-import { useVaultPoolByKey } from 'state/pools/hooks'
-import { VaultKey, DeserializedLockedCakeVault } from 'state/types'
-import { styled } from 'styled-components'
-import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
-import { getVaultPosition, VaultPosition, VaultPositionParams } from 'utils/cakePool'
-import { Token } from '@pancakeswap/sdk'
-import { checkIsBoostedPool } from '@pancakeswap/pools'
+import {
+  Text,
+  TokenPairImage as UITokenPairImage,
+  useMatchBreakpoints,
+  Skeleton,
+  Box,
+} from "@pancakeswap/uikit";
+import { Pool, FarmWidget } from "@pancakeswap/widgets-internal";
+import BigNumber from "bignumber.js";
+import { useActiveChainId } from "hooks/useActiveChainId";
+import { TokenPairImage } from "components/TokenImage";
+import { vaultPoolConfig } from "config/constants/pools";
+import { useTranslation } from "@pancakeswap/localization";
+import { memo, useMemo } from "react";
+// import { useVaultPoolByKey } from 'state/pools/hooks'
+import { VaultKey, DeserializedLockedCakeVault } from "state/types";
+import { styled } from "styled-components";
+import { BIG_ZERO } from "@pancakeswap/utils/bigNumber";
+import {
+  getVaultPosition,
+  VaultPosition,
+  VaultPositionParams,
+} from "utils/cakePool";
+import { Token } from "@pancakeswap/sdk";
+import { checkIsBoostedPool } from "@pancakeswap/pools";
 
-const { AlpBoostedTag } = FarmWidget.Tags
+const { AlpBoostedTag } = FarmWidget.Tags;
 
 interface NameCellProps {
-  pool: Pool.DeserializedPool<Token>
+  pool: Pool.DeserializedPool<Token>;
 }
 
 export const StyledCell = styled(Pool.BaseCell)`
@@ -28,46 +38,59 @@ export const StyledCell = styled(Pool.BaseCell)`
     flex: 0 0 210px;
     padding-left: 32px;
   }
-`
+`;
 
-const NameCell: React.FC<React.PropsWithChildren<NameCellProps>> = ({ pool }) => {
-  const { t } = useTranslation()
-  const { chainId } = useActiveChainId()
-  const { isMobile } = useMatchBreakpoints()
-  const { sousId, stakingToken, earningToken, userData, isFinished, vaultKey, totalStaked } = pool
-  const vaultData = useVaultPoolByKey(pool?.vaultKey || VaultKey.CakeVault)
-  const { totalCakeInVault } = vaultData
-  const userShares = vaultData?.userData?.userShares ?? BIG_ZERO
-  const hasVaultShares = userShares.gt(0)
+const NameCell: React.FC<React.PropsWithChildren<NameCellProps>> = ({
+  pool,
+}) => {
+  const { t } = useTranslation();
+  const { chainId } = useActiveChainId();
+  const { isMobile } = useMatchBreakpoints();
+  const {
+    sousId,
+    stakingToken,
+    earningToken,
+    userData,
+    isFinished,
+    vaultKey,
+    totalStaked,
+  } = pool;
+  // const vaultData = useVaultPoolByKey(pool?.vaultKey || VaultKey.CakeVault)
+  const vaultData = {} as any;
+  const { totalCakeInVault } = vaultData;
+  const userShares = vaultData?.userData?.userShares ?? BIG_ZERO;
+  const hasVaultShares = userShares.gt(0);
 
-  const stakingTokenSymbol = stakingToken.symbol
-  const earningTokenSymbol = earningToken.symbol
+  const stakingTokenSymbol = stakingToken.symbol;
+  const earningTokenSymbol = earningToken.symbol;
 
-  const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
-  const isStaked = stakedBalance.gt(0)
+  const stakedBalance = userData?.stakedBalance
+    ? new BigNumber(userData.stakedBalance)
+    : BIG_ZERO;
+  const isStaked = stakedBalance.gt(0);
 
-  const showStakedTag = vaultKey ? hasVaultShares : isStaked
+  const showStakedTag = vaultKey ? hasVaultShares : isStaked;
 
-  let title: React.ReactNode = `${t('Earn')} ${earningTokenSymbol}`
-  let subtitle: React.ReactNode = `${t('Stake')} ${stakingTokenSymbol}`
-  const showSubtitle = sousId !== 0 || (sousId === 0 && !isMobile)
+  let title: React.ReactNode = `${t("Earn")} ${earningTokenSymbol}`;
+  let subtitle: React.ReactNode = `${t("Stake")} ${stakingTokenSymbol}`;
+  const showSubtitle = sousId !== 0 || (sousId === 0 && !isMobile);
 
   if (vaultKey) {
-    title = vaultPoolConfig[vaultKey].name
-    subtitle = vaultPoolConfig[vaultKey].description
+    title = vaultPoolConfig[vaultKey].name;
+    subtitle = vaultPoolConfig[vaultKey].description;
   }
 
   const isLoaded = useMemo(() => {
     if (pool.vaultKey) {
-      return totalCakeInVault && totalCakeInVault.gte(0)
+      return totalCakeInVault && totalCakeInVault.gte(0);
     }
-    return totalStaked && totalStaked.gte(0)
-  }, [pool.vaultKey, totalCakeInVault, totalStaked])
+    return totalStaked && totalStaked.gte(0);
+  }, [pool.vaultKey, totalCakeInVault, totalStaked]);
 
   const isBoostedPool = useMemo(
     () => Boolean(chainId && checkIsBoostedPool(pool.contractAddress, chainId)),
-    [pool, chainId],
-  )
+    [pool, chainId]
+  );
 
   return (
     <StyledCell role="cell">
@@ -96,12 +119,22 @@ const NameCell: React.FC<React.PropsWithChildren<NameCellProps>> = ({ pool }) =>
               (vaultKey === VaultKey.CakeVault ? (
                 <StakedCakeStatus
                   userShares={userShares}
-                  locked={(vaultData as DeserializedLockedCakeVault)?.userData?.locked}
-                  lockEndTime={(vaultData as DeserializedLockedCakeVault)?.userData?.lockEndTime}
+                  locked={
+                    (vaultData as DeserializedLockedCakeVault)?.userData?.locked
+                  }
+                  lockEndTime={
+                    (vaultData as DeserializedLockedCakeVault)?.userData
+                      ?.lockEndTime
+                  }
                 />
               ) : (
-                <Text fontSize="12px" bold color={isFinished ? 'failure' : 'secondary'} textTransform="uppercase">
-                  {t('Staked')}
+                <Text
+                  fontSize="12px"
+                  bold
+                  color={isFinished ? "failure" : "secondary"}
+                  textTransform="uppercase"
+                >
+                  {t("Staked")}
                 </Text>
               ))}
             <Text bold={!isMobile} small={isMobile}>
@@ -129,27 +162,32 @@ const NameCell: React.FC<React.PropsWithChildren<NameCellProps>> = ({ pool }) =>
         </>
       )}
     </StyledCell>
-  )
-}
+  );
+};
 
-export default NameCell
+export default NameCell;
 
 const stakedStatus = {
-  [VaultPosition.None]: { text: '', color: 'secondary' },
-  [VaultPosition.Locked]: { text: 'Locked', color: 'secondary' },
-  [VaultPosition.LockedEnd]: { text: 'Locked End', color: 'secondary' },
-  [VaultPosition.AfterBurning]: { text: 'After Burning', color: 'failure' },
-  [VaultPosition.Flexible]: { text: 'Flexible', color: 'success' },
-}
+  [VaultPosition.None]: { text: "", color: "secondary" },
+  [VaultPosition.Locked]: { text: "Locked", color: "secondary" },
+  [VaultPosition.LockedEnd]: { text: "Locked End", color: "secondary" },
+  [VaultPosition.AfterBurning]: { text: "After Burning", color: "failure" },
+  [VaultPosition.Flexible]: { text: "Flexible", color: "success" },
+};
 
-export const StakedCakeStatus: React.FC<React.PropsWithChildren<VaultPositionParams>> = memo(
-  ({ userShares, locked, lockEndTime }) => {
-    const vaultPosition = getVaultPosition({ userShares, locked, lockEndTime })
-    const { t } = useTranslation()
-    return (
-      <Text fontSize="12px" bold color={stakedStatus[vaultPosition].color} textTransform="uppercase">
-        {t(stakedStatus[vaultPosition].text)}
-      </Text>
-    )
-  },
-)
+export const StakedCakeStatus: React.FC<
+  React.PropsWithChildren<VaultPositionParams>
+> = memo(({ userShares, locked, lockEndTime }) => {
+  const vaultPosition = getVaultPosition({ userShares, locked, lockEndTime });
+  const { t } = useTranslation();
+  return (
+    <Text
+      fontSize="12px"
+      bold
+      color={stakedStatus[vaultPosition].color}
+      textTransform="uppercase"
+    >
+      {t(stakedStatus[vaultPosition].text)}
+    </Text>
+  );
+});

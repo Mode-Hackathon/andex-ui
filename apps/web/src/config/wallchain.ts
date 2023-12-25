@@ -1,4 +1,4 @@
-// import { bscTokens } from '@pancakeswap/tokens'
+// import { goerliTestnetTokens } from '@pancakeswap/tokens'
 // import { ERC20Token } from '@pancakeswap/sdk'
 // import { ChainId } from '@pancakeswap/chains'
 
@@ -10,9 +10,9 @@ export const WallchainKeys = {
 
 export const WallchainTokens = [
   // new ERC20Token(ChainId.MODE_MAINNET, '0xC9882dEF23bc42D53895b8361D0b1EDC7570Bc6A', 18, 'FIST'),
-  // bscTokens.raca,
-  // bscTokens.rdnt,
-  // bscTokens.mbox,
-  // bscTokens.link,
-  // bscTokens.xrp,
+  // goerliTestnetTokens.raca,
+  // goerliTestnetTokens.rdnt,
+  // goerliTestnetTokens.mbox,
+  // goerliTestnetTokens.link,
+  // goerliTestnetTokens.xrp,
 ]

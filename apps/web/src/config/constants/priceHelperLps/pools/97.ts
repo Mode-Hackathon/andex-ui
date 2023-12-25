@@ -1,4 +1,4 @@
-// import { bscTestnetTokens } from '../tokens'
+// import { goerliTestnetTokens } from '../tokens'
 import { SerializedFarmConfig } from '../../types'
 
 const priceHelperLps: SerializedFarmConfig[] = []

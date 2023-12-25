@@ -2,7 +2,8 @@ import { useState, useCallback } from 'react'
 import BigNumber from 'bignumber.js'
 import { BSC_BLOCK_TIME } from 'config'
 import { Ifo, IfoStatus, PoolIds } from '@pancakeswap/ifos'
-import { useLpTokenPrice } from 'state/farms/hooks'
+// TODO
+// import { useLpTokenPrice } from 'state/farms/hooks'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import { publicClient } from 'utils/wagmi'
 import { ChainId } from '@pancakeswap/chains'
@@ -15,7 +16,9 @@ import { getStatus } from '../helpers'
  */
 const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
   const { address } = ifo
-  const lpTokenPriceInUsd = useLpTokenPrice(ifo.currency.symbol)
+  // const lpTokenPriceInUsd = useLpTokenPrice(ifo.currency.symbol)
+  const lpTokenPriceInUsd = new BigNumber(0)
+
   const [state, setState] = useState({
     isInitialized: false,
     status: 'idle' as IfoStatus,

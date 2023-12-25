@@ -1,4 +1,4 @@
-import { Currency, WNATIVE } from "@pancakeswap/sdk";
+import { Currency, NATIVE, WNATIVE } from "@pancakeswap/sdk";
 import useTheme from "hooks/useTheme";
 import { useCallback, useState } from "react";
 import BnbWbnbNotice from "./BnbWbnbNotice";
@@ -48,7 +48,7 @@ const PriceChartContainer: React.FC<
   const isWrap =
     inputCurrency &&
     outputCurrency &&
-    [inputCurrency.chainId].equals(inputCurrency.wrapped) &&
+    NATIVE[inputCurrency.chainId].equals(inputCurrency.wrapped) &&
     WNATIVE[outputCurrency.chainId].equals(outputCurrency.wrapped);
 
   if (isWrap) {

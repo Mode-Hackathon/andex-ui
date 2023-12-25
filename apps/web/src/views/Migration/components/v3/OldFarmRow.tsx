@@ -1,17 +1,19 @@
-import { useMatchBreakpoints } from '@pancakeswap/uikit'
-import React, { useState } from 'react'
-import { useFarmUser } from 'state/farms/hooks'
-import ProxyFarmContainer from 'views/Farms/components/YieldBooster/components/ProxyFarmContainer'
-import { styled } from 'styled-components'
-import Earned from '../Farm/Cells/Earned'
-import Farm from '../Farm/Cells/Farm'
-import Liquidity from '../Farm/Cells/Liquidity'
-import Multiplier from '../Farm/Cells/Multiplier'
-import Staked from '../Farm/Cells/Staked'
-import ExpandActionCell from '../Cells/ExpandActionCell'
-import Unstake from '../Farm/Cells/Unstake'
-import { RowProps } from '../types'
-import UnstableButton from './UnstakeButton'
+import { useMatchBreakpoints } from "@pancakeswap/uikit";
+import React, { useState } from "react";
+// import { useFarmUser } from 'state/farms/hooks'
+// import ProxyFarmContainer from 'views/Farms/components/YieldBooster/components/ProxyFarmContainer'
+import { styled } from "styled-components";
+import Earned from "../Farm/Cells/Earned";
+import Farm from "../Farm/Cells/Farm";
+import Liquidity from "../Farm/Cells/Liquidity";
+import Multiplier from "../Farm/Cells/Multiplier";
+import Staked from "../Farm/Cells/Staked";
+import ExpandActionCell from "../Cells/ExpandActionCell";
+import Unstake from "../Farm/Cells/Unstake";
+import { RowProps } from "../types";
+import UnstableButton from "./UnstakeButton";
+import BigNumber from "bignumber.js";
+import { BIG_ZERO } from "@pancakeswap/utils/bigNumber";
 
 const StyledRow = styled.div`
   display: flex;
@@ -20,7 +22,7 @@ const StyledRow = styled.div`
   ${({ theme }) => theme.mediaQueries.lg} {
     cursor: initial;
   }
-`
+`;
 
 const LeftContainer = styled.div`
   display: flex;
@@ -30,7 +32,7 @@ const LeftContainer = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: row;
   }
-`
+`;
 
 const RightContainer = styled.div`
   display: flex;
@@ -41,27 +43,26 @@ const RightContainer = styled.div`
     flex-direction: row;
     align-items: center;
   }
-`
+`;
 
-export const V3OldFarmRow: React.FunctionComponent<React.PropsWithChildren<RowProps>> = ({
-  farm,
-  staked,
-  earned,
-  multiplier,
-  liquidity,
-  unstake,
-}) => {
-  const { isMobile, isXl, isXxl } = useMatchBreakpoints()
-  const isLargerScreen = isXl || isXxl
-  const [expanded, setExpanded] = useState(true)
+export const V3OldFarmRow: React.FunctionComponent<
+  React.PropsWithChildren<RowProps>
+> = ({ farm, staked, earned, multiplier, liquidity, unstake }) => {
+  const { isMobile, isXl, isXxl } = useMatchBreakpoints();
+  const isLargerScreen = isXl || isXxl;
+  const [expanded, setExpanded] = useState(true);
 
-  const { stakedBalance, proxy } = useFarmUser(farm.pid)
+  // const { stakedBalance, proxy } = useFarmUser(farm.pid);
+  const { stakedBalance, proxy } = {
+    stakedBalance: new BigNumber(0),
+    proxy: { stakedBalance: BIG_ZERO },
+  };
 
   const toggleExpanded = () => {
     if (!isLargerScreen) {
-      setExpanded((prev) => !prev)
+      setExpanded((prev) => !prev);
     }
-  }
+  };
 
   return (
     <>
@@ -70,7 +71,12 @@ export const V3OldFarmRow: React.FunctionComponent<React.PropsWithChildren<RowPr
           <Farm {...farm} />
           {isLargerScreen || expanded ? (
             <>
-              <Staked {...staked} stakedBalance={farm.boosted ? proxy?.stakedBalance : stakedBalance} />
+              <Staked
+                {...staked}
+                stakedBalance={
+                  farm.boosted ? proxy?.stakedBalance : stakedBalance
+                }
+              />
               <Earned {...earned} />
               <Multiplier {...multiplier} />
             </>
@@ -78,16 +84,22 @@ export const V3OldFarmRow: React.FunctionComponent<React.PropsWithChildren<RowPr
           {isLargerScreen && <Liquidity {...liquidity} />}
         </LeftContainer>
         <RightContainer>
-          {isLargerScreen || expanded ? (
+          {/* {isLargerScreen || expanded ? (
             <ProxyFarmContainer farm={farm}>
               <Unstake>
                 <UnstableButton {...unstake} />
               </Unstake>
-            </ProxyFarmContainer>
-          ) : null}
-          {!isLargerScreen && <ExpandActionCell expanded={expanded} showExpandedText={expanded || isMobile} />}
+            </ProxyFarmContainer> */}
+          {/* ) :  */}
+          {/* null} */}
+          {!isLargerScreen && (
+            <ExpandActionCell
+              expanded={expanded}
+              showExpandedText={expanded || isMobile}
+            />
+          )}
         </RightContainer>
       </StyledRow>
     </>
-  )
-}
+  );
+};

@@ -5,8 +5,8 @@ import round from 'lodash/round'
 import { CAKE } from '@pancakeswap/tokens'
 import { Ifo, IfoStatus, ifoV7ABI } from '@pancakeswap/ifos'
 import { useAccount } from 'wagmi'
-
-import { useLpTokenPrice } from 'state/farms/hooks'
+// TODO
+// import { useLpTokenPrice } from 'state/farms/hooks'
 import { useCakePrice } from 'hooks/useCakePrice'
 import { publicClient } from 'utils/wagmi'
 import { useActiveChainId } from 'hooks/useActiveChainId'
@@ -100,7 +100,9 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
   const { chainId } = ifo
   const { address, plannedStartTime } = ifo
   const cakePriceUsd = useCakePrice()
-  const lpTokenPriceInUsd = useLpTokenPrice(ifo.currency.symbol)
+  // const lpTokenPriceInUsd = useLpTokenPrice(ifo.currency.symbol)
+  const lpTokenPriceInUsd = new BigNumber(0)
+
   const currencyPriceInUSD = ifo.currency === CAKE[ifo.chainId] ? cakePriceUsd : lpTokenPriceInUsd
 
   const [state, setState] = useState(INITIAL_STATE)
@@ -225,44 +227,44 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
 
     setState(
       (prev) =>
-        ({
-          ...prev,
-          isInitialized: true,
-          secondsUntilEnd,
-          secondsUntilStart: startTime - now,
-          poolBasic: {
-            ...poolBasicFormatted,
-            taxRate: privateSaleTaxRateNum,
-            distributionRatio: round(
-              poolBasicFormatted.offeringAmountPool.div(totalOfferingAmount).toNumber(),
-              ROUND_DIGIT,
-            ),
-            pointThreshold: pointThreshold.result ? Number(pointThreshold.result) : 0,
-            admissionProfile:
-              Boolean(admissionProfile && admissionProfile.result) &&
+      ({
+        ...prev,
+        isInitialized: true,
+        secondsUntilEnd,
+        secondsUntilStart: startTime - now,
+        poolBasic: {
+          ...poolBasicFormatted,
+          taxRate: privateSaleTaxRateNum,
+          distributionRatio: round(
+            poolBasicFormatted.offeringAmountPool.div(totalOfferingAmount).toNumber(),
+            ROUND_DIGIT,
+          ),
+          pointThreshold: pointThreshold.result ? Number(pointThreshold.result) : 0,
+          admissionProfile:
+            Boolean(admissionProfile && admissionProfile.result) &&
               admissionProfile.result !== NO_QUALIFIED_NFT_ADDRESS
-                ? admissionProfile.result
-                : undefined,
-            vestingInformation: formatVestingInfo(basicVestingInformation.result || [0n, 0n, 0n, 0n]),
-          },
-          poolUnlimited: {
-            ...poolUnlimitedFormatted,
-            taxRate: taxRateNum,
-            distributionRatio: round(
-              poolUnlimitedFormatted.offeringAmountPool.div(totalOfferingAmount).toNumber(),
-              ROUND_DIGIT,
-            ),
-            vestingInformation: formatVestingInfo(unlimitedVestingInformation.result || [0n, 0n, 0n, 0n]),
-          },
-          status,
-          progress,
-          startTimestamp: startTime,
-          endTimestamp: endTime,
-          thresholdPoints,
-          numberPoints: numberPoints ? Number(numberPoints) : 0,
-          plannedStartTime: plannedStartTime ?? 0,
-          vestingStartTime: vestingStartTime.result ? Number(vestingStartTime.result) : 0,
-        } as any),
+              ? admissionProfile.result
+              : undefined,
+          vestingInformation: formatVestingInfo(basicVestingInformation.result || [0n, 0n, 0n, 0n]),
+        },
+        poolUnlimited: {
+          ...poolUnlimitedFormatted,
+          taxRate: taxRateNum,
+          distributionRatio: round(
+            poolUnlimitedFormatted.offeringAmountPool.div(totalOfferingAmount).toNumber(),
+            ROUND_DIGIT,
+          ),
+          vestingInformation: formatVestingInfo(unlimitedVestingInformation.result || [0n, 0n, 0n, 0n]),
+        },
+        status,
+        progress,
+        startTimestamp: startTime,
+        endTimestamp: endTime,
+        thresholdPoints,
+        numberPoints: numberPoints ? Number(numberPoints) : 0,
+        plannedStartTime: plannedStartTime ?? 0,
+        vestingStartTime: vestingStartTime.result ? Number(vestingStartTime.result) : 0,
+      } as any),
     )
   }, [plannedStartTime, address, chainId])
 

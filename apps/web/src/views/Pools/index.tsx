@@ -23,7 +23,7 @@ import Page from "components/Layout/Page";
 import { V3SubgraphHealthIndicator } from "components/SubgraphHealthIndicator";
 import { TokenPairImage } from "components/TokenImage";
 import { useActiveChainId } from "hooks/useActiveChainId";
-import { usePoolsPageFetch, usePoolsWithVault } from "state/pools/hooks";
+// import { usePoolsPageFetch, usePoolsWithVault } from "state/pools/hooks";
 
 import CakeVaultCard from "./components/CakeVaultCard";
 import AprRow from "./components/PoolCard/AprRow";
@@ -54,9 +54,9 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
   const { t } = useTranslation();
   const { address: account } = useAccount();
   const { chainId } = useActiveChainId();
-  const { pools, userDataLoaded } = usePoolsWithVault();
-
-  usePoolsPageFetch();
+  // const { pools, userDataLoaded } = usePoolsWithVault();
+  const { pools, userDataLoaded } = {} as any;
+  // usePoolsPageFetch();
 
   return (
     <>

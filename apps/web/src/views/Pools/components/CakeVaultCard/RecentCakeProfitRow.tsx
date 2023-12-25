@@ -1,20 +1,30 @@
-import { Flex, Text } from '@pancakeswap/uikit'
-import { Pool } from '@pancakeswap/widgets-internal'
+import { Flex, Text } from "@pancakeswap/uikit";
+import { Pool } from "@pancakeswap/widgets-internal";
 
-import { useAccount } from 'wagmi'
-import { useTranslation } from '@pancakeswap/localization'
-import { useCakePrice } from 'hooks/useCakePrice'
-import { useVaultPoolByKey } from 'state/pools/hooks'
-import { VaultKey, DeserializedLockedVaultUser } from 'state/types'
-import { Token } from '@pancakeswap/sdk'
-import { getCakeVaultEarnings } from 'views/Pools/helpers'
-import RecentCakeProfitBalance from './RecentCakeProfitBalance'
+import { useAccount } from "wagmi";
+import { useTranslation } from "@pancakeswap/localization";
+import { useCakePrice } from "hooks/useCakePrice";
+// import { useVaultPoolByKey } from 'state/pools/hooks'
+import { VaultKey, DeserializedLockedVaultUser } from "state/types";
+import { Token } from "@pancakeswap/sdk";
+import { getCakeVaultEarnings } from "views/Pools/helpers";
+import RecentCakeProfitBalance from "./RecentCakeProfitBalance";
+import BigNumber from "bignumber.js";
 
-const RecentCakeProfitCountdownRow = ({ pool }: { pool: Pool.DeserializedPool<Token> }) => {
-  const { t } = useTranslation()
-  const { address: account } = useAccount()
-  const { pricePerFullShare, userData } = useVaultPoolByKey(pool.vaultKey)
-  const cakePriceBusd = useCakePrice()
+const RecentCakeProfitCountdownRow = ({
+  pool,
+}: {
+  pool: Pool.DeserializedPool<Token>;
+}) => {
+  const { t } = useTranslation();
+  const { address: account } = useAccount();
+  // const { pricePerFullShare, userData } = useVaultPoolByKey(pool.vaultKey)
+
+  const { pricePerFullShare, userData } = {
+    pricePerFullShare: new BigNumber(0),
+    userData: {} as any,
+  };
+  const cakePriceBusd = useCakePrice();
   const { hasAutoEarnings, autoCakeToDisplay } = getCakeVaultEarnings(
     account,
     userData.cakeAtLastUserAction,
@@ -23,21 +33,27 @@ const RecentCakeProfitCountdownRow = ({ pool }: { pool: Pool.DeserializedPool<To
     cakePriceBusd.toNumber(),
     pool.vaultKey === VaultKey.CakeVault
       ? (userData as DeserializedLockedVaultUser).currentPerformanceFee.plus(
-          (userData as DeserializedLockedVaultUser).currentOverdueFee,
+          (userData as DeserializedLockedVaultUser).currentOverdueFee
         )
-      : null,
-  )
+      : null
+  );
 
   if (!(userData.userShares.gt(0) && account)) {
-    return null
+    return null;
   }
 
   return (
     <Flex alignItems="center" justifyContent="space-between">
-      <Text fontSize="14px">{`${t('Recent CAKE profit')}:`}</Text>
-      {hasAutoEarnings && <RecentCakeProfitBalance cakeToDisplay={autoCakeToDisplay} pool={pool} account={account} />}
+      <Text fontSize="14px">{`${t("Recent CAKE profit")}:`}</Text>
+      {hasAutoEarnings && (
+        <RecentCakeProfitBalance
+          cakeToDisplay={autoCakeToDisplay}
+          pool={pool}
+          account={account}
+        />
+      )}
     </Flex>
-  )
-}
+  );
+};
 
-export default RecentCakeProfitCountdownRow
+export default RecentCakeProfitCountdownRow;

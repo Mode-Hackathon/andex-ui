@@ -11,7 +11,7 @@ export type VaultsConfigByChain = {
 }
 
 export const VAULTS_CONFIG_BY_CHAIN = {
-  [ChainId.ETHEREUM]: ethVaults,
+  [ChainId.MODE_TESTNET]: ethVaults,
   [ChainId.MODE_MAINNET]: bscVaults,
 }
 

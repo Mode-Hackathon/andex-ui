@@ -1,10 +1,10 @@
-import { useCallback, memo } from 'react'
-import { Button, useModal, Skeleton, ButtonProps } from '@pancakeswap/uikit'
-import { useTranslation } from '@pancakeswap/localization'
-import { usePool } from 'state/pools/hooks'
-import AddAmountModal from '../Modals/AddAmountModal'
-import { AddButtonProps } from '../types'
-import NotEnoughTokensModal from '../../Modals/NotEnoughTokensModal'
+import { useCallback, memo } from "react";
+import { Button, useModal, Skeleton, ButtonProps } from "@pancakeswap/uikit";
+import { useTranslation } from "@pancakeswap/localization";
+// import { usePool } from 'state/pools/hooks'
+import AddAmountModal from "../Modals/AddAmountModal";
+import { AddButtonProps } from "../types";
+import NotEnoughTokensModal from "../../Modals/NotEnoughTokensModal";
 
 interface AddButtonPropsType extends AddButtonProps, ButtonProps {}
 
@@ -19,11 +19,13 @@ const AddCakeButton: React.FC<React.PropsWithChildren<AddButtonPropsType>> = ({
   customLockAmount,
   ...props
 }) => {
-  const {
-    pool: { userDataLoaded },
-  } = usePool(0)
+  // const {
+  //   pool: { userDataLoaded },
+  // } = usePool(0)
 
-  const { t } = useTranslation()
+  const userDataLoaded = {} as any;
+
+  const { t } = useTranslation();
 
   const [openAddAmountModal] = useModal(
     <AddAmountModal
@@ -38,27 +40,31 @@ const AddCakeButton: React.FC<React.PropsWithChildren<AddButtonPropsType>> = ({
     />,
     true,
     true,
-    'AddAmountModal',
-  )
+    "AddAmountModal"
+  );
 
-  const [onPresentTokenRequired] = useModal(<NotEnoughTokensModal tokenSymbol={stakingToken.symbol} />)
+  const [onPresentTokenRequired] = useModal(
+    <NotEnoughTokensModal tokenSymbol={stakingToken.symbol} />
+  );
 
   const handleClicked = useCallback(() => {
-    return currentBalance.gt(0) ? openAddAmountModal() : onPresentTokenRequired()
-  }, [currentBalance, openAddAmountModal, onPresentTokenRequired])
+    return currentBalance.gt(0)
+      ? openAddAmountModal()
+      : onPresentTokenRequired();
+  }, [currentBalance, openAddAmountModal, onPresentTokenRequired]);
 
   return userDataLoaded ? (
     <Button
       onClick={handleClicked}
       width="100%"
-      style={{ whiteSpace: 'nowrap', paddingLeft: 0, paddingRight: 0 }}
+      style={{ whiteSpace: "nowrap", paddingLeft: 0, paddingRight: 0 }}
       {...props}
     >
-      {t('Add CAKE')}
+      {t("Add CAKE")}
     </Button>
   ) : (
     <Skeleton height={48} />
-  )
-}
+  );
+};
 
-export default memo(AddCakeButton)
+export default memo(AddCakeButton);

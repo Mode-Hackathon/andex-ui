@@ -30,11 +30,11 @@ interface StableSwapTopTokensResponse {
  */
 const fetchTopTokens = async (chainName: MultiChainNameExtend, timestamp24hAgo: number): Promise<string[]> => {
   const whereCondition =
-    chainName === 'ETH'
+    chainName === 'MODE'
       ? `where: { date_gt: ${timestamp24hAgo}, token_not_in: $blacklist, dailyVolumeUSD_gt:2000 }`
       : checkIsStableSwap()
-      ? ''
-      : `where: { dailyTxns_gt: 300, id_not_in: $blacklist, date_gt: ${timestamp24hAgo}}`
+        ? ''
+        : `where: { dailyTxns_gt: 300, id_not_in: $blacklist, date_gt: ${timestamp24hAgo}}`
   const firstCount = 50
   try {
     const query = gql`
