@@ -1,6 +1,6 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-await-in-loop */
-import { TokenList, TokenInfo } from '@pancakeswap/token-lists'
+import { TokenList, TokenInfo } from '../src/types'
 import uriToHttp from '@pancakeswap/utils/uriToHttp'
 import remove from 'lodash/remove'
 import Ajv from 'ajv'
