@@ -2,7 +2,7 @@
   "name": "mode-swap",
   "private": true,
   "scripts": {
-    "build": "turbo build",
+    "build": "turbo run build --filter=web...",
     "storybook": "turbo run start --filter=uikit...",
     "build:storybook": "turbo run build:storybook --filter=uikit...",
     "build:web": "turbo run build:storybook --filter=web...",
@@ -12,6 +12,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^20.10.4",
@@ -20,8 +21,14 @@
     "typescript": "^5.2.2",
     "vitest": "^0.30.1"
   },
+  "dependencies": {
+    "@svgr/webpack": "^8.0.1",
+    "crypto": "^1.0.1",
+    "encoding": "^0.1.13",
+    "ws": "^8.13.0"
+  },
   "packageManager": "pnpm@8.9.0",
   "engines": {
-    "node": ">=18"
+    "node": ">=16.0.0"
   }
 }
