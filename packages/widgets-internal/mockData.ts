@@ -8,7 +8,7 @@ export const cakeToken = new ERC20Token(
   18,
   "CAKE",
   "Andex Token",
-  "https://andex.onrender.com/"
+  "https://andex.vercel.app/"
 );
 
 export const bscToken = new ERC20Token(

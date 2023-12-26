@@ -51,7 +51,7 @@ export const infoStableSwapClient = new GraphQLClient(STABLESWAP_SUBGRAPH_CLIENT
 export const infoServerClient = new GraphQLClient(INFO_CLIENT, {
   timeout: 5000,
   headers: {
-    origin: 'https://andex.onrender.com',
+    origin: 'https://andex.vercel.app',
   },
 })
 

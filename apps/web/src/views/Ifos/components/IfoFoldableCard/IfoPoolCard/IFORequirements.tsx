@@ -30,7 +30,7 @@ const NotOkNFT = ({ admissionProfile }) => {
         <>
           <LinkExternal
             style={{ display: "inline" }}
-            href={`https://andex.onrender.com/nfts/collections/${admissionProfile}`}
+            href={`https://andex.vercel.app/nfts/collections/${admissionProfile}`}
           >
             {t("Pancake Squad NFT")}
           </LinkExternal>
@@ -60,7 +60,7 @@ const NotOkProfilePoints = ({ pointThreshold }) => {
           <br />
           <LinkExternal
             style={{ display: "inline" }}
-            href={`https://andex.onrender.com/profile/${account}/achievements/`}
+            href={`https://andex.vercel.app/profile/${account}/achievements/`}
           >
             {t("Pancake Profile")}
           </LinkExternal>

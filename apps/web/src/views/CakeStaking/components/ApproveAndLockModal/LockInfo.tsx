@@ -61,7 +61,7 @@ export const LockInfo: React.FC<LockInfoProps> = ({ amount, status }) => {
     >
       <Flex alignItems="center" width="100%" justifyContent="center">
         <TokenImage
-          src={`https://andex.onrender.com/images/tokens/${
+          src={`https://andex.vercel.app/images/tokens/${
             CAKE[ChainId.MODE_MAINNET].address
           }.png`}
           height={20}

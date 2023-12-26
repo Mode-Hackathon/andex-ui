@@ -20,7 +20,7 @@ describe('utils/tryParseAmount', () => {
           18,
           'CAKE',
           'Andex Token',
-          'https://andex.onrender.com/',
+          'https://andex.vercel.app/',
         ),
       ),
     ).toBeTruthy()

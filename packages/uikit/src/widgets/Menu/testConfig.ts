@@ -162,7 +162,7 @@ export const userMenulinks: DropdownMenuItems[] = [
   },
   {
     type: DropdownMenuItemType.EXTERNAL_LINK,
-    href: "https://andex.onrender.com",
+    href: "https://andex.vercel.app",
     label: "Link",
   },
   {

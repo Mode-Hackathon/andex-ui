@@ -2,7 +2,7 @@ import { renderWithProvider } from "../../testHelpers";
 import { Link, LinkExternal } from "../../components/Link";
 
 it("renders link correctly", () => {
-  const { asFragment } = renderWithProvider(<Link href="https://andex.onrender.com">Link</Link>);
+  const { asFragment } = renderWithProvider(<Link href="https://andex.vercel.app">Link</Link>);
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       .c0 {
@@ -25,7 +25,7 @@ it("renders link correctly", () => {
 
     <a
         class="c0 c1"
-        href="https://andex.onrender.com"
+        href="https://andex.vercel.app"
       >
         Link
       </a>
@@ -34,7 +34,7 @@ it("renders link correctly", () => {
 });
 
 it("renders link external link correctly", () => {
-  const { asFragment } = renderWithProvider(<LinkExternal href="https://andex.onrender.com">Link</LinkExternal>);
+  const { asFragment } = renderWithProvider(<LinkExternal href="https://andex.vercel.app">Link</LinkExternal>);
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       .c2 {
@@ -71,7 +71,7 @@ it("renders link external link correctly", () => {
 
     <a
         class="c0 c1"
-        href="https://andex.onrender.com"
+        href="https://andex.vercel.app"
         rel="noreferrer noopener"
         target="_blank"
       >

@@ -149,7 +149,7 @@ export const LockCakeForm: React.FC<{
       <FlexGap gap="8px" alignItems="center">
         <Box width={40}>
           <TokenImage
-            src={`https://andex.onrender.com/images/tokens/${
+            src={`https://andex.vercel.app/images/tokens/${
               CAKE[ChainId.MODE_MAINNET].address
             }.png`}
             height={40}

@@ -7,7 +7,7 @@ export const CAKE_MAINNET = new ERC20Token(
   18,
   'CAKE',
   'Andex Token',
-  'https://andex.onrender.com/',
+  'https://andex.vercel.app/',
 )
 
 export const CAKE_TESTNET = new ERC20Token(
@@ -16,7 +16,7 @@ export const CAKE_TESTNET = new ERC20Token(
   18,
   'CAKE',
   'Andex Token',
-  'https://andex.onrender.com/',
+  'https://andex.vercel.app/',
 )
 
 export const USDC_BSC = new ERC20Token(
@@ -119,7 +119,7 @@ export const CAKE = {
     18,
     'CAKE',
     'Andex Token',
-    'https://andex.onrender.com/',
+    'https://andex.vercel.app/',
   ),
   [ChainId.MODE_TESTNET]: new ERC20Token(
     ChainId.MODE_TESTNET,
@@ -127,7 +127,7 @@ export const CAKE = {
     18,
     'CAKE',
     'Andex Token',
-    'https://andex.onrender.com/',
+    'https://andex.vercel.app/',
   ),
 
 }

@@ -19,7 +19,7 @@ export const ifos: BaseIfoConfig[] = [
   //   currency: polygonZkEvmTokens.cake,
   //   token: polygonZkEvmTokens.matic,
   //   campaignId: '512200000',
-  //   articleUrl: 'https://andex.onrender.com/voting/',
+  //   articleUrl: 'https://andex.vercel.app/voting/',
   //   tokenOfferingPrice: 0.5782,
   //   version: 7,
   //   twitterUrl: 'https://twitter.com/pancakeswap',

@@ -43,9 +43,9 @@ const TermsOfService = () => {
         <Link
           m="0 4px"
           display="inline !important"
-          href="https://andex.onrender.com"
+          href="https://andex.vercel.app"
         >
-          https://andex.onrender.com
+          https://andex.vercel.app
         </Link>
         <Text as="span">
           and any subdomains associated with the Website. You must read this
@@ -96,9 +96,9 @@ const TermsOfService = () => {
         <Link
           m="0 4px"
           display="inline !important"
-          href="https://andex.onrender.com/terms-of-service"
+          href="https://andex.vercel.app/terms-of-service"
         >
-          https://andex.onrender.com/terms-of-service.
+          https://andex.vercel.app/terms-of-service.
         </Link>
         <Text as="span">
           All modifications will be effective when they are posted, and your

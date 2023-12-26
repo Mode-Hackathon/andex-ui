@@ -4,7 +4,7 @@ import{j as e,F as g,a as n}from"./jsx-runtime-a888423b.js";import{r as B}from".
   & > button + button {
     margin-left: 16px;
   }
-`,P={title:"Components/Button Menu",component:u,argTypes:{}},m=()=>{const[i,d]=B.useState(0),[c,s]=B.useState(1),l=a=>d(a),r=a=>s(a);return e(g,{children:[n(o,{children:e(u,{activeIndex:i,onItemClick:l,children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})}),n(o,{children:e(u,{activeIndex:c,onItemClick:r,scale:"sm",ml:"24px",children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})}),n(o,{children:e(u,{activeIndex:i,onItemClick:l,variant:"subtle",children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})}),n(o,{children:e(u,{activeIndex:c,onItemClick:r,scale:"sm",variant:"subtle",ml:"24px",children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})})]})},I=()=>n(o,{children:e(u,{activeIndex:0,children:[n(t,{as:"a",href:"https://andex.onrender.com",children:"Link 1"}),n(t,{as:"a",href:"https://andex.onrender.com",children:"Link 2"}),n(t,{as:"a",href:"https://andex.onrender.com",children:"Link 3"})]})}),h=()=>{const[i,d]=B.useState(0),[c,s]=B.useState(1),l=a=>d(a),r=a=>s(a);return e(g,{children:[n(o,{children:e(u,{activeIndex:i,onItemClick:l,children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})}),n(o,{children:e(u,{disabled:!0,activeIndex:i,onItemClick:l,children:[n(t,{children:"Disabled 1"}),n(t,{children:"Disabled 2"}),n(t,{children:"Disabled 3"}),n(t,{children:"Disabled 4"})]})}),n(o,{children:e(u,{activeIndex:c,onItemClick:r,scale:"sm",variant:"subtle",ml:"24px",children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})}),n(o,{children:e(u,{disabled:!0,activeIndex:c,onItemClick:r,scale:"sm",variant:"subtle",ml:"24px",children:[n(t,{children:"Disabled 1"}),n(t,{children:"Disabled 2"}),n(t,{children:"Disabled 3"}),n(t,{children:"Disabled 4"})]})})]})},M=()=>{const[i,d]=B.useState(0);return e(F,{width:"840px",children:[e(u,{activeIndex:i,onItemClick:s=>d(s),fullWidth:!0,mb:"24px",children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]}),e(u,{activeIndex:i,fullWidth:!0,scale:"sm",variant:"subtle",children:[n(t,{as:"a",href:"https://andex.onrender.com",children:"Link 1"}),n(t,{as:"a",href:"https://andex.onrender.com",children:"Link 2"}),n(t,{as:"a",href:"https://andex.onrender.com",children:"Link 3"})]})]})};var x,p,k;m.parameters={...m.parameters,docs:{...(x=m.parameters)==null?void 0:x.docs,source:{originalSource:`() => {
+`,P={title:"Components/Button Menu",component:u,argTypes:{}},m=()=>{const[i,d]=B.useState(0),[c,s]=B.useState(1),l=a=>d(a),r=a=>s(a);return e(g,{children:[n(o,{children:e(u,{activeIndex:i,onItemClick:l,children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})}),n(o,{children:e(u,{activeIndex:c,onItemClick:r,scale:"sm",ml:"24px",children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})}),n(o,{children:e(u,{activeIndex:i,onItemClick:l,variant:"subtle",children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})}),n(o,{children:e(u,{activeIndex:c,onItemClick:r,scale:"sm",variant:"subtle",ml:"24px",children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})})]})},I=()=>n(o,{children:e(u,{activeIndex:0,children:[n(t,{as:"a",href:"https://andex.vercel.app",children:"Link 1"}),n(t,{as:"a",href:"https://andex.vercel.app",children:"Link 2"}),n(t,{as:"a",href:"https://andex.vercel.app",children:"Link 3"})]})}),h=()=>{const[i,d]=B.useState(0),[c,s]=B.useState(1),l=a=>d(a),r=a=>s(a);return e(g,{children:[n(o,{children:e(u,{activeIndex:i,onItemClick:l,children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})}),n(o,{children:e(u,{disabled:!0,activeIndex:i,onItemClick:l,children:[n(t,{children:"Disabled 1"}),n(t,{children:"Disabled 2"}),n(t,{children:"Disabled 3"}),n(t,{children:"Disabled 4"})]})}),n(o,{children:e(u,{activeIndex:c,onItemClick:r,scale:"sm",variant:"subtle",ml:"24px",children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]})}),n(o,{children:e(u,{disabled:!0,activeIndex:c,onItemClick:r,scale:"sm",variant:"subtle",ml:"24px",children:[n(t,{children:"Disabled 1"}),n(t,{children:"Disabled 2"}),n(t,{children:"Disabled 3"}),n(t,{children:"Disabled 4"})]})})]})},M=()=>{const[i,d]=B.useState(0);return e(F,{width:"840px",children:[e(u,{activeIndex:i,onItemClick:s=>d(s),fullWidth:!0,mb:"24px",children:[n(t,{children:"Button 1"}),n(t,{children:"Button 2"}),n(t,{children:"Button 3"}),n(t,{children:"Button 4"})]}),e(u,{activeIndex:i,fullWidth:!0,scale:"sm",variant:"subtle",children:[n(t,{as:"a",href:"https://andex.vercel.app",children:"Link 1"}),n(t,{as:"a",href:"https://andex.vercel.app",children:"Link 2"}),n(t,{as:"a",href:"https://andex.vercel.app",children:"Link 3"})]})]})};var x,p,k;m.parameters={...m.parameters,docs:{...(x=m.parameters)==null?void 0:x.docs,source:{originalSource:`() => {
   const [index, setIndex] = useState(0);
   const [index1, setIndex1] = useState(1);
   const handleClick = newIndex => setIndex(newIndex);
@@ -46,13 +46,13 @@ import{j as e,F as g,a as n}from"./jsx-runtime-a888423b.js";import{r as B}from".
 }`,...(k=(p=m.parameters)==null?void 0:p.docs)==null?void 0:k.source}}};var w,C,b;I.parameters={...I.parameters,docs:{...(w=I.parameters)==null?void 0:w.docs,source:{originalSource:`() => {
   return <Row>
       <ButtonMenu activeIndex={0}>
-        <ButtonMenuItem as="a" href="https://andex.onrender.com">
+        <ButtonMenuItem as="a" href="https://andex.vercel.app">
           Link 1
         </ButtonMenuItem>
-        <ButtonMenuItem as="a" href="https://andex.onrender.com">
+        <ButtonMenuItem as="a" href="https://andex.vercel.app">
           Link 2
         </ButtonMenuItem>
-        <ButtonMenuItem as="a" href="https://andex.onrender.com">
+        <ButtonMenuItem as="a" href="https://andex.vercel.app">
           Link 3
         </ButtonMenuItem>
       </ButtonMenu>
@@ -107,13 +107,13 @@ import{j as e,F as g,a as n}from"./jsx-runtime-a888423b.js";import{r as B}from".
         <ButtonMenuItem>Button 4</ButtonMenuItem>
       </ButtonMenu>
       <ButtonMenu activeIndex={index} fullWidth scale="sm" variant="subtle">
-        <ButtonMenuItem as="a" href="https://andex.onrender.com">
+        <ButtonMenuItem as="a" href="https://andex.vercel.app">
           Link 1
         </ButtonMenuItem>
-        <ButtonMenuItem as="a" href="https://andex.onrender.com">
+        <ButtonMenuItem as="a" href="https://andex.vercel.app">
           Link 2
         </ButtonMenuItem>
-        <ButtonMenuItem as="a" href="https://andex.onrender.com">
+        <ButtonMenuItem as="a" href="https://andex.vercel.app">
           Link 3
         </ButtonMenuItem>
       </ButtonMenu>

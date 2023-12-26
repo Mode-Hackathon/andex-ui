@@ -51,7 +51,7 @@ const SpeechBubble = styled.div`
   }
 `;
 
-const domain = "https://andex.onrender.com";
+const domain = "https://andex.vercel.app";
 
 const PhishingWarningBanner: React.FC<React.PropsWithChildren> = () => {
   const { t } = useTranslation();

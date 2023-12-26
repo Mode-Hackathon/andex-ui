@@ -60,7 +60,7 @@ export const VaultLinks = memo(function VaultLinks({
 
   return (
     <LinkContainer flexDirection={layout} {...props}>
-      {/* <StyledScanLink href={`https://andex.onrender.com/info/v3/pairs/${lpAddress}`}>{t('Pair Info')}</StyledScanLink> */}
+      {/* <StyledScanLink href={`https://andex.vercel.app/info/v3/pairs/${lpAddress}`}>{t('Pair Info')}</StyledScanLink> */}
       <StyledScanLink href={managerInfoUrl}>{t("Manager Info")}</StyledScanLink>
       <StyledScanLink href={strategyInfoUrl}>
         {t("Strategy Info")}
