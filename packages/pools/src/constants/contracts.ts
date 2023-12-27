@@ -9,7 +9,7 @@ export type ContractAddresses<T extends ChainId = SupportedChainId> = {
 
 export const ICAKE = {
   [ChainId.MODE_MAINNET]: '0x3C458828D1622F5f4d526eb0d24Da8C4Eb8F07b1',
-  [ChainId.MODE_TESTNET]: '0x5FB0b7a782c2f192493d86922dD3873b6392C8e8',
+  [ChainId.MODE_TESTNET]: '0x576696dA86d55B3207d1D1A6B689B6FCcCF60d16',
 } as const satisfies ContractAddresses<SupportedChainId>
 // TODO: change addresses
 export const CAKE_VAULT = {
