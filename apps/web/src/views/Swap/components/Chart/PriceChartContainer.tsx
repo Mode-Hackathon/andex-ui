@@ -48,7 +48,7 @@ const PriceChartContainer: React.FC<
   const isWrap =
     inputCurrency &&
     outputCurrency &&
-    NATIVE[inputCurrency.chainId].equals(inputCurrency.wrapped) &&
+    WNATIVE[inputCurrency.chainId].equals(inputCurrency.wrapped) &&
     WNATIVE[outputCurrency.chainId].equals(outputCurrency.wrapped);
 
   if (isWrap) {
