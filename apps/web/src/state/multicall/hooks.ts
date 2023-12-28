@@ -251,7 +251,6 @@ export function useSingleContractMultipleData<TAbi extends Abi | readonly unknow
   )
 
   const results = useCallsData(calls, options)
-  console.log(results, 'results')
 
   const queryClient = useQueryClient()
 

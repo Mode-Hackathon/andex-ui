@@ -38,7 +38,6 @@ export function useNativeBalances(uncheckedAddresses?: (string | undefined)[]): 
     args: useMemo(() => addresses.map((address) => [address] as const), [addresses]),
   })
 
-  console.log('result', results, addresses)
 
   return useMemo(
     () =>
@@ -138,7 +137,6 @@ export function useCurrencyBalances(
         if (!account || !currency) return undefined
         if (currency?.isToken) return tokenBalances[currency.address]
 
-        console.log('balance', nativeBalance, currency?.isNative)
         if (currency?.isNative) return nativeBalance[account]
         return undefined
       }) ?? [],
