@@ -47,9 +47,9 @@ export function CurrencyLogo({
   }, [currency, uriLocations, useTrustWalletUrl]);
 
   if (currency?.isNative) {
-    if (currency.chainId === ChainId.MODE_MAINNET) {
-      return <BinanceIcon width={size} style={style} {...props} />;
-    }
+    // if (currency.chainId === ChainId.MODE_MAINNET) {
+    //   return <BinanceIcon width={size} style={style} {...props} />;
+    // }
     return (
       <StyledLogo
         size={size}
