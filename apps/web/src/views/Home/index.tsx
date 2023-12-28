@@ -8,23 +8,23 @@ import {
 } from "@pancakeswap/uikit";
 import useTheme from "hooks/useTheme";
 import { styled } from "styled-components";
-import MultipleBanner from "./components/Banners/MultipleBanner";
-import CakeDataRow from "./components/CakeDataRow";
-import CakeSection from "./components/CakeSection";
-import CommunitySection from "./components/CommunitySection";
-import { RightTopBox } from "./components/CommunitySection/ImagesOnBg";
-import EcoSystemSection from "./components/EcoSystemSection";
+// import MultipleBanner from "./components/Banners/MultipleBanner";
+// import CakeDataRow from "./components/CakeDataRow";
+// import CakeSection from "./components/CakeSection";
+// import CommunitySection from "./components/CommunitySection";
+// import { RightTopBox } from "./components/CommunitySection/ImagesOnBg";
+// import EcoSystemSection from "./components/EcoSystemSection";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
-import MetricsSection from "./components/MetricsSection";
+// import MetricsSection from "./components/MetricsSection";
 import { NewsSection } from "./components/NewsSection";
-import {
-  InnerWedgeWrapper,
-  OuterWedgeWrapper,
-  WedgeBottomRight,
-  WedgeTopLeft,
-  WedgeTopRight,
-} from "./components/WedgeSvgs";
+// import {
+//   InnerWedgeWrapper,
+//   OuterWedgeWrapper,
+//   WedgeBottomRight,
+//   WedgeTopLeft,
+//   WedgeTopRight,
+// } from "./components/WedgeSvgs";
 
 const StyledHeroSection = styled(PageSection)`
   padding-top: 16px;
