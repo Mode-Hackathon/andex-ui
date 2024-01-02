@@ -80,6 +80,7 @@ export const v3PoolsOnChainProviderFactory = <P extends GetV3PoolsParams = GetV3
 export const getV3PoolsWithTvlFromOnChain = v3PoolsOnChainProviderFactory((params: GetV3PoolsParams) => {
   const { currencyA, currencyB, pairs: providedPairs, subgraphProvider } = params
   const pairs = providedPairs || getPairCombinations(currencyA, currencyB)
+  console.log("pairs", pairs, providedPairs)
   return getV3PoolSubgraph({ provider: subgraphProvider, pairs })
 })
 
@@ -138,6 +139,7 @@ export async function getV3CandidatePools(params: DefaultParams) {
     fallbacks.push(async (p) => {
       const { currencyA, currencyB, pairs: providedPairs, subgraphProvider } = p
       const pairs = providedPairs || getPairCombinations(currencyA, currencyB)
+      console.log(providedPairs, getPairCombinations(currencyA, currencyB))
       return getV3PoolSubgraph({ provider: subgraphProvider, pairs })
     })
   }

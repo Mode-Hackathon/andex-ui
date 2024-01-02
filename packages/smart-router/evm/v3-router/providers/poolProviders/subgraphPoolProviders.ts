@@ -133,11 +133,11 @@ export const getV3PoolSubgraph = subgraphPoolProviderFactory<V3PoolMeta, V3PoolW
   id: 'V3',
   getPoolMetas: getV3PoolMetas,
   getPoolsFromSubgraph: async ({ addresses, getPoolMetaByAddress, client }) => {
+    console.log(addresses, getPoolMetaByAddress)
     const { pools: poolsFromSubgraph } = await client.request<{ pools: V3PoolSubgraphResult[] }>(queryV3Pools, {
       pageSize: 1000,
       poolAddrs: addresses,
     })
-
     return poolsFromSubgraph.map(({ id, liquidity, sqrtPrice, tick, totalValueLockedUSD, feeProtocol }) => {
       const meta = getPoolMetaByAddress(id as Address)
       if (!meta) {
@@ -194,6 +194,7 @@ export const getV2PoolSubgraph = subgraphPoolProviderFactory<PoolMeta, V2PoolWit
     },
   ],
   getPoolsFromSubgraph: async ({ addresses, getPoolMetaByAddress, client }) => {
+    // console.log(addresses)
     const { pairs: poolsFromSubgraph } = await client.request<{ pairs: V2PoolSubgraphResult[] }>(queryV2Pools, {
       pageSize: 1000,
       poolAddrs: addresses,

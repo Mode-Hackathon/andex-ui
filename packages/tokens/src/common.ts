@@ -30,7 +30,7 @@ export const USDC_BSC = new ERC20Token(
 
 export const USDC_TESTNET = new ERC20Token(
   ChainId.MODE_TESTNET,
-  '0x64544969ed7EBf5f083679233325356EbE738930',
+  '0x3FC76FAa4cB34853a73382dF41353f6B568A3116',
   18,
   'USDC',
   'Binance-Peg USD Coin',
@@ -47,7 +47,7 @@ export const USDC_ETH = new ERC20Token(
 
 export const USDC_GOERLI = new ERC20Token(
   ChainId.MODE_TESTNET,
-  '0x4D73C3e06b7FAFF35EB32f512917704A937eA439',
+  '0x4b3B37c081e4cA016574c3855799bD24732d0684',
   18,
   'tUSDC',
   'test USD Coin',

@@ -55,6 +55,7 @@ export const getPairCombinations = memoize((currencyA?: Currency, currencyB?: Cu
   }
 
   const bases = getCheckAgainstBaseTokens(currencyA, currencyB)
+  console.log("bases", bases)
 
   const basePairs: [Currency, Currency][] = flatMap(bases, (base): [Currency, Currency][] =>
     bases.map((otherBase) => [base, otherBase]),
