@@ -101,8 +101,8 @@ import useAccountActiveChain from "hooks/useAccountActiveChain";
 import { hexToBigInt } from "viem";
 import { getViemClients } from "utils/viem";
 import { ChainLinkSupportChains } from "state/info/constant";
-import { MerklSection } from "components/Merkl/MerklSection";
-import { MerklTag } from "components/Merkl/MerklTag";
+// import { MerklSection } from "components/Merkl/MerklSection";
+// import { MerklTag } from "components/Merkl/MerklTag";
 // import { useMerklInfo } from "hooks/useMerkl";
 import Link from "next/link";
 
@@ -676,7 +676,7 @@ export default function PoolPage() {
                         />
                       </>
                     )}
-                    <MerklTag poolAddress={poolAddress} />
+                    {/* <MerklTag poolAddress={poolAddress} /> */}
                   </Flex>
                   <RowBetween gap="16px" flexWrap="nowrap">
                     <Text
@@ -1011,7 +1011,7 @@ export default function PoolPage() {
                   />
                 </Box>
 
-                <MerklSection
+                {/* <MerklSection
                   disabled={!isOwnNFT}
                   outRange={!inRange}
                   isStakedInMCv3={Boolean(isStakedInMCv3)}
@@ -1029,7 +1029,7 @@ export default function PoolPage() {
                       : false
                   )}
                   poolAddress={poolAddress}
-                />
+                /> */}
               </Flex>
               {positionDetails && currency0 && currency1 && (
                 <PositionHistory
