@@ -103,7 +103,7 @@ import { getViemClients } from "utils/viem";
 import { ChainLinkSupportChains } from "state/info/constant";
 import { MerklSection } from "components/Merkl/MerklSection";
 import { MerklTag } from "components/Merkl/MerklTag";
-import { useMerklInfo } from "hooks/useMerkl";
+// import { useMerklInfo } from "hooks/useMerkl";
 import Link from "next/link";
 
 export const BodyWrapper = styled(Card)`
@@ -586,7 +586,7 @@ export default function PoolPage() {
 
   const isOwnNFT = isStakedInMCv3 || ownsNFT;
 
-  const { hasMerkl } = useMerklInfo(poolAddress);
+  // const { hasMerkl } = useMerklInfo(poolAddress);
 
   if (!isLoading && poolState === PoolState.NOT_EXISTS) {
     return (
@@ -597,7 +597,8 @@ export default function PoolPage() {
   }
 
   const farmingTips =
-    inRange && ownsNFT && hasActiveFarm && !isStakedInMCv3 && !hasMerkl ? (
+    inRange && ownsNFT && hasActiveFarm && !isStakedInMCv3 ? (
+      // && !hasMerkl
       <Message variant="primary" mb="2em">
         <Box>
           <Text

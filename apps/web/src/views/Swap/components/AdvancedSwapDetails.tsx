@@ -46,7 +46,7 @@ export const TradeSummary = memo(function TradeSummary({
   const isExactIn = tradeType === TradeType.EXACT_INPUT;
 
   return (
-    <AutoColumn style={{ padding: "0 24px", background: "transparent !" }}>
+    <AutoColumn style={{ padding: "0 24px", background: "transparent!" }}>
       <RowBetween>
         <RowFixed>
           <Text fontSize="14px" color="textSubtle">
