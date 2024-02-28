@@ -14,10 +14,10 @@ const FACTORY_ADDRESS_ETH = '0x1097053Fd2ea711dad45caCcc45EfF7548fCB362'
 
 export const FACTORY_ADDRESS_MAP = {
   [ChainId.MODE_MAINNET]: FACTORY_ADDRESS_ETH,
-  [ChainId.MODE_TESTNET]: '0xb9B05c16399633828CacabC229aaa4C4cE1e59bE',
+  [ChainId.MODE_TESTNET]: '0xb16CB65D290fad09e4FC0121637a73b7FD846fE4',
 } as const satisfies Record<ChainId, Address>
 
-export const INIT_CODE_HASH = '0xa5934690703a592a07e841ca29d5e5c79b5e22ed4749057bb216dc31100be1c0'
+export const INIT_CODE_HASH = '0xe341edbf91a487e9b6dd9408bd05a87eb5dc6eda8a8a3d1400ce3c9a3542c082'
 
 const INIT_CODE_HASH_ETH = '0xa5934690703a592a07e841ca29d5e5c79b5e22ed4749057bb216dc31100be1c0'
 export const INIT_CODE_HASH_MAP = {
@@ -32,7 +32,7 @@ export const WETH9 = {
     18,
     'WETH',
     'Wrapped Ether',
-    'https://weth.io'
+    'https://weth.io',
   ),
   [ChainId.MODE_TESTNET]: new ERC20Token(
     ChainId.MODE_TESTNET,
@@ -40,7 +40,7 @@ export const WETH9 = {
     18,
     'WETH',
     'Wrapped Ether',
-    'https://weth.io'
+    'https://weth.io',
   ),
 }
 
@@ -51,7 +51,7 @@ export const WBNB = {
     18,
     'WBNB',
     'Wrapped BNB',
-    'https://www.binance.org'
+    'https://www.binance.org',
   ),
 }
 
