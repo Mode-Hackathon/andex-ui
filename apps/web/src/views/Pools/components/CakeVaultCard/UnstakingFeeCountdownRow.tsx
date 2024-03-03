@@ -46,7 +46,7 @@ const UnstakingFeeCountdownRow: React.FC<
       </Text>
       <Text>
         {t(
-          "Only applies within %num% days of staking. Unstaking after %num% days will not include a fee. Timer resets every time you stake new CAKE in the pool.",
+          "Only applies within %num% days of staking. Unstaking after %num% days will not include a fee. Timer resets every time you stake new ANDX in the pool.",
           {
             num: withdrawalDayPeriod,
           }

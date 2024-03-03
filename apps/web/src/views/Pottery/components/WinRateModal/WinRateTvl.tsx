@@ -1,8 +1,8 @@
-import { styled } from 'styled-components'
-import Trans from 'components/Trans'
-import { useTranslation } from '@pancakeswap/localization'
-import { Text, Button, Flex, Box, Balance } from '@pancakeswap/uikit'
-import { WinRateCalculatorState } from 'views/Pottery/hooks/useWinRateCalculator'
+import { styled } from "styled-components";
+import Trans from "components/Trans";
+import { useTranslation } from "@pancakeswap/localization";
+import { Text, Button, Flex, Box, Balance } from "@pancakeswap/uikit";
+import { WinRateCalculatorState } from "views/Pottery/hooks/useWinRateCalculator";
 
 const StyledBox = styled(Box)`
   background-color: ${({ theme }) => theme.colors.input};
@@ -10,25 +10,25 @@ const StyledBox = styled(Box)`
   border-radius: 16px;
   box-shadow: ${({ theme }) => theme.shadows.inset};
   padding: 8px 16px;
-`
+`;
 
 interface TvlType {
-  title: string | JSX.Element
-  multiply: number
+  title: string | JSX.Element;
+  multiply: number;
 }
 
 const tvlArray: TvlType[] = [
   { title: <Trans>Current</Trans>, multiply: 1 },
-  { title: '+25%', multiply: 1.25 },
-  { title: '+50%', multiply: 1.5 },
-  { title: '+100%', multiply: 2 },
-]
+  { title: "+25%", multiply: 1.25 },
+  { title: "+50%", multiply: 1.5 },
+  { title: "+100%", multiply: 2 },
+];
 
 interface WinRateTvlProps {
-  calculatorState: WinRateCalculatorState
-  totalLockValue: number
-  totalLockValueAsUSD: number
-  setMultiplyNumber: (multiply: number) => void
+  calculatorState: WinRateCalculatorState;
+  totalLockValue: number;
+  totalLockValueAsUSD: number;
+  setMultiplyNumber: (multiply: number) => void;
 }
 
 const WinRateTvl: React.FC<React.PropsWithChildren<WinRateTvlProps>> = ({
@@ -37,13 +37,19 @@ const WinRateTvl: React.FC<React.PropsWithChildren<WinRateTvlProps>> = ({
   totalLockValueAsUSD,
   setMultiplyNumber,
 }) => {
-  const { t } = useTranslation()
-  const { multiply } = calculatorState.controls
+  const { t } = useTranslation();
+  const { multiply } = calculatorState.controls;
 
   return (
     <>
-      <Text mt="24px" color="secondary" bold fontSize="12px" textTransform="uppercase">
-        {t('TVL')}
+      <Text
+        mt="24px"
+        color="secondary"
+        bold
+        fontSize="12px"
+        textTransform="uppercase"
+      >
+        {t("TVL")}
       </Text>
       <Flex flexWrap="wrap" mb="8px">
         {tvlArray.map((tvl) => (
@@ -51,8 +57,8 @@ const WinRateTvl: React.FC<React.PropsWithChildren<WinRateTvlProps>> = ({
             scale="sm"
             mt="4px"
             key={tvl.multiply}
-            mr={['2px', '2px', '4px', '4px']}
-            variant={multiply === tvl.multiply ? 'primary' : 'tertiary'}
+            mr={["2px", "2px", "4px", "4px"]}
+            variant={multiply === tvl.multiply ? "primary" : "tertiary"}
             onClick={() => setMultiplyNumber(tvl.multiply)}
           >
             {tvl.title}
@@ -63,7 +69,7 @@ const WinRateTvl: React.FC<React.PropsWithChildren<WinRateTvlProps>> = ({
         <Flex justifyContent="flex-end" mb="2px">
           <Balance textAlign="right" decimals={2} value={totalLockValue} />
           <Text ml="4px" color="textSubtle">
-            CAKE
+            ANDX
           </Text>
         </Flex>
         <Balance
@@ -76,7 +82,7 @@ const WinRateTvl: React.FC<React.PropsWithChildren<WinRateTvlProps>> = ({
         />
       </StyledBox>
     </>
-  )
-}
+  );
+};
 
-export default WinRateTvl
+export default WinRateTvl;

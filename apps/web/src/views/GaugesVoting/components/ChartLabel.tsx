@@ -1,30 +1,32 @@
-import { Gauge } from '@pancakeswap/gauges'
-import { useTranslation } from '@pancakeswap/localization'
-import { Percent } from '@pancakeswap/swap-sdk-core'
-import { AutoColumn, Text } from '@pancakeswap/uikit'
-import formatLocalisedCompactNumber, { getBalanceNumber } from '@pancakeswap/utils/formatBalance'
-import BN from 'bignumber.js'
-import { useMemo } from 'react'
+import { Gauge } from "@pancakeswap/gauges";
+import { useTranslation } from "@pancakeswap/localization";
+import { Percent } from "@pancakeswap/swap-sdk-core";
+import { AutoColumn, Text } from "@pancakeswap/uikit";
+import formatLocalisedCompactNumber, {
+  getBalanceNumber,
+} from "@pancakeswap/utils/formatBalance";
+import BN from "bignumber.js";
+import { useMemo } from "react";
 
 export const ChartLabel: React.FC<{
-  total?: number
-  gauge?: Gauge
+  total?: number;
+  gauge?: Gauge;
 }> = ({ total = 1, gauge }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const percent = useMemo(() => {
-    return new Percent(gauge?.weight ?? 0, total || 1).toFixed(2)
-  }, [total, gauge])
+    return new Percent(gauge?.weight ?? 0, total || 1).toFixed(2);
+  }, [total, gauge]);
   const weight = useMemo(() => {
-    return getBalanceNumber(new BN(String(gauge?.weight || total)))
-  }, [gauge?.weight, total])
+    return getBalanceNumber(new BN(String(gauge?.weight || total)));
+  }, [gauge?.weight, total]);
 
   return (
     <AutoColumn alignItems="center" justifyContent="center" textAlign="center">
       <Text textTransform="uppercase" fontWeight={600} fontSize={12}>
-        {t('total')}
+        {t("total")}
       </Text>
       <Text bold fontSize={16}>
-        {`${formatLocalisedCompactNumber(weight, true)} veCAKE`}
+        {`${formatLocalisedCompactNumber(weight, true)} veANDX`}
       </Text>
       {gauge?.weight ? (
         <Text fontSize={14} color="textSubtle">
@@ -32,5 +34,5 @@ export const ChartLabel: React.FC<{
         </Text>
       ) : null}
     </AutoColumn>
-  )
-}
+  );
+};

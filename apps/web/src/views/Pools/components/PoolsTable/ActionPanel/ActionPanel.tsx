@@ -331,18 +331,18 @@ const ActionPanel: React.FC<React.PropsWithChildren<ActionPanelProps>> = ({
                   {vaultPosition === VaultPosition.Flexible ? (
                     <>
                       {t(
-                        "Flexible CAKE pool is discontinued and no longer distributing rewards."
+                        "Flexible ANDX pool is discontinued and no longer distributing rewards."
                       )}
                       <LearnMoreLink withArrow />
                     </>
                   ) : vaultPosition >= VaultPosition.LockedEnd ? (
                     isMigratedToVeCake ? (
                       t(
-                        "Extending or adding CAKE is not available for migrated positions. To get more veCAKE, withdraw from the unlocked CAKE pool position, and add CAKE to veCAKE."
+                        "Extending or adding ANDX is not available for migrated positions. To get more veANDX, withdraw from the unlocked ANDX pool position, and add ANDX to veANDX."
                       )
                     ) : (
                       t(
-                        "The lock period has ended. To get more veCAKE, withdraw from the unlocked CAKE pool position, and add CAKE to veCAKE."
+                        "The lock period has ended. To get more veANDX, withdraw from the unlocked ANDX pool position, and add ANDX to veANDX."
                       )
                     )
                   ) : null}

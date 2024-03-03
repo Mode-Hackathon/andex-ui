@@ -1,6 +1,6 @@
 import { ChainId } from "@pancakeswap/chains";
 import { useTranslation } from "@pancakeswap/localization";
-import { CAKE } from "@pancakeswap/tokens";
+import { ANDX } from "@pancakeswap/tokens";
 import {
   AutoRow,
   Balance,
@@ -150,11 +150,11 @@ export const LockCakeForm: React.FC<{
         <Box width={40}>
           <TokenImage
             src={`https://andex.vercel.app/images/tokens/${
-              CAKE[ChainId.MODE_MAINNET].address
+              ANDX[ChainId.MODE_MAINNET].address
             }.png`}
             height={40}
             width={40}
-            title={CAKE[ChainId.MODE_MAINNET].symbol}
+            title={ANDX[ChainId.MODE_MAINNET].symbol}
           />
         </Box>
         <FlexGap gap="4px">
@@ -190,7 +190,7 @@ const SubmitLockButton = () => {
 
   return (
     <Button disabled={disabled} width="100%" onClick={increaseLockAmount}>
-      {t("Add CAKE")}
+      {t("Add ANDX")}
     </Button>
   );
 };

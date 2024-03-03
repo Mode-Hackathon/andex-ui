@@ -69,7 +69,7 @@ const AutoEarningsCell: React.FC<
         : null
     );
 
-  const labelText = t("Recent CAKE profit");
+  const labelText = t("Recent ANDX profit");
   const earningTokenBalance = autoCakeToDisplay;
   const hasEarnings = hasAutoEarnings;
   const earningTokenDollarBalance = autoUsdToDisplay;

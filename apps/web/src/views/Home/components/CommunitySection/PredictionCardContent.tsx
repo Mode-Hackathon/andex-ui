@@ -1,63 +1,77 @@
-import { useEffect, useState } from 'react'
-import { styled } from 'styled-components'
-import { ArrowForwardIcon, Button, Flex, Heading, Skeleton, Text } from '@pancakeswap/uikit'
-import { NextLinkFromReactRouter } from '@pancakeswap/widgets-internal'
+import { useEffect, useState } from "react";
+import { styled } from "styled-components";
+import {
+  ArrowForwardIcon,
+  Button,
+  Flex,
+  Heading,
+  Skeleton,
+  Text,
+} from "@pancakeswap/uikit";
+import { NextLinkFromReactRouter } from "@pancakeswap/widgets-internal";
 
-import { useTranslation } from '@pancakeswap/localization'
-import { formatLocalisedCompactNumber } from '@pancakeswap/utils/formatBalance'
-import { useIntersectionObserver } from '@pancakeswap/hooks'
-import { getTotalWon } from 'state/predictions/helpers'
-import { useCakePrice } from 'hooks/useCakePrice'
-import { SLOW_INTERVAL } from 'config/constants'
-import { useBNBPrice } from 'hooks/useBNBPrice'
-import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from "@pancakeswap/localization";
+import { formatLocalisedCompactNumber } from "@pancakeswap/utils/formatBalance";
+import { useIntersectionObserver } from "@pancakeswap/hooks";
+import { getTotalWon } from "state/predictions/helpers";
+import { useCakePrice } from "hooks/useCakePrice";
+import { SLOW_INTERVAL } from "config/constants";
+import { useBNBPrice } from "hooks/useBNBPrice";
+import { useQuery } from "@tanstack/react-query";
 
 const StyledLink = styled(NextLinkFromReactRouter)`
   width: 100%;
-`
+`;
 
-const PredictionCardHeader: React.FC<React.PropsWithChildren<{ preText: string; won: string }>> = ({
-  preText,
-  won,
-}) => {
+const PredictionCardHeader: React.FC<
+  React.PropsWithChildren<{ preText: string; won: string }>
+> = ({ preText, won }) => {
   return (
     <Heading color="#280D5F" my="8px" scale="xl" bold>
       {preText}
       {won}
     </Heading>
-  )
-}
+  );
+};
 
 const PredictionCardContent = () => {
-  const { t } = useTranslation()
-  const { observerRef, isIntersecting } = useIntersectionObserver()
-  const [loadData, setLoadData] = useState(false)
-  const bnbBusdPrice = useBNBPrice({ enabled: loadData })
-  const cakePrice = useCakePrice({ enabled: loadData })
+  const { t } = useTranslation();
+  const { observerRef, isIntersecting } = useIntersectionObserver();
+  const [loadData, setLoadData] = useState(false);
+  const bnbBusdPrice = useBNBPrice({ enabled: loadData });
+  const cakePrice = useCakePrice({ enabled: loadData });
 
-  const { data } = useQuery(['prediction', 'tokenWon'], getTotalWon, {
+  const { data } = useQuery(["prediction", "tokenWon"], getTotalWon, {
     enabled: Boolean(loadData),
     refetchInterval: SLOW_INTERVAL,
-  })
+  });
 
-  const bnbWonInUsd = bnbBusdPrice.multipliedBy(data?.totalWonBNB || 0).toNumber()
-  const cakeWonInUsd = cakePrice.multipliedBy(data?.totalWonCAKE || 0).toNumber()
+  const bnbWonInUsd = bnbBusdPrice
+    .multipliedBy(data?.totalWonBNB || 0)
+    .toNumber();
+  const cakeWonInUsd = cakePrice
+    .multipliedBy(data?.totalWonANDX || 0)
+    .toNumber();
 
-  const localisedBnbUsdString = formatLocalisedCompactNumber(bnbWonInUsd + cakeWonInUsd)
-  const bnbWonText = t('$%wonInUsd% in BNB + CAKE won so far', { wonInUsd: localisedBnbUsdString })
-  const [pretext, wonSoFar] = bnbWonText.split(localisedBnbUsdString)
+  const localisedBnbUsdString = formatLocalisedCompactNumber(
+    bnbWonInUsd + cakeWonInUsd
+  );
+  const bnbWonText = t("$%wonInUsd% in BNB + ANDX won so far", {
+    wonInUsd: localisedBnbUsdString,
+  });
+  const [pretext, wonSoFar] = bnbWonText.split(localisedBnbUsdString);
 
   useEffect(() => {
     if (isIntersecting) {
-      setLoadData(true)
+      setLoadData(true);
     }
-  }, [isIntersecting])
+  }, [isIntersecting]);
 
   return (
     <>
       <Flex flexDirection="column" mt="48px">
         <Text color="#280D5F" bold fontSize="16px">
-          {t('Prediction')}
+          {t("Prediction")}
         </Text>
         {bnbWonInUsd ? (
           <PredictionCardHeader preText={pretext} won={localisedBnbUsdString} />
@@ -71,21 +85,21 @@ const PredictionCardContent = () => {
           {wonSoFar}
         </Text>
         <Text color="#280D5F" mb="40px">
-          {t('Predict the price trend of BNB or CAKE to win')}
+          {t("Predict the price trend of BNB or ANDX to win")}
         </Text>
       </Flex>
       <Flex alignItems="center" justifyContent="center">
         <StyledLink to="/prediction" id="homepage-prediction-cta">
           <Button width="100%">
             <Text bold color="invertedContrast">
-              {t('Play')}
+              {t("Play")}
             </Text>
             <ArrowForwardIcon ml="4px" color="invertedContrast" />
           </Button>
         </StyledLink>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default PredictionCardContent
+export default PredictionCardContent;

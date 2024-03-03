@@ -239,9 +239,9 @@ const V3Banner = () => {
         <S.LeftWrapper>
           <Title>{t("Andex V3")}</Title>
           <StyledSubheading
-            data-text={t("Claim $135K CAKE Airdrop & Exclusive NFT")}
+            data-text={t("Claim $135K ANDX Airdrop & Exclusive NFT")}
           >
-            {t("Claim $135K CAKE Airdrop & Exclusive NFT")}
+            {t("Claim $135K ANDX Airdrop & Exclusive NFT")}
           </StyledSubheading>
           <NextLinkFromReactRouter
             target="_blank"

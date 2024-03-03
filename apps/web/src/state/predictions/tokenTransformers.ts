@@ -1,28 +1,28 @@
-import numberOrNull from 'utils/numberOrNull'
-import { BetPosition, Bet, Round, PredictionUser } from '../types'
-import { RoundResponse } from './responseType'
-import { BetResponseCAKE } from './cakeQueries'
-import { BetResponseBNB } from './bnbQueries'
+import numberOrNull from "utils/numberOrNull";
+import { BetPosition, Bet, Round, PredictionUser } from "../types";
+import { RoundResponse } from "./responseType";
+import { BetResponseANDX } from "./cakeQueries";
+import { BetResponseBNB } from "./bnbQueries";
 
 const getRoundPosition = (positionResponse: string) => {
-  if (positionResponse === 'Bull') {
-    return BetPosition.BULL
+  if (positionResponse === "Bull") {
+    return BetPosition.BULL;
   }
 
-  if (positionResponse === 'Bear') {
-    return BetPosition.BEAR
+  if (positionResponse === "Bear") {
+    return BetPosition.BEAR;
   }
 
-  if (positionResponse === 'House') {
-    return BetPosition.HOUSE
+  if (positionResponse === "House") {
+    return BetPosition.HOUSE;
   }
 
-  return null
-}
+  return null;
+};
 
 export const transformRoundResponseToken = (
-  roundResponse: RoundResponse<BetResponseCAKE | BetResponseBNB>,
-  transformBetResponse: (betResponse: any) => Bet,
+  roundResponse: RoundResponse<BetResponseANDX | BetResponseBNB>,
+  transformBetResponse: (betResponse: any) => Bet
 ): Round => {
   const {
     id,
@@ -49,7 +49,7 @@ export const transformRoundResponseToken = (
     bearBets,
     bearAmount,
     bets = [],
-  } = roundResponse
+  } = roundResponse;
 
   return {
     id,
@@ -76,8 +76,8 @@ export const transformRoundResponseToken = (
     bearBets: numberOrNull(bearBets),
     bearAmount: bearAmount ? parseFloat(bearAmount) : 0,
     bets: bets.map(transformBetResponse),
-  }
-}
+  };
+};
 
 export const transformBetResponseToken = (betResponse): Bet => {
   return {
@@ -85,7 +85,8 @@ export const transformBetResponseToken = (betResponse): Bet => {
     hash: betResponse.hash,
     block: numberOrNull(betResponse.block),
     amount: betResponse.amount ? parseFloat(betResponse.amount) : 0,
-    position: betResponse.position === 'Bull' ? BetPosition.BULL : BetPosition.BEAR,
+    position:
+      betResponse.position === "Bull" ? BetPosition.BULL : BetPosition.BEAR,
     claimed: betResponse.claimed,
     claimedAt: numberOrNull(betResponse.claimedAt),
     claimedBlock: numberOrNull(betResponse.claimedBlock),
@@ -94,12 +95,21 @@ export const transformBetResponseToken = (betResponse): Bet => {
     updatedAt: numberOrNull(betResponse.updatedAt),
     claimedNetBNB: 0,
     claimedBNB: 0,
-  } as Bet
-}
+  } as Bet;
+};
 
 export const transformUserResponseToken = (userResponse): PredictionUser => {
-  const { id, createdAt, updatedAt, block, totalBets, totalBetsBull, totalBetsBear, totalBetsClaimed, winRate } =
-    userResponse || {}
+  const {
+    id,
+    createdAt,
+    updatedAt,
+    block,
+    totalBets,
+    totalBetsBull,
+    totalBetsBear,
+    totalBetsClaimed,
+    winRate,
+  } = userResponse || {};
 
   return {
     id,
@@ -117,5 +127,5 @@ export const transformUserResponseToken = (userResponse): PredictionUser => {
     totalBNBClaimed: 0,
     averageBNB: 0,
     netBNB: 0,
-  }
-}
+  };
+};

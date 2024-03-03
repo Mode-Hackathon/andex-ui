@@ -2,7 +2,7 @@ import { DeserializedFarm, FarmWithStakedValue } from "@pancakeswap/farms";
 import { useTranslation } from "@pancakeswap/localization";
 import { useCakePrice } from "hooks/useCakePrice";
 import BigNumber from "bignumber.js";
-import { CAKE_PER_YEAR } from "config";
+import { ANDX_PER_YEAR } from "config";
 import { useActiveChainId } from "hooks/useActiveChainId";
 import React, { useCallback, useMemo } from "react";
 // import { useFarms, usePollFarmsWithUserData } from 'state/farms/hooks'
@@ -74,7 +74,7 @@ const OldFarmStep1: React.FC<React.PropsWithChildren> = () => {
             cakePrice,
             totalLiquidity,
             farm.lpAddress,
-            CAKE_PER_YEAR
+            ANDX_PER_YEAR
           );
           return {
             ...farm,

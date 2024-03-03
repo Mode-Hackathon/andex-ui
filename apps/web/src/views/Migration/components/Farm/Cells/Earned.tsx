@@ -1,9 +1,9 @@
-import React from 'react'
-import { styled } from 'styled-components'
-import { Flex, Text, useMatchBreakpoints } from '@pancakeswap/uikit'
-import { Pool } from '@pancakeswap/widgets-internal'
+import React from "react";
+import { styled } from "styled-components";
+import { Flex, Text, useMatchBreakpoints } from "@pancakeswap/uikit";
+import { Pool } from "@pancakeswap/widgets-internal";
 
-import { useTranslation } from '@pancakeswap/localization'
+import { useTranslation } from "@pancakeswap/localization";
 
 const StyledCell = styled(Pool.BaseCell)`
   display: none;
@@ -12,17 +12,19 @@ const StyledCell = styled(Pool.BaseCell)`
     display: flex;
     flex: 3;
   }
-`
+`;
 
 export interface EarnedProps {
-  earnings: number
-  pid: number
+  earnings: number;
+  pid: number;
 }
 
-const Earned: React.FC<React.PropsWithChildren<EarnedProps>> = ({ earnings }) => {
-  const { t } = useTranslation()
-  const { isMobile } = useMatchBreakpoints()
-  const labelText = t('%asset% Earned', { asset: 'CAKE' })
+const Earned: React.FC<React.PropsWithChildren<EarnedProps>> = ({
+  earnings,
+}) => {
+  const { t } = useTranslation();
+  const { isMobile } = useMatchBreakpoints();
+  const labelText = t("%asset% Earned", { asset: "ANDX" });
 
   return (
     <StyledCell role="cell">
@@ -31,13 +33,16 @@ const Earned: React.FC<React.PropsWithChildren<EarnedProps>> = ({ earnings }) =>
           {labelText}
         </Text>
         <Flex mt="4px">
-          <Text fontSize={isMobile ? '14px' : '16px'} color={earnings > 0 ? 'text' : 'textDisabled'}>
+          <Text
+            fontSize={isMobile ? "14px" : "16px"}
+            color={earnings > 0 ? "text" : "textDisabled"}
+          >
             {earnings}
           </Text>
         </Flex>
       </Pool.CellContent>
     </StyledCell>
-  )
-}
+  );
+};
 
-export default Earned
+export default Earned;

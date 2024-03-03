@@ -1,8 +1,8 @@
 import { ChainId } from "@pancakeswap/chains";
 import { masterChefV3Addresses } from "@pancakeswap/farms";
 import { GAUGES_ADDRESS, GAUGES_CALC_ADDRESS } from "@pancakeswap/gauges";
-import { ICAKE } from "@pancakeswap/ifos";
-import { CAKE_VAULT } from "@pancakeswap/pools";
+import { IANDX } from "@pancakeswap/ifos";
+import { ANDX_VAULT } from "@pancakeswap/pools";
 import { V3_QUOTER_ADDRESSES } from "@pancakeswap/smart-router/evm";
 import { DEPLOYER_ADDRESSES } from "@pancakeswap/v3-sdk";
 
@@ -72,7 +72,7 @@ export default {
     [ChainId.MODE_MAINNET]: "0x23c41D28A239dDCAABd1bb1deF8d057189510066",
     [ChainId.MODE_TESTNET]: "0x24ec6962dbe874F6B67B5C50857565667fA0854F",
   },
-  cakeVault: CAKE_VAULT,
+  cakeVault: ANDX_VAULT,
   cakeFlexibleSideVault: {
     [ChainId.MODE_MAINNET]: "0x615e896A8C2CA8470A2e9dc2E9552998f8658Ea0",
     [ChainId.MODE_TESTNET]: "0x1088Fb24053F03802F673b84d16AE1A7023E400b",
@@ -81,7 +81,7 @@ export default {
     [ChainId.MODE_MAINNET]: "0x18B2A687610328590Bc8F2e5fEdDe3b582A49cdA",
     [ChainId.MODE_TESTNET]: "0x",
   },
-  predictionsCAKE: {
+  predictionsANDX: {
     [ChainId.MODE_MAINNET]: "0x0E3A8078EDD2021dadcdE733C6b4a86E51EE8f07",
     [ChainId.MODE_TESTNET]: "0x",
   },
@@ -89,7 +89,7 @@ export default {
     [ChainId.MODE_MAINNET]: "0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE",
     [ChainId.MODE_TESTNET]: "0x",
   },
-  chainlinkOracleCAKE: {
+  chainlinkOracleANDX: {
     [ChainId.MODE_MAINNET]: "0x",
     [ChainId.MODE_TESTNET]: "0x",
   },
@@ -141,7 +141,7 @@ export default {
     [ChainId.MODE_MAINNET]: "0x52E5D1e24A4308ef1A221C949cb2F7cbbAFEE090",
     [ChainId.MODE_TESTNET]: "0x6e4B1D7C65E86f1723720a5fE8993f0908108b64",
   },
-  iCake: ICAKE,
+  iCake: IANDX,
   bCakeFarmBooster: {
     [ChainId.MODE_MAINNET]: "0xE4FAa3Ef5A9708C894435B0F39c2B440936A3A52",
     [ChainId.MODE_TESTNET]: "0x",

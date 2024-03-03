@@ -483,7 +483,7 @@ const TermsOfService = () => {
         which is run autonomously without any headcount by smart contracts
         deployed on various blockchains. Upgrades and modifications to the
         Protocol are generally managed in a community-driven way by holders of
-        the CAKE token. No developer or entity involved in creating the Protocol
+        the ANDX token. No developer or entity involved in creating the Protocol
         will be liable for any claims or damages whatsoever associated with your
         use, inability to use, or your interaction with other users of, the
         Protocol, including any direct, indirect, incidental, special,

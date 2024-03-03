@@ -92,7 +92,7 @@ const RoiCalculatorFooter: React.FC<React.PropsWithChildren<RoiCalculatorFooterP
           ? Math.max(Number(displayApr) - apr, 0).toFixed(2)
           : null
         : null,
-    [isFarm, displayApr, apr]
+    [isFarm, displayApr, apr],
   );
 
   return (
@@ -122,7 +122,7 @@ const RoiCalculatorFooter: React.FC<React.PropsWithChildren<RoiCalculatorFooterP
                   {displayApr}%
                 </Text>
                 <Text color="textSubtle" small>
-                  *{t("Base APR (CAKE yield only)")}
+                  *{t("Base APR (ANDX yield only)")}
                 </Text>
                 <Text small textAlign="right">
                   {apr.toFixed(2)}%
@@ -186,13 +186,13 @@ const RoiCalculatorFooter: React.FC<React.PropsWithChildren<RoiCalculatorFooterP
                   {isAptos ? (
                     <Text fontSize="12px" textAlign="center" color="textSubtle" display="inline">
                       {t(
-                        "To provide stable estimates, APR figures are calculated and updated daily using volume data from CoinMarketCap"
+                        "To provide stable estimates, APR figures are calculated and updated daily using volume data from CoinMarketCap",
                       )}
                     </Text>
                   ) : (
                     <Text fontSize="12px" textAlign="center" color="textSubtle" display="inline">
                       {t(
-                        "To provide stable estimates, APR figures are calculated once per day on the farm page. For real time APR, please visit the"
+                        "To provide stable estimates, APR figures are calculated once per day on the farm page. For real time APR, please visit the",
                       )}
                       <Link
                         style={{ display: "inline-block" }}
@@ -210,7 +210,7 @@ const RoiCalculatorFooter: React.FC<React.PropsWithChildren<RoiCalculatorFooterP
             <li>
               <Text fontSize="12px" textAlign="center" color="textSubtle" display="inline" lineHeight={1.1}>
                 {t(
-                  "All figures are estimates provided for your convenience only, and by no means represent guaranteed returns."
+                  "All figures are estimates provided for your convenience only, and by no means represent guaranteed returns.",
                 )}
               </Text>
             </li>

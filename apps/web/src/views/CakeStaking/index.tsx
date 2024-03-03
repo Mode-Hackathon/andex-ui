@@ -56,7 +56,7 @@ const CakeStaking = () => {
             <Box maxWidth="537px">
               <Text color="textSubtle">
                 {t(
-                  "Enjoy the benefits of weekly CAKE yield, revenue share, gauges voting, farm yield boosting, participating in IFOs, and so much more!"
+                  "Enjoy the benefits of weekly ANDX yield, revenue share, gauges voting, farm yield boosting, participating in IFOs, and so much more!"
                 )}
               </Text>
             </Box>
@@ -66,7 +66,7 @@ const CakeStaking = () => {
             >
               <Button p="0" variant="text">
                 <Text color="primary" bold fontSize="16px" mr="4px">
-                  {t("Get CAKE")}
+                  {t("Get ANDX")}
                 </Text>
                 <ArrowForwardIcon color="primary" />
               </Button>
@@ -86,7 +86,7 @@ const CakeStaking = () => {
           mt="45px"
           mb="48px"
         >
-          {t("Benefits of veCAKE")}
+          {t("Benefits of veANDX")}
         </Text>
         <Grid
           maxWidth="820px"
@@ -101,7 +101,7 @@ const CakeStaking = () => {
               <QuestionHelper
                 size="20px"
                 text={t(
-                  "Claim freshly cooked CAKE rewards weekly on Thursday from veCAKE gauge emission as well as trading revenue sharing."
+                  "Claim freshly cooked ANDX rewards weekly on Thursday from veANDX gauge emission as well as trading revenue sharing."
                 )}
                 placement="top"
                 ml="4px"
@@ -109,7 +109,7 @@ const CakeStaking = () => {
             }
             dataText={`${formatNumber(
               Number(formatBigInt(totalCakeDistributed))
-            )} CAKE`}
+            )} ANDX`}
             onClick={() => {
               setCakeRewardModalVisible(true);
             }}
@@ -119,7 +119,7 @@ const CakeStaking = () => {
               <QuestionHelper
                 size="20px"
                 text={t(
-                  "Use your veCAKE to vote on your favourite farms, position managers, reward pools, and any CAKE emission products, increase their allocations, and get more CAKE rewards."
+                  "Use your veANDX to vote on your favourite farms, position managers, reward pools, and any ANDX emission products, increase their allocations, and get more ANDX rewards."
                 )}
                 placement="top"
                 ml="4px"
@@ -148,7 +148,7 @@ const CakeStaking = () => {
               <QuestionHelper
                 size="20px"
                 text={t(
-                  "Boost your Andex farming APR by up to 2.5x. Aquire more veCAKE to receive a higher boost."
+                  "Boost your Andex farming APR by up to 2.5x. Aquire more veANDX to receive a higher boost."
                 )}
                 placement="top"
                 ml="4px"
@@ -162,7 +162,7 @@ const CakeStaking = () => {
               <QuestionHelper
                 size="20px"
                 text={t(
-                  "Use veCAKE as your Snapshot voting power to vote on governance proposals. Including important protocol decisions, and adding new farming gauges."
+                  "Use veANDX as your Snapshot voting power to vote on governance proposals. Including important protocol decisions, and adding new farming gauges."
                 )}
                 placement="top"
                 ml="4px"
@@ -176,7 +176,7 @@ const CakeStaking = () => {
               <QuestionHelper
                 size="20px"
                 text={t(
-                  "Use your veCAKE as your IFO Public Sales commit credits. Aquire more veCAKE to commit more in the next Andex IFOs."
+                  "Use your veANDX as your IFO Public Sales commit credits. Aquire more veANDX to commit more in the next Andex IFOs."
                 )}
                 placement="top"
                 ml="4px"

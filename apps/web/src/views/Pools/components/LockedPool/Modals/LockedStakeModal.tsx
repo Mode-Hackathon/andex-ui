@@ -1,17 +1,22 @@
-import { useState, useMemo, useEffect } from 'react'
-import { Modal, Box } from '@pancakeswap/uikit'
-import useTheme from 'hooks/useTheme'
-import { VaultKey } from 'state/types'
-import { getBalanceNumber, getDecimalAmount } from '@pancakeswap/utils/formatBalance'
-import { useTranslation } from '@pancakeswap/localization'
-import BigNumber from 'bignumber.js'
-import { GenericModalProps } from '../types'
-import BalanceField from '../Common/BalanceField'
-import LockedBodyModal from '../Common/LockedModalBody'
-import RoiCalculatorModalProvider from './RoiCalculatorModalProvider'
-import { useCheckVaultApprovalStatus } from '../../../hooks/useApprove'
+import { useState, useMemo, useEffect } from "react";
+import { Modal, Box } from "@pancakeswap/uikit";
+import useTheme from "hooks/useTheme";
+import { VaultKey } from "state/types";
+import {
+  getBalanceNumber,
+  getDecimalAmount,
+} from "@pancakeswap/utils/formatBalance";
+import { useTranslation } from "@pancakeswap/localization";
+import BigNumber from "bignumber.js";
+import { GenericModalProps } from "../types";
+import BalanceField from "../Common/BalanceField";
+import LockedBodyModal from "../Common/LockedModalBody";
+import RoiCalculatorModalProvider from "./RoiCalculatorModalProvider";
+import { useCheckVaultApprovalStatus } from "../../../hooks/useApprove";
 
-const LockedStakeModal: React.FC<React.PropsWithChildren<GenericModalProps>> = ({
+const LockedStakeModal: React.FC<
+  React.PropsWithChildren<GenericModalProps>
+> = ({
   onDismiss,
   currentBalance,
   stakingToken,
@@ -20,34 +25,41 @@ const LockedStakeModal: React.FC<React.PropsWithChildren<GenericModalProps>> = (
   customLockAmount,
   customLockWeekInSeconds,
 }) => {
-  const { theme } = useTheme()
-  const [lockedAmount, setLockedAmount] = useState('')
-  const { t } = useTranslation()
+  const { theme } = useTheme();
+  const [lockedAmount, setLockedAmount] = useState("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (customLockAmount) {
-      setLockedAmount(customLockAmount)
+      setLockedAmount(customLockAmount);
     }
-  }, [customLockAmount])
+  }, [customLockAmount]);
 
   const usdValueStaked = useMemo(
     () =>
       getBalanceNumber(
-        getDecimalAmount(new BigNumber(lockedAmount), stakingToken.decimals).multipliedBy(stakingTokenPrice),
-        stakingToken.decimals,
+        getDecimalAmount(
+          new BigNumber(lockedAmount),
+          stakingToken.decimals
+        ).multipliedBy(stakingTokenPrice),
+        stakingToken.decimals
       ),
-    [lockedAmount, stakingTokenPrice, stakingToken.decimals],
-  )
+    [lockedAmount, stakingTokenPrice, stakingToken.decimals]
+  );
 
-  const { allowance } = useCheckVaultApprovalStatus(VaultKey.CakeVault)
+  const { allowance } = useCheckVaultApprovalStatus(VaultKey.CakeVault);
   const needApprove = useMemo(() => {
-    const amount = getDecimalAmount(new BigNumber(lockedAmount))
-    return amount.gt(allowance)
-  }, [allowance, lockedAmount])
+    const amount = getDecimalAmount(new BigNumber(lockedAmount));
+    return amount.gt(allowance);
+  }, [allowance, lockedAmount]);
 
   return (
     <RoiCalculatorModalProvider lockedAmount={lockedAmount}>
-      <Modal title={t('Lock CAKE')} onDismiss={onDismiss} headerBackground={theme.colors.gradientCardHeader}>
+      <Modal
+        title={t("Lock ANDX")}
+        onDismiss={onDismiss}
+        headerBackground={theme.colors.gradientCardHeader}
+      >
         <Box mb="16px">
           <BalanceField
             stakingAddress={stakingToken.address}
@@ -71,7 +83,7 @@ const LockedStakeModal: React.FC<React.PropsWithChildren<GenericModalProps>> = (
         />
       </Modal>
     </RoiCalculatorModalProvider>
-  )
-}
+  );
+};
 
-export default LockedStakeModal
+export default LockedStakeModal;

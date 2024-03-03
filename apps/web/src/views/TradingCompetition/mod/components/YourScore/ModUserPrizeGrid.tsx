@@ -59,7 +59,7 @@ const ModUserPrizeGrid: React.FC<
         <tr>
           <BoldTd>
             <Flex flexDirection="column">
-              <Text bold>{cakeReward.toFixed(4)} CAKE</Text>
+              <Text bold>{cakeReward.toFixed(4)} ANDX</Text>
               <Text bold>{darReward.toFixed(4)} DAR</Text>
               <UserPrizeGridDollar
                 dollarValueOfTokensReward={dollarValueOfTokensReward}

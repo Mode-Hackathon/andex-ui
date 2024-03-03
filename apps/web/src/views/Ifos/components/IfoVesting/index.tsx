@@ -1,16 +1,25 @@
-import { useMemo, useState, useCallback, useEffect } from 'react'
-import { styled } from 'styled-components'
-import { useTranslation } from '@pancakeswap/localization'
-import Trans from 'components/Trans'
-import { Box, Card, CardBody, CardHeader, Flex, Text, Image, IfoNotTokens } from '@pancakeswap/uikit'
-import { Pool } from '@pancakeswap/widgets-internal'
+import { useMemo, useState, useCallback, useEffect } from "react";
+import { styled } from "styled-components";
+import { useTranslation } from "@pancakeswap/localization";
+import Trans from "components/Trans";
+import {
+  Box,
+  Card,
+  CardBody,
+  CardHeader,
+  Flex,
+  Text,
+  Image,
+  IfoNotTokens,
+} from "@pancakeswap/uikit";
+import { Pool } from "@pancakeswap/widgets-internal";
 
-import { useAccount } from 'wagmi'
-import { Token } from '@pancakeswap/sdk'
-import { VestingStatus } from './types'
-import TokenInfo from './VestingPeriod/TokenInfo'
-import VestingEnded from './VestingEnded'
-import useFetchVestingData from '../../hooks/vesting/useFetchVestingData'
+import { useAccount } from "wagmi";
+import { Token } from "@pancakeswap/sdk";
+import { VestingStatus } from "./types";
+import TokenInfo from "./VestingPeriod/TokenInfo";
+import VestingEnded from "./VestingEnded";
+import useFetchVestingData from "../../hooks/vesting/useFetchVestingData";
 
 const StyleVestingCard = styled(Card)`
   width: 100%;
@@ -21,7 +30,7 @@ const StyleVestingCard = styled(Card)`
     max-width: 350px;
     margin: 0 12px 0 12px;
   }
-`
+`;
 
 const VestingCardBody = styled(CardBody)`
   position: relative;
@@ -30,7 +39,7 @@ const VestingCardBody = styled(CardBody)`
   max-height: 640px;
   padding-bottom: 0;
   border-radius: 0 0 24px 24px;
-`
+`;
 
 const TokenInfoContainer = styled.div`
   > div {
@@ -40,57 +49,61 @@ const TokenInfoContainer = styled.div`
   > :last-child {
     margin-bottom: 0px;
   }
-`
+`;
 
 const IfoVestingStatus = {
   [VestingStatus.NOT_TOKENS_CLAIM]: {
     status: VestingStatus.NOT_TOKENS_CLAIM,
     text: <Trans>You have no tokens available for claiming</Trans>,
-    imgUrl: '/images/ifos/vesting/not-tokens.svg',
+    imgUrl: "/images/ifos/vesting/not-tokens.svg",
   },
   [VestingStatus.HAS_TOKENS_CLAIM]: {
     status: VestingStatus.HAS_TOKENS_CLAIM,
     text: <Trans>You have tokens available for claiming now!</Trans>,
-    imgUrl: '/images/ifos/vesting/in-vesting-period.svg',
+    imgUrl: "/images/ifos/vesting/in-vesting-period.svg",
   },
   [VestingStatus.ENDED]: {
     status: VestingStatus.ENDED,
     text: <Trans>No vesting token to claim.</Trans>,
-    imgUrl: '/images/ifos/vesting/in-vesting-end.svg',
+    imgUrl: "/images/ifos/vesting/in-vesting-end.svg",
   },
-}
+};
 
 interface IfoVestingProps {
-  pool: Pool.DeserializedPool<Token>
-  ifoBasicSaleType?: number
+  pool: Pool.DeserializedPool<Token>;
+  ifoBasicSaleType?: number;
 }
 
-const IfoVesting: React.FC<React.PropsWithChildren<IfoVestingProps>> = ({ ifoBasicSaleType }: IfoVestingProps) => {
-  const { t } = useTranslation()
-  const { address: account } = useAccount()
-  const [isFirstTime, setIsFirstTime] = useState(true)
-  const { data, fetchUserVestingData } = useFetchVestingData()
+const IfoVesting: React.FC<React.PropsWithChildren<IfoVestingProps>> = ({
+  ifoBasicSaleType,
+}: IfoVestingProps) => {
+  const { t } = useTranslation();
+  const { address: account } = useAccount();
+  const [isFirstTime, setIsFirstTime] = useState(true);
+  const { data, fetchUserVestingData } = useFetchVestingData();
 
   useEffect(() => {
     // When switch account need init
     if (account) {
-      setIsFirstTime(true)
-      fetchUserVestingData()
+      setIsFirstTime(true);
+      fetchUserVestingData();
     }
-  }, [account, fetchUserVestingData, setIsFirstTime])
+  }, [account, fetchUserVestingData, setIsFirstTime]);
 
   const cardStatus = useMemo(() => {
     if (account) {
-      if (data.length > 0) return IfoVestingStatus[VestingStatus.HAS_TOKENS_CLAIM]
-      if (data.length === 0 && !isFirstTime) return IfoVestingStatus[VestingStatus.ENDED]
+      if (data.length > 0)
+        return IfoVestingStatus[VestingStatus.HAS_TOKENS_CLAIM];
+      if (data.length === 0 && !isFirstTime)
+        return IfoVestingStatus[VestingStatus.ENDED];
     }
-    return IfoVestingStatus[VestingStatus.NOT_TOKENS_CLAIM]
-  }, [data, account, isFirstTime])
+    return IfoVestingStatus[VestingStatus.NOT_TOKENS_CLAIM];
+  }, [data, account, isFirstTime]);
 
   const handleFetchUserVesting = useCallback(() => {
-    setIsFirstTime(false)
-    fetchUserVestingData()
-  }, [fetchUserVestingData])
+    setIsFirstTime(false);
+    fetchUserVestingData();
+  }, [fetchUserVestingData]);
 
   return (
     <StyleVestingCard isActive>
@@ -98,7 +111,7 @@ const IfoVesting: React.FC<React.PropsWithChildren<IfoVestingProps>> = ({ ifoBas
         <Flex justifyContent="space-between" alignItems="center">
           <Box ml="8px">
             <Text fontSize="24px" color="secondary" bold>
-              {t('Token Vesting')}
+              {t("Token Vesting")}
             </Text>
             <Text color="textSubtle" fontSize="14px">
               {cardStatus.text}
@@ -109,7 +122,7 @@ const IfoVesting: React.FC<React.PropsWithChildren<IfoVestingProps>> = ({ ifoBas
             width={64}
             height={64}
             alt="ifo-vesting-status"
-            style={{ minWidth: '64px' }}
+            style={{ minWidth: "64px" }}
             src={cardStatus.imgUrl}
           />
         </Flex>
@@ -118,7 +131,7 @@ const IfoVesting: React.FC<React.PropsWithChildren<IfoVestingProps>> = ({ ifoBas
         {cardStatus.status === VestingStatus.NOT_TOKENS_CLAIM && (
           <IfoNotTokens
             participateText={t(
-              'Participate in our next IFO. and remember to lock your CAKE to increase your allocation!',
+              "Participate in our next IFO. and remember to lock your ANDX to increase your allocation!"
             )}
           />
         )}
@@ -138,7 +151,7 @@ const IfoVesting: React.FC<React.PropsWithChildren<IfoVestingProps>> = ({ ifoBas
         {cardStatus.status === VestingStatus.ENDED && <VestingEnded />}
       </VestingCardBody>
     </StyleVestingCard>
-  )
-}
+  );
+};
 
-export default IfoVesting
+export default IfoVesting;

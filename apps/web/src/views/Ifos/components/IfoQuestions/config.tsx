@@ -18,17 +18,17 @@ const config = [
         In the current IFO format. There is a brand new Private Sale. To
         participate, participants will have to meet certain requirements
         presented on the IFO card. Each eligible participant will be able to
-        commit any amount of CAKE up to the maximum commit limit, which is
+        commit any amount of ANDX up to the maximum commit limit, which is
         published along with the IFO voting proposal. The Private Sale has no
         participation fee.
       </Trans>,
       <Trans>
         In the Public Sale, everyone with an active Andex profile can commit.
-        However the maximum amount of CAKE users can commit, is equal to the
-        number of iCAKE they have.
+        However the maximum amount of ANDX users can commit, is equal to the
+        number of iANDX they have.
       </Trans>,
       <>
-        <Trans>Learn more about iCAKE</Trans>
+        <Trans>Learn more about iANDX</Trans>
         <InlineLink
           ml="4px"
           external
@@ -76,7 +76,7 @@ const config = [
     title: <Trans>Where does the participation fee go?</Trans>,
     description: [
       <Trans>
-        The CAKE from the participation fee will be burnt as part of the weekly
+        The ANDX from the participation fee will be burnt as part of the weekly
         token burn.
       </Trans>,
     ],
@@ -87,7 +87,7 @@ const config = [
     ),
     description: [
       <Trans>
-        You need to contribute a minimum of about 10 USD worth of CAKE to either
+        You need to contribute a minimum of about 10 USD worth of ANDX to either
         sale.
       </Trans>,
       <Trans>

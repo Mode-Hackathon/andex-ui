@@ -88,7 +88,7 @@ const SetPriceStage: React.FC<React.PropsWithChildren<SetPriceStageProps>> = ({
         </Text>
       )}
       <Text>
-        {t("%percentage%% trading fee will be used to buy & burn CAKE", {
+        {t("%percentage%% trading fee will be used to buy & burn ANDX", {
           percentage: tradingFee,
         })}
       </Text>

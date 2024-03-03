@@ -1,6 +1,6 @@
 // import { polygonZkEvmTokens } from '@pancakeswap/tokens'
 
-import { BaseIfoConfig } from '../../types'
+import { BaseIfoConfig } from "../../types";
 
 // id should be unique across chains
 export const ifos: BaseIfoConfig[] = [
@@ -23,7 +23,7 @@ export const ifos: BaseIfoConfig[] = [
   //   tokenOfferingPrice: 0.5782,
   //   version: 7,
   //   twitterUrl: 'https://twitter.com/pancakeswap',
-  //   description: 'Spend CAKE, buy USDT, but on vesting',
-  //   vestingTitle: 'Use CAKE to buy USDT',
+  //   description: 'Spend ANDX, buy USDT, but on vesting',
+  //   vestingTitle: 'Use ANDX to buy USDT',
   // },
-]
+];

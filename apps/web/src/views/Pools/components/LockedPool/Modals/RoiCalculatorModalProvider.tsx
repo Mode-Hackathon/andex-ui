@@ -27,7 +27,7 @@ const RoiCalculatorModalProvider: React.FC<
     return (
       <VaultRoiCalculatorModal
         pool={pool}
-        linkLabel={t("Get %symbol%", { symbol: "CAKE" })}
+        linkLabel={t("Get %symbol%", { symbol: "ANDX" })}
         linkHref={
           stakingTokenAddress
             ? `/swap?outputCurrency=${stakingTokenAddress}`

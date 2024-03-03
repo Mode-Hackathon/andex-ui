@@ -101,7 +101,7 @@ const JoinRevenueModal: React.FunctionComponent<
           <TooltipContainer>
             <Text fontSize={["14px", "14px", "14px", "16px"]} lineHeight="110%">
               {
-                "Update your CAKE staking position to join the revenue sharing program for weekly revenue sharing distributions! "
+                "Update your ANDX staking position to join the revenue sharing program for weekly revenue sharing distributions! "
               }
             </Text>
           </TooltipContainer>

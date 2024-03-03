@@ -63,7 +63,7 @@ export const useApprovePool = (
   return { handleApprove, pendingTx };
 };
 
-// Approve CAKE auto pool
+// Approve ANDX auto pool
 export const useVaultApprove = (
   vaultKey: VaultKey,
   setLastUpdated: () => void
@@ -74,7 +74,7 @@ export const useVaultApprove = (
   return useCakeApprove(
     setLastUpdated,
     vaultPoolContract?.address,
-    t("You can now stake in the %symbol% vault!", { symbol: "CAKE" })
+    t("You can now stake in the %symbol% vault!", { symbol: "ANDX" })
   );
 };
 

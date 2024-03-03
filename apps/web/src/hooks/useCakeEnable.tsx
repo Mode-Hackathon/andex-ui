@@ -5,7 +5,7 @@ import { useAppDispatch } from "state";
 // import { updateUserBalance } from "state/pools";
 import { Native } from "@pancakeswap/sdk";
 import { ChainId } from "@pancakeswap/chains";
-import { CAKE } from "@pancakeswap/tokens";
+import { ANDX } from "@pancakeswap/tokens";
 import tryParseAmount from "@pancakeswap/utils/tryParseAmount";
 import { useTradeExactOut } from "hooks/Trades";
 import { useSwapCallback } from "hooks/useSwapCallback";
@@ -25,7 +25,7 @@ export const useCakeEnable = (enableAmount: BigNumber) => {
     [enableAmount]
   );
 
-  const parsedAmount = tryParseAmount(swapAmount, CAKE[chainId]);
+  const parsedAmount = tryParseAmount(swapAmount, ANDX[chainId]);
 
   const trade = useTradeExactOut(
     Native.onChain(ChainId.MODE_MAINNET),

@@ -1,8 +1,8 @@
-import React from 'react'
-import { styled } from 'styled-components'
-import { useTranslation } from '@pancakeswap/localization'
-import { Flex, Text, HelpIcon, useTooltip, Link } from '@pancakeswap/uikit'
-import { Pool } from '@pancakeswap/widgets-internal'
+import React from "react";
+import { styled } from "styled-components";
+import { useTranslation } from "@pancakeswap/localization";
+import { Flex, Text, HelpIcon, useTooltip, Link } from "@pancakeswap/uikit";
+import { Pool } from "@pancakeswap/widgets-internal";
 
 const StyledCell = styled(Pool.BaseCell)`
   display: none;
@@ -10,11 +10,11 @@ const StyledCell = styled(Pool.BaseCell)`
   ${({ theme }) => theme.mediaQueries.md} {
     display: flex;
   }
-`
+`;
 
 const ReferenceElement = styled.div`
   display: inline-block;
-`
+`;
 
 const MultiplierWrapper = styled.div`
   color: ${({ theme }) => theme.colors.text};
@@ -26,28 +26,32 @@ const MultiplierWrapper = styled.div`
     text-align: left;
     margin-right: 0;
   }
-`
+`;
 
 export interface MultiplierProps {
-  multiplier: string
+  multiplier: string;
 }
 
-const Multiplier: React.FC<React.PropsWithChildren<MultiplierProps>> = ({ multiplier }) => {
-  const displayMultiplier = multiplier ? multiplier.toLowerCase() : `0x`
-  const { t } = useTranslation()
+const Multiplier: React.FC<React.PropsWithChildren<MultiplierProps>> = ({
+  multiplier,
+}) => {
+  const displayMultiplier = multiplier ? multiplier.toLowerCase() : `0x`;
+  const { t } = useTranslation();
   const tooltipContent = (
     <>
       <Text>
         {t(
-          'The Multiplier represents the proportion of CAKE rewards each farm receives, as a proportion of the CAKE produced each block.',
+          "The Multiplier represents the proportion of ANDX rewards each farm receives, as a proportion of the ANDX produced each block."
         )}
       </Text>
       <Text my="24px">
-        {t('For example, if a 1x farm received 1 CAKE per block, a 40x farm would receive 40 CAKE per block.')}
+        {t(
+          "For example, if a 1x farm received 1 ANDX per block, a 40x farm would receive 40 ANDX per block."
+        )}
       </Text>
       <Text>
         {t(
-          'We have recently rebased multipliers by a factor of 10, this is only a visual change and does not affect the amount of CAKE each farm receives.',
+          "We have recently rebased multipliers by a factor of 10, this is only a visual change and does not affect the amount of ANDX each farm receives."
         )}
       </Text>
       <Link
@@ -56,20 +60,20 @@ const Multiplier: React.FC<React.PropsWithChildren<MultiplierProps>> = ({ multip
         href="https://medium.com/pancakeswap/farm-mutlipliers-visual-update-1f5f5f615afd"
         external
       >
-        {t('Read more')}
+        {t("Read more")}
       </Link>
     </>
-  )
+  );
   const { targetRef, tooltip, tooltipVisible } = useTooltip(tooltipContent, {
-    placement: 'top-end',
+    placement: "top-end",
     tooltipOffset: [20, 10],
-  })
+  });
 
   return (
     <StyledCell role="cell">
       <Pool.CellContent>
         <Text fontSize="12px" color="textSubtle" textAlign="left">
-          {t('Multiplier')}
+          {t("Multiplier")}
         </Text>
         <Flex mt="4px">
           <MultiplierWrapper>{displayMultiplier}</MultiplierWrapper>
@@ -80,7 +84,7 @@ const Multiplier: React.FC<React.PropsWithChildren<MultiplierProps>> = ({ multip
         </Flex>
       </Pool.CellContent>
     </StyledCell>
-  )
-}
+  );
+};
 
-export default Multiplier
+export default Multiplier;

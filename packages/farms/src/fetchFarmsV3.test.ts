@@ -1,97 +1,102 @@
-import { describe, it } from 'vitest'
-import { FeeAmount, Pool } from '@pancakeswap/v3-sdk'
-import { bscTokens } from '@pancakeswap/tokens'
-import { getFarmsPrices } from './fetchFarmsV3'
-import { FarmV3Data } from './types'
+import { describe, it } from "vitest";
+import { FeeAmount, Pool } from "@pancakeswap/v3-sdk";
+import { bscTokens } from "@pancakeswap/tokens";
+import { getFarmsPrices } from "./fetchFarmsV3";
+import { FarmV3Data } from "./types";
 
-describe('fetchFarmsV3', () => {
-  it('getFarmsPrices', async () => {
+describe("fetchFarmsV3", () => {
+  it("getFarmsPrices", async () => {
     const farmsData: FarmV3Data[] = [
-      // CAKE Pair
+      // ANDX Pair
       {
         pid: 1,
-        lpSymbol: 'WBNB-CAKE LP',
-        lpAddress: Pool.getAddress(bscTokens.wbnb, bscTokens.cake, FeeAmount.MEDIUM),
+        lpSymbol: "WBNB-ANDX LP",
+        lpAddress: Pool.getAddress(
+          bscTokens.wbnb,
+          bscTokens.cake,
+          FeeAmount.MEDIUM
+        ),
         token: bscTokens.wbnb,
         quoteToken: bscTokens.cake,
         feeAmount: FeeAmount.MEDIUM,
-        multiplier: '',
-        poolWeight: '',
-        lmPool: '',
-        lmPoolLiquidity: '',
-        tokenPriceVsQuote: '2',
+        multiplier: "",
+        poolWeight: "",
+        lmPool: "",
+        lmPoolLiquidity: "",
+        tokenPriceVsQuote: "2",
       },
-      // CAKE Pair
+      // ANDX Pair
       {
         pid: 2,
-        lpSymbol: 'SUSHI-CAKE LP',
-        lpAddress: '',
+        lpSymbol: "SUSHI-ANDX LP",
+        lpAddress: "",
         token: bscTokens.sushi,
         quoteToken: bscTokens.cake,
         feeAmount: FeeAmount.LOWEST,
-        multiplier: '',
-        poolWeight: '',
-        lmPool: '',
-        lmPoolLiquidity: '',
-        tokenPriceVsQuote: '0.1',
+        multiplier: "",
+        poolWeight: "",
+        lmPool: "",
+        lmPoolLiquidity: "",
+        tokenPriceVsQuote: "0.1",
       },
       // Common price
       {
         pid: 3,
-        lpSymbol: 'USDT-BUSD LP',
-        lpAddress: '',
+        lpSymbol: "USDT-BUSD LP",
+        lpAddress: "",
         token: bscTokens.usdt,
         quoteToken: bscTokens.busd,
         feeAmount: FeeAmount.LOW,
-        multiplier: '',
-        poolWeight: '',
-        lmPool: '',
-        lmPoolLiquidity: '',
-        tokenPriceVsQuote: '1',
+        multiplier: "",
+        poolWeight: "",
+        lmPool: "",
+        lmPoolLiquidity: "",
+        tokenPriceVsQuote: "1",
       },
       // no common price but has common token to busd
       {
         pid: 4,
-        lpSymbol: 'BUSD-BTCB LP',
-        lpAddress: '',
+        lpSymbol: "BUSD-BTCB LP",
+        lpAddress: "",
         token: bscTokens.busd,
         quoteToken: bscTokens.btcb,
         feeAmount: FeeAmount.LOW,
-        multiplier: '',
-        poolWeight: '',
-        lmPool: '',
-        lmPoolLiquidity: '',
-        tokenPriceVsQuote: '0.0003333333',
+        multiplier: "",
+        poolWeight: "",
+        lmPool: "",
+        lmPoolLiquidity: "",
+        tokenPriceVsQuote: "0.0003333333",
       },
       // no common price and no common token to busd
       {
         pid: 5,
-        lpSymbol: 'DAI-BUSD LP',
-        lpAddress: '',
+        lpSymbol: "DAI-BUSD LP",
+        lpAddress: "",
         token: bscTokens.dai,
         quoteToken: bscTokens.busd,
         feeAmount: FeeAmount.LOW,
-        multiplier: '',
-        poolWeight: '',
-        lmPool: '',
-        lmPoolLiquidity: '',
-        tokenPriceVsQuote: '1.1',
+        multiplier: "",
+        poolWeight: "",
+        lmPool: "",
+        lmPoolLiquidity: "",
+        tokenPriceVsQuote: "1.1",
       },
-    ]
+    ];
     const commonPrice = {
-      [bscTokens.usdt.address]: '1',
-    }
+      [bscTokens.usdt.address]: "1",
+    };
 
-    const cakePrice = '40'
+    const cakePrice = "40";
 
-    expect(getFarmsPrices(farmsData, cakePrice, commonPrice)).toMatchInlineSnapshot(`
+    expect(getFarmsPrices(farmsData, cakePrice, commonPrice))
+      .toMatchInlineSnapshot(`
       [
         {
           "feeAmount": 2500,
           "lmPool": "",
           "lmPoolLiquidity": "",
           "lpAddress": "0x133B3D95bAD5405d14d53473671200e9342896BF",
-          "lpSymbol": "WBNB-CAKE LP",
+          "lpSymbol": "WBNB-ANDX LP",
           "multiplier": "",
           "pid": 1,
           "poolWeight": "",
@@ -103,7 +108,7 @@ describe('fetchFarmsV3', () => {
             "isToken": true,
             "name": "Andex Token",
             "projectLink": "https://andex.vercel.app/",
-            "symbol": "CAKE",
+            "symbol": "ANDX",
           },
           "quoteTokenPriceBusd": "40",
           "token": ERC20Token {
@@ -124,7 +129,7 @@ describe('fetchFarmsV3', () => {
           "lmPool": "",
           "lmPoolLiquidity": "",
           "lpAddress": "",
-          "lpSymbol": "SUSHI-CAKE LP",
+          "lpSymbol": "SUSHI-ANDX LP",
           "multiplier": "",
           "pid": 2,
           "poolWeight": "",
@@ -136,7 +141,7 @@ describe('fetchFarmsV3', () => {
             "isToken": true,
             "name": "Andex Token",
             "projectLink": "https://andex.vercel.app/",
-            "symbol": "CAKE",
+            "symbol": "ANDX",
           },
           "quoteTokenPriceBusd": "40",
           "token": ERC20Token {
@@ -252,6 +257,6 @@ describe('fetchFarmsV3', () => {
           "tokenPriceVsQuote": "1.1",
         },
       ]
-    `)
-  })
-})
+    `);
+  });
+});

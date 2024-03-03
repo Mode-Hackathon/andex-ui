@@ -1,6 +1,6 @@
 // import { bscTokens } from '@pancakeswap/tokens'
 
-import { StableSwapPool } from './types'
+import { StableSwapPool } from "./types";
 
 export const pools: StableSwapPool[] = [
   // {
@@ -84,7 +84,7 @@ export const pools: StableSwapPool[] = [
   //   stableLpFeeRateOfTotalFee: 0.5,
   // },
   // {
-  //   lpSymbol: 'CAKE-sdCAKE LP',
+  //   lpSymbol: 'ANDX-sdANDX LP',
   //   lpAddress: '0xb4C27884308C3Bca710c220D680BAb02f6b64b51',
   //   token: bscTokens.cake,
   //   quoteToken: bscTokens.sdcake,
@@ -93,4 +93,4 @@ export const pools: StableSwapPool[] = [
   //   stableLpFee: 0.0004,
   //   stableLpFeeRateOfTotalFee: 0.5,
   // },
-]
+];

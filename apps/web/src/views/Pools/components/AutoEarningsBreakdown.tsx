@@ -70,7 +70,7 @@ const AutoEarningsBreakdown: React.FC<
           <Text>{t("Hourly Average")}:</Text>
           <Text bold>
             {earnedCakePerHour < 0.01 ? "<0.01" : earnedCakePerHour.toFixed(2)}{" "}
-            CAKE
+            ANDX
             <Text display="inline-block" ml="5px">
               (
               {earnedUsdPerHour < 0.01

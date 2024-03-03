@@ -97,7 +97,7 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
   stakingTokenPrice,
   multiplier,
   initialValue,
-  earningTokenSymbol = "CAKE",
+  earningTokenSymbol = "ANDX",
   autoCompoundFrequency = 0,
   performanceFee = 0,
   isFarm = false,
@@ -154,9 +154,9 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
       ? t("“My Balance” here includes both LP Tokens in your wallet, and LP Tokens already staked in this farm.")
       : t(
           "“My Balance” here includes both %assetSymbol% in your wallet, and %assetSymbol% already staked in this pool.",
-          { assetSymbol: stakingTokenSymbol }
+          { assetSymbol: stakingTokenSymbol },
         ),
-    { placement: "top-end", tooltipOffset: [20, 10] }
+    { placement: "top-end", tooltipOffset: [20, 10] },
   );
 
   const onBalanceFocus = () => {
@@ -241,7 +241,7 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
               disabled={isDisableMyBalance}
               onClick={() =>
                 setPrincipalFromUSDValue(
-                  getBalanceNumber(stakingTokenBalance.times(stakingTokenPrice), stakingTokenDecimals).toString()
+                  getBalanceNumber(stakingTokenBalance.times(stakingTokenPrice), stakingTokenDecimals).toString(),
                 )
               }
             >

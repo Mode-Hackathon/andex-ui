@@ -1,26 +1,33 @@
-import { BalanceInput, Button, Flex, Image, Slider, Text } from '@pancakeswap/uikit'
-import BigNumber from 'bignumber.js'
-import { useTranslation } from '@pancakeswap/localization'
-import { Dispatch, useMemo, memo, SetStateAction, useCallback } from 'react'
-import { styled } from 'styled-components'
-import { getFullDisplayBalance } from '@pancakeswap/utils/formatBalance'
-import { getFullDecimalMultiplier } from '@pancakeswap/utils/getFullDecimalMultiplier'
-import { useUserEnoughCakeValidator } from '../hooks/useUserEnoughCakeValidator'
+import {
+  BalanceInput,
+  Button,
+  Flex,
+  Image,
+  Slider,
+  Text,
+} from "@pancakeswap/uikit";
+import BigNumber from "bignumber.js";
+import { useTranslation } from "@pancakeswap/localization";
+import { Dispatch, useMemo, memo, SetStateAction, useCallback } from "react";
+import { styled } from "styled-components";
+import { getFullDisplayBalance } from "@pancakeswap/utils/formatBalance";
+import { getFullDecimalMultiplier } from "@pancakeswap/utils/getFullDecimalMultiplier";
+import { useUserEnoughCakeValidator } from "../hooks/useUserEnoughCakeValidator";
 
 const StyledButton = styled(Button)`
   flex-grow: 1;
-`
+`;
 
 interface PropsType {
-  stakingAddress: string
-  stakingSymbol: string
-  stakingDecimals: number
-  lockedAmount: string
-  stakingMax: BigNumber
-  setLockedAmount: Dispatch<SetStateAction<string>>
-  usdValueStaked: number | undefined
-  stakingTokenBalance: BigNumber
-  needApprove: boolean
+  stakingAddress: string;
+  stakingSymbol: string;
+  stakingDecimals: number;
+  lockedAmount: string;
+  stakingMax: BigNumber;
+  setLockedAmount: Dispatch<SetStateAction<string>>;
+  usdValueStaked: number | undefined;
+  stakingTokenBalance: BigNumber;
+  needApprove: boolean;
 }
 
 const BalanceField: React.FC<React.PropsWithChildren<PropsType>> = ({
@@ -34,48 +41,64 @@ const BalanceField: React.FC<React.PropsWithChildren<PropsType>> = ({
   stakingTokenBalance,
   needApprove,
 }) => {
-  const { t } = useTranslation()
-  const { userNotEnoughCake, notEnoughErrorMessage } = useUserEnoughCakeValidator(lockedAmount, stakingTokenBalance)
+  const { t } = useTranslation();
+  const { userNotEnoughCake, notEnoughErrorMessage } =
+    useUserEnoughCakeValidator(lockedAmount, stakingTokenBalance);
 
   const percent = useMemo(() => {
-    const amount = new BigNumber(lockedAmount)
+    const amount = new BigNumber(lockedAmount);
     if (amount.gt(0)) {
-      const convertedInput = amount.multipliedBy(getFullDecimalMultiplier(stakingDecimals))
-      const percentage = Math.floor(convertedInput.dividedBy(stakingMax).multipliedBy(100).toNumber())
-      return percentage > 100 ? 100 : percentage
+      const convertedInput = amount.multipliedBy(
+        getFullDecimalMultiplier(stakingDecimals)
+      );
+      const percentage = Math.floor(
+        convertedInput.dividedBy(stakingMax).multipliedBy(100).toNumber()
+      );
+      return percentage > 100 ? 100 : percentage;
     }
-    return 0
-  }, [lockedAmount, stakingDecimals, stakingMax])
+    return 0;
+  }, [lockedAmount, stakingDecimals, stakingMax]);
 
   const handleStakeInputChange = useCallback(
     (input: string) => {
-      setLockedAmount(input)
+      setLockedAmount(input);
     },
-    [setLockedAmount],
-  )
+    [setLockedAmount]
+  );
 
   const handleChangePercent = useCallback(
     (sliderPercent: number) => {
       if (sliderPercent > 0) {
-        const percentageOfStakingMax = stakingMax.dividedBy(100).multipliedBy(sliderPercent)
-        const amountToStake = getFullDisplayBalance(percentageOfStakingMax, stakingDecimals, stakingDecimals)
+        const percentageOfStakingMax = stakingMax
+          .dividedBy(100)
+          .multipliedBy(sliderPercent);
+        const amountToStake = getFullDisplayBalance(
+          percentageOfStakingMax,
+          stakingDecimals,
+          stakingDecimals
+        );
 
-        setLockedAmount(amountToStake)
+        setLockedAmount(amountToStake);
       } else {
-        setLockedAmount('')
+        setLockedAmount("");
       }
     },
-    [stakingMax, setLockedAmount, stakingDecimals],
-  )
+    [stakingMax, setLockedAmount, stakingDecimals]
+  );
 
   return (
     <>
       <Flex alignItems="center" justifyContent="space-between" mb="8px">
         <Text color="textSubtle" textTransform="uppercase" bold fontSize="12px">
-          {t('CAKE to lock')}
+          {t("ANDX to lock")}
         </Text>
         <Flex alignItems="center" minWidth="70px">
-          <Image src={`/images/tokens/${stakingAddress}.png`} width={24} height={24} alt={stakingSymbol} />
+          <Image
+            src={`/images/tokens/${stakingAddress}.png`}
+            width={24}
+            height={24}
+            alt={stakingSymbol}
+          />
           <Text ml="4px" bold>
             {stakingSymbol}
           </Text>
@@ -102,8 +125,16 @@ const BalanceField: React.FC<React.PropsWithChildren<PropsType>> = ({
           )}
         </Flex>
       </Flex>
-      <Text mt="8px" textAlign="end" color="textSubtle" fontSize="12px" mb="8px">
-        {t('Balance: %balance%', { balance: getFullDisplayBalance(stakingMax, stakingDecimals) })}
+      <Text
+        mt="8px"
+        textAlign="end"
+        color="textSubtle"
+        fontSize="12px"
+        mb="8px"
+      >
+        {t("Balance: %balance%", {
+          balance: getFullDisplayBalance(stakingMax, stakingDecimals),
+        })}
       </Text>
       <Slider
         min={0}
@@ -115,21 +146,45 @@ const BalanceField: React.FC<React.PropsWithChildren<PropsType>> = ({
         step={1}
       />
       <Flex alignItems="center" justifyContent="space-between" mt="8px">
-        <StyledButton scale="xs" mx="2px" p="4px 16px" variant="tertiary" onClick={() => handleChangePercent(25)}>
+        <StyledButton
+          scale="xs"
+          mx="2px"
+          p="4px 16px"
+          variant="tertiary"
+          onClick={() => handleChangePercent(25)}
+        >
           25%
         </StyledButton>
-        <StyledButton scale="xs" mx="2px" p="4px 16px" variant="tertiary" onClick={() => handleChangePercent(50)}>
+        <StyledButton
+          scale="xs"
+          mx="2px"
+          p="4px 16px"
+          variant="tertiary"
+          onClick={() => handleChangePercent(50)}
+        >
           50%
         </StyledButton>
-        <StyledButton scale="xs" mx="2px" p="4px 16px" variant="tertiary" onClick={() => handleChangePercent(75)}>
+        <StyledButton
+          scale="xs"
+          mx="2px"
+          p="4px 16px"
+          variant="tertiary"
+          onClick={() => handleChangePercent(75)}
+        >
           75%
         </StyledButton>
-        <StyledButton scale="xs" mx="2px" p="4px 16px" variant="tertiary" onClick={() => handleChangePercent(100)}>
-          {t('Max')}
+        <StyledButton
+          scale="xs"
+          mx="2px"
+          p="4px 16px"
+          variant="tertiary"
+          onClick={() => handleChangePercent(100)}
+        >
+          {t("Max")}
         </StyledButton>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default memo(BalanceField)
+export default memo(BalanceField);

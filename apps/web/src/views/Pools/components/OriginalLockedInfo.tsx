@@ -45,7 +45,7 @@ const OriginalLockedInfo: React.FC<
         <Text>{t("Original locked amount")}:</Text>
         <Text
           bold
-        >{`${originalLockedAmountText} CAKE (${originalUsdValueText} USD)`}</Text>
+        >{`${originalLockedAmountText} ANDX (${originalUsdValueText} USD)`}</Text>
       </Box>
       <Box mt="12px">
         <Text>{t("Last action")}:</Text>

@@ -1,36 +1,54 @@
-import { Bet, PredictionUser } from 'state/types'
-import { transformRoundResponseToken, transformUserResponseToken, transformBetResponseToken } from './tokenTransformers'
+import { Bet, PredictionUser } from "state/types";
+import {
+  transformRoundResponseToken,
+  transformUserResponseToken,
+  transformBetResponseToken,
+} from "./tokenTransformers";
 
-export const transformBetResponseCAKE = (betResponse): Bet => {
-  const baseBet = transformBetResponseToken(betResponse)
+export const transformBetResponseANDX = (betResponse): Bet => {
+  const baseBet = transformBetResponseToken(betResponse);
   const bet = {
     ...baseBet,
-    claimedBNB: betResponse.claimedCAKE ? parseFloat(betResponse.claimedCAKE) : 0,
-    claimedNetBNB: betResponse.claimedNetCAKE ? parseFloat(betResponse.claimedNetCAKE) : 0,
-  } as Bet
+    claimedBNB: betResponse.claimedANDX
+      ? parseFloat(betResponse.claimedANDX)
+      : 0,
+    claimedNetBNB: betResponse.claimedNetANDX
+      ? parseFloat(betResponse.claimedNetANDX)
+      : 0,
+  } as Bet;
 
   if (betResponse.user) {
-    bet.user = transformUserResponseCAKE(betResponse.user)
+    bet.user = transformUserResponseANDX(betResponse.user);
   }
 
   if (betResponse.round) {
-    bet.round = transformRoundResponseToken(betResponse.round, transformBetResponseCAKE)
+    bet.round = transformRoundResponseToken(
+      betResponse.round,
+      transformBetResponseANDX
+    );
   }
 
-  return bet
-}
+  return bet;
+};
 
-export const transformUserResponseCAKE = (userResponse): PredictionUser => {
-  const baseUserResponse = transformUserResponseToken(userResponse)
-  const { totalCAKE, totalCAKEBull, totalCAKEBear, totalCAKEClaimed, averageCAKE, netCAKE } = userResponse || {}
+export const transformUserResponseANDX = (userResponse): PredictionUser => {
+  const baseUserResponse = transformUserResponseToken(userResponse);
+  const {
+    totalANDX,
+    totalANDXBull,
+    totalANDXBear,
+    totalANDXClaimed,
+    averageANDX,
+    netANDX,
+  } = userResponse || {};
 
   return {
     ...baseUserResponse,
-    totalBNB: totalCAKE ? parseFloat(totalCAKE) : 0,
-    totalBNBBull: totalCAKEBull ? parseFloat(totalCAKEBull) : 0,
-    totalBNBBear: totalCAKEBear ? parseFloat(totalCAKEBear) : 0,
-    totalBNBClaimed: totalCAKEClaimed ? parseFloat(totalCAKEClaimed) : 0,
-    averageBNB: averageCAKE ? parseFloat(averageCAKE) : 0,
-    netBNB: netCAKE ? parseFloat(netCAKE) : 0,
-  }
-}
+    totalBNB: totalANDX ? parseFloat(totalANDX) : 0,
+    totalBNBBull: totalANDXBull ? parseFloat(totalANDXBull) : 0,
+    totalBNBBear: totalANDXBear ? parseFloat(totalANDXBear) : 0,
+    totalBNBClaimed: totalANDXClaimed ? parseFloat(totalANDXClaimed) : 0,
+    averageBNB: averageANDX ? parseFloat(averageANDX) : 0,
+    netBNB: netANDX ? parseFloat(netANDX) : 0,
+  };
+};

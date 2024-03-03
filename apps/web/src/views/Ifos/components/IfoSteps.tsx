@@ -149,7 +149,7 @@ const Step1 = ({
     <Box>
       <Text>
         {t(
-          "The number of iCAKE equals the locked staking amount if the staking duration is longer than %weeks% weeks. If the staking duration is less than %weeks% weeks, it will linearly decrease based on the staking duration.",
+          "The number of iANDX equals the locked staking amount if the staking duration is longer than %weeks% weeks. If the staking duration is less than %weeks% weeks, it will linearly decrease based on the staking duration.",
           {
             weeks: weeksDisplay,
           }
@@ -159,7 +159,7 @@ const Step1 = ({
         external
         href="https://docs.pancakeswap.finance/products/ifo-initial-farm-offering/icake"
       >
-        {t("Learn more about iCAKE")}
+        {t("Learn more about iANDX")}
       </InlineLink>
     </Box>,
     {}
@@ -169,12 +169,12 @@ const Step1 = ({
     <CardBody>
       {tooltipVisible && tooltip}
       <Heading as="h4" color="secondary" mb="16px">
-        {t("Lock CAKE in the CAKE pool")}
+        {t("Lock ANDX in the ANDX pool")}
       </Heading>
       <Box>
         <Text mb="4px" color="textSubtle" small>
           {t(
-            "The maximum amount of CAKE you can commit to the Public Sale equals the number of your iCAKE. Lock more CAKE for longer durations to increase the maximum CAKE you can commit to the sale."
+            "The maximum amount of ANDX you can commit to the Public Sale equals the number of your iANDX. Lock more ANDX for longer durations to increase the maximum ANDX you can commit to the sale."
           )}
         </Text>
         <TooltipText
@@ -184,11 +184,11 @@ const Step1 = ({
           color="textSubtle"
           small
         >
-          {t("How does the number of iCAKE calculated?")}
+          {t("How does the number of iANDX calculated?")}
         </TooltipText>
         <Text mt="4px" color="textSubtle" small>
           {t(
-            "Missed this IFO? You will enjoy the same amount of iCAKE for future IFOs if your locked-staking position is not unlocked."
+            "Missed this IFO? You will enjoy the same amount of iANDX for future IFOs if your locked-staking position is not unlocked."
           )}
         </Text>
       </Box>
@@ -202,7 +202,7 @@ const Step1 = ({
             />
           }
           credit={sourceChainIfoCredit}
-          title={t("Your max CAKE entry")}
+          title={t("Your max ANDX entry")}
           more={
             <Text fontSize="12px" color="textSubtle">
               {creditDollarValue !== undefined ? (
@@ -238,17 +238,17 @@ const Step2 = ({
   return (
     <CardBody>
       <Heading as="h4" color="secondary" mb="16px">
-        {t("Commit CAKE")}
+        {t("Commit ANDX")}
       </Heading>
       <Text color="textSubtle" small>
         {t(
-          "Please note that CAKE in the fixed-term staking positions will remain locked and can not be used for committing to IFO sales. You will need a separate amount of CAKE in your wallet balance to commit to the IFO sales."
+          "Please note that ANDX in the fixed-term staking positions will remain locked and can not be used for committing to IFO sales. You will need a separate amount of ANDX in your wallet balance to commit to the IFO sales."
         )}{" "}
         <br />
       </Text>
       {hasProfile && isLive && !isCommitted && (
         <Button as="a" href="#current-ifo" mt="16px">
-          {t("Commit CAKE")}
+          {t("Commit ANDX")}
         </Button>
       )}
     </CardBody>
@@ -336,7 +336,7 @@ const IfoSteps: React.FC<React.PropsWithChildren<TypeProps>> = ({
         </Heading>
         <Text color="textSubtle" small>
           {t(
-            "After the IFO sales finish, you can claim any IFO tokens that you bought, and any unspent CAKE tokens will be returned to your wallet."
+            "After the IFO sales finish, you can claim any IFO tokens that you bought, and any unspent ANDX tokens will be returned to your wallet."
           )}
         </Text>
       </CardBody>
@@ -344,16 +344,16 @@ const IfoSteps: React.FC<React.PropsWithChildren<TypeProps>> = ({
     const renderBridge = () => (
       <CardBody>
         <Heading as="h4" color="secondary" mb="16px">
-          {t("Bridge iCAKE")}
+          {t("Bridge iANDX")}
         </Heading>
         <Text color="textSubtle" small>
           {t(
-            "To participate in the cross chain Public Sale, you need to bridge your iCAKE to the blockchain where the IFO will be hosted on."
+            "To participate in the cross chain Public Sale, you need to bridge your iANDX to the blockchain where the IFO will be hosted on."
           )}
         </Text>
         <Text color="textSubtle" small mt="1rem">
           {t(
-            "Before or during the sale, you may bridge you iCAKE again if you’ve added more CAKE or extended your lock staking position."
+            "Before or during the sale, you may bridge you iANDX again if you’ve added more ANDX or extended your lock staking position."
           )}
         </Text>
         {sourceChainHasICake && (
@@ -366,11 +366,11 @@ const IfoSteps: React.FC<React.PropsWithChildren<TypeProps>> = ({
               />
             }
             credit={dstChainIfoCredit}
-            title={t("Your iCAKE on %chainName%", { chainName: ifoChainName })}
+            title={t("Your iANDX on %chainName%", { chainName: ifoChainName })}
             action={
               !isStepValid && !isFinished ? (
                 <Button as="a" href="#bridge-icake">
-                  {t("Bridge iCAKE")}
+                  {t("Bridge iANDX")}
                 </Button>
               ) : null
             }

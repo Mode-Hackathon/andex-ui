@@ -608,7 +608,7 @@ export default function PoolPage() {
           >{`${currencyQuote?.symbol}-${currencyBase?.symbol}`}</Text>
           <Text display="inline">
             {t(
-              "has an active Andex farm. Stake your position in the farm to start earning with the indicated APR with CAKE farming."
+              "has an active Andex farm. Stake your position in the farm to start earning with the indicated APR with ANDX farming."
             )}
           </Text>
           <NextLinkFromReactRouter to="/farms">

@@ -1,7 +1,7 @@
 export const masterChefV3ABI = [
   {
     inputs: [
-      { internalType: 'contract IERC20', name: '_CAKE', type: 'address' },
+      { internalType: 'contract IERC20', name: '_ANDX', type: 'address' },
       {
         internalType: 'contract INonfungiblePositionManager',
         name: '_nonfungiblePositionManager',
@@ -177,7 +177,7 @@ export const masterChefV3ABI = [
   },
   {
     inputs: [],
-    name: 'CAKE',
+    name: 'ANDX',
     outputs: [{ internalType: 'contract IERC20', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',

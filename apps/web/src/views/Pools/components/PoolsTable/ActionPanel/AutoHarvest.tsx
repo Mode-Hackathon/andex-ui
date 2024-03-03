@@ -123,7 +123,7 @@ const AutoHarvestAction: React.FunctionComponent<
       as="span"
       textTransform="uppercase"
     >
-      {t("Recent CAKE profit")}
+      {t("Recent ANDX profit")}
     </Text>
   );
 

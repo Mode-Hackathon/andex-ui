@@ -1,29 +1,33 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { ChainId } from '@pancakeswap/chains'
-import { useToast } from '@pancakeswap/uikit'
-import { pancakeProfileABI } from 'config/abi/pancakeProfile'
-import { useActiveChainId } from 'hooks/useActiveChainId'
-import { useEffect, useState } from 'react'
-import { getPancakeProfileAddress } from 'utils/addressHelpers'
-import { publicClient } from 'utils/wagmi'
+import { useTranslation } from "@pancakeswap/localization";
+import { ChainId } from "@pancakeswap/chains";
+import { useToast } from "@pancakeswap/uikit";
+import { pancakeProfileABI } from "config/abi/pancakeProfile";
+import { useActiveChainId } from "hooks/useActiveChainId";
+import { useEffect, useState } from "react";
+import { getPancakeProfileAddress } from "utils/addressHelpers";
+import { publicClient } from "utils/wagmi";
 
 const useGetProfileCosts = () => {
-  const { t } = useTranslation()
-  const [isLoading, setIsLoading] = useState(true)
+  const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
   const [costs, setCosts] = useState({
     numberCakeToReactivate: 0n,
     numberCakeToRegister: 0n,
     numberCakeToUpdate: 0n,
-  })
-  const { toastError } = useToast()
-  const { chainId } = useActiveChainId()
+  });
+  const { toastError } = useToast();
+  const { chainId } = useActiveChainId();
 
   useEffect(() => {
     const fetchCosts = async () => {
       try {
-        const pancakeProfileAddress = getPancakeProfileAddress()
+        const pancakeProfileAddress = getPancakeProfileAddress();
 
-        const [numberCakeToReactivate, numberCakeToRegister, numberCakeToUpdate] = await publicClient({
+        const [
+          numberCakeToReactivate,
+          numberCakeToRegister,
+          numberCakeToUpdate,
+        ] = await publicClient({
           chainId: ChainId.MODE_MAINNET,
         }).multicall({
           allowFailure: false,
@@ -31,36 +35,36 @@ const useGetProfileCosts = () => {
             {
               address: pancakeProfileAddress,
               abi: pancakeProfileABI,
-              functionName: 'numberCakeToReactivate',
+              functionName: "numberCakeToReactivate",
             },
             {
               address: pancakeProfileAddress,
               abi: pancakeProfileABI,
-              functionName: 'numberCakeToRegister',
+              functionName: "numberCakeToRegister",
             },
             {
               address: pancakeProfileAddress,
               abi: pancakeProfileABI,
-              functionName: 'numberCakeToUpdate',
+              functionName: "numberCakeToUpdate",
             },
           ],
-        })
+        });
 
         setCosts({
           numberCakeToReactivate,
           numberCakeToRegister,
           numberCakeToUpdate,
-        })
-        setIsLoading(false)
+        });
+        setIsLoading(false);
       } catch (error) {
-        toastError(t('Error'), t('Could not retrieve CAKE costs for profile'))
+        toastError(t("Error"), t("Could not retrieve ANDX costs for profile"));
       }
-    }
+    };
 
-    fetchCosts()
-  }, [setCosts, toastError, t, chainId])
+    fetchCosts();
+  }, [setCosts, toastError, t, chainId]);
 
-  return { costs, isLoading }
-}
+  return { costs, isLoading };
+};
 
-export default useGetProfileCosts
+export default useGetProfileCosts;

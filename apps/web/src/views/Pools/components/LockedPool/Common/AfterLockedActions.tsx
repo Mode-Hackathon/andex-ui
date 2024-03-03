@@ -1,11 +1,17 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { Box, Flex, Message, MessageText, useMatchBreakpoints } from '@pancakeswap/uikit'
-import Trans from 'components/Trans'
-import { ReactNode, memo } from 'react'
-import { VaultPosition } from 'utils/cakePool'
-import { useIsMigratedToVeCake } from 'views/CakeStaking/hooks/useIsMigratedToVeCake'
-import WithdrawAllButton from '../Buttons/WithdrawAllButton'
-import { AfterLockedActionsPropsType } from '../types'
+import { useTranslation } from "@pancakeswap/localization";
+import {
+  Box,
+  Flex,
+  Message,
+  MessageText,
+  useMatchBreakpoints,
+} from "@pancakeswap/uikit";
+import Trans from "components/Trans";
+import { ReactNode, memo } from "react";
+import { VaultPosition } from "utils/cakePool";
+import { useIsMigratedToVeCake } from "views/CakeStaking/hooks/useIsMigratedToVeCake";
+import WithdrawAllButton from "../Buttons/WithdrawAllButton";
+import { AfterLockedActionsPropsType } from "../types";
 
 const msg: Record<VaultPosition, ReactNode> = {
   [VaultPosition.None]: null,
@@ -13,35 +19,35 @@ const msg: Record<VaultPosition, ReactNode> = {
   [VaultPosition.Locked]: null,
   [VaultPosition.LockedEnd]: (
     <Trans>
-      Extending or adding CAKE is not available for migrated positions. To get more veCAKE, withdraw from the unlocked
-      CAKE pool position, and add CAKE to veCAKE.
+      Extending or adding ANDX is not available for migrated positions. To get
+      more veANDX, withdraw from the unlocked ANDX pool position, and add ANDX
+      to veANDX.
     </Trans>
   ),
   [VaultPosition.AfterBurning]: (
     <Trans>
-      Extending or adding CAKE is not available for migrated positions. To get more veCAKE, withdraw from the unlocked
-      CAKE pool position, and add CAKE to veCAKE.
+      Extending or adding ANDX is not available for migrated positions. To get
+      more veANDX, withdraw from the unlocked ANDX pool position, and add ANDX
+      to veANDX.
     </Trans>
   ),
-}
+};
 
-const AfterLockedActions: React.FC<React.PropsWithChildren<AfterLockedActionsPropsType>> = ({
-  position,
-  isInline,
-  hideConvertToFlexibleButton,
-}) => {
-  const { isDesktop } = useMatchBreakpoints()
-  const isDesktopView = isInline && isDesktop
-  const Container = isDesktopView ? Flex : Box
-  const isMigratedToVeCake = useIsMigratedToVeCake()
-  const { t } = useTranslation()
+const AfterLockedActions: React.FC<
+  React.PropsWithChildren<AfterLockedActionsPropsType>
+> = ({ position, isInline, hideConvertToFlexibleButton }) => {
+  const { isDesktop } = useMatchBreakpoints();
+  const isDesktopView = isInline && isDesktop;
+  const Container = isDesktopView ? Flex : Box;
+  const isMigratedToVeCake = useIsMigratedToVeCake();
+  const { t } = useTranslation();
 
   return (
     <Message
       variant="warning"
       mb="16px"
       action={
-        <Container mt={!isDesktopView ? '8px' : undefined} ml="10px">
+        <Container mt={!isDesktopView ? "8px" : undefined} ml="10px">
           {/* <ExtendButton
             modalTitle={t('Renew')}
             lockEndTime="0"
@@ -58,7 +64,9 @@ const AfterLockedActions: React.FC<React.PropsWithChildren<AfterLockedActionsPro
           >
             {t('Renew')}
           </ExtendButton> */}
-          {!hideConvertToFlexibleButton && <WithdrawAllButton minWidth={isDesktopView ? '200px' : undefined} />}
+          {!hideConvertToFlexibleButton && (
+            <WithdrawAllButton minWidth={isDesktopView ? "200px" : undefined} />
+          )}
         </Container>
       }
       actionInline={isDesktopView}
@@ -67,11 +75,11 @@ const AfterLockedActions: React.FC<React.PropsWithChildren<AfterLockedActionsPro
         {isMigratedToVeCake
           ? msg[position]
           : t(
-              'The lock period has ended. To get more veCAKE, withdraw from the unlocked CAKE pool position, and add CAKE to veCAKE.',
+              "The lock period has ended. To get more veANDX, withdraw from the unlocked ANDX pool position, and add ANDX to veANDX."
             )}
       </MessageText>
     </Message>
-  )
-}
+  );
+};
 
-export default memo(AfterLockedActions)
+export default memo(AfterLockedActions);

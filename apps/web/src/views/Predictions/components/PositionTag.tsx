@@ -1,5 +1,5 @@
-import { ReactNode } from 'react'
-import { styled } from 'styled-components'
+import { ReactNode } from "react";
+import { styled } from "styled-components";
 import {
   ArrowUpIcon,
   ArrowDownIcon,
@@ -9,26 +9,26 @@ import {
   useTooltip,
   TooltipText,
   InfoIcon,
-} from '@pancakeswap/uikit'
-import { BetPosition } from 'state/types'
-import { useTranslation } from '@pancakeswap/localization'
+} from "@pancakeswap/uikit";
+import { BetPosition } from "state/types";
+import { useTranslation } from "@pancakeswap/localization";
 
 interface TagProps extends FlexProps {
-  startIcon?: ReactNode
+  startIcon?: ReactNode;
 }
 
 const StyledTag = styled(Flex)`
   display: inline-flex;
-`
+`;
 
 export const Tag: React.FC<React.PropsWithChildren<TagProps>> = ({
-  bg = 'success',
+  bg = "success",
   startIcon,
   children,
   onClick,
   ...props
 }) => {
-  const icon = startIcon || <ArrowUpIcon color="white" />
+  const icon = startIcon || <ArrowUpIcon color="white" />;
 
   return (
     <StyledTag
@@ -39,7 +39,7 @@ export const Tag: React.FC<React.PropsWithChildren<TagProps>> = ({
       py="4px"
       px="8px"
       onClick={onClick}
-      style={{ cursor: onClick ? 'pointer' : 'normal' }}
+      style={{ cursor: onClick ? "pointer" : "normal" }}
       {...props}
     >
       {icon}
@@ -47,50 +47,63 @@ export const Tag: React.FC<React.PropsWithChildren<TagProps>> = ({
         {children}
       </Text>
     </StyledTag>
-  )
-}
+  );
+};
 
 interface PositionTagProps extends FlexProps {
-  betPosition: BetPosition
+  betPosition: BetPosition;
 }
 
-const PositionTag: React.FC<React.PropsWithChildren<PositionTagProps>> = ({ betPosition, children, ...props }) => {
-  const { t } = useTranslation()
-  const isUpPosition = betPosition === BetPosition.BULL
-  const icon = isUpPosition ? <ArrowUpIcon color="white" /> : <ArrowDownIcon color="white" />
+const PositionTag: React.FC<React.PropsWithChildren<PositionTagProps>> = ({
+  betPosition,
+  children,
+  ...props
+}) => {
+  const { t } = useTranslation();
+  const isUpPosition = betPosition === BetPosition.BULL;
+  const icon = isUpPosition ? (
+    <ArrowUpIcon color="white" />
+  ) : (
+    <ArrowDownIcon color="white" />
+  );
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <>
       <Text bold mb="4px">
-        {t('Neither side wins this round')}
+        {t("Neither side wins this round")}
       </Text>
       <Text>
         {t(
-          'The Locked Price & Closed Price are exactly the same (within 8 decimals), so neither side wins. All funds entered into UP and DOWN positions will go to the weekly CAKE burn.',
+          "The Locked Price & Closed Price are exactly the same (within 8 decimals), so neither side wins. All funds entered into UP and DOWN positions will go to the weekly ANDX burn."
         )}
       </Text>
     </>,
-    { placement: 'top' },
-  )
+    { placement: "top" }
+  );
 
   if (betPosition === BetPosition.HOUSE) {
     return (
       <>
         {tooltipVisible && tooltip}
-        <TooltipText ref={targetRef} color="secondary" fontWeight="300" textTransform="uppercase">
+        <TooltipText
+          ref={targetRef}
+          color="secondary"
+          fontWeight="300"
+          textTransform="uppercase"
+        >
           <Flex alignItems="center">
-            {t('To Burn')}
+            {t("To Burn")}
             <InfoIcon width="16px" ml="4px" color="secondary" />
           </Flex>
         </TooltipText>
       </>
-    )
+    );
   }
 
   return (
-    <Tag bg={isUpPosition ? 'success' : 'failure'} startIcon={icon} {...props}>
+    <Tag bg={isUpPosition ? "success" : "failure"} startIcon={icon} {...props}>
       {children}
     </Tag>
-  )
-}
+  );
+};
 
-export default PositionTag
+export default PositionTag;

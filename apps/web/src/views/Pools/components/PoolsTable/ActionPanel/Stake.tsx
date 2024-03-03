@@ -269,7 +269,7 @@ const Staked: React.FunctionComponent<
           >
             {vaultKey === VaultKey.CakeVault ||
             vaultKey === VaultKey.CakeFlexibleSideVault
-              ? t("Stake & Lock for veCAKE, to enjoy more rewards & benefit!")
+              ? t("Stake & Lock for veANDX, to enjoy more rewards & benefit!")
               : t("Start staking")}
           </Text>
         </ActionTitles>

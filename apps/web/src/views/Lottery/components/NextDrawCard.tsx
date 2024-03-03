@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { styled } from 'styled-components'
+import { useState } from "react";
+import { styled } from "styled-components";
 import {
   Card,
   CardHeader,
@@ -14,17 +14,17 @@ import {
   CardFooter,
   ExpandableLabel,
   Balance,
-} from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
-import { LotteryStatus } from 'config/constants/types'
-import { useTranslation } from '@pancakeswap/localization'
-import { useCakePrice } from 'hooks/useCakePrice'
-import { useLottery } from 'state/lottery/hooks'
-import { getBalanceNumber } from '@pancakeswap/utils/formatBalance'
-import ViewTicketsModal from './ViewTicketsModal'
-import BuyTicketsButton from './BuyTicketsButton'
-import { dateTimeOptions } from '../helpers'
-import RewardBrackets from './RewardBrackets'
+} from "@pancakeswap/uikit";
+import { useAccount } from "wagmi";
+import { LotteryStatus } from "config/constants/types";
+import { useTranslation } from "@pancakeswap/localization";
+import { useCakePrice } from "hooks/useCakePrice";
+import { useLottery } from "state/lottery/hooks";
+import { getBalanceNumber } from "@pancakeswap/utils/formatBalance";
+import ViewTicketsModal from "./ViewTicketsModal";
+import BuyTicketsButton from "./BuyTicketsButton";
+import { dateTimeOptions } from "../helpers";
+import RewardBrackets from "./RewardBrackets";
 
 const Grid = styled.div`
   display: grid;
@@ -34,7 +34,7 @@ const Grid = styled.div`
     grid-column-gap: 32px;
     grid-template-columns: auto 1fr;
   }
-`
+`;
 
 const StyledCard = styled(Card)`
   width: 100%;
@@ -46,40 +46,46 @@ const StyledCard = styled(Card)`
   ${({ theme }) => theme.mediaQueries.md} {
     width: 756px;
   }
-`
+`;
 
 const NextDrawWrapper = styled.div`
   background: ${({ theme }) => theme.colors.background};
   padding: 24px;
-`
+`;
 
 const NextDrawCard = () => {
   const {
     t,
     currentLanguage: { locale },
-  } = useTranslation()
-  const { address: account } = useAccount()
-  const { currentLotteryId, isTransitioning, currentRound } = useLottery()
-  const { endTime, amountCollectedInCake, userTickets, status } = currentRound
+  } = useTranslation();
+  const { address: account } = useAccount();
+  const { currentLotteryId, isTransitioning, currentRound } = useLottery();
+  const { endTime, amountCollectedInCake, userTickets, status } = currentRound;
 
-  const [onPresentViewTicketsModal] = useModal(<ViewTicketsModal roundId={currentLotteryId} roundStatus={status} />)
-  const [isExpanded, setIsExpanded] = useState(false)
-  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning
+  const [onPresentViewTicketsModal] = useModal(
+    <ViewTicketsModal roundId={currentLotteryId} roundStatus={status} />
+  );
+  const [isExpanded, setIsExpanded] = useState(false);
+  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning;
 
-  const cakePriceBusd = useCakePrice()
-  const prizeInBusd = amountCollectedInCake.times(cakePriceBusd)
-  const endTimeMs = parseInt(endTime, 10) * 1000
-  const endDate = new Date(endTimeMs)
-  const isLotteryOpen = status === LotteryStatus.OPEN
-  const userTicketCount = userTickets?.tickets?.length || 0
+  const cakePriceBusd = useCakePrice();
+  const prizeInBusd = amountCollectedInCake.times(cakePriceBusd);
+  const endTimeMs = parseInt(endTime, 10) * 1000;
+  const endDate = new Date(endTimeMs);
+  const isLotteryOpen = status === LotteryStatus.OPEN;
+  const userTicketCount = userTickets?.tickets?.length || 0;
 
   const getPrizeBalances = () => {
     if (status === LotteryStatus.CLOSE || status === LotteryStatus.CLAIMABLE) {
       return (
-        <Heading scale="xl" color="secondary" textAlign={['center', null, null, 'left']}>
-          {t('Calculating')}...
+        <Heading
+          scale="xl"
+          color="secondary"
+          textAlign={["center", null, null, "left"]}
+        >
+          {t("Calculating")}...
         </Heading>
-      )
+      );
     }
     return (
       <>
@@ -89,7 +95,7 @@ const NextDrawCard = () => {
           <Balance
             fontSize="40px"
             color="secondary"
-            textAlign={['center', null, null, 'left']}
+            textAlign={["center", null, null, "left"]}
             lineHeight="1"
             bold
             prefix="~$"
@@ -103,72 +109,84 @@ const NextDrawCard = () => {
           <Balance
             fontSize="14px"
             color="textSubtle"
-            textAlign={['center', null, null, 'left']}
-            unit=" CAKE"
+            textAlign={["center", null, null, "left"]}
+            unit=" ANDX"
             value={getBalanceNumber(amountCollectedInCake)}
             decimals={0}
           />
         )}
       </>
-    )
-  }
+    );
+  };
 
   const getNextDrawId = () => {
     if (status === LotteryStatus.OPEN) {
-      return `${currentLotteryId} |`
+      return `${currentLotteryId} |`;
     }
     if (status === LotteryStatus.PENDING) {
-      return ''
+      return "";
     }
-    return parseInt(currentLotteryId, 10) + 1
-  }
+    return parseInt(currentLotteryId, 10) + 1;
+  };
 
   const getNextDrawDateTime = () => {
     if (status === LotteryStatus.OPEN) {
-      return `${t('Draw')}: ${endDate.toLocaleString(locale, dateTimeOptions)}`
+      return `${t("Draw")}: ${endDate.toLocaleString(locale, dateTimeOptions)}`;
     }
-    return ''
-  }
+    return "";
+  };
 
   const ticketRoundText =
     userTicketCount > 1
-      ? t('You have %amount% tickets this round', { amount: userTicketCount })
-      : t('You have %amount% ticket this round', { amount: userTicketCount })
-  const [youHaveText, ticketsThisRoundText] = ticketRoundText.split(userTicketCount.toString())
+      ? t("You have %amount% tickets this round", { amount: userTicketCount })
+      : t("You have %amount% ticket this round", { amount: userTicketCount });
+  const [youHaveText, ticketsThisRoundText] = ticketRoundText.split(
+    userTicketCount.toString()
+  );
 
   return (
     <StyledCard>
       <CardHeader p="16px 24px">
         <Flex justifyContent="space-between">
-          <Heading mr="12px">{t('Next Draw')}</Heading>
+          <Heading mr="12px">{t("Next Draw")}</Heading>
           <Text>
-            {currentLotteryId && `#${getNextDrawId()}`} {Boolean(endTime) && getNextDrawDateTime()}
+            {currentLotteryId && `#${getNextDrawId()}`}{" "}
+            {Boolean(endTime) && getNextDrawDateTime()}
           </Text>
         </Flex>
       </CardHeader>
       <CardBody>
         <Grid>
-          <Flex justifyContent={['center', null, null, 'flex-start']}>
-            <Heading>{t('Prize Pot')}</Heading>
+          <Flex justifyContent={["center", null, null, "flex-start"]}>
+            <Heading>{t("Prize Pot")}</Heading>
           </Flex>
           <Flex flexDirection="column" mb="18px">
             {getPrizeBalances()}
           </Flex>
-          <Box display={['none', null, null, 'flex']}>
-            <Heading>{t('Your tickets')}</Heading>
+          <Box display={["none", null, null, "flex"]}>
+            <Heading>{t("Your tickets")}</Heading>
           </Box>
-          <Flex flexDirection={['column', null, null, 'row']} alignItems={['center', null, null, 'flex-start']}>
+          <Flex
+            flexDirection={["column", null, null, "row"]}
+            alignItems={["center", null, null, "flex-start"]}
+          >
             {isLotteryOpen && (
               <Flex
                 flexDirection="column"
-                mr={[null, null, null, '24px']}
-                alignItems={['center', null, null, 'flex-start']}
+                mr={[null, null, null, "24px"]}
+                alignItems={["center", null, null, "flex-start"]}
               >
                 {account && (
-                  <Flex justifyContent={['center', null, null, 'flex-start']}>
+                  <Flex justifyContent={["center", null, null, "flex-start"]}>
                     <Text display="inline">{youHaveText} </Text>
                     {!userTickets.isLoading ? (
-                      <Balance value={userTicketCount} decimals={0} display="inline" bold mx="4px" />
+                      <Balance
+                        value={userTicketCount}
+                        decimals={0}
+                        display="inline"
+                        bold
+                        mx="4px"
+                      />
                     ) : (
                       <Skeleton mx="4px" height={20} width={40} />
                     )}
@@ -181,11 +199,11 @@ const NextDrawCard = () => {
                     height="auto"
                     width="fit-content"
                     p="0"
-                    mb={['32px', null, null, '0']}
+                    mb={["32px", null, null, "0"]}
                     variant="text"
                     scale="sm"
                   >
-                    {t('View your tickets')}
+                    {t("View your tickets")}
                   </Button>
                 )}
               </Flex>
@@ -202,14 +220,17 @@ const NextDrawCard = () => {
         )}
         {(status === LotteryStatus.OPEN || status === LotteryStatus.CLOSE) && (
           <Flex p="8px 24px" alignItems="center" justifyContent="center">
-            <ExpandableLabel expanded={isExpanded} onClick={() => setIsExpanded(!isExpanded)}>
-              {isExpanded ? t('Hide') : t('Details')}
+            <ExpandableLabel
+              expanded={isExpanded}
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? t("Hide") : t("Details")}
             </ExpandableLabel>
           </Flex>
         )}
       </CardFooter>
     </StyledCard>
-  )
-}
+  );
+};
 
-export default NextDrawCard
+export default NextDrawCard;

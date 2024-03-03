@@ -109,7 +109,7 @@ const Mint: React.FC<React.PropsWithChildren> = () => {
             )}
           </Text>
           <Text as="p" mb="24px" color="textSubtle">
-            {t("Cost: %num% CAKE", { num: formatUnits(MINT_COST, 18) })}
+            {t("Cost: %num% ANDX", { num: formatUnits(MINT_COST, 18) })}
           </Text>
           {starterNfts.map((nft) => {
             const handleChange = (value: string) => setSelectedBunnyId(value);
@@ -135,7 +135,7 @@ const Mint: React.FC<React.PropsWithChildren> = () => {
           })}
           {!hasMinimumCakeRequired && (
             <Text color="failure" mb="16px">
-              {t("A minimum of %num% CAKE is required", {
+              {t("A minimum of %num% ANDX is required", {
                 num: formatUnits(MINT_COST, 18),
               })}
             </Text>

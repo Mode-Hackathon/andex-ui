@@ -6,9 +6,9 @@ export const cakeToken = new ERC20Token(
   ChainId.MODE_MAINNET,
   "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
   18,
-  "CAKE",
+  "ANDX",
   "Andex Token",
-  "https://andex.vercel.app/"
+  "https://andex.vercel.app/",
 );
 
 export const bscToken = new ERC20Token(
@@ -17,5 +17,5 @@ export const bscToken = new ERC20Token(
   18,
   "BNB",
   "BNB",
-  "https://www.binance.com/"
+  "https://www.binance.com/",
 );

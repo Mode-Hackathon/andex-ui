@@ -5,7 +5,7 @@ import { getMasterChefV2Address } from "utils/addressHelpers";
 import { formatEther } from "viem";
 import { useContractRead } from "wagmi";
 
-const CAKE_PER_BLOCK = 40;
+const ANDX_PER_BLOCK = 40;
 const masterChefAddress = getMasterChefV2Address();
 
 export const useCakeEmissionPerBlock = (inView?: boolean) => {
@@ -17,7 +17,7 @@ export const useCakeEmissionPerBlock = (inView?: boolean) => {
     enabled: inView,
     select: (d) => {
       const burn = formatEther(d);
-      return new BigNumber(CAKE_PER_BLOCK).minus(burn).toNumber();
+      return new BigNumber(ANDX_PER_BLOCK).minus(burn).toNumber();
     },
   });
 

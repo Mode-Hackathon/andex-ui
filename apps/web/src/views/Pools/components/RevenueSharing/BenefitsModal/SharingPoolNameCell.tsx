@@ -51,7 +51,7 @@ const SharingPoolNameCell = () => {
           lineHeight="110%"
           textTransform="uppercase"
         >
-          {t("CAKE locked")}
+          {t("ANDX locked")}
         </Text>
         <Balance
           bold

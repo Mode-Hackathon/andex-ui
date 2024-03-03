@@ -1,8 +1,11 @@
-import addresses from 'config/constants/contracts'
+import addresses from "config/constants/contracts";
 
-import { GRAPH_API_PREDICTION_CAKE, GRAPH_API_PREDICTION_BNB } from 'config/constants/endpoints'
-import { getAddressFromMap } from 'utils/addressHelpers'
-import { goerliTestnetTokens } from '@pancakeswap/tokens'
+import {
+  GRAPH_API_PREDICTION_ANDX,
+  GRAPH_API_PREDICTION_BNB,
+} from "config/constants/endpoints";
+import { getAddressFromMap } from "utils/addressHelpers";
+import { goerliTestnetTokens } from "@pancakeswap/tokens";
 
 export default {
   BNB: {
@@ -12,11 +15,11 @@ export default {
     displayedDecimals: 4,
     token: goerliTestnetTokens.weth,
   },
-  CAKE: {
-    address: getAddressFromMap(addresses.predictionsCAKE),
-    api: GRAPH_API_PREDICTION_CAKE,
-    chainlinkOracleAddress: getAddressFromMap(addresses.chainlinkOracleCAKE),
+  ANDX: {
+    address: getAddressFromMap(addresses.predictionsANDX),
+    api: GRAPH_API_PREDICTION_ANDX,
+    chainlinkOracleAddress: getAddressFromMap(addresses.chainlinkOracleANDX),
     displayedDecimals: 4,
     token: goerliTestnetTokens.cake,
   },
-}
+};

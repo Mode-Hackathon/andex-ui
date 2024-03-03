@@ -64,7 +64,7 @@ const FanTokenUserPrizeGrid: React.FC<
         <tr>
           <BoldTd>
             <Flex flexDirection="column">
-              <Text bold>{cakeReward.toFixed(4)} CAKE</Text>
+              <Text bold>{cakeReward.toFixed(4)} ANDX</Text>
               <Text bold>{lazioReward.toFixed(4)} LAZIO</Text>
               <Text bold>{portoReward.toFixed(4)} PORTO</Text>
               <Text bold>{santosReward.toFixed(4)} SANTOS</Text>

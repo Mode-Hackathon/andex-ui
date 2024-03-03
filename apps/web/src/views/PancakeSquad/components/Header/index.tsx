@@ -27,7 +27,7 @@ import {
 } from "./styles";
 import { PancakeSquadHeaderType } from "./types";
 
-const DEFAULT_CAKE_COST = 15;
+const DEFAULT_ANDX_COST = 15;
 const DEFAULT_MAX_TICKETS = 10;
 
 const PancakeSquadHeader: React.FC<
@@ -84,8 +84,8 @@ const PancakeSquadHeader: React.FC<
         {`${t("Public Sale:")} 08:00 UTC, Oct. 7`}
       </Text>
       <Text color={lightColors.warning} textAlign="center" bold>
-        {t("Mint Cost: %minCost% CAKE each", {
-          minCost: DEFAULT_CAKE_COST,
+        {t("Mint Cost: %minCost% ANDX each", {
+          minCost: DEFAULT_ANDX_COST,
         })}
       </Text>
       <Text color={lightColors.warning} textAlign="center" bold>

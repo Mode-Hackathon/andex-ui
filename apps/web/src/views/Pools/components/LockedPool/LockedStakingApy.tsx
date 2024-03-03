@@ -1,20 +1,22 @@
-import { Pool } from '@pancakeswap/widgets-internal'
-import { memo } from 'react'
+import { Pool } from "@pancakeswap/widgets-internal";
+import { memo } from "react";
 
-import { Token } from '@pancakeswap/sdk'
-import { LightGreyCard } from 'components/Card'
-import LockDurationRow from './Common/LockDurationRow'
-import LockedStaking from './LockedStaking'
-import useUserDataInVaultPresenter from './hooks/useUserDataInVaultPresenter'
-import { LockedStakingApyPropsType } from './types'
+import { Token } from "@pancakeswap/sdk";
+import { LightGreyCard } from "components/Card";
+import LockDurationRow from "./Common/LockDurationRow";
+import LockedStaking from "./LockedStaking";
+import useUserDataInVaultPresenter from "./hooks/useUserDataInVaultPresenter";
+import { LockedStakingApyPropsType } from "./types";
 
 interface LockedStakingApyProps extends LockedStakingApyPropsType {
-  showICake?: boolean
-  pool?: Pool.DeserializedPool<Token>
-  account?: string
+  showICake?: boolean;
+  pool?: Pool.DeserializedPool<Token>;
+  account?: string;
 }
 
-const LockedStakingApy: React.FC<React.PropsWithChildren<LockedStakingApyProps>> = ({ userData, pool }) => {
+const LockedStakingApy: React.FC<
+  React.PropsWithChildren<LockedStakingApyProps>
+> = ({ userData, pool }) => {
   // const position = useMemo(
   //   () =>
   //     getVaultPosition({
@@ -29,7 +31,7 @@ const LockedStakingApy: React.FC<React.PropsWithChildren<LockedStakingApyProps>>
     lockStartTime: userData?.lockStartTime,
     lockEndTime: userData?.lockEndTime,
     burnStartTime: userData?.burnStartTime,
-  })
+  });
 
   // const { lockedApy } = useVaultApy({ duration: secondDuration })
 
@@ -60,7 +62,7 @@ const LockedStakingApy: React.FC<React.PropsWithChildren<LockedStakingApyProps>>
         {tagTooltipVisibleOfRecentProfit && tagTooltipOfRecentProfit}
         <TooltipText>
           <Text ref={tagTargetRefOfRecentProfit} color="textSubtle" textTransform="uppercase" bold fontSize="12px">
-            {t('Recent CAKE profit')}
+            {t('Recent ANDX profit')}
           </Text>
         </TooltipText>
         <BalanceWithLoading color="text" bold fontSize="16px" value={earningTokenBalance} decimals={5} />
@@ -95,7 +97,7 @@ const LockedStakingApy: React.FC<React.PropsWithChildren<LockedStakingApyProps>>
       </Flex>
       {showICake && <IfoCakeRow />} */}
     </LightGreyCard>
-  )
-}
+  );
+};
 
-export default memo(LockedStakingApy)
+export default memo(LockedStakingApy);

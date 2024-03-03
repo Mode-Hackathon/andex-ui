@@ -77,7 +77,7 @@ export const V3SwapPromotionIcon: React.FC<{
     tooltip: campaignTooltip,
     tooltipVisible: campaignTooltipVisible,
     targetRef: campaignTargetRef,
-  } = useTooltip(<Text>{t("Claim $135K CAKE Airdrop & Exclusive NFT")}</Text>, {
+  } = useTooltip(<Text>{t("Claim $135K ANDX Airdrop & Exclusive NFT")}</Text>, {
     placement: "top",
     trigger: "hover",
     avoidToStopPropagation: true,

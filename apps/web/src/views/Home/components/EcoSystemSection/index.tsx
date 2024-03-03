@@ -266,7 +266,7 @@ const useEarnBlockData = () => {
     return [
       {
         title: t("Farm"),
-        description: t("Stake LP tokens, harvest CAKE"),
+        description: t("Stake LP tokens, harvest ANDX"),
         ctaTitle: t("Stake Now"),
         image: earnFarm,
         defaultImage: earnFarmPurple,
@@ -274,7 +274,7 @@ const useEarnBlockData = () => {
       },
       {
         title: t("Pools"),
-        description: t("Stake CAKE, earn various rewards"),
+        description: t("Stake ANDX, earn various rewards"),
         ctaTitle: t("Stake Now"),
         image: earnPools,
         defaultImage: earnPoolsPurple,
@@ -322,7 +322,7 @@ const useNftGameBlockData = () => {
       },
       {
         title: t("Lottery"),
-        description: t("Enter for a chance to win CAKE prize pools"),
+        description: t("Enter for a chance to win ANDX prize pools"),
         ctaTitle: t("Try Now"),
         image: gameLottery,
         defaultImage: gameLotteryPurple,
@@ -330,7 +330,7 @@ const useNftGameBlockData = () => {
       },
       {
         title: t("Pottery"),
-        description: t("Stake CAKE, acquire pottery tickets, win prizes"),
+        description: t("Stake ANDX, acquire pottery tickets, win prizes"),
         ctaTitle: t("Try Now"),
         image: gamePottery,
         defaultImage: gamePotteryPurple,

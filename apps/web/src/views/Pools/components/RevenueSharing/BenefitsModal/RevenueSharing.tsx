@@ -79,16 +79,16 @@ const RevenueSharing: React.FunctionComponent<
               title={t("Available for claiming")}
               tooltipComponent={
                 <Text>
-                  {t("Amount of revenue available for claiming in CAKE.")}
+                  {t("Amount of revenue available for claiming in ANDX.")}
                 </Text>
               }
             />
             <Box>
               {availableCake > 0 && availableCake <= 0.01 ? (
-                <Text bold textAlign="right">{`< 0.01 CAKE`}</Text>
+                <Text bold textAlign="right">{`< 0.01 ANDX`}</Text>
               ) : (
                 <Balance
-                  unit=" CAKE"
+                  unit=" ANDX"
                   textAlign="right"
                   bold
                   value={availableCake}

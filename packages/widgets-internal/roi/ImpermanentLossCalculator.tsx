@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState, useMemo, memo } from "react";
 import { Currency, CurrencyAmount, ONE_HUNDRED_PERCENT, ZERO_PERCENT } from "@pancakeswap/sdk";
 import { FeeCalculator, encodeSqrtRatioX96 } from "@pancakeswap/v3-sdk";
 import { styled } from "styled-components";
-import { CAKE } from "@pancakeswap/tokens";
+import { ANDX } from "@pancakeswap/tokens";
 import { Box, Row, AutoColumn, Toggle, RowBetween, Message } from "@pancakeswap/uikit";
 import { DoubleCurrencyLogo } from "../components/CurrencyLogo";
 
@@ -45,11 +45,11 @@ interface Props {
 
 const getCakeAssetsByReward = (chainId: number, cakeRewardAmount = 0, cakePrice: string) => {
   return {
-    currency: CAKE[chainId as keyof typeof CAKE],
+    currency: ANDX[chainId as keyof typeof ANDX],
     amount: cakeRewardAmount,
     price: cakePrice,
     value: Number.isFinite(cakeRewardAmount) ? +cakeRewardAmount * +cakePrice : Infinity,
-    key: "CAKE_ASSET_BY_APY",
+    key: "ANDX_ASSET_BY_APY",
   };
 };
 
@@ -91,11 +91,11 @@ export const ImpermanentLossCalculator = memo(function ImpermanentLossCalculator
             },
           ]
         : undefined,
-    [valueA, currencyA, valueB, currencyB, currencyAUsdPrice, currencyBUsdPrice]
+    [valueA, currencyA, valueB, currencyB, currencyAUsdPrice, currencyBUsdPrice],
   );
   const cakeRewardAmount = useMemo(
     () => (Number.isFinite(cakeReward) ? +cakeReward / +cakePrice : Infinity),
-    [cakeReward, cakePrice]
+    [cakeReward, cakePrice],
   );
   const liquidity = useMemo(
     () =>
@@ -106,13 +106,13 @@ export const ImpermanentLossCalculator = memo(function ImpermanentLossCalculator
       sqrtRatioX96 &&
       tickLower < tickUpper &&
       FeeCalculator.getLiquidityByAmountsAndPrice({ amountA, amountB, tickUpper, tickLower, sqrtRatioX96 }),
-    [amountA, amountB, tickUpper, tickLower, sqrtRatioX96]
+    [amountA, amountB, tickUpper, tickLower, sqrtRatioX96],
   );
 
   const exitAssets = useMemo<Asset[] | undefined>(() => {
-    if (assets && isFarm && currencyA && currencyA.chainId in CAKE && cakePrice) {
+    if (assets && isFarm && currencyA && currencyA.chainId in ANDX && cakePrice) {
       const cakePriceToUse =
-        assets.find((a) => a.currency.equals(CAKE[currencyA.chainId as keyof typeof CAKE]))?.price ?? cakePrice;
+        assets.find((a) => a.currency.equals(ANDX[currencyA.chainId as keyof typeof ANDX]))?.price ?? cakePrice;
       return [...assets, getCakeAssetsByReward(currencyA.chainId, cakeRewardAmount, cakePriceToUse)];
     }
     return assets;
@@ -145,7 +145,7 @@ export const ImpermanentLossCalculator = memo(function ImpermanentLossCalculator
       hodlValue && principal
         ? floatToPercent(hodlValue / principal)?.subtract(ONE_HUNDRED_PERCENT) || ZERO_PERCENT
         : ZERO_PERCENT,
-    [hodlValue, principal]
+    [hodlValue, principal],
   );
   const exitValue = useMemo(() => {
     return (
@@ -168,12 +168,12 @@ export const ImpermanentLossCalculator = memo(function ImpermanentLossCalculator
   }, [exitValue, principal]);
   const lpBetter = useMemo(
     () => (exitRate === Infinity ? true : !hodlRate.greaterThan(exitRate)),
-    [exitRate, hodlRate]
+    [exitRate, hodlRate],
   );
 
   const isExitPriceOutOfRange = useMemo(
     () => principal && exit && exit.length >= 2 && exit.slice(0, 2).some((asset) => Number(asset.amount) === 0),
-    [exit, principal]
+    [exit, principal],
   );
 
   const getPriceAdjustedAssets = useCallback(
@@ -197,7 +197,7 @@ export const ImpermanentLossCalculator = memo(function ImpermanentLossCalculator
         amountA.currency.wrapped,
         amountB.currency.wrapped,
         parseFloat(priceA),
-        parseFloat(priceB)
+        parseFloat(priceB),
       );
       if (!token0Price) {
         return newAssets;
@@ -237,17 +237,17 @@ export const ImpermanentLossCalculator = memo(function ImpermanentLossCalculator
     },
     // setEditCakePrice is not a dependency because it's setState
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [amountA, amountB, tickLower, tickUpper, sqrtRatioX96, cakeRewardAmount, liquidity]
+    [amountA, amountB, tickLower, tickUpper, sqrtRatioX96, cakeRewardAmount, liquidity],
   );
 
   const updateEntry = useCallback(
     (newEntry: Asset[]) => setEntry(getPriceAdjustedAssets(newEntry)),
-    [getPriceAdjustedAssets]
+    [getPriceAdjustedAssets],
   );
 
   const updateExit = useCallback(
     (newExit: Asset[]) => setExit(getPriceAdjustedAssets(newExit)),
-    [getPriceAdjustedAssets]
+    [getPriceAdjustedAssets],
   );
 
   const syncNewAssets = useCallback(
@@ -257,12 +257,12 @@ export const ImpermanentLossCalculator = memo(function ImpermanentLossCalculator
         ? getPriceAdjustedAssets(
             // Use underlaying amounts from the new liquidity and only use the price from user
             currentAssets.map((asset, i) =>
-              asset.priceChanged ? { ...asset, ...newAssets[i], price: asset.price } : newAssets[i]
-            )
+              asset.priceChanged ? { ...asset, ...newAssets[i], price: asset.price } : newAssets[i],
+            ),
           )
         : // If user doesn't edit any of the prices, then update the whole liquidity including token prices
           newAssets,
-    [getPriceAdjustedAssets]
+    [getPriceAdjustedAssets],
   );
 
   useEffect(() => {
@@ -284,7 +284,7 @@ export const ImpermanentLossCalculator = memo(function ImpermanentLossCalculator
   const outofRangeWarning = isExitPriceOutOfRange ? (
     <Message variant="warning">
       {t(
-        "Exit price is out of the position price range. The number of estimated rewards will not account for the loss from the position being out-of-range."
+        "Exit price is out of the position price range. The number of estimated rewards will not account for the loss from the position being out-of-range.",
       )}
     </Message>
   ) : null;

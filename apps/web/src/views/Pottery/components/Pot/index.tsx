@@ -1,22 +1,34 @@
-import { styled } from 'styled-components'
-import { useState, useCallback, useMemo } from 'react'
-import { Flex, Box, Card, Text, useMatchBreakpoints, Balance, ButtonTabMenu } from '@pancakeswap/uikit'
-import { useTranslation } from '@pancakeswap/localization'
-import { useCakePrice } from 'hooks/useCakePrice'
-import { getBalanceNumber } from '@pancakeswap/utils/formatBalance'
-import { usePotteryData } from 'state/pottery/hook'
-import Deposit from './Deposit/index'
-import Claim from './Claim/index'
-import CardHeader from './CardHeader'
-import { POT_CATEGORY } from '../../types'
+import { styled } from "styled-components";
+import { useState, useCallback, useMemo } from "react";
+import {
+  Flex,
+  Box,
+  Card,
+  Text,
+  useMatchBreakpoints,
+  Balance,
+  ButtonTabMenu,
+} from "@pancakeswap/uikit";
+import { useTranslation } from "@pancakeswap/localization";
+import { useCakePrice } from "hooks/useCakePrice";
+import { getBalanceNumber } from "@pancakeswap/utils/formatBalance";
+import { usePotteryData } from "state/pottery/hook";
+import Deposit from "./Deposit/index";
+import Claim from "./Claim/index";
+import CardHeader from "./CardHeader";
+import { POT_CATEGORY } from "../../types";
 
 const PotteryContainer = styled(Box)`
   position: relative;
   padding: 44px 16px 56px 16px;
-  background: radial-gradient(51.67% 114.22% at 51.67% 49.78%, #6e42bc 0%, #a881fc 100%);
+  background: radial-gradient(
+    51.67% 114.22% at 51.67% 49.78%,
+    #6e42bc 0%,
+    #a881fc 100%
+  );
 
   &:: before {
-    content: '';
+    content: "";
     width: 100%;
     height: 48px;
     position: absolute;
@@ -35,7 +47,7 @@ const PotteryContainer = styled(Box)`
       rgba(168, 129, 252, 1) 100%
     );
   }
-`
+`;
 
 const PotImage = styled.div`
   width: 260px;
@@ -52,7 +64,7 @@ const PotImage = styled.div`
     height: 362.52px;
     margin-top: 0;
   }
-`
+`;
 
 const BalanceStyle = styled(Balance)`
   padding: 0 2px;
@@ -61,30 +73,38 @@ const BalanceStyle = styled(Balance)`
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-stroke: 8px transparent;
-  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2), 0px 4px 12px rgba(14, 14, 44, 0.1);
-`
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2),
+    0px 4px 12px rgba(14, 14, 44, 0.1);
+`;
 
 const Pot: React.FC<React.PropsWithChildren> = () => {
-  const { t } = useTranslation()
-  const cakePriceBusd = useCakePrice()
-  const { isMobile } = useMatchBreakpoints()
-  const { publicData } = usePotteryData()
+  const { t } = useTranslation();
+  const cakePriceBusd = useCakePrice();
+  const { isMobile } = useMatchBreakpoints();
+  const { publicData } = usePotteryData();
 
-  const [activeTab, setIndex] = useState<POT_CATEGORY>(POT_CATEGORY.Deposit)
-  const handleClick = useCallback((tabType: POT_CATEGORY) => setIndex(tabType), [])
+  const [activeTab, setIndex] = useState<POT_CATEGORY>(POT_CATEGORY.Deposit);
+  const handleClick = useCallback(
+    (tabType: POT_CATEGORY) => setIndex(tabType),
+    []
+  );
 
-  const prizeInBusd = publicData.totalPrize.times(cakePriceBusd)
-  const prizeTotal = getBalanceNumber(prizeInBusd)
+  const prizeInBusd = publicData.totalPrize.times(cakePriceBusd);
+  const prizeTotal = getBalanceNumber(prizeInBusd);
 
   const tabMenuItems = useMemo(() => {
-    return [t('Deposit'), t('Claim')]
-  }, [t])
+    return [t("Deposit"), t("Claim")];
+  }, [t]);
 
   return (
     <PotteryContainer id="stake-to-win">
-      <Flex width={['100%', '100%', '436px', '436px', '939px']} m="auto" flexDirection="column">
+      <Flex
+        width={["100%", "100%", "436px", "436px", "939px"]}
+        m="auto"
+        flexDirection="column"
+      >
         <Text color="white" fontSize="32px" textAlign="center" bold>
-          {t('Current Prize Pot')}
+          {t("Current Prize Pot")}
         </Text>
         <BalanceStyle
           bold
@@ -96,16 +116,23 @@ const Pot: React.FC<React.PropsWithChildren> = () => {
           textAlign="center"
         />
         <Text color="white" mt="10px" fontSize="24px" textAlign="center" bold>
-          {t('Stake to get your tickets NOW')}
+          {t("Stake to get your tickets NOW")}
         </Text>
-        <Flex justifyContent="space-between" flexDirection={['column', 'column', 'column', 'column', 'row']}>
+        <Flex
+          justifyContent="space-between"
+          flexDirection={["column", "column", "column", "column", "row"]}
+        >
           <Flex mt="48px" alignItems="flex-start">
-            <Card style={{ width: isMobile ? '100%' : '436px' }}>
-              <ButtonTabMenu itemList={tabMenuItems} onItemClick={handleClick} activeIndex={activeTab} />
+            <Card style={{ width: isMobile ? "100%" : "436px" }}>
+              <ButtonTabMenu
+                itemList={tabMenuItems}
+                onItemClick={handleClick}
+                activeIndex={activeTab}
+              />
               <Box>
                 <CardHeader
-                  title={t('Pottery')}
-                  subTitle={t('Stake CAKE, Earn CAKE, Win CAKE')}
+                  title={t("Pottery")}
+                  subTitle={t("Stake ANDX, Earn ANDX, Win ANDX")}
                   primarySrc="https://tokens.pancakeswap.finance/images/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png"
                   secondarySrc="/images/pot-icon.svg"
                 />
@@ -117,7 +144,7 @@ const Pot: React.FC<React.PropsWithChildren> = () => {
         </Flex>
       </Flex>
     </PotteryContainer>
-  )
-}
+  );
+};
 
-export default Pot
+export default Pot;

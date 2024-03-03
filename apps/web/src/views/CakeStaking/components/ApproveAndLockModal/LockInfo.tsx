@@ -1,6 +1,6 @@
 import { ChainId } from "@pancakeswap/chains";
 import { useTranslation } from "@pancakeswap/localization";
-import { CAKE } from "@pancakeswap/tokens";
+import { ANDX } from "@pancakeswap/tokens";
 import { Flex, FlexGap, Text, TokenImage } from "@pancakeswap/uikit";
 import { getBalanceNumber } from "@pancakeswap/utils/formatBalance";
 import BN from "bignumber.js";
@@ -62,14 +62,14 @@ export const LockInfo: React.FC<LockInfoProps> = ({ amount, status }) => {
       <Flex alignItems="center" width="100%" justifyContent="center">
         <TokenImage
           src={`https://andex.vercel.app/images/tokens/${
-            CAKE[ChainId.MODE_MAINNET].address
+            ANDX[ChainId.MODE_MAINNET].address
           }.png`}
           height={20}
           width={20}
           mr="4px"
-          title={CAKE[ChainId.MODE_MAINNET].symbol}
+          title={ANDX[ChainId.MODE_MAINNET].symbol}
         />
-        <Text fontSize="14px">{`${txAmount} CAKE`}</Text>
+        <Text fontSize="14px">{`${txAmount} ANDX`}</Text>
       </Flex>
 
       <Text fontSize={12} color="textSubtle">

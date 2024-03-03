@@ -218,7 +218,7 @@ export const SwapModalFooter = memo(function SwapModalFooter({
                     </Text>
                     <Text>
                       -{" "}
-                      {t("%amount% towards CAKE buyback and burn", {
+                      {t("%amount% towards ANDX buyback and burn", {
                         amount: buyBackFeePercent,
                       })}
                     </Text>

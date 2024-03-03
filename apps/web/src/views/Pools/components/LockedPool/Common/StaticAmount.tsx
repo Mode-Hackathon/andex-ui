@@ -1,24 +1,27 @@
-import { Text, Flex, Image, Box, BalanceWithLoading } from '@pancakeswap/uikit'
-import Divider from 'components/Divider'
-import { useTranslation } from '@pancakeswap/localization'
-import { StaticAmountPropsType } from '../types'
+import { Text, Flex, Image, Box, BalanceWithLoading } from "@pancakeswap/uikit";
+import Divider from "components/Divider";
+import { useTranslation } from "@pancakeswap/localization";
+import { StaticAmountPropsType } from "../types";
 
-const StaticAmount: React.FC<React.PropsWithChildren<StaticAmountPropsType>> = ({
-  stakingSymbol,
-  stakingAddress,
-  lockedAmount,
-  usdValueStaked,
-}) => {
-  const { t } = useTranslation()
+const StaticAmount: React.FC<
+  React.PropsWithChildren<StaticAmountPropsType>
+> = ({ stakingSymbol, stakingAddress, lockedAmount, usdValueStaked }) => {
+  const { t } = useTranslation();
 
   return (
     <>
       <Text color="textSubtle" textTransform="uppercase" bold fontSize="12px">
-        {t('Add CAKE to lock')}
+        {t("Add ANDX to lock")}
       </Text>
       <Flex alignItems="center" justifyContent="space-between" mb="16px">
         <Box>
-          <BalanceWithLoading color="text" bold fontSize="16px" value={lockedAmount} decimals={2} />
+          <BalanceWithLoading
+            color="text"
+            bold
+            fontSize="16px"
+            value={lockedAmount}
+            decimals={2}
+          />
           <BalanceWithLoading
             value={usdValueStaked}
             fontSize="12px"
@@ -29,7 +32,12 @@ const StaticAmount: React.FC<React.PropsWithChildren<StaticAmountPropsType>> = (
           />
         </Box>
         <Flex alignItems="center" minWidth="70px">
-          <Image src={`/images/tokens/${stakingAddress}.png`} width={24} height={24} alt={stakingSymbol} />
+          <Image
+            src={`/images/tokens/${stakingAddress}.png`}
+            width={24}
+            height={24}
+            alt={stakingSymbol}
+          />
           <Text ml="4px" bold>
             {stakingSymbol}
           </Text>
@@ -37,7 +45,7 @@ const StaticAmount: React.FC<React.PropsWithChildren<StaticAmountPropsType>> = (
       </Flex>
       <Divider />
     </>
-  )
-}
+  );
+};
 
-export default StaticAmount
+export default StaticAmount;

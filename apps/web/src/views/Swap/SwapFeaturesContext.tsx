@@ -20,13 +20,15 @@ export const SwapFeaturesContext = createContext<{
   isAccessTokenSupported: false,
   isChartExpanded: false,
   isChartDisplayed: false,
+  //@ts-ignore
   setIsChartExpanded: null,
+  //@ts-ignore,
   setIsChartDisplayed: null,
 });
 
 const CHART_SUPPORT_CHAIN_IDS = [
-  ChainId.MODE_MAINNET,
-  ChainId.MODE_TESTNET,
+  // ChainId.MODE_MAINNET,
+  // ChainId.MODE_TESTNET,
   // ChainId.ETHEREUM
 ];
 const ACCESS_TOKEN_SUPPORT_CHAIN_IDS = [ChainId.MODE_MAINNET];
@@ -46,6 +48,7 @@ export const SwapFeaturesProvider: React.FC<React.PropsWithChildren> = ({
   const isChartSupported = useMemo(
     () =>
       // avoid layout shift, by default showing
+      //@ts-ignore
       !chainId || CHART_SUPPORT_CHAIN_IDS.includes(chainId),
     [chainId]
   );
@@ -56,11 +59,13 @@ export const SwapFeaturesProvider: React.FC<React.PropsWithChildren> = ({
   );
 
   const isAccessTokenSupported = useMemo(
+    //@ts-ignore
     () => ACCESS_TOKEN_SUPPORT_CHAIN_IDS.includes(chainId),
     [chainId]
   );
 
   const isHotTokenSupported = useMemo(
+    //@ts-ignore
     () => HOT_TOKEN_SUPPORT_CHAIN_IDS.includes(chainId),
     [chainId]
   );

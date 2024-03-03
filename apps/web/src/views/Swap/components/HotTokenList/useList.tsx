@@ -1,4 +1,4 @@
-import { PANCAKE_EXTENDED } from "config/constants/lists";
+import { PANANDX_EXTENDED } from "config/constants/lists";
 import { useAtomValue } from "jotai";
 import { useMemo } from "react";
 import { selectorByUrlsAtom } from "state/lists/hooks";
@@ -12,7 +12,7 @@ import { parseV3TokenData, parseV2TokenData } from "./utils";
 export const useChainWhiteList = (chainId?: number) => {
   const listsByUrl = useAtomValue(selectorByUrlsAtom);
   const whiteList = useMemo(() => {
-    const list = listsByUrl[PANCAKE_EXTENDED]?.current;
+    const list = listsByUrl[PANANDX_EXTENDED]?.current;
     return list ? list.tokens.map((t) => t.address.toLowerCase()) : [];
   }, [listsByUrl]);
   if (chainId !== ChainId.MODE_MAINNET) return null;

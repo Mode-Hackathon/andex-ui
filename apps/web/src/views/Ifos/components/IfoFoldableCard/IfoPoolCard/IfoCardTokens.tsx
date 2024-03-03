@@ -161,7 +161,7 @@ const IfoCardTokens: React.FC<React.PropsWithChildren<IfoCardTokensProps>> = ({
   const { chainId } = useActiveChainId();
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     t(
-      "Sorry, you didn’t contribute enough CAKE to meet the minimum threshold. You didn’t buy anything in this sale, but you can still reclaim your CAKE."
+      "Sorry, you didn’t contribute enough ANDX to meet the minimum threshold. You didn’t buy anything in this sale, but you can still reclaim your ANDX."
     ),
     { placement: "bottom" }
   );
@@ -421,7 +421,7 @@ const IfoCardTokens: React.FC<React.PropsWithChildren<IfoCardTokensProps>> = ({
               <>
                 <Text textAlign="center" fontSize="14px">
                   {t(
-                    "To participate in the next IFO, lock some CAKE in the fixed-term staking CAKE pool!"
+                    "To participate in the next IFO, lock some ANDX in the fixed-term staking ANDX pool!"
                   )}
                 </Text>
                 <TextLink href="/ifo#ifo-how-to" textAlign="center">

@@ -14,7 +14,7 @@ const ZkSyncWarning = () => {
           <Message variant="warning" m="24px 0 0 0">
             <MessageText>
               {t(
-                "When staking on zkSync Era, unstaking your CAKE shortly after staking could result in no rewards being earned."
+                "When staking on zkSync Era, unstaking your ANDX shortly after staking could result in no rewards being earned."
               )}
             </MessageText>
           </Message>

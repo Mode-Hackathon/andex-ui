@@ -88,7 +88,7 @@ const IfoPoolVaultCardMobile: React.FC<
           </StyledTokenContent>
           <StyledTokenContent flexDirection="column" flex={1}>
             <Text color="textSubtle" fontSize="12px">
-              {t("iCAKE")}
+              {t("iANDX")}
             </Text>
             <Balance small bold decimals={3} value={cakeAsNumberBalance} />
           </StyledTokenContent>

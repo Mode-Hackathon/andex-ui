@@ -1,53 +1,67 @@
-import { createPublicClient, http } from 'viem'
-import { goerliTestnetTokens } from '@pancakeswap/tokens'
-import BigNumber from 'bignumber.js'
-import { SNAPSHOT_HUB_API } from 'config/constants/endpoints'
-import fromPairs from 'lodash/fromPairs'
-import groupBy from 'lodash/groupBy'
-import { Proposal, ProposalState, ProposalType, Vote } from 'state/types'
-import { bsc } from 'viem/chains'
-import { cakeVaultV2ABI } from '@pancakeswap/pools'
-import { Address } from 'wagmi'
-import { getCakeVaultAddress } from 'utils/addressHelpers'
-import { convertSharesToCake } from 'views/Pools/helpers'
-import { ADMINS, PANCAKE_SPACE, SNAPSHOT_VERSION } from './config'
-import { getScores } from './getScores'
-import * as strategies from './strategies'
+import { createPublicClient, http } from "viem";
+import { goerliTestnetTokens } from "@pancakeswap/tokens";
+import BigNumber from "bignumber.js";
+import { SNAPSHOT_HUB_API } from "config/constants/endpoints";
+import fromPairs from "lodash/fromPairs";
+import groupBy from "lodash/groupBy";
+import { Proposal, ProposalState, ProposalType, Vote } from "state/types";
+import { bsc } from "viem/chains";
+import { cakeVaultV2ABI } from "@pancakeswap/pools";
+import { Address } from "wagmi";
+import { getCakeVaultAddress } from "utils/addressHelpers";
+import { convertSharesToCake } from "views/Pools/helpers";
+import { ADMINS, PANANDX_SPACE, SNAPSHOT_VERSION } from "./config";
+import { getScores } from "./getScores";
+import * as strategies from "./strategies";
 
 export const isCoreProposal = (proposal: Proposal) => {
-  return ADMINS.includes(proposal.author.toLowerCase())
-}
+  return ADMINS.includes(proposal.author.toLowerCase());
+};
 
-export const filterProposalsByType = (proposals: Proposal[], proposalType: ProposalType) => {
+export const filterProposalsByType = (
+  proposals: Proposal[],
+  proposalType: ProposalType
+) => {
   if (proposals) {
     switch (proposalType) {
       case ProposalType.COMMUNITY:
-        return proposals.filter((proposal) => !isCoreProposal(proposal))
+        return proposals.filter((proposal) => !isCoreProposal(proposal));
       case ProposalType.CORE:
-        return proposals.filter((proposal) => isCoreProposal(proposal))
+        return proposals.filter((proposal) => isCoreProposal(proposal));
       case ProposalType.ALL:
       default:
-        return proposals
+        return proposals;
     }
   } else {
-    return []
+    return [];
   }
-}
+};
 
-export const filterProposalsByState = (proposals: Proposal[], state: ProposalState) => {
-  return proposals.filter((proposal) => proposal.state === state)
-}
+export const filterProposalsByState = (
+  proposals: Proposal[],
+  state: ProposalState
+) => {
+  return proposals.filter((proposal) => proposal.state === state);
+};
 
 export interface Message {
-  address: string
-  msg: string
-  sig: string
+  address: string;
+  msg: string;
+  sig: string;
 }
 
 const STRATEGIES = [
-  { name: 'cake', params: { symbol: 'CAKE', address: goerliTestnetTokens.cake.address, decimals: 18, max: 300 } },
-]
-const NETWORK = '56'
+  {
+    name: "cake",
+    params: {
+      symbol: "ANDX",
+      address: goerliTestnetTokens.cake.address,
+      decimals: 18,
+      max: 300,
+    },
+  },
+];
+const NETWORK = "56";
 
 /**
  * Generates metadata required by snapshot to validate payload
@@ -57,8 +71,8 @@ export const generateMetaData = () => {
     plugins: {},
     network: 56,
     strategies: STRATEGIES,
-  }
-}
+  };
+};
 
 /**
  * Returns data that is required on all snapshot payloads
@@ -67,66 +81,72 @@ export const generatePayloadData = () => {
   return {
     version: SNAPSHOT_VERSION,
     timestamp: (Date.now() / 1e3).toFixed(),
-    space: PANCAKE_SPACE,
-  }
-}
+    space: PANANDX_SPACE,
+  };
+};
 
 /**
  * General function to send commands to the snapshot api
  */
 export const sendSnapshotData = async (message: Message) => {
   const response = await fetch(SNAPSHOT_HUB_API, {
-    method: 'post',
+    method: "post",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(message),
-  })
+  });
 
   if (!response.ok) {
-    const error = await response.json()
-    throw new Error(error?.error_description)
+    const error = await response.json();
+    throw new Error(error?.error_description);
   }
 
-  const data = await response.json()
-  return data
-}
+  const data = await response.json();
+  return data;
+};
 
 export const VOTING_POWER_BLOCK = {
   v0: 16300686n,
   v1: 17137653n,
-}
+};
 
 /**
  *  Get voting power by single user for each category
  */
 interface GetVotingPowerType {
-  total: number
-  voter: string
-  poolsBalance?: number
-  cakeBalance?: number
-  cakePoolBalance?: number
-  cakeBnbLpBalance?: number
-  cakeVaultBalance?: number
-  ifoPoolBalance?: number
-  lockedCakeBalance?: number
-  lockedEndTime?: number
+  total: number;
+  voter: string;
+  poolsBalance?: number;
+  cakeBalance?: number;
+  cakePoolBalance?: number;
+  cakeBnbLpBalance?: number;
+  cakeVaultBalance?: number;
+  ifoPoolBalance?: number;
+  lockedCakeBalance?: number;
+  lockedEndTime?: number;
 }
 
 const nodeRealProvider = createPublicClient({
-  transport: http(`https://bsc-mainnet.nodereal.io/v1/${process.env.NEXT_PUBLIC_NODE_REAL_API_ETH}`),
+  transport: http(
+    `https://bsc-mainnet.nodereal.io/v1/${process.env.NEXT_PUBLIC_NODE_REAL_API_ETH}`
+  ),
   chain: bsc,
-})
+});
 
 export const getVotingPower = async (
   account: Address,
   poolAddresses: Address[],
-  blockNumber?: bigint,
+  blockNumber?: bigint
 ): Promise<GetVotingPowerType> => {
-  if (blockNumber && (blockNumber >= VOTING_POWER_BLOCK.v0 || blockNumber >= VOTING_POWER_BLOCK.v1)) {
-    const cakeVaultAddress = getCakeVaultAddress()
-    const version = blockNumber >= VOTING_POWER_BLOCK.v1 ? 'v1' : 'v0'
+  if (
+    blockNumber &&
+    (blockNumber >= VOTING_POWER_BLOCK.v0 ||
+      blockNumber >= VOTING_POWER_BLOCK.v1)
+  ) {
+    const cakeVaultAddress = getCakeVaultAddress();
+    const version = blockNumber >= VOTING_POWER_BLOCK.v1 ? "v1" : "v0";
 
     const [
       pricePerShare,
@@ -144,50 +164,59 @@ export const getVotingPower = async (
         {
           address: cakeVaultAddress,
           abi: cakeVaultV2ABI,
-          functionName: 'getPricePerFullShare',
+          functionName: "getPricePerFullShare",
         },
         {
           address: cakeVaultAddress,
           abi: cakeVaultV2ABI,
-          functionName: 'userInfo',
+          functionName: "userInfo",
           args: [account],
         },
       ],
       blockNumber,
       allowFailure: false,
-    })
+    });
 
-    const [cakeBalance, cakeBnbLpBalance, cakePoolBalance, cakeVaultBalance, poolsBalance, total, ifoPoolBalance] =
-      await getScores(
-        PANCAKE_SPACE,
-        [
-          strategies.cakeBalanceStrategy(version),
-          strategies.cakeBnbLpBalanceStrategy(version),
-          strategies.cakePoolBalanceStrategy(version),
-          strategies.cakeVaultBalanceStrategy(version),
-          strategies.createPoolsBalanceStrategy(poolAddresses, version),
-          strategies.createTotalStrategy(poolAddresses, version),
-          strategies.ifoPoolBalanceStrategy,
-        ],
-        NETWORK,
-        [account],
-        Number(blockNumber),
-      )
+    const [
+      cakeBalance,
+      cakeBnbLpBalance,
+      cakePoolBalance,
+      cakeVaultBalance,
+      poolsBalance,
+      total,
+      ifoPoolBalance,
+    ] = await getScores(
+      PANANDX_SPACE,
+      [
+        strategies.cakeBalanceStrategy(version),
+        strategies.cakeBnbLpBalanceStrategy(version),
+        strategies.cakePoolBalanceStrategy(version),
+        strategies.cakeVaultBalanceStrategy(version),
+        strategies.createPoolsBalanceStrategy(poolAddresses, version),
+        strategies.createTotalStrategy(poolAddresses, version),
+        strategies.ifoPoolBalanceStrategy,
+      ],
+      NETWORK,
+      [account],
+      Number(blockNumber)
+    );
 
     const lockedCakeBalance = convertSharesToCake(
       new BigNumber(shares.toString()),
       new BigNumber(pricePerShare.toString()),
       18,
       3,
-      new BigNumber(userBoostedShare.toString()),
-    )?.cakeAsNumberBalance
+      new BigNumber(userBoostedShare.toString())
+    )?.cakeAsNumberBalance;
 
     const versionOne =
-      version === 'v0'
+      version === "v0"
         ? {
-          ifoPoolBalance: ifoPoolBalance[account] ? ifoPoolBalance[account] : 0,
-        }
-        : {}
+            ifoPoolBalance: ifoPoolBalance[account]
+              ? ifoPoolBalance[account]
+              : 0,
+          }
+        : {};
 
     return {
       ...versionOne,
@@ -196,60 +225,86 @@ export const getVotingPower = async (
       poolsBalance: poolsBalance[account] ? poolsBalance[account] : 0,
       cakeBalance: cakeBalance[account] ? cakeBalance[account] : 0,
       cakePoolBalance: cakePoolBalance[account] ? cakePoolBalance[account] : 0,
-      cakeBnbLpBalance: cakeBnbLpBalance[account] ? cakeBnbLpBalance[account] : 0,
-      cakeVaultBalance: cakeVaultBalance[account] ? cakeVaultBalance[account] : 0,
-      lockedCakeBalance: Number.isFinite(lockedCakeBalance) ? lockedCakeBalance : 0,
+      cakeBnbLpBalance: cakeBnbLpBalance[account]
+        ? cakeBnbLpBalance[account]
+        : 0,
+      cakeVaultBalance: cakeVaultBalance[account]
+        ? cakeVaultBalance[account]
+        : 0,
+      lockedCakeBalance: Number.isFinite(lockedCakeBalance)
+        ? lockedCakeBalance
+        : 0,
       lockedEndTime: lockEndTime ? +lockEndTime.toString() : 0,
-    }
+    };
   }
 
-  const [total] = await getScores(PANCAKE_SPACE, STRATEGIES, NETWORK, [account], Number(blockNumber))
+  const [total] = await getScores(
+    PANANDX_SPACE,
+    STRATEGIES,
+    NETWORK,
+    [account],
+    Number(blockNumber)
+  );
 
   return {
     total: total[account] ? total[account] : 0,
     voter: account,
-  }
-}
+  };
+};
 
-export const calculateVoteResults = (votes: Vote[]): { [key: string]: Vote[] } => {
+export const calculateVoteResults = (
+  votes: Vote[]
+): { [key: string]: Vote[] } => {
   if (votes) {
-    const result = groupBy(votes, (vote) => vote.proposal.choices[vote.choice - 1])
-    return result
+    const result = groupBy(
+      votes,
+      (vote) => vote.proposal.choices[vote.choice - 1]
+    );
+    return result;
   }
-  return {}
-}
+  return {};
+};
 
 export const getTotalFromVotes = (votes: Vote[]) => {
   if (votes) {
     return votes.reduce((accum, vote) => {
-      let power = parseFloat(vote.metadata?.votingPower)
+      let power = parseFloat(vote.metadata?.votingPower);
 
       if (!power) {
-        power = 0
+        power = 0;
       }
 
-      return accum + power
-    }, 0)
+      return accum + power;
+    }, 0);
   }
-  return 0
-}
+  return 0;
+};
 
 /**
  * Get voting power by a list of voters, only total
  */
-export async function getVotingPowerByCakeStrategy(voters: string[], blockNumber: number) {
-  const strategyResponse = await getScores(PANCAKE_SPACE, STRATEGIES, NETWORK, voters, blockNumber)
+export async function getVotingPowerByCakeStrategy(
+  voters: string[],
+  blockNumber: number
+) {
+  const strategyResponse = await getScores(
+    PANANDX_SPACE,
+    STRATEGIES,
+    NETWORK,
+    voters,
+    blockNumber
+  );
 
   const result = fromPairs(
     voters.map((voter) => {
       const defaultTotal = strategyResponse.reduce(
         (total, scoreList) => total + (scoreList[voter] ? scoreList[voter] : 0),
-        0,
-      )
+        0
+      );
 
-      return [voter, defaultTotal]
-    }),
-  )
+      return [voter, defaultTotal];
+    })
+  );
 
-  return result
+  return result;
 }

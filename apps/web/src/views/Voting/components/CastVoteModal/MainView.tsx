@@ -125,7 +125,7 @@ const MainView: React.FC<React.PropsWithChildren<MainViewProps>> = ({
                       >
                         {isBoostingExpired
                           ? t("Boosting Expired")
-                          : t("Boosted by vCAKE")}
+                          : t("Boosted by vANDX")}
                       </Text>
                     </Flex>
                   )}
@@ -139,7 +139,7 @@ const MainView: React.FC<React.PropsWithChildren<MainViewProps>> = ({
               <Message variant="danger" mb="12px">
                 <Text color="danger">
                   {t(
-                    "Hold some CAKE in your wallet or on Andex at the snapshot block to get voting power for future proposals."
+                    "Hold some ANDX in your wallet or on Andex at the snapshot block to get voting power for future proposals."
                   )}
                 </Text>
               </Message>

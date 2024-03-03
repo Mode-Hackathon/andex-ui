@@ -122,7 +122,7 @@ const MigrationPage: React.FC<React.PropsWithChildren> = () => {
             </Heading>
             <Text fontSize={["12px", , "16px"]} color="text">
               {t(
-                "Migrate your liquidity to Exchange V3 and keep farming CAKE rewards."
+                "Migrate your liquidity to Exchange V3 and keep farming ANDX rewards."
               )}
             </Text>
             <AutoColumn gap="4px" pt="4px">

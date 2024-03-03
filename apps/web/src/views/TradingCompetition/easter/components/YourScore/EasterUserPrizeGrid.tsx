@@ -1,5 +1,5 @@
-import React from 'react'
-import { styled } from 'styled-components'
+import React from "react";
+import { styled } from "styled-components";
 import {
   BlockIcon,
   CheckmarkCircleIcon,
@@ -9,30 +9,40 @@ import {
   TeamPlayerIcon,
   TrophyGoldIcon,
   Skeleton,
-} from '@pancakeswap/uikit'
-import { useTranslation } from '@pancakeswap/localization'
-import { useCompetitionCakeRewards, getEasterRewardGroupAchievements } from '../../../helpers'
-import { BoldTd, Td, StyledPrizeTable } from '../../../components/StyledPrizeTable'
+} from "@pancakeswap/uikit";
+import { useTranslation } from "@pancakeswap/localization";
+import {
+  useCompetitionCakeRewards,
+  getEasterRewardGroupAchievements,
+} from "../../../helpers";
+import {
+  BoldTd,
+  Td,
+  StyledPrizeTable,
+} from "../../../components/StyledPrizeTable";
 
 const StyledThead = styled.thead`
   border-bottom: 2px solid ${({ theme }) => theme.colors.cardBorder};
-`
+`;
 
-const EasterUserPrizeGrid: React.FC<React.PropsWithChildren<{ userTradingInformation? }>> = ({
-  userTradingInformation,
-}) => {
-  const { t } = useTranslation()
-  const { userRewardGroup, userCakeRewards, userPointReward, canClaimNFT } = userTradingInformation
-  const { cakeReward, dollarValueOfCakeReward } = useCompetitionCakeRewards(userCakeRewards)
-  const { champion, teamPlayer } = getEasterRewardGroupAchievements(userRewardGroup)
+const EasterUserPrizeGrid: React.FC<
+  React.PropsWithChildren<{ userTradingInformation? }>
+> = ({ userTradingInformation }) => {
+  const { t } = useTranslation();
+  const { userRewardGroup, userCakeRewards, userPointReward, canClaimNFT } =
+    userTradingInformation;
+  const { cakeReward, dollarValueOfCakeReward } =
+    useCompetitionCakeRewards(userCakeRewards);
+  const { champion, teamPlayer } =
+    getEasterRewardGroupAchievements(userRewardGroup);
 
   return (
     <StyledPrizeTable>
       <StyledThead>
         <tr>
-          <th>{t('CAKE Prizes')}</th>
-          <th>{t('Achievements')}</th>
-          <th>{t('NFT')}</th>
+          <th>{t("ANDX Prizes")}</th>
+          <th>{t("Achievements")}</th>
+          <th>{t("NFT")}</th>
         </tr>
       </StyledThead>
       <tbody>
@@ -50,20 +60,35 @@ const EasterUserPrizeGrid: React.FC<React.PropsWithChildren<{ userTradingInforma
             </Flex>
           </BoldTd>
           <Td>
-            <Flex alignItems="center" flexWrap="wrap" justifyContent="center" width="100%">
-              {champion > 0 && <CrownIcon mr={[0, '4px']} />}
-              {teamPlayer > 0 && <TeamPlayerIcon mr={[0, '4px']} />}
-              <TrophyGoldIcon mr={[0, '4px']} />
-              <Text fontSize="12px" color="textSubtle" textTransform="lowercase">
-                + {userPointReward} {t('Points')}
+            <Flex
+              alignItems="center"
+              flexWrap="wrap"
+              justifyContent="center"
+              width="100%"
+            >
+              {champion > 0 && <CrownIcon mr={[0, "4px"]} />}
+              {teamPlayer > 0 && <TeamPlayerIcon mr={[0, "4px"]} />}
+              <TrophyGoldIcon mr={[0, "4px"]} />
+              <Text
+                fontSize="12px"
+                color="textSubtle"
+                textTransform="lowercase"
+              >
+                + {userPointReward} {t("Points")}
               </Text>
             </Flex>
           </Td>
-          <Td>{canClaimNFT ? <CheckmarkCircleIcon color="success" /> : <BlockIcon color="textDisabled" />}</Td>
+          <Td>
+            {canClaimNFT ? (
+              <CheckmarkCircleIcon color="success" />
+            ) : (
+              <BlockIcon color="textDisabled" />
+            )}
+          </Td>
         </tr>
       </tbody>
     </StyledPrizeTable>
-  )
-}
+  );
+};
 
-export default EasterUserPrizeGrid
+export default EasterUserPrizeGrid;

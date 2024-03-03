@@ -1,19 +1,24 @@
-import BigNumber from 'bignumber.js'
-import { Flex, Skeleton, Text, Balance } from '@pancakeswap/uikit'
-import { useTranslation } from '@pancakeswap/localization'
-import { useCakePrice } from 'hooks/useCakePrice'
-import { getBalanceNumber, getFullDisplayBalance } from '@pancakeswap/utils/formatBalance'
+import BigNumber from "bignumber.js";
+import { Flex, Skeleton, Text, Balance } from "@pancakeswap/uikit";
+import { useTranslation } from "@pancakeswap/localization";
+import { useCakePrice } from "hooks/useCakePrice";
+import {
+  getBalanceNumber,
+  getFullDisplayBalance,
+} from "@pancakeswap/utils/formatBalance";
 
 interface RewardBracketDetailProps {
-  cakeAmount: BigNumber
-  rewardBracket?: number
-  numberWinners?: string
-  isBurn?: boolean
-  isHistoricRound?: boolean
-  isLoading?: boolean
+  cakeAmount: BigNumber;
+  rewardBracket?: number;
+  numberWinners?: string;
+  isBurn?: boolean;
+  isHistoricRound?: boolean;
+  isLoading?: boolean;
 }
 
-const RewardBracketDetail: React.FC<React.PropsWithChildren<RewardBracketDetailProps>> = ({
+const RewardBracketDetail: React.FC<
+  React.PropsWithChildren<RewardBracketDetailProps>
+> = ({
   rewardBracket,
   cakeAmount,
   numberWinners,
@@ -21,26 +26,26 @@ const RewardBracketDetail: React.FC<React.PropsWithChildren<RewardBracketDetailP
   isBurn,
   isLoading,
 }) => {
-  const { t } = useTranslation()
-  const cakePriceBusd = useCakePrice()
+  const { t } = useTranslation();
+  const cakePriceBusd = useCakePrice();
 
   const getRewardText = () => {
-    const numberMatch = rewardBracket + 1
+    const numberMatch = rewardBracket + 1;
     if (isBurn) {
-      return t('Burn')
+      return t("Burn");
     }
     if (rewardBracket === 5) {
-      return t('Match all %numberMatch%', { numberMatch })
+      return t("Match all %numberMatch%", { numberMatch });
     }
-    return t('Match first %numberMatch%', { numberMatch })
-  }
+    return t("Match first %numberMatch%", { numberMatch });
+  };
 
   return (
     <Flex flexDirection="column">
       {isLoading ? (
         <Skeleton mb="4px" mt="8px" height={16} width={80} />
       ) : (
-        <Text bold color={isBurn ? 'failure' : 'secondary'}>
+        <Text bold color={isBurn ? "failure" : "secondary"}>
           {getRewardText()}
         </Text>
       )}
@@ -48,7 +53,13 @@ const RewardBracketDetail: React.FC<React.PropsWithChildren<RewardBracketDetailP
         {isLoading || cakeAmount.isNaN() ? (
           <Skeleton my="4px" mr="10px" height={20} width={110} />
         ) : (
-          <Balance fontSize="20px" bold unit=" CAKE" value={getBalanceNumber(cakeAmount)} decimals={0} />
+          <Balance
+            fontSize="20px"
+            bold
+            unit=" ANDX"
+            value={getBalanceNumber(cakeAmount)}
+            decimals={0}
+          />
         )}
         {isLoading || cakeAmount.isNaN() ? (
           <>
@@ -65,19 +76,24 @@ const RewardBracketDetail: React.FC<React.PropsWithChildren<RewardBracketDetailP
         )}
         {isHistoricRound && cakeAmount && (
           <>
-            {numberWinners !== '0' && (
+            {numberWinners !== "0" && (
               <Text fontSize="12px" color="textSubtle">
-                {getFullDisplayBalance(cakeAmount.div(parseInt(numberWinners, 10)), 18, 2)} CAKE {t('each')}
+                {getFullDisplayBalance(
+                  cakeAmount.div(parseInt(numberWinners, 10)),
+                  18,
+                  2
+                )}{" "}
+                ANDX {t("each")}
               </Text>
             )}
             <Text fontSize="12px" color="textSubtle">
-              {numberWinners} {t('Winning Tickets')}
+              {numberWinners} {t("Winning Tickets")}
             </Text>
           </>
         )}
       </>
     </Flex>
-  )
-}
+  );
+};
 
-export default RewardBracketDetail
+export default RewardBracketDetail;

@@ -114,7 +114,7 @@ export default function Swap() {
         position="relative"
         alignItems="flex-start"
       >
-        {isDesktop && isChartSupported && (
+        {isDesktop && isChartSupported && false && (
           <PriceChartContainer
             inputCurrencyId={inputCurrencyId}
             inputCurrency={currencies[Field.INPUT]}
@@ -126,7 +126,7 @@ export default function Swap() {
             currentSwapPrice={singleTokenPrice}
           />
         )}
-        {!isDesktop && isChartSupported && (
+        {!isDesktop && isChartSupported && false && (
           <BottomDrawer
             content={
               <PriceChartContainer
@@ -146,11 +146,13 @@ export default function Swap() {
             setIsOpen={setIsChartDisplayed}
           />
         )}
-        {isDesktop && isSwapHotTokenDisplay && isHotTokenSupported && (
+        {isDesktop && isSwapHotTokenDisplay && isHotTokenSupported && false && (
           <HotTokenList handleOutputSelect={handleOutputSelect} />
         )}
         <ModalV2
-          isOpen={!isDesktop && isSwapHotTokenDisplay && isHotTokenSupported}
+          isOpen={
+            !isDesktop && isSwapHotTokenDisplay && isHotTokenSupported && false
+          }
           onDismiss={() => setIsSwapHotTokenDisplay(false)}
         >
           <Modal

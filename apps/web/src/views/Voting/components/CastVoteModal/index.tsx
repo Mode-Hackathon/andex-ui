@@ -1,17 +1,17 @@
-import { useTranslation } from '@pancakeswap/localization'
-import { Box, Modal, useToast } from '@pancakeswap/uikit'
-import { useAccount, useWalletClient } from 'wagmi'
-import snapshot from '@snapshot-labs/snapshot.js'
-import useTheme from 'hooks/useTheme'
-import { useState } from 'react'
-import { PANCAKE_SPACE } from 'views/Voting/config'
-import useGetVotingPower from '../../hooks/useGetVotingPower'
-import DetailsView from './DetailsView'
-import MainView from './MainView'
-import { CastVoteModalProps, ConfirmVoteView } from './types'
+import { useTranslation } from "@pancakeswap/localization";
+import { Box, Modal, useToast } from "@pancakeswap/uikit";
+import { useAccount, useWalletClient } from "wagmi";
+import snapshot from "@snapshot-labs/snapshot.js";
+import useTheme from "hooks/useTheme";
+import { useState } from "react";
+import { PANANDX_SPACE } from "views/Voting/config";
+import useGetVotingPower from "../../hooks/useGetVotingPower";
+import DetailsView from "./DetailsView";
+import MainView from "./MainView";
+import { CastVoteModalProps, ConfirmVoteView } from "./types";
 
-const hub = 'https://hub.snapshot.org'
-const client = new snapshot.Client712(hub)
+const hub = "https://hub.snapshot.org";
+const client = new snapshot.Client712(hub);
 
 const CastVoteModal: React.FC<React.PropsWithChildren<CastVoteModalProps>> = ({
   onSuccess,
@@ -20,13 +20,13 @@ const CastVoteModal: React.FC<React.PropsWithChildren<CastVoteModalProps>> = ({
   block,
   onDismiss,
 }) => {
-  const [view, setView] = useState<ConfirmVoteView>(ConfirmVoteView.MAIN)
-  const [isPending, setIsPending] = useState(false)
-  const { address: account } = useAccount()
-  const { data: signer } = useWalletClient()
-  const { t } = useTranslation()
-  const { toastError } = useToast()
-  const { theme } = useTheme()
+  const [view, setView] = useState<ConfirmVoteView>(ConfirmVoteView.MAIN);
+  const [isPending, setIsPending] = useState(false);
+  const { address: account } = useAccount();
+  const { data: signer } = useWalletClient();
+  const { t } = useTranslation();
+  const { toastError } = useToast();
+  const { theme } = useTheme();
   const {
     isLoading,
     isError,
@@ -39,24 +39,24 @@ const CastVoteModal: React.FC<React.PropsWithChildren<CastVoteModalProps>> = ({
     ifoPoolBalance,
     lockedCakeBalance,
     lockedEndTime,
-  } = useGetVotingPower(block)
+  } = useGetVotingPower(block);
 
-  const isStartView = view === ConfirmVoteView.MAIN
-  const handleBack = isStartView ? null : () => setView(ConfirmVoteView.MAIN)
-  const handleViewDetails = () => setView(ConfirmVoteView.DETAILS)
+  const isStartView = view === ConfirmVoteView.MAIN;
+  const handleBack = isStartView ? null : () => setView(ConfirmVoteView.MAIN);
+  const handleViewDetails = () => setView(ConfirmVoteView.DETAILS);
 
   const title = {
-    [ConfirmVoteView.MAIN]: t('Confirm Vote'),
-    [ConfirmVoteView.DETAILS]: t('Voting Power'),
-  }
+    [ConfirmVoteView.MAIN]: t("Confirm Vote"),
+    [ConfirmVoteView.DETAILS]: t("Voting Power"),
+  };
 
   const handleDismiss = () => {
-    onDismiss()
-  }
+    onDismiss();
+  };
 
   const handleConfirmVote = async () => {
     try {
-      setIsPending(true)
+      setIsPending(true);
       const web3 = {
         getSigner: () => {
           return {
@@ -66,31 +66,34 @@ const CastVoteModal: React.FC<React.PropsWithChildren<CastVoteModalProps>> = ({
                 domain,
                 types,
                 message,
-                primaryType: 'Vote',
+                primaryType: "Vote",
               }),
-          }
+          };
         },
-      }
+      };
 
       await client.vote(web3 as any, account, {
-        space: PANCAKE_SPACE,
+        space: PANANDX_SPACE,
         choice: vote.value,
-        reason: '',
-        type: 'single-choice',
+        reason: "",
+        type: "single-choice",
         proposal: proposalId,
-        app: 'snapshot',
-      })
+        app: "snapshot",
+      });
 
-      await onSuccess()
+      await onSuccess();
 
-      handleDismiss()
+      handleDismiss();
     } catch (error) {
-      toastError(t('Error'), (error as Error)?.message ?? t('Error occurred, please try again'))
-      console.error(error)
+      toastError(
+        t("Error"),
+        (error as Error)?.message ?? t("Error occurred, please try again")
+      );
+      console.error(error);
     } finally {
-      setIsPending(false)
+      setIsPending(false);
     }
-  }
+  };
 
   return (
     <Modal
@@ -131,7 +134,7 @@ const CastVoteModal: React.FC<React.PropsWithChildren<CastVoteModalProps>> = ({
         )}
       </Box>
     </Modal>
-  )
-}
+  );
+};
 
-export default CastVoteModal
+export default CastVoteModal;

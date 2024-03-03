@@ -1,7 +1,7 @@
-import { expect, test } from 'vitest'
-import * as exports from './index'
+import { expect, test } from "vitest";
+import * as exports from "./index";
 
-test('exports', () => {
+test("exports", () => {
   expect(Object.keys(exports)).toMatchInlineSnapshot(`
     [
       "POOLS_CONFIG_BY_CHAIN",
@@ -16,11 +16,11 @@ test('exports', () => {
       "BOOSTED_POOLS_CONFIG_BY_CHAIN",
       "getBoostedPoolsConfig",
       "getBoostedPoolConfig",
-      "ICAKE",
-      "CAKE_VAULT",
-      "CAKE_FLEXIBLE_SIDE_VAULT",
+      "IANDX",
+      "ANDX_VAULT",
+      "ANDX_FLEXIBLE_SIDE_VAULT",
       "SUPPORTED_CHAIN_IDS",
-      "CAKE_VAULT_SUPPORTED_CHAINS",
+      "ANDX_VAULT_SUPPORTED_CHAINS",
       "BSC_BLOCK_TIME",
       "BLOCKS_PER_DAY",
       "BLOCKS_PER_YEAR",
@@ -64,5 +64,5 @@ test('exports', () => {
       "sousChefV2ABI",
       "sousChefV3ABI",
     ]
-  `)
-})
+  `);
+});

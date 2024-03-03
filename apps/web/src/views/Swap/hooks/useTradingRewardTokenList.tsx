@@ -8,7 +8,7 @@ const useTradingRewardTokenList = () => {
   const { chainId } = useActiveChainId();
   // const { data } = useAllTradingRewardPair({
   //   status: RewardStatus.ALL,
-  //   type: RewardType.CAKE_STAKERS,
+  //   type: RewardType.ANDX_STAKERS,
   // })
 
   const uniqueAddressList = useMemo(() => {

@@ -1,20 +1,20 @@
-import { MANAGER, Strategy } from '@pancakeswap/position-managers'
-import { Card, CardBody } from '@pancakeswap/uikit'
-import { Currency, Percent, Price, CurrencyAmount } from '@pancakeswap/sdk'
-import { FeeAmount } from '@pancakeswap/v3-sdk'
-import { Address } from 'viem'
-import { ReactNode, memo, PropsWithChildren, useMemo } from 'react'
-import { styled } from 'styled-components'
-import { useApr } from 'views/PositionManagers/hooks/useApr'
-import { CardTitle } from './CardTitle'
-import { YieldInfo } from './YieldInfo'
-import { ManagerInfo } from './ManagerInfo'
-import { LiquidityManagement } from './LiquidityManagement'
-import { getVaultName } from '../utils'
-import { ExpandableSection } from './ExpandableSection'
-import { VaultInfo } from './VaultInfo'
-import { VaultLinks } from './VaultLinks'
-import { AprDataInfo } from '../hooks'
+import { MANAGER, Strategy } from "@pancakeswap/position-managers";
+import { Card, CardBody } from "@pancakeswap/uikit";
+import { Currency, Percent, Price, CurrencyAmount } from "@pancakeswap/sdk";
+import { FeeAmount } from "@pancakeswap/v3-sdk";
+import { Address } from "viem";
+import { ReactNode, memo, PropsWithChildren, useMemo } from "react";
+import { styled } from "styled-components";
+import { useApr } from "views/PositionManagers/hooks/useApr";
+import { CardTitle } from "./CardTitle";
+import { YieldInfo } from "./YieldInfo";
+import { ManagerInfo } from "./ManagerInfo";
+import { LiquidityManagement } from "./LiquidityManagement";
+import { getVaultName } from "../utils";
+import { ExpandableSection } from "./ExpandableSection";
+import { VaultInfo } from "./VaultInfo";
+import { VaultLinks } from "./VaultLinks";
+import { AprDataInfo } from "../hooks";
 
 const StyledCard = styled(Card)`
   align-self: baseline;
@@ -24,57 +24,57 @@ const StyledCard = styled(Card)`
     max-width: 350px;
     margin: 0 12px 46px;
   }
-`
+`;
 
 interface Props {
-  currencyA: Currency
-  currencyB: Currency
-  earningToken: Currency
-  name: string
-  id: string | number
-  idByManager: string | number
-  feeTier: FeeAmount
-  ratio: number
-  strategy: Strategy
+  currencyA: Currency;
+  currencyB: Currency;
+  earningToken: Currency;
+  name: string;
+  id: string | number;
+  idByManager: string | number;
+  feeTier: FeeAmount;
+  ratio: number;
+  strategy: Strategy;
   manager: {
-    id: MANAGER
-    name: string
-  }
-  managerFee?: Percent
-  autoFarm?: boolean
-  autoCompound?: boolean
-  info?: ReactNode
-  isSingleDepositToken: boolean
-  allowDepositToken0?: boolean
-  allowDepositToken1?: boolean
-  contractAddress: Address
-  poolToken0Amount?: bigint
-  poolToken1Amount?: bigint
-  stakedToken0Amount?: bigint
-  stakedToken1Amount?: bigint
-  token0PriceUSD?: number
-  token1PriceUSD?: number
-  pendingReward: bigint | undefined
-  userVaultPercentage?: Percent
-  managerAddress: Address
-  managerInfoUrl: string
-  strategyInfoUrl: string
-  projectVaultUrl?: string
-  learnMoreAboutUrl?: string
-  rewardPerSecond: string
+    id: MANAGER;
+    name: string;
+  };
+  managerFee?: Percent;
+  autoFarm?: boolean;
+  autoCompound?: boolean;
+  info?: ReactNode;
+  isSingleDepositToken: boolean;
+  allowDepositToken0?: boolean;
+  allowDepositToken1?: boolean;
+  contractAddress: Address;
+  poolToken0Amount?: bigint;
+  poolToken1Amount?: bigint;
+  stakedToken0Amount?: bigint;
+  stakedToken1Amount?: bigint;
+  token0PriceUSD?: number;
+  token1PriceUSD?: number;
+  pendingReward: bigint | undefined;
+  userVaultPercentage?: Percent;
+  managerAddress: Address;
+  managerInfoUrl: string;
+  strategyInfoUrl: string;
+  projectVaultUrl?: string;
+  learnMoreAboutUrl?: string;
+  rewardPerSecond: string;
   aprDataInfo: {
-    info: AprDataInfo | undefined
-    isLoading: boolean
-  }
-  rewardEndTime: number
-  rewardStartTime: number
-  refetch?: () => void
-  totalAssetsInUsd: number
-  totalStakedInUsd: number
-  userLpAmounts?: bigint
-  totalSupplyAmounts?: bigint
-  precision?: bigint
-  lpTokenDecimals?: number
+    info: AprDataInfo | undefined;
+    isLoading: boolean;
+  };
+  rewardEndTime: number;
+  rewardStartTime: number;
+  refetch?: () => void;
+  totalAssetsInUsd: number;
+  totalStakedInUsd: number;
+  userLpAmounts?: bigint;
+  totalSupplyAmounts?: bigint;
+  precision?: bigint;
+  lpTokenDecimals?: number;
 }
 
 export const DuoTokenVaultCard = memo(function DuoTokenVaultCard({
@@ -132,14 +132,24 @@ export const DuoTokenVaultCard = memo(function DuoTokenVaultCard({
     avgToken1Amount: aprDataInfo?.info?.token1 ?? 0,
     rewardEndTime,
     rewardStartTime,
-  })
+  });
 
-  const price = new Price(currencyA, currencyB, 100000n, 100000n)
-  const vaultName = useMemo(() => getVaultName(idByManager, name), [name, idByManager])
-  const staked0Amount = stakedToken0Amount ? CurrencyAmount.fromRawAmount(currencyA, stakedToken0Amount) : undefined
-  const staked1Amount = stakedToken1Amount ? CurrencyAmount.fromRawAmount(currencyB, stakedToken1Amount) : undefined
+  const price = new Price(currencyA, currencyB, 100000n, 100000n);
+  const vaultName = useMemo(
+    () => getVaultName(idByManager, name),
+    [name, idByManager]
+  );
+  const staked0Amount = stakedToken0Amount
+    ? CurrencyAmount.fromRawAmount(currencyA, stakedToken0Amount)
+    : undefined;
+  const staked1Amount = stakedToken1Amount
+    ? CurrencyAmount.fromRawAmount(currencyB, stakedToken1Amount)
+    : undefined;
 
-  const withCakeReward: boolean = useMemo(() => earningToken.symbol === 'CAKE', [earningToken])
+  const withCakeReward: boolean = useMemo(
+    () => earningToken.symbol === "ANDX",
+    [earningToken]
+  );
 
   return (
     <StyledCard>
@@ -168,7 +178,12 @@ export const DuoTokenVaultCard = memo(function DuoTokenVaultCard({
           precision={precision}
           lpTokenDecimals={lpTokenDecimals}
         />
-        <ManagerInfo mt="1.5em" id={manager.id} name={manager.name} strategy={strategy} />
+        <ManagerInfo
+          mt="1.5em"
+          id={manager.id}
+          name={manager.name}
+          strategy={strategy}
+        />
         <LiquidityManagement
           manager={manager}
           currencyA={currencyA}
@@ -233,5 +248,5 @@ export const DuoTokenVaultCard = memo(function DuoTokenVaultCard({
         </ExpandableSection>
       </CardBody>
     </StyledCard>
-  )
-})
+  );
+});

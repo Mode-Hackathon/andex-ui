@@ -68,7 +68,7 @@ const CakeBenefitsCard: React.FC<
     <>
       <Text>
         {t(
-          `%lockedCake% CAKE (including rewards) are locked in the CAKE Pool until %lockedEndTime%`,
+          `%lockedCake% ANDX (including rewards) are locked in the ANDX Pool until %lockedEndTime%`,
           {
             lockedCake: cakeBenefits?.lockedCake,
             lockedEndTime: cakeBenefits?.lockedEndTime,
@@ -95,7 +95,7 @@ const CakeBenefitsCard: React.FC<
     <>
       <Text>
         {t(
-          `iCAKE allows you to participate in the IFO public sales and commit up to %iCake% amount of CAKE.`,
+          `iANDX allows you to participate in the IFO public sales and commit up to %iCake% amount of ANDX.`,
           {
             iCake: cakeBenefits?.iCake,
           }
@@ -120,7 +120,7 @@ const CakeBenefitsCard: React.FC<
   } = useTooltip(
     <>
       <Text>
-        {t(`bCAKE allows you to boost your yield in Andex Farms by up to 2x.`)}
+        {t(`bANDX allows you to boost your yield in Andex Farms by up to 2x.`)}
       </Text>
       <NextLinkFromReactRouter to="/farms" onClick={onDismiss}>
         <Text bold color="primary">
@@ -142,7 +142,7 @@ const CakeBenefitsCard: React.FC<
     <>
       <Text>
         {t(
-          `vCAKE boosts your voting power to %totalScore% in the Andex voting governance.`,
+          `vANDX boosts your voting power to %totalScore% in the Andex voting governance.`,
           {
             totalScore: cakeBenefits?.vCake?.totalScore,
           }
@@ -170,7 +170,7 @@ const CakeBenefitsCard: React.FC<
             <Tag variant="secondary" mr="auto">
               <Flex alignItems="center">
                 <Box as={LockIcon} mr="4px" />
-                {t("No CAKE locked")}
+                {t("No ANDX locked")}
               </Flex>
             </Tag>
             <Text fontSize="16px">{cakeBenefits?.lockedCake}</Text>
@@ -178,7 +178,7 @@ const CakeBenefitsCard: React.FC<
           <Message mt="8px" mb="16px" variant="warning">
             <MessageText maxWidth="200px">
               {t(
-                "Lock CAKE to enjoy the benefits of farm yield boosting, participating in IFOs, voting power boosts, and so much more!"
+                "Lock ANDX to enjoy the benefits of farm yield boosting, participating in IFOs, voting power boosts, and so much more!"
               )}{" "}
               <NextLinkFromReactRouter
                 style={{ textDecoration: "underline", fontWeight: "bold" }}
@@ -202,7 +202,7 @@ const CakeBenefitsCard: React.FC<
             <Tag variant="failure" mr="auto">
               <Flex alignItems="center">
                 <Box as={LockIcon} mr="4px" />
-                {t("CAKE staking expired")}
+                {t("ANDX staking expired")}
               </Flex>
             </Tag>
             <Text fontSize="16px">{cakeBenefits?.lockedCake}</Text>
@@ -229,7 +229,7 @@ const CakeBenefitsCard: React.FC<
               <Tag variant="secondary" mr="auto">
                 <Flex alignItems="center">
                   <Box as={LockIcon} mr="4px" />
-                  {t("CAKE locked")}
+                  {t("ANDX locked")}
                 </Flex>
               </Tag>
               <TooltipText ref={cakeTargetRef} bold fontSize="16px">
@@ -244,7 +244,7 @@ const CakeBenefitsCard: React.FC<
                 fontSize="16px"
                 mr="auto"
               >
-                iCAKE
+                iANDX
               </TooltipText>
               {iCakeTooltipVisible && iCakeTooltip}
               {cakeBenefits?.iCake}
@@ -256,7 +256,7 @@ const CakeBenefitsCard: React.FC<
                 fontSize="16px"
                 mr="auto"
               >
-                bCAKE
+                bANDX
               </TooltipText>
               {bCakeTooltipVisible && bCakeTooltip}
               {t("Up to %boostMultiplier%x", { boostMultiplier: 2 })}
@@ -268,7 +268,7 @@ const CakeBenefitsCard: React.FC<
                 fontSize="16px"
                 mr="auto"
               >
-                vCAKE
+                vANDX
               </TooltipText>
               {vCakeTooltipVisible && vCakeTooltip}
               {cakeBenefits?.vCake?.vaultScore}

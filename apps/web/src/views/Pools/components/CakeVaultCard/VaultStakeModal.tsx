@@ -209,7 +209,7 @@ const VaultStakeModal: React.FC<
   );
 
   const handleWithdrawal = async () => {
-    // trigger withdrawAll function if the withdrawal will leave 0.00001 CAKE or less
+    // trigger withdrawAll function if the withdrawal will leave 0.00001 ANDX or less
     const isWithdrawingAll = stakingMax
       .minus(convertedStakeAmount)
       .lte(MIN_LOCK_AMOUNT);

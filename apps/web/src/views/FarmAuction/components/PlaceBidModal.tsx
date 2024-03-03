@@ -31,7 +31,7 @@ import { ConnectedBidder, FetchStatus } from "config/constants/types";
 import { useCakePrice } from "hooks/useCakePrice";
 import { useCallWithGasPrice } from "hooks/useCallWithGasPrice";
 import { ToastDescriptionWithTx } from "components/Toast";
-import { goerliTestnetTokens, CAKE } from "@pancakeswap/tokens";
+import { goerliTestnetTokens, ANDX } from "@pancakeswap/tokens";
 import { ChainId } from "@pancakeswap/chains";
 
 const StyledModal = styled(Modal)`
@@ -107,10 +107,10 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
 
   useEffect(() => {
     if (userNotEnoughCake) {
-      setErrorText(t("Insufficient CAKE balance"));
+      setErrorText(t("Insufficient ANDX balance"));
     } else if (!isMoreThanInitialBidAmount && isFirstBid) {
       setErrorText(
-        t("First bid must be %initialBidAmount% CAKE or more.", {
+        t("First bid must be %initialBidAmount% ANDX or more.", {
           initialBidAmount,
         })
       );
@@ -147,7 +147,7 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
   } = useApproveConfirmTransaction({
     minAmount,
     spender: farmAuctionContract?.address,
-    token: CAKE[ChainId.MODE_MAINNET],
+    token: ANDX[ChainId.MODE_MAINNET],
     onApproveSuccess: async ({ receipt }) => {
       toastSuccess(
         t("Contract approved - you can now place your bid!"),
@@ -192,7 +192,7 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
       <ExistingInfo>
         <Flex justifyContent="space-between">
           <Text>{t("Your existing bid")}</Text>
-          <Text>{t("%num% CAKE", { num: getBalanceNumber(amount) })}</Text>
+          <Text>{t("%num% ANDX", { num: getBalanceNumber(amount) })}</Text>
         </Flex>
         <Flex justifyContent="space-between">
           <Text>{t("Your position")}</Text>
@@ -204,12 +204,12 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
           <Text>{t("Bid a multiple of 10")}</Text>
           <Flex>
             <LogoRoundIcon width="24px" height="24px" mr="4px" />
-            <Text bold>CAKE</Text>
+            <Text bold>ANDX</Text>
           </Flex>
         </Flex>
         {isFirstBid && (
           <Text pb="8px" small>
-            {t("First bid must be %initialBidAmount% CAKE or more.", {
+            {t("First bid must be %initialBidAmount% ANDX or more.", {
               initialBidAmount,
             })}
           </Text>
@@ -306,7 +306,7 @@ const PlaceBidModal: React.FC<React.PropsWithChildren<PlaceBidModalProps>> = ({
         </Flex>
         <Text color="textSubtle" small mt="24px">
           {t(
-            "If your bid is unsuccessful, you’ll be able to reclaim your CAKE after the auction."
+            "If your bid is unsuccessful, you’ll be able to reclaim your ANDX after the auction."
           )}
         </Text>
       </InnerContent>

@@ -50,7 +50,7 @@ const LockedBenefits = () => {
     <>
       <Text>
         {t(
-          "iCAKE allows you to participate in the IFO public sales and commit up to %iCake% amount of CAKE.",
+          "iANDX allows you to participate in the IFO public sales and commit up to %iCake% amount of ANDX.",
           {
             iCake: cakeBenefits?.iCake,
           }
@@ -67,7 +67,7 @@ const LockedBenefits = () => {
   const bCakeTooltipComponent = () => (
     <>
       <Text>
-        {t("bCAKE allows you to boost your yield in Andex Farms by up to 2x.")}
+        {t("bANDX allows you to boost your yield in Andex Farms by up to 2x.")}
       </Text>
       <NextLinkFromReactRouter to="/farms">
         <Text bold color="primary">
@@ -81,7 +81,7 @@ const LockedBenefits = () => {
     <>
       <Text>
         {t(
-          "vCAKE boosts your voting power to %totalScore% in the Andex voting governance.",
+          "vANDX boosts your voting power to %totalScore% in the Andex voting governance.",
           {
             totalScore: cakeBenefits?.vCake?.totalScore,
           }
@@ -101,8 +101,8 @@ const LockedBenefits = () => {
         <Image
           width={73}
           height={84}
-          alt="lockCAKEbenefit"
-          src="/images/pool/lockCAKEbenefit.png"
+          alt="lockANDXbenefit"
+          src="/images/pool/lockANDXbenefit.png"
         />
       </Box>
       <Card mb="24px">
@@ -113,7 +113,7 @@ const LockedBenefits = () => {
           <Box mt="8px">
             <Flex mt="8px" flexDirection="row" alignItems="center">
               <Text color="textSubtle" fontSize="14px" mr="auto">
-                {t("CAKE Yield")}
+                {t("ANDX Yield")}
               </Text>
               <Text style={{ display: "inline-block" }} color="success" bold>
                 {`${Number(lockedApy).toFixed(2)}%`}
@@ -123,19 +123,19 @@ const LockedBenefits = () => {
               )}%`}</Text>
             </Flex>
             <BenefitsText
-              title="iCAKE"
+              title="iANDX"
               value={cakeBenefits?.iCake}
               tooltipComponent={iCakeTooltipComponent()}
               icon={<ICakeIcon width={24} height={24} mr="8px" />}
             />
             <BenefitsText
-              title="bCAKE"
+              title="bANDX"
               value={t("Up to %boostMultiplier%x", { boostMultiplier: 2 })}
               tooltipComponent={bCakeTooltipComponent()}
               icon={<BCakeIcon width={24} height={24} mr="8px" />}
             />
             <BenefitsText
-              title="vCAKE"
+              title="vANDX"
               value={cakeBenefits?.vCake?.vaultScore}
               tooltipComponent={vCakeTooltipComponent()}
               icon={<VCakeIcon width={24} height={24} mr="8px" />}

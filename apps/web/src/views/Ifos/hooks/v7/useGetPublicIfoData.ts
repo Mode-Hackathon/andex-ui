@@ -1,26 +1,28 @@
-import BigNumber from 'bignumber.js'
-import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
-import { useState, useCallback, useEffect } from 'react'
-import round from 'lodash/round'
-import { CAKE } from '@pancakeswap/tokens'
-import { Ifo, IfoStatus, ifoV7ABI } from '@pancakeswap/ifos'
-import { useAccount } from 'wagmi'
+import BigNumber from "bignumber.js";
+import { BIG_ZERO } from "@pancakeswap/utils/bigNumber";
+import { useState, useCallback, useEffect } from "react";
+import round from "lodash/round";
+import { ANDX } from "@pancakeswap/tokens";
+import { Ifo, IfoStatus, ifoV7ABI } from "@pancakeswap/ifos";
+import { useAccount } from "wagmi";
 // TODO
 // import { useLpTokenPrice } from 'state/farms/hooks'
-import { useCakePrice } from 'hooks/useCakePrice'
-import { publicClient } from 'utils/wagmi'
-import { useActiveChainId } from 'hooks/useActiveChainId'
+import { useCakePrice } from "hooks/useCakePrice";
+import { publicClient } from "utils/wagmi";
+import { useActiveChainId } from "hooks/useActiveChainId";
 
-import { PublicIfoData } from '../../types'
-import { getStatusByTimestamp } from '../helpers'
+import { PublicIfoData } from "../../types";
+import { getStatusByTimestamp } from "../helpers";
 
 // https://github.com/pancakeswap/pancake-contracts/blob/master/projects/ifo/contracts/IFOV2.sol#L431
 // 1,000,000,000 / 100
-const TAX_PRECISION = new BigNumber(10000000000)
+const TAX_PRECISION = new BigNumber(10000000000);
 
-const NO_QUALIFIED_NFT_ADDRESS = '0x0000000000000000000000000000000000000000'
+const NO_QUALIFIED_NFT_ADDRESS = "0x0000000000000000000000000000000000000000";
 
-const formatPool = (pool: readonly [bigint, bigint, bigint, boolean, bigint, bigint, number]) => ({
+const formatPool = (
+  pool: readonly [bigint, bigint, bigint, boolean, bigint, bigint, number]
+) => ({
   raisingAmountPool: pool ? new BigNumber(pool[0].toString()) : BIG_ZERO,
   offeringAmountPool: pool ? new BigNumber(pool[1].toString()) : BIG_ZERO,
   limitPerUserInLP: pool ? new BigNumber(pool[2].toString()) : BIG_ZERO,
@@ -28,20 +30,22 @@ const formatPool = (pool: readonly [bigint, bigint, bigint, boolean, bigint, big
   totalAmountPool: pool ? new BigNumber(pool[4].toString()) : BIG_ZERO,
   sumTaxesOverflow: pool ? new BigNumber(pool[5].toString()) : BIG_ZERO,
   saleType: pool ? pool[6] : 0,
-})
+});
 
-const formatVestingInfo = (pool: readonly [bigint, bigint, bigint, bigint]) => ({
+const formatVestingInfo = (
+  pool: readonly [bigint, bigint, bigint, bigint]
+) => ({
   percentage: pool ? Number(pool[0]) : 0,
   cliff: pool ? Number(pool[1]) : 0,
   duration: pool ? Number(pool[2]) : 0,
   slicePeriodSeconds: pool ? Number(pool[3]) : 0,
-})
+});
 
-const ROUND_DIGIT = 3
+const ROUND_DIGIT = 3;
 
 const INITIAL_STATE = {
   isInitialized: false,
-  status: 'idle' as IfoStatus,
+  status: "idle" as IfoStatus,
   secondsUntilStart: 0,
   progress: 5,
   secondsUntilEnd: 0,
@@ -89,26 +93,27 @@ const INITIAL_STATE = {
   numberPoints: 0,
   vestingStartTime: 0,
   plannedStartTime: 0,
-}
+};
 
 /**
  * Gets all public data of an IFO
  */
 const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
-  const { chainId: currentChainId } = useActiveChainId()
-  const { address: account } = useAccount()
-  const { chainId } = ifo
-  const { address, plannedStartTime } = ifo
-  const cakePriceUsd = useCakePrice()
+  const { chainId: currentChainId } = useActiveChainId();
+  const { address: account } = useAccount();
+  const { chainId } = ifo;
+  const { address, plannedStartTime } = ifo;
+  const cakePriceUsd = useCakePrice();
   // const lpTokenPriceInUsd = useLpTokenPrice(ifo.currency.symbol)
-  const lpTokenPriceInUsd = new BigNumber(0)
+  const lpTokenPriceInUsd = new BigNumber(0);
 
-  const currencyPriceInUSD = ifo.currency === CAKE[ifo.chainId] ? cakePriceUsd : lpTokenPriceInUsd
+  const currencyPriceInUSD =
+    ifo.currency === ANDX[ifo.chainId] ? cakePriceUsd : lpTokenPriceInUsd;
 
-  const [state, setState] = useState(INITIAL_STATE)
+  const [state, setState] = useState(INITIAL_STATE);
 
   const fetchIfoData = useCallback(async () => {
-    const client = publicClient({ chainId })
+    const client = publicClient({ chainId });
     const [
       [
         startTimestamp,
@@ -120,52 +125,58 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
         thresholdPoints,
         privateSaleTaxRate,
       ],
-      [admissionProfile, pointThreshold, vestingStartTime, basicVestingInformation, unlimitedVestingInformation],
+      [
+        admissionProfile,
+        pointThreshold,
+        vestingStartTime,
+        basicVestingInformation,
+        unlimitedVestingInformation,
+      ],
     ] = await Promise.all([
       client.multicall({
         contracts: [
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'startTimestamp',
+            functionName: "startTimestamp",
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'endTimestamp',
+            functionName: "endTimestamp",
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'viewPoolInformation',
+            functionName: "viewPoolInformation",
             args: [0n],
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'viewPoolInformation',
+            functionName: "viewPoolInformation",
             args: [1n],
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'viewPoolTaxRateOverflow',
+            functionName: "viewPoolTaxRateOverflow",
             args: [1n],
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'numberPoints',
+            functionName: "numberPoints",
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'thresholdPoints',
+            functionName: "thresholdPoints",
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'viewPoolTaxRateOverflow',
+            functionName: "viewPoolTaxRateOverflow",
             args: [0n],
           },
         ],
@@ -176,101 +187,120 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'admissionProfile',
+            functionName: "admissionProfile",
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'pointThreshold',
+            functionName: "pointThreshold",
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'vestingStartTime',
+            functionName: "vestingStartTime",
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'viewPoolVestingInformation',
+            functionName: "viewPoolVestingInformation",
             args: [0n],
           },
           {
             abi: ifoV7ABI,
             address,
-            functionName: 'viewPoolVestingInformation',
+            functionName: "viewPoolVestingInformation",
             args: [1n],
           },
         ],
         allowFailure: true,
       }),
-    ])
+    ]);
 
-    const poolBasicFormatted = formatPool(poolBasic)
-    const poolUnlimitedFormatted = formatPool(poolUnlimited)
+    const poolBasicFormatted = formatPool(poolBasic);
+    const poolUnlimitedFormatted = formatPool(poolUnlimited);
 
-    const startTime = Number(startTimestamp) || 0
-    const endTime = Number(endTimestamp) || 0
-    const taxRateNum = taxRate ? new BigNumber(taxRate.toString()).div(TAX_PRECISION).toNumber() : 0
+    const startTime = Number(startTimestamp) || 0;
+    const endTime = Number(endTimestamp) || 0;
+    const taxRateNum = taxRate
+      ? new BigNumber(taxRate.toString()).div(TAX_PRECISION).toNumber()
+      : 0;
     const privateSaleTaxRateNum = privateSaleTaxRate
-      ? new BigNumber(privateSaleTaxRate.toString()).div(TAX_PRECISION).toNumber()
-      : 0
+      ? new BigNumber(privateSaleTaxRate.toString())
+          .div(TAX_PRECISION)
+          .toNumber()
+      : 0;
 
-    const now = Math.floor(Date.now() / 1000)
-    const status = getStatusByTimestamp(now, startTime, endTime)
-    const duration = endTime - startTime
-    const secondsUntilEnd = endTime - now
+    const now = Math.floor(Date.now() / 1000);
+    const status = getStatusByTimestamp(now, startTime, endTime);
+    const duration = endTime - startTime;
+    const secondsUntilEnd = endTime - now;
 
     // Calculate the total progress until finished or until start
-    const progress = status === 'live' ? ((now - startTime) / duration) * 100 : null
+    const progress =
+      status === "live" ? ((now - startTime) / duration) * 100 : null;
 
-    const totalOfferingAmount = poolBasicFormatted.offeringAmountPool.plus(poolUnlimitedFormatted.offeringAmountPool)
+    const totalOfferingAmount = poolBasicFormatted.offeringAmountPool.plus(
+      poolUnlimitedFormatted.offeringAmountPool
+    );
 
     setState(
       (prev) =>
-      ({
-        ...prev,
-        isInitialized: true,
-        secondsUntilEnd,
-        secondsUntilStart: startTime - now,
-        poolBasic: {
-          ...poolBasicFormatted,
-          taxRate: privateSaleTaxRateNum,
-          distributionRatio: round(
-            poolBasicFormatted.offeringAmountPool.div(totalOfferingAmount).toNumber(),
-            ROUND_DIGIT,
-          ),
-          pointThreshold: pointThreshold.result ? Number(pointThreshold.result) : 0,
-          admissionProfile:
-            Boolean(admissionProfile && admissionProfile.result) &&
+        ({
+          ...prev,
+          isInitialized: true,
+          secondsUntilEnd,
+          secondsUntilStart: startTime - now,
+          poolBasic: {
+            ...poolBasicFormatted,
+            taxRate: privateSaleTaxRateNum,
+            distributionRatio: round(
+              poolBasicFormatted.offeringAmountPool
+                .div(totalOfferingAmount)
+                .toNumber(),
+              ROUND_DIGIT
+            ),
+            pointThreshold: pointThreshold.result
+              ? Number(pointThreshold.result)
+              : 0,
+            admissionProfile:
+              Boolean(admissionProfile && admissionProfile.result) &&
               admissionProfile.result !== NO_QUALIFIED_NFT_ADDRESS
-              ? admissionProfile.result
-              : undefined,
-          vestingInformation: formatVestingInfo(basicVestingInformation.result || [0n, 0n, 0n, 0n]),
-        },
-        poolUnlimited: {
-          ...poolUnlimitedFormatted,
-          taxRate: taxRateNum,
-          distributionRatio: round(
-            poolUnlimitedFormatted.offeringAmountPool.div(totalOfferingAmount).toNumber(),
-            ROUND_DIGIT,
-          ),
-          vestingInformation: formatVestingInfo(unlimitedVestingInformation.result || [0n, 0n, 0n, 0n]),
-        },
-        status,
-        progress,
-        startTimestamp: startTime,
-        endTimestamp: endTime,
-        thresholdPoints,
-        numberPoints: numberPoints ? Number(numberPoints) : 0,
-        plannedStartTime: plannedStartTime ?? 0,
-        vestingStartTime: vestingStartTime.result ? Number(vestingStartTime.result) : 0,
-      } as any),
-    )
-  }, [plannedStartTime, address, chainId])
+                ? admissionProfile.result
+                : undefined,
+            vestingInformation: formatVestingInfo(
+              basicVestingInformation.result || [0n, 0n, 0n, 0n]
+            ),
+          },
+          poolUnlimited: {
+            ...poolUnlimitedFormatted,
+            taxRate: taxRateNum,
+            distributionRatio: round(
+              poolUnlimitedFormatted.offeringAmountPool
+                .div(totalOfferingAmount)
+                .toNumber(),
+              ROUND_DIGIT
+            ),
+            vestingInformation: formatVestingInfo(
+              unlimitedVestingInformation.result || [0n, 0n, 0n, 0n]
+            ),
+          },
+          status,
+          progress,
+          startTimestamp: startTime,
+          endTimestamp: endTime,
+          thresholdPoints,
+          numberPoints: numberPoints ? Number(numberPoints) : 0,
+          plannedStartTime: plannedStartTime ?? 0,
+          vestingStartTime: vestingStartTime.result
+            ? Number(vestingStartTime.result)
+            : 0,
+        } as any)
+    );
+  }, [plannedStartTime, address, chainId]);
 
-  useEffect(() => setState(INITIAL_STATE), [currentChainId, account])
+  useEffect(() => setState(INITIAL_STATE), [currentChainId, account]);
 
-  return { ...state, currencyPriceInUSD, fetchIfoData } as any
-}
+  return { ...state, currencyPriceInUSD, fetchIfoData } as any;
+};
 
-export default useGetPublicIfoData
+export default useGetPublicIfoData;

@@ -42,7 +42,7 @@ const SingleLatestReward: React.FC<
           {cakeAmountTitle}
         </Text>
         <Text bold fontSize="14px" textAlign="right">
-          {`~ ${formatNumber(cakeAmount)} CAKE`}
+          {`~ ${formatNumber(cakeAmount)} ANDX`}
         </Text>
       </Flex>
       <Button

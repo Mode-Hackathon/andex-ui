@@ -1,47 +1,71 @@
-import { GAUGE_TYPE_NAMES, GaugeType } from '@pancakeswap/gauges'
-import { useTranslation } from '@pancakeswap/localization'
-import { Button, ChevronDownIcon, ChevronUpIcon, ErrorIcon, Flex, FlexGap, Tag, Text } from '@pancakeswap/uikit'
-import dayjs from 'dayjs'
-import { useCallback, useMemo, useState } from 'react'
-import { stringify } from 'viem'
-import { Tooltips } from 'views/CakeStaking/components/Tooltips'
-import { useCurrentBlockTimestamp } from 'views/CakeStaking/hooks/useCurrentBlockTimestamp'
-import { useCakeLockStatus } from 'views/CakeStaking/hooks/useVeCakeUserInfo'
-import { useUserVote } from 'views/GaugesVoting/hooks/useUserVote'
-import { feeTierPercent } from 'views/V3Info/utils'
-import { GaugeTokenImage } from '../../GaugeTokenImage'
-import { NetworkBadge } from '../../NetworkBadge'
-import { TRow } from '../styled'
-import { PercentInput } from './PercentInput'
-import { useRowVoteState } from './hooks/useRowVoteState'
-import { DEFAULT_VOTE, RowProps } from './types'
+import { GAUGE_TYPE_NAMES, GaugeType } from "@pancakeswap/gauges";
+import { useTranslation } from "@pancakeswap/localization";
+import {
+  Button,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ErrorIcon,
+  Flex,
+  FlexGap,
+  Tag,
+  Text,
+} from "@pancakeswap/uikit";
+import dayjs from "dayjs";
+import { useCallback, useMemo, useState } from "react";
+import { stringify } from "viem";
+import { Tooltips } from "views/CakeStaking/components/Tooltips";
+import { useCurrentBlockTimestamp } from "views/CakeStaking/hooks/useCurrentBlockTimestamp";
+import { useCakeLockStatus } from "views/CakeStaking/hooks/useVeCakeUserInfo";
+import { useUserVote } from "views/GaugesVoting/hooks/useUserVote";
+import { feeTierPercent } from "views/V3Info/utils";
+import { GaugeTokenImage } from "../../GaugeTokenImage";
+import { NetworkBadge } from "../../NetworkBadge";
+import { TRow } from "../styled";
+import { PercentInput } from "./PercentInput";
+import { useRowVoteState } from "./hooks/useRowVoteState";
+import { DEFAULT_VOTE, RowProps } from "./types";
 
 const debugFormat = (unix?: bigint | number) => {
-  if (!unix) return ''
-  return dayjs.unix(Number(unix)).format('YYYY-MM-DD HH:mm:ss')
-}
+  if (!unix) return "";
+  return dayjs.unix(Number(unix)).format("YYYY-MM-DD HH:mm:ss");
+};
 
-export const TableRow: React.FC<RowProps> = ({ data, vote = { ...DEFAULT_VOTE }, onChange }) => {
-  const { t } = useTranslation()
-  const currentTimestamp = useCurrentBlockTimestamp()
-  const { cakeLockedAmount } = useCakeLockStatus()
-  const cakeLocked = useMemo(() => cakeLockedAmount > 0n, [cakeLockedAmount])
-  const userVote = useUserVote(data)
-  const { currentVoteWeight, currentVotePercent, previewVoteWeight, voteValue, voteLocked, willUnlock } =
-    useRowVoteState({
-      data,
-      vote,
-      onChange,
-    })
+export const TableRow: React.FC<RowProps> = ({
+  data,
+  vote = { ...DEFAULT_VOTE },
+  onChange,
+}) => {
+  const { t } = useTranslation();
+  const currentTimestamp = useCurrentBlockTimestamp();
+  const { cakeLockedAmount } = useCakeLockStatus();
+  const cakeLocked = useMemo(() => cakeLockedAmount > 0n, [cakeLockedAmount]);
+  const userVote = useUserVote(data);
+  const {
+    currentVoteWeight,
+    currentVotePercent,
+    previewVoteWeight,
+    voteValue,
+    voteLocked,
+    willUnlock,
+  } = useRowVoteState({
+    data,
+    vote,
+    onChange,
+  });
   const onMax = () => {
-    onChange(vote, true)
-  }
+    onChange(vote, true);
+  };
 
   return (
     <TRow>
       <FlexGap alignItems="center" gap="13px">
         <Tooltips
-          disabled={!(window.location.hostname === 'localhost' || process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview')}
+          disabled={
+            !(
+              window.location.hostname === "localhost" ||
+              process.env.NEXT_PUBLIC_VERCEL_ENV === "preview"
+            )
+          }
           content={
             <pre>
               {stringify(
@@ -56,7 +80,7 @@ export const TableRow: React.FC<RowProps> = ({ data, vote = { ...DEFAULT_VOTE },
                   nativeEnd: debugFormat(userVote?.nativeEnd),
                 },
                 undefined,
-                2,
+                2
               )}
             </pre>
           }
@@ -75,7 +99,9 @@ export const TableRow: React.FC<RowProps> = ({ data, vote = { ...DEFAULT_VOTE },
             </Tag>
           ) : null}
 
-          <Tag variant="secondary">{data ? GAUGE_TYPE_NAMES[data.type] : ''}</Tag>
+          <Tag variant="secondary">
+            {data ? GAUGE_TYPE_NAMES[data.type] : ""}
+          </Tag>
         </FlexGap>
       </FlexGap>
       <FlexGap alignItems="center" justifyContent="center" gap="4px">
@@ -86,18 +112,25 @@ export const TableRow: React.FC<RowProps> = ({ data, vote = { ...DEFAULT_VOTE },
         {voteLocked ? (
           <Tooltips
             content={t(
-              'Gauge’s vote can not be changed more frequent than 10 days. You can update your vote for this gauge in: %distance%',
+              "Gauge’s vote can not be changed more frequent than 10 days. You can update your vote for this gauge in: %distance%",
               {
                 distance: userVote?.lastVoteTime
-                  ? dayjs.unix(Number(userVote?.lastVoteTime)).add(10, 'day').from(dayjs.unix(currentTimestamp), true)
-                  : '',
-              },
+                  ? dayjs
+                      .unix(Number(userVote?.lastVoteTime))
+                      .add(10, "day")
+                      .from(dayjs.unix(currentTimestamp), true)
+                  : "",
+              }
             )}
           >
             <ErrorIcon height="20px" color="warning" mb="-2px" mr="2px" />
           </Tooltips>
         ) : null}
-        <Text color={voteLocked || willUnlock || !cakeLocked ? 'textDisabled' : ''}>{previewVoteWeight} veCAKE</Text>
+        <Text
+          color={voteLocked || willUnlock || !cakeLocked ? "textDisabled" : ""}
+        >
+          {previewVoteWeight} veANDX
+        </Text>
       </Flex>
       <Flex>
         <PercentInput
@@ -109,31 +142,39 @@ export const TableRow: React.FC<RowProps> = ({ data, vote = { ...DEFAULT_VOTE },
         />
       </Flex>
     </TRow>
-  )
-}
+  );
+};
 
 export const ExpandRow: React.FC<{
-  onCollapse?: () => void
-  text?: string
-  expandedText?: string
+  onCollapse?: () => void;
+  text?: string;
+  expandedText?: string;
 }> = ({ onCollapse, text, expandedText }) => {
-  const { t } = useTranslation()
-  const [expanded, setExpanded] = useState(false)
+  const { t } = useTranslation();
+  const [expanded, setExpanded] = useState(false);
   const handleCollapse = useCallback(() => {
-    setExpanded((prev) => !prev)
-    onCollapse?.()
-  }, [onCollapse])
-  const textToDisplay = expanded ? expandedText || t('Expanded') : text || t('Expand')
+    setExpanded((prev) => !prev);
+    onCollapse?.();
+  }, [onCollapse]);
+  const textToDisplay = expanded
+    ? expandedText || t("Expanded")
+    : text || t("Expand");
 
   return (
     <Flex alignItems="center" justifyContent="center" py="8px">
       <Button
         onClick={handleCollapse}
         variant="text"
-        endIcon={expanded ? <ChevronUpIcon color="primary" /> : <ChevronDownIcon color="primary" />}
+        endIcon={
+          expanded ? (
+            <ChevronUpIcon color="primary" />
+          ) : (
+            <ChevronDownIcon color="primary" />
+          )
+        }
       >
         {textToDisplay}
       </Button>
     </Flex>
-  )
-}
+  );
+};

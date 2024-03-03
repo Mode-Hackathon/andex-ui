@@ -151,7 +151,7 @@ export const CakeRewardsCard = ({ onDismiss }) => {
 
   return (
     <ModalContainer
-      title={t("CAKE Reward / Yield")}
+      title={t("ANDX Reward / Yield")}
       style={{
         minWidth: "375px",
         padding: isDesktop ? "24px" : "24px 24px 0 24px",
@@ -167,7 +167,7 @@ export const CakeRewardsCard = ({ onDismiss }) => {
       >
         <StyledModalHeader headerBorderColor="transparent">
           <ModalTitle>
-            <Heading scale="md">{t("CAKE Reward / Yield")}</Heading>
+            <Heading scale="md">{t("ANDX Reward / Yield")}</Heading>
           </ModalTitle>
           <ModalCloseButton onDismiss={onDismiss} />
         </StyledModalHeader>
@@ -175,14 +175,14 @@ export const CakeRewardsCard = ({ onDismiss }) => {
         <ModalBody>
           <Row>
             <Text fontSize="16px" bold color="secondary">
-              {t("EARN CAKE")}
+              {t("EARN ANDX")}
             </Text>
             <Text fontSize="16px" bold color="textSubtle" ml="3px">
               {t("WEEKLY")}
             </Text>
           </Row>
           <Text fontSize="14px" color="textSubtle" mb="16px" mt="13px">
-            {t("From CAKE pool rewards and revenue sharing!")}
+            {t("From ANDX pool rewards and revenue sharing!")}
           </Text>
           <MyVeCakeCard />
           <Card
@@ -277,7 +277,7 @@ export const CakeRewardsCard = ({ onDismiss }) => {
                     <MessageText lineHeight="120%">
                       <Text fontSize="14px" color="failure">
                         {t(
-                          'Your CAKE staking position will have less than 1 week in remaining duration upon the next distribution.',
+                          'Your ANDX staking position will have less than 1 week in remaining duration upon the next distribution.',
                         )}
                       </Text>
                       <Text fontSize="14px" color="failure" mt="4px">
@@ -315,7 +315,7 @@ export const CakeRewardsCard = ({ onDismiss }) => {
                       tooltipComponent={
                         <Text>
                           {t(
-                            "Amount of revenue available for claiming in CAKE."
+                            "Amount of revenue available for claiming in ANDX."
                           )}
                         </Text>
                       }
@@ -323,10 +323,10 @@ export const CakeRewardsCard = ({ onDismiss }) => {
                     <Box>
                       {availableCakePoolCake > 0 &&
                       availableCakePoolCake <= 0.01 ? (
-                        <Text bold textAlign="right">{`< 0.01 CAKE`}</Text>
+                        <Text bold textAlign="right">{`< 0.01 ANDX`}</Text>
                       ) : (
                         <Balance
-                          unit=" CAKE"
+                          unit=" ANDX"
                           textAlign="right"
                           bold
                           value={availableCakePoolCake}
@@ -362,7 +362,7 @@ export const CakeRewardsCard = ({ onDismiss }) => {
                       tooltipComponent={
                         <Text>
                           {t(
-                            "Amount of revenue available for claiming in CAKE."
+                            "Amount of revenue available for claiming in ANDX."
                           )}
                         </Text>
                       }
@@ -370,10 +370,10 @@ export const CakeRewardsCard = ({ onDismiss }) => {
                     <Box>
                       {availableRevenueSharingCake > 0 &&
                       availableRevenueSharingCake <= 0.01 ? (
-                        <Text bold textAlign="right">{`< 0.01 CAKE`}</Text>
+                        <Text bold textAlign="right">{`< 0.01 ANDX`}</Text>
                       ) : (
                         <Balance
-                          unit=" CAKE"
+                          unit=" ANDX"
                           textAlign="right"
                           bold
                           value={availableRevenueSharingCake}
@@ -409,7 +409,7 @@ export const CakeRewardsCard = ({ onDismiss }) => {
                       tooltipComponent={
                         <Text>
                           {t(
-                            "Amount of revenue available for claiming in CAKE."
+                            "Amount of revenue available for claiming in ANDX."
                           )}
                         </Text>
                       }
@@ -417,10 +417,10 @@ export const CakeRewardsCard = ({ onDismiss }) => {
                     <Box>
                       {totalAvailableClaim > 0 &&
                       totalAvailableClaim <= 0.01 ? (
-                        <Text bold textAlign="right">{`< 0.01 CAKE`}</Text>
+                        <Text bold textAlign="right">{`< 0.01 ANDX`}</Text>
                       ) : (
                         <Balance
-                          unit=" CAKE"
+                          unit=" ANDX"
                           textAlign="right"
                           bold
                           value={totalAvailableClaim}

@@ -13,28 +13,30 @@ import {
   ModalProps,
   ModalTitle,
   Text,
-} from '@pancakeswap/uikit'
-import { useTranslation } from '@pancakeswap/localization'
-import useTheme from 'hooks/useTheme'
-import { useState } from 'react'
-import { formatBigInt } from '@pancakeswap/utils/formatBalance'
-import { SaleStatusEnum } from 'views/PancakeSquad/types'
+} from "@pancakeswap/uikit";
+import { useTranslation } from "@pancakeswap/localization";
+import useTheme from "hooks/useTheme";
+import { useState } from "react";
+import { formatBigInt } from "@pancakeswap/utils/formatBalance";
+import { SaleStatusEnum } from "views/PancakeSquad/types";
 
 interface BuyTicketsModalProps extends ModalProps {
-  buyTicketCallBack: ({ ticketsNumber }: { ticketsNumber: number }) => void
-  saleStatus: SaleStatusEnum
-  cakeBalance: bigint
-  pricePerTicket: bigint
-  maxPerAddress: number
-  maxPerTransaction: number
-  numberTicketsOfUser: number
-  numberTicketsForGen0: number
-  numberTicketsUsedForGen0: number
+  buyTicketCallBack: ({ ticketsNumber }: { ticketsNumber: number }) => void;
+  saleStatus: SaleStatusEnum;
+  cakeBalance: bigint;
+  pricePerTicket: bigint;
+  maxPerAddress: number;
+  maxPerTransaction: number;
+  numberTicketsOfUser: number;
+  numberTicketsForGen0: number;
+  numberTicketsUsedForGen0: number;
 }
 
-const DEFAULT_MAX_PER_TX = 3
+const DEFAULT_MAX_PER_TX = 3;
 
-const BuyTicketsModal: React.FC<React.PropsWithChildren<BuyTicketsModalProps>> = ({
+const BuyTicketsModal: React.FC<
+  React.PropsWithChildren<BuyTicketsModalProps>
+> = ({
   onDismiss,
   buyTicketCallBack,
   title,
@@ -48,21 +50,24 @@ const BuyTicketsModal: React.FC<React.PropsWithChildren<BuyTicketsModalProps>> =
   numberTicketsOfUser,
   numberTicketsUsedForGen0,
 }) => {
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const [ticketsNumber, setTicketsNumber] = useState<number | null>(1)
-  const isPreSale = saleStatus === SaleStatusEnum.Presale
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const [ticketsNumber, setTicketsNumber] = useState<number | null>(1);
+  const isPreSale = saleStatus === SaleStatusEnum.Presale;
   const remainingTickets = isPreSale
     ? numberTicketsForGen0
-    : maxPerAddress - (numberTicketsOfUser - numberTicketsUsedForGen0)
-  const isCakeBalanceInsufficient = cakeBalance < pricePerTicket
-  const maxBuyTickets = Math.min(Number(cakeBalance / pricePerTicket), remainingTickets)
-  const totalCost = pricePerTicket * BigInt(ticketsNumber)
+    : maxPerAddress - (numberTicketsOfUser - numberTicketsUsedForGen0);
+  const isCakeBalanceInsufficient = cakeBalance < pricePerTicket;
+  const maxBuyTickets = Math.min(
+    Number(cakeBalance / pricePerTicket),
+    remainingTickets
+  );
+  const totalCost = pricePerTicket * BigInt(ticketsNumber);
   const maxBuyButtons =
     saleStatus === SaleStatusEnum.Presale
       ? Math.min(numberTicketsForGen0, DEFAULT_MAX_PER_TX)
-      : Math.min(maxPerTransaction, DEFAULT_MAX_PER_TX)
-  const buyButtons = new Array(maxBuyButtons).fill('')
+      : Math.min(maxPerTransaction, DEFAULT_MAX_PER_TX);
+  const buyButtons = new Array(maxBuyButtons).fill("");
 
   return (
     <ModalWrapper minWidth="375px">
@@ -77,14 +82,20 @@ const BuyTicketsModal: React.FC<React.PropsWithChildren<BuyTicketsModalProps>> =
       <ModalBody py="24px" maxWidth="375px" width="100%">
         <Flex flexDirection="column">
           <Box px="16px">
-            <Text fontSize="12px" fontWeight="600" textTransform="uppercase" color="secondary" mb="16px">
-              {t('Buy how many?')}
+            <Text
+              fontSize="12px"
+              fontWeight="600"
+              textTransform="uppercase"
+              color="secondary"
+              mb="16px"
+            >
+              {t("Buy how many?")}
             </Text>
             <Flex justifyContent="space-evenly" mb="24px">
               {buyButtons.map((_, index) => (
                 <Button
                   key={index}
-                  variant={index + 1 === ticketsNumber ? 'primary' : 'tertiary'}
+                  variant={index + 1 === ticketsNumber ? "primary" : "tertiary"}
                   onClick={() => setTicketsNumber(index + 1)}
                   disabled={index + 1 > maxBuyTickets}
                 >
@@ -94,16 +105,21 @@ const BuyTicketsModal: React.FC<React.PropsWithChildren<BuyTicketsModalProps>> =
             </Flex>
             <Flex mb="8px" justifyContent="space-between">
               <Text font-size="14px" color="textSubtle">
-                {t('Cost per Ticket')}
+                {t("Cost per Ticket")}
               </Text>
-              <Text font-size="14px">{formatBigInt(pricePerTicket, 0)} CAKE</Text>
+              <Text font-size="14px">
+                {formatBigInt(pricePerTicket, 0)} ANDX
+              </Text>
             </Flex>
             <Flex mb="8px" justifyContent="space-between">
               <Text font-size="14px" color="textSubtle">
-                {t('Your CAKE Balance')}
+                {t("Your ANDX Balance")}
               </Text>
-              <Text font-size="14px" color={isCakeBalanceInsufficient ? 'failure' : 'text'}>
-                {formatBigInt(cakeBalance, 3)} CAKE
+              <Text
+                font-size="14px"
+                color={isCakeBalanceInsufficient ? "failure" : "text"}
+              >
+                {formatBigInt(cakeBalance, 3)} ANDX
               </Text>
             </Flex>
             <Flex
@@ -115,16 +131,18 @@ const BuyTicketsModal: React.FC<React.PropsWithChildren<BuyTicketsModalProps>> =
               borderBottom={`1px solid ${theme.colors.cardBorder}`}
             >
               <Text font-size="14px" color="textSubtle">
-                {t('Your remaining limit')}
+                {t("Your remaining limit")}
               </Text>
-              <Text font-size="14px">{`${remainingTickets} ${t('Tickets')}`}</Text>
+              <Text font-size="14px">{`${remainingTickets} ${t(
+                "Tickets"
+              )}`}</Text>
             </Flex>
             <Flex mb="25px" justifyContent="space-between">
               <Text font-size="14px" color="textSubtle">
-                {t('Total Cost')}
+                {t("Total Cost")}
               </Text>
               <Text font-size="14px" bold>
-                {formatBigInt(totalCost, 0)} CAKE
+                {formatBigInt(totalCost, 0)} ANDX
               </Text>
             </Flex>
           </Box>
@@ -142,10 +160,13 @@ const BuyTicketsModal: React.FC<React.PropsWithChildren<BuyTicketsModalProps>> =
             </Box>
             <Box>
               <Text font-size="12px" color="textSubtle" mb="12px">
-                {t('The network may become busy during the sale period. Consider setting a high gas fee (GWEI).')}
+                {t(
+                  "The network may become busy during the sale period. Consider setting a high gas fee (GWEI)."
+                )}
               </Text>
               <Text font-size="12px" color="textSubtle">
-                {t(`Max. Tickets per transaction:`)} {maxPerTransaction || DEFAULT_MAX_PER_TX}
+                {t(`Max. Tickets per transaction:`)}{" "}
+                {maxPerTransaction || DEFAULT_MAX_PER_TX}
               </Text>
               {maxPerAddress > 0 && (
                 <Text font-size="12px" color="textSubtle">
@@ -160,13 +181,15 @@ const BuyTicketsModal: React.FC<React.PropsWithChildren<BuyTicketsModalProps>> =
               onClick={() => buyTicketCallBack({ ticketsNumber })}
               width="100%"
             >
-              {isCakeBalanceInsufficient ? t('Insufficient Balance') : t('Confirm')}
+              {isCakeBalanceInsufficient
+                ? t("Insufficient Balance")
+                : t("Confirm")}
             </Button>
           </Box>
         </Flex>
       </ModalBody>
     </ModalWrapper>
-  )
-}
+  );
+};
 
-export default BuyTicketsModal
+export default BuyTicketsModal;

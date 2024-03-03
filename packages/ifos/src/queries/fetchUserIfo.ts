@@ -1,82 +1,106 @@
-import { ChainId } from '@pancakeswap/chains'
-import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
-import BigNumber from 'bignumber.js'
-import { Address, GetContractReturnType, PublicClient, WalletClient, getContract } from 'viem'
+import { ChainId } from "@pancakeswap/chains";
+import { BIG_ZERO } from "@pancakeswap/utils/bigNumber";
+import BigNumber from "bignumber.js";
+import {
+  Address,
+  GetContractReturnType,
+  PublicClient,
+  WalletClient,
+  getContract,
+} from "viem";
 
-import { iCakeABI } from '../abis/ICake'
-import { ifoV7ABI } from '../abis/IfoV7'
-import { ICAKE } from '../constants/contracts'
-import { OnChainProvider, PoolIds, UserVestingData } from '../types'
-import { getContractAddress } from '../utils'
+import { iCakeABI } from "../abis/ICake";
+import { ifoV7ABI } from "../abis/IfoV7";
+import { IANDX } from "../constants/contracts";
+import { OnChainProvider, PoolIds, UserVestingData } from "../types";
+import { getContractAddress } from "../utils";
 
 export const getIfoCreditAddressContract = (
   chainId: ChainId,
   provider: OnChainProvider,
-  walletClient?: WalletClient,
+  walletClient?: WalletClient
 ): GetContractReturnType<typeof iCakeABI, PublicClient, WalletClient> => {
-  const address = getContractAddress(ICAKE, chainId)
-  if (!address || address === '0x') {
-    throw new Error(`ICAKE not supported on chain ${chainId}`)
+  const address = getContractAddress(IANDX, chainId);
+  if (!address || address === "0x") {
+    throw new Error(`IANDX not supported on chain ${chainId}`);
   }
-  const publicClient = provider({ chainId })
+  const publicClient = provider({ chainId });
 
   // TODO: Fix viem
   // @ts-ignore
-  return getContract({ abi: iCakeABI, address, publicClient, walletClient })
-}
+  return getContract({ abi: iCakeABI, address, publicClient, walletClient });
+};
 
-export const fetchPublicIfoData = async (chainId: ChainId | undefined, provider: OnChainProvider) => {
+export const fetchPublicIfoData = async (
+  chainId: ChainId | undefined,
+  provider: OnChainProvider
+) => {
   if (!chainId) {
     return {
       ceiling: BIG_ZERO.toJSON(),
-    }
+    };
   }
 
   try {
-    const ifoCreditAddressContract = getIfoCreditAddressContract(chainId, provider)
+    const ifoCreditAddressContract = getIfoCreditAddressContract(
+      chainId,
+      provider
+    );
     // TODO: Fix viem
     // @ts-ignore
-    const ceiling = await ifoCreditAddressContract.read.ceiling()
+    const ceiling = await ifoCreditAddressContract.read.ceiling();
     return {
       ceiling: new BigNumber(ceiling.toString()).toJSON(),
-    }
+    };
   } catch (error) {
     return {
       ceiling: BIG_ZERO.toJSON(),
-    }
+    };
   }
-}
+};
 
 interface Params {
-  account?: Address
-  chainId?: ChainId
-  provider: OnChainProvider
+  account?: Address;
+  chainId?: ChainId;
+  provider: OnChainProvider;
 }
 
-export const fetchUserIfoCredit = async ({ account, chainId, provider }: Params) => {
+export const fetchUserIfoCredit = async ({
+  account,
+  chainId,
+  provider,
+}: Params) => {
   if (!account || !chainId) {
-    return BIG_ZERO.toJSON()
+    return BIG_ZERO.toJSON();
   }
   try {
-    const ifoCreditAddressContract = getIfoCreditAddressContract(chainId, provider)
+    const ifoCreditAddressContract = getIfoCreditAddressContract(
+      chainId,
+      provider
+    );
     // @ts-ignore
-    const credit = await ifoCreditAddressContract.read.getUserCredit([account])
-    return new BigNumber(credit.toString()).toJSON()
+    const credit = await ifoCreditAddressContract.read.getUserCredit([account]);
+    return new BigNumber(credit.toString()).toJSON();
   } catch (error) {
-    console.error(error)
-    return BIG_ZERO.toJSON()
+    console.error(error);
+    return BIG_ZERO.toJSON();
   }
-}
+};
 
 type VestingDataParams = {
-  ifoAddress?: Address
-} & Params
+  ifoAddress?: Address;
+} & Params;
 
-export async function fetchUserVestingData({ ifoAddress: address, account, chainId, provider }: VestingDataParams) {
+export async function fetchUserVestingData({
+  ifoAddress: address,
+  account,
+  chainId,
+  provider,
+}: VestingDataParams) {
   const userVestingData: UserVestingData = {
     vestingStartTime: 0,
     poolBasic: {
-      vestingId: '0',
+      vestingId: "0",
       offeringAmountInToken: BIG_ZERO,
       isVestingInitialized: false,
       vestingReleased: BIG_ZERO,
@@ -86,7 +110,7 @@ export async function fetchUserVestingData({ ifoAddress: address, account, chain
       vestingInformationDuration: 0,
     },
     poolUnlimited: {
-      vestingId: '0',
+      vestingId: "0",
       offeringAmountInToken: BIG_ZERO,
       isVestingInitialized: false,
       vestingReleased: BIG_ZERO,
@@ -95,30 +119,30 @@ export async function fetchUserVestingData({ ifoAddress: address, account, chain
       vestingInformationPercentage: 0,
       vestingInformationDuration: 0,
     },
-  }
+  };
 
-  const client = provider({ chainId })
+  const client = provider({ chainId });
   if (!client || !address || !account || !chainId) {
-    return userVestingData
+    return userVestingData;
   }
   const [basicId, unlimitedId] = await client.multicall({
     contracts: [
       {
         abi: ifoV7ABI,
         address,
-        functionName: 'computeVestingScheduleIdForAddressAndPid',
+        functionName: "computeVestingScheduleIdForAddressAndPid",
         args: [account, 0n],
       },
       {
         abi: ifoV7ABI,
         address,
-        functionName: 'computeVestingScheduleIdForAddressAndPid',
+        functionName: "computeVestingScheduleIdForAddressAndPid",
         args: [account, 1n],
       },
     ],
-  })
+  });
   if (!basicId.result || !unlimitedId.result) {
-    throw new Error(`Vesting scheduled id not found`)
+    throw new Error(`Vesting scheduled id not found`);
   }
 
   const [
@@ -135,52 +159,52 @@ export async function fetchUserVestingData({ ifoAddress: address, account, chain
       {
         abi: ifoV7ABI,
         address,
-        functionName: 'viewUserOfferingAndRefundingAmountsForPools',
+        functionName: "viewUserOfferingAndRefundingAmountsForPools",
         args: [account, [0, 1]],
       },
       {
         abi: ifoV7ABI,
         address,
-        functionName: 'getVestingSchedule',
+        functionName: "getVestingSchedule",
         args: [basicId.result],
       },
       {
         abi: ifoV7ABI,
         address,
-        functionName: 'getVestingSchedule',
+        functionName: "getVestingSchedule",
         args: [unlimitedId.result],
       },
       {
         abi: ifoV7ABI,
         address,
-        functionName: 'computeReleasableAmount',
+        functionName: "computeReleasableAmount",
         args: [basicId.result],
       },
       {
         abi: ifoV7ABI,
         address,
-        functionName: 'computeReleasableAmount',
+        functionName: "computeReleasableAmount",
         args: [unlimitedId.result],
       },
       {
         abi: ifoV7ABI,
         address,
-        functionName: 'viewPoolVestingInformation',
+        functionName: "viewPoolVestingInformation",
         args: [0n],
       },
       {
         abi: ifoV7ABI,
         address,
-        functionName: 'viewPoolVestingInformation',
+        functionName: "viewPoolVestingInformation",
         args: [1n],
       },
       {
         abi: ifoV7ABI,
         address,
-        functionName: 'vestingStartTime',
+        functionName: "vestingStartTime",
       },
     ],
-  })
+  });
 
   const [
     amounts,
@@ -200,35 +224,56 @@ export async function fetchUserVestingData({ ifoAddress: address, account, chain
     basicVestingInformationResult.result,
     unlimitedVestingInformationResult.result,
     vestingStartTimeResult.result,
-  ]
+  ];
 
   return {
     vestingStartTime: vestingStartTime ? Number(vestingStartTime) : 0,
     [PoolIds.poolBasic]: {
       ...userVestingData[PoolIds.poolBasic],
-      vestingId: basicId.status === 'success' ? basicId.result.toString() : '0',
-      isVestingInitialized: basicSchedule ? basicSchedule.isVestingInitialized : false,
+      vestingId: basicId.status === "success" ? basicId.result.toString() : "0",
+      isVestingInitialized: basicSchedule
+        ? basicSchedule.isVestingInitialized
+        : false,
       offeringAmountInToken: new BigNumber(amounts?.[0]?.[0]?.toString() || 0),
-      vestingReleased: basicSchedule ? new BigNumber(basicSchedule.released.toString()) : BIG_ZERO,
-      vestingAmountTotal: basicSchedule ? new BigNumber(basicSchedule.amountTotal.toString()) : BIG_ZERO,
+      vestingReleased: basicSchedule
+        ? new BigNumber(basicSchedule.released.toString())
+        : BIG_ZERO,
+      vestingAmountTotal: basicSchedule
+        ? new BigNumber(basicSchedule.amountTotal.toString())
+        : BIG_ZERO,
       vestingComputeReleasableAmount: basicReleasableAmount
         ? new BigNumber(basicReleasableAmount.toString())
         : BIG_ZERO,
-      vestingInformationPercentage: basicVestingInformation ? Number(basicVestingInformation[0]) : 0,
-      vestingInformationDuration: basicVestingInformation ? Number(basicVestingInformation[2]) : 0,
+      vestingInformationPercentage: basicVestingInformation
+        ? Number(basicVestingInformation[0])
+        : 0,
+      vestingInformationDuration: basicVestingInformation
+        ? Number(basicVestingInformation[2])
+        : 0,
     },
     [PoolIds.poolUnlimited]: {
       ...userVestingData[PoolIds.poolUnlimited],
-      vestingId: unlimitedId.status === 'success' ? unlimitedId.result.toString() : '0',
+      vestingId:
+        unlimitedId.status === "success" ? unlimitedId.result.toString() : "0",
       offeringAmountInToken: new BigNumber(amounts?.[1]?.[0]?.toString() || 0),
-      isVestingInitialized: unlimitedSchedule ? unlimitedSchedule.isVestingInitialized : false,
-      vestingReleased: unlimitedSchedule ? new BigNumber(unlimitedSchedule.released.toString()) : BIG_ZERO,
-      vestingAmountTotal: unlimitedSchedule ? new BigNumber(unlimitedSchedule.amountTotal.toString()) : BIG_ZERO,
+      isVestingInitialized: unlimitedSchedule
+        ? unlimitedSchedule.isVestingInitialized
+        : false,
+      vestingReleased: unlimitedSchedule
+        ? new BigNumber(unlimitedSchedule.released.toString())
+        : BIG_ZERO,
+      vestingAmountTotal: unlimitedSchedule
+        ? new BigNumber(unlimitedSchedule.amountTotal.toString())
+        : BIG_ZERO,
       vestingComputeReleasableAmount: unlimitedReleasableAmount
         ? new BigNumber(unlimitedReleasableAmount.toString())
         : BIG_ZERO,
-      vestingInformationPercentage: unlimitedVestingInformation ? Number(unlimitedVestingInformation[0]) : 0,
-      vestingInformationDuration: unlimitedVestingInformation ? Number(unlimitedVestingInformation[2]) : 0,
+      vestingInformationPercentage: unlimitedVestingInformation
+        ? Number(unlimitedVestingInformation[0])
+        : 0,
+      vestingInformationDuration: unlimitedVestingInformation
+        ? Number(unlimitedVestingInformation[2])
+        : 0,
     },
-  }
+  };
 }

@@ -150,7 +150,7 @@ const Banner: React.FC<React.PropsWithChildren<BannerProps>> = ({
           ) : null}
           <Box style={{ marginTop: "30px" }}>
             <Text color="white" bold as="span">
-              {t("Deposit CAKE for")}
+              {t("Deposit ANDX for")}
             </Text>
             <DarkTextStyle ml="3px" bold as="span">
               {t("10 Weeks")}

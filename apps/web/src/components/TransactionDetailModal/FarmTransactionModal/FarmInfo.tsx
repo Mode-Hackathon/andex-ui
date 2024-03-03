@@ -1,15 +1,25 @@
-import { styled } from 'styled-components'
-import { Box, Text, Flex, Link, useTooltip, LightBulbIcon } from '@pancakeswap/uikit'
-import { useTranslation } from '@pancakeswap/localization'
-import { TransactionDetails } from 'state/transactions/reducer'
-import { FarmTransactionStatus, NonBscFarmStepType } from 'state/transactions/actions'
+import { styled } from "styled-components";
+import {
+  Box,
+  Text,
+  Flex,
+  Link,
+  useTooltip,
+  LightBulbIcon,
+} from "@pancakeswap/uikit";
+import { useTranslation } from "@pancakeswap/localization";
+import { TransactionDetails } from "state/transactions/reducer";
+import {
+  FarmTransactionStatus,
+  NonBscFarmStepType,
+} from "state/transactions/actions";
 
 const ListStyle = styled.div`
   position: relative;
   margin-bottom: 4px;
   padding-left: 8px;
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 8px;
     left: 0px;
@@ -21,23 +31,26 @@ const ListStyle = styled.div`
   &:last-child {
     margin-bottom: 0px;
   }
-`
+`;
 
 const LinkStyle = styled(Link)`
   display: inline-block;
   margin: 0 4px;
   color: ${({ theme }) => theme.colors.text};
   text-decoration: underline;
-`
+`;
 
 interface FarmInfoProps {
-  pickedData?: TransactionDetails
+  pickedData?: TransactionDetails;
 }
 
-const FarmPending: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({ pickedData }) => {
-  const { t } = useTranslation()
-  const { amount, lpSymbol, type } = pickedData.nonBscFarm
-  const title = type === NonBscFarmStepType.STAKE ? t('Staking') : t('Unstaking')
+const FarmPending: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({
+  pickedData,
+}) => {
+  const { t } = useTranslation();
+  const { amount, lpSymbol, type } = pickedData.nonBscFarm;
+  const title =
+    type === NonBscFarmStepType.STAKE ? t("Staking") : t("Unstaking");
 
   return (
     <Box mb="24px">
@@ -46,37 +59,47 @@ const FarmPending: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({ pickedD
         <Text bold as="span" m="0 4px">
           {`${amount} ${lpSymbol}`}
         </Text>
-        <Text as="span">{t('in progress..')}</Text>
+        <Text as="span">{t("in progress..")}</Text>
       </Box>
-      <Text as="span">{t('It might take around 30 minutes for the cross-chain tx to confirm.')}</Text>
+      <Text as="span">
+        {t(
+          "It might take around 30 minutes for the cross-chain tx to confirm."
+        )}
+      </Text>
     </Box>
-  )
-}
+  );
+};
 
-const FarmResult: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({ pickedData }) => {
-  const { t } = useTranslation()
-  const { amount, lpSymbol, type, steps } = pickedData.nonBscFarm
-  const firstStep = steps.find((step) => step.step === 1)
+const FarmResult: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({
+  pickedData,
+}) => {
+  const { t } = useTranslation();
+  const { amount, lpSymbol, type, steps } = pickedData.nonBscFarm;
+  const firstStep = steps.find((step) => step.step === 1);
   const text =
-    type === NonBscFarmStepType.STAKE ? t('token have been staked in the Farm!') : t('token have been unstaked!')
+    type === NonBscFarmStepType.STAKE
+      ? t("token have been staked in the Farm!")
+      : t("token have been unstaked!");
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <Flex flexDirection="column">
-      <ListStyle>{t('You have received 0.0005 BNB as a first-time BNB Smart Chain user')}</ListStyle>
       <ListStyle>
-        {t('You can swap more BNB on')}
-        <LinkStyle href="/swap">{t('Swap.')}</LinkStyle>
+        {t("You have received 0.0005 BNB as a first-time BNB Smart Chain user")}
       </ListStyle>
       <ListStyle>
-        {t('Explore more features like')}
-        <LinkStyle href="/pools?chain=bsc">{t('Pools')}</LinkStyle>
-        {t('and')}
-        <LinkStyle href="/prediction?chain=bsc">{t('Win')}</LinkStyle>
-        {t('with your CAKE earned.')}
+        {t("You can swap more BNB on")}
+        <LinkStyle href="/swap">{t("Swap.")}</LinkStyle>
+      </ListStyle>
+      <ListStyle>
+        {t("Explore more features like")}
+        <LinkStyle href="/pools?chain=bsc">{t("Pools")}</LinkStyle>
+        {t("and")}
+        <LinkStyle href="/prediction?chain=bsc">{t("Win")}</LinkStyle>
+        {t("with your ANDX earned.")}
       </ListStyle>
     </Flex>,
-    { placement: 'top' },
-  )
+    { placement: "top" }
+  );
 
   return (
     <Box mb="24px">
@@ -99,22 +122,32 @@ const FarmResult: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({ pickedDa
               <Box m="0 4px" ref={targetRef}>
                 <LightBulbIcon color="primary" />
               </Box>
-              <Text as="span">{t('have been')}</Text>
+              <Text as="span">{t("have been")}</Text>
             </Box>
           </Flex>
-          <Text>{t('earned to your Wallet!')}</Text>
+          <Text>{t("earned to your Wallet!")}</Text>
         </Box>
       )}
     </Box>
-  )
-}
+  );
+};
 
-const FarmError: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({ pickedData }) => {
-  const { t } = useTranslation()
-  const { amount, lpSymbol, type, steps } = pickedData.nonBscFarm
-  const text = type === NonBscFarmStepType.STAKE ? t('The attempt to stake') : t('The attempt to unstake')
-  const errorText = type === NonBscFarmStepType.STAKE ? t('Token fail to stake.') : t('Token fail to unstake.')
-  const isFirstStepError = steps.find((step) => step.step === 1 && step.status === FarmTransactionStatus.FAIL)
+const FarmError: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({
+  pickedData,
+}) => {
+  const { t } = useTranslation();
+  const { amount, lpSymbol, type, steps } = pickedData.nonBscFarm;
+  const text =
+    type === NonBscFarmStepType.STAKE
+      ? t("The attempt to stake")
+      : t("The attempt to unstake");
+  const errorText =
+    type === NonBscFarmStepType.STAKE
+      ? t("Token fail to stake.")
+      : t("Token fail to unstake.");
+  const isFirstStepError = steps.find(
+    (step) => step.step === 1 && step.status === FarmTransactionStatus.FAIL
+  );
 
   return (
     <Box mb="24px">
@@ -133,28 +166,36 @@ const FarmError: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({ pickedDat
           <Text bold as="span" m="0 4px">
             {`${amount} ${lpSymbol}`}
           </Text>
-          <Text as="span">{t('did not succeed on the BNB Chain side. Please copy the')}</Text>
-          <Text bold as="span" m="0 4px">
-            {t('Transaction ID')}
+          <Text as="span">
+            {t("did not succeed on the BNB Chain side. Please copy the")}
           </Text>
-          <Text as="span">{t('below and look for assistance from our helpful Community Admins or Chefs.')}</Text>
+          <Text bold as="span" m="0 4px">
+            {t("Transaction ID")}
+          </Text>
+          <Text as="span">
+            {t(
+              "below and look for assistance from our helpful Community Admins or Chefs."
+            )}
+          </Text>
         </Box>
       )}
     </Box>
-  )
-}
+  );
+};
 
-const FarmInfo: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({ pickedData }) => {
-  const { status } = pickedData.nonBscFarm
+const FarmInfo: React.FC<React.PropsWithChildren<FarmInfoProps>> = ({
+  pickedData,
+}) => {
+  const { status } = pickedData.nonBscFarm;
   if (status === FarmTransactionStatus.FAIL) {
-    return <FarmError pickedData={pickedData} />
+    return <FarmError pickedData={pickedData} />;
   }
 
   if (status === FarmTransactionStatus.PENDING) {
-    return <FarmPending pickedData={pickedData} />
+    return <FarmPending pickedData={pickedData} />;
   }
 
-  return <FarmResult pickedData={pickedData} />
-}
+  return <FarmResult pickedData={pickedData} />;
+};
 
-export default FarmInfo
+export default FarmInfo;
